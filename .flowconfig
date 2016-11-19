@@ -1,0 +1,63 @@
+[ignore]
+
+# We fork some components by platform.
+.*/*.web.js
+.*/*.android.js
+
+# Some modules have their own node_modules with overlap
+.*/node_modules/node-haste/.*
+
+# Ugh
+.*/node_modules/babel.*
+.*/node_modules/babylon.*
+.*/node_modules/invariant.*
+
+# Ignore react and fbjs where there are overlaps, but don't ignore
+# anything that react-native relies on
+.*/node_modules/fbjs-haste/.*/__tests__/.*
+.*/node_modules/fbjs-haste/__forks__/Map.js
+.*/node_modules/fbjs-haste/__forks__/Promise.js
+.*/node_modules/fbjs-haste/__forks__/fetch.js
+.*/node_modules/fbjs-haste/core/ExecutionEnvironment.js
+.*/node_modules/fbjs-haste/core/isEmpty.js
+.*/node_modules/fbjs-haste/crypto/crc32.js
+.*/node_modules/fbjs-haste/stubs/ErrorUtils.js
+.*/node_modules/react-haste/React.js
+.*/node_modules/react-haste/renderers/dom/ReactDOM.js
+.*/node_modules/react-haste/renderers/shared/event/eventPlugins/ResponderEventPlugin.js
+
+# Ignore commoner tests
+.*/node_modules/commoner/test/.*
+
+# See https://github.com/facebook/flow/issues/442
+.*/react-tools/node_modules/commoner/lib/reader.js
+
+# Ignore jest
+.*/node_modules/jest-cli/.*
+
+# Ignore Website
+.*/website/.*
+
+[include]
+
+[libs]
+node_modules/react-native/Libraries/react-native/react-native-interface.js
+
+[options]
+module.system=haste
+
+munge_underscores=true
+
+module.name_mapper='^image![a-zA-Z0-9$_-]+$' -> 'GlobalImageStub'
+module.name_mapper='^[./a-zA-Z0-9$_-]+\.png$' -> 'RelativeImageStub'
+
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
+suppress_type=$FixMe
+
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(>=0\\.\\(1[0-8]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)
+suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(>=0\\.\\(1[0-8]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)? #[0-9]+
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
+
+[version]
+0.18.1

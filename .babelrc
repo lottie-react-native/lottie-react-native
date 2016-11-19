@@ -1,0 +1,14 @@
+{
+  "presets": ["react-native"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "lottie-react-native": "./"
+        },
+        "cwd": "babelrc"
+      }
+    ]
+  ]
+}

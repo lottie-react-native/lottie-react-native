@@ -1,0 +1,318 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8435B8061E38378100CD1749 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8435B8051E38377100CD1749 /* Lottie.framework */; };
+		84CD570E1DFFDA9600ECC964 /* LottieContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CD570D1DFFDA9600ECC964 /* LottieContainerView.m */; };
+		84CD57111DFFDAC000ECC964 /* LottieAnimationViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CD57101DFFDAC000ECC964 /* LottieAnimationViewManager.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8435B8041E38377100CD1749 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8435B8001E38377100CD1749 /* Lottie.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 48E774281D4AAB070029FC2D;
+			remoteInfo = Lottie;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		11FA5C4F1C4A1296003AC2EE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLottieReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8435B8001E38377100CD1749 /* Lottie.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lottie.xcodeproj; path = ../../../LotteAnimator/Lottie/Lottie.xcodeproj; sourceTree = "<group>"; };
+		8435B8201E383FDF00CD1749 /* libReact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libReact.a; path = "../../../../Library/Developer/Xcode/DerivedData/example-baqmfbbhmfxyvzgeakfzodomjjnv/Build/Products/Debug-iphonesimulator/libReact.a"; sourceTree = "<group>"; };
+		84CD570C1DFFDA9600ECC964 /* LottieContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LottieContainerView.h; path = LottieReactNative/LottieContainerView.h; sourceTree = SOURCE_ROOT; };
+		84CD570D1DFFDA9600ECC964 /* LottieContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LottieContainerView.m; path = LottieReactNative/LottieContainerView.m; sourceTree = SOURCE_ROOT; };
+		84CD570F1DFFDAC000ECC964 /* LottieAnimationViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LottieAnimationViewManager.h; path = LottieReactNative/LottieAnimationViewManager.h; sourceTree = SOURCE_ROOT; };
+		84CD57101DFFDAC000ECC964 /* LottieAnimationViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LottieAnimationViewManager.m; path = LottieReactNative/LottieAnimationViewManager.m; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		11FA5C4E1C4A1296003AC2EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8435B8061E38378100CD1749 /* Lottie.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		11FA5C481C4A1296003AC2EE = {
+			isa = PBXGroup;
+			children = (
+				11FA5C531C4A1296003AC2EE /* LottieReactNative */,
+				11FA5C521C4A1296003AC2EE /* Products */,
+				8435B7FF1E38377000CD1749 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		11FA5C521C4A1296003AC2EE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11FA5C531C4A1296003AC2EE /* LottieReactNative */ = {
+			isa = PBXGroup;
+			children = (
+				84CD570C1DFFDA9600ECC964 /* LottieContainerView.h */,
+				84CD570D1DFFDA9600ECC964 /* LottieContainerView.m */,
+				84CD570F1DFFDAC000ECC964 /* LottieAnimationViewManager.h */,
+				84CD57101DFFDAC000ECC964 /* LottieAnimationViewManager.m */,
+			);
+			path = LottieReactNative;
+			sourceTree = "<group>";
+		};
+		8435B7FF1E38377000CD1749 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8435B8201E383FDF00CD1749 /* libReact.a */,
+				8435B8001E38377100CD1749 /* Lottie.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8435B8011E38377100CD1749 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8435B8051E38377100CD1749 /* Lottie.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		11FA5C501C4A1296003AC2EE /* LottieReactNative */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11FA5C5A1C4A1296003AC2EE /* Build configuration list for PBXNativeTarget "LottieReactNative" */;
+			buildPhases = (
+				11FA5C4D1C4A1296003AC2EE /* Sources */,
+				11FA5C4E1C4A1296003AC2EE /* Frameworks */,
+				11FA5C4F1C4A1296003AC2EE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LottieReactNative;
+			productName = LottieReactNative;
+			productReference = 11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11FA5C491C4A1296003AC2EE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Airbnb;
+				TargetAttributes = {
+					11FA5C501C4A1296003AC2EE = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 11FA5C4C1C4A1296003AC2EE /* Build configuration list for PBXProject "LottieReactNative" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 11FA5C481C4A1296003AC2EE;
+			productRefGroup = 11FA5C521C4A1296003AC2EE /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8435B8011E38377100CD1749 /* Products */;
+					ProjectRef = 8435B8001E38377100CD1749 /* Lottie.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				11FA5C501C4A1296003AC2EE /* LottieReactNative */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8435B8051E38377100CD1749 /* Lottie.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Lottie.framework;
+			remoteRef = 8435B8041E38377100CD1749 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		11FA5C4D1C4A1296003AC2EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84CD57111DFFDAC000ECC964 /* LottieAnimationViewManager.m in Sources */,
+				84CD570E1DFFDA9600ECC964 /* LottieContainerView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		11FA5C581C4A1296003AC2EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		11FA5C591C4A1296003AC2EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		11FA5C5B1C4A1296003AC2EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../node_modules/react-native/ReactCommon/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		11FA5C5C1C4A1296003AC2EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../node_modules/react-native/React/**",
+					"$(SRCROOT)/../../node_modules/react-native/ReactCommon/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		11FA5C4C1C4A1296003AC2EE /* Build configuration list for PBXProject "LottieReactNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11FA5C581C4A1296003AC2EE /* Debug */,
+				11FA5C591C4A1296003AC2EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11FA5C5A1C4A1296003AC2EE /* Build configuration list for PBXNativeTarget "LottieReactNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11FA5C5B1C4A1296003AC2EE /* Debug */,
+				11FA5C5C1C4A1296003AC2EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 11FA5C491C4A1296003AC2EE /* Project object */;
+}

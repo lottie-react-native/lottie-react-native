@@ -1,0 +1,27 @@
+{
+  "gitbook": "2.x.x",
+  "title": "Lottie React Native",
+  "description": "React Native Animations",
+  "structure": {
+    "summary": "docs/README.md",
+    "glossary": "docs/GLOSSARY.md"
+  },
+  "plugins": [
+    "highlight",
+    "edit-link",
+    "github",
+    "-search",
+    "codeblock-disable-glossary",
+    "collapsible-menu",
+    "anchors"
+  ],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/airbnb/lottie-react-native/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/airbnb/lottie-react-native/"
+    }
+  }
+}
