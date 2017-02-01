@@ -1,0 +1,43 @@
+PODS:
+  - lottie-ios (1.0.0)
+  - lottie-react-native (0.1.0):
+    - lottie-ios
+    - React
+  - React (0.38.1):
+    - React/Core (= 0.38.1)
+  - React/Core (0.38.1)
+  - React/RCTAnimation (0.38.1):
+    - React/Core
+  - React/RCTImage (0.38.1):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTNetwork (0.38.1):
+    - React/Core
+  - React/RCTText (0.38.1):
+    - React/Core
+  - React/RCTWebSocket (0.38.1):
+    - React/Core
+
+DEPENDENCIES:
+  - lottie-react-native (from `../../`)
+  - React/Core (from `../../node_modules/react-native`)
+  - React/RCTAnimation (from `../../node_modules/react-native`)
+  - React/RCTImage (from `../../node_modules/react-native`)
+  - React/RCTNetwork (from `../../node_modules/react-native`)
+  - React/RCTText (from `../../node_modules/react-native`)
+  - React/RCTWebSocket (from `../../node_modules/react-native`)
+
+EXTERNAL SOURCES:
+  lottie-react-native:
+    :path: "../../"
+  React:
+    :path: "../../node_modules/react-native"
+
+SPEC CHECKSUMS:
+  lottie-ios: c40d67c1481d6fb9fa24fe46731ac823f5f6675b
+  lottie-react-native: 4a05f65415072faa22edeb1c1112063b69b8431d
+  React: 2c6b27dcaea89b3d3398df8b598330fd18abbe46
+
+PODFILE CHECKSUM: 85d709a79f1639fb2278dee5bd3fc72dcab22bac
+
+COCOAPODS: 1.2.0

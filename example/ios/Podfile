@@ -1,0 +1,14 @@
+use_frameworks!
+
+target 'example' do
+  pod 'React', :path => '../../node_modules/react-native', :subspecs => [
+    'Core',
+    'RCTImage',
+    'RCTNetwork',
+    'RCTText',
+    'RCTWebSocket',
+    'RCTAnimation',
+    # Add any other subspecs you want to use in your project
+  ]
+  pod 'lottie-react-native', :path => '../../'
+end

@@ -1,6 +1,6 @@
 require 'json'
 
-package = JSON.parse(File.read(File.join(__dir__, 'package.json'))
+package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
 Pod::Spec.new do |s|
   s.name         = "lottie-react-native"
@@ -16,4 +16,5 @@ Pod::Spec.new do |s|
   s.source_files  = "lib/ios/**/*.{h,m}"
 
   s.dependency 'React'
+  s.dependency 'lottie-ios'
 end
