@@ -1,17 +1,13 @@
 /* eslint-disable global-require */
-import React, { PropTypes } from 'react';
+import React from 'react';
 import {
   View,
-  Text,
   Animated,
-  Slider,
   StyleSheet,
-  Picker,
-  Platform,
-  Switch,
-  Button,
 } from 'react-native';
 import Animation from 'lottie-react-native';
+import PlayerControls from './PlayerControls';
+import ExamplePicker from './ExamplePicker';
 
 const makeExample = (name, getJson) => ({ name, getJson });
 const EXAMPLES = [
@@ -29,96 +25,6 @@ const EXAMPLES = [
   acc[e.name] = e;
   return acc;
 }, {});
-
-
-class ExamplePicker extends React.Component {
-  render() {
-    return (
-      <Picker
-        selectedValue={this.props.example}
-        onValueChange={this.props.onChange}
-        style={{
-          marginBottom: Platform.select({
-            ios: -30,
-            android: 0,
-          }),
-        }}
-      >
-        {Object.keys(EXAMPLES).map(name => EXAMPLES[name]).map(ex => (
-          <Picker.Item
-            key={ex.name}
-            label={ex.name}
-            value={ex.name}
-          />
-        ))}
-      </Picker>
-    );
-  }
-}
-
-
-class PlayerControls extends React.Component {
-  static propTypes = {
-    progress: PropTypes.any, // animated
-    config: PropTypes.shape({
-      duration: PropTypes.number,
-      imperative: PropTypes.bool,
-
-    }),
-    onProgressChange: PropTypes.func,
-    onConfigChange: PropTypes.func,
-    onPlayPress: PropTypes.func,
-    onResetPress: PropTypes.func,
-  };
-
-  onConfigChange(merge) {
-    const newConfig = {
-      ...this.props.config,
-      ...merge,
-    };
-    this.props.onConfigChange(newConfig);
-  }
-
-  render() {
-    const { config } = this.props;
-    return (
-      <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
-        <View style={{ paddingBottom: 20 }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-            <Button title="Play" onPress={this.props.onPlayPress} />
-            <Button title="Reset" onPress={this.props.onResetPress} />
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10 }}>
-          <Text>Use Imperative API:</Text>
-          <View />
-          <Switch
-            onValueChange={imperative => this.onConfigChange({ imperative })}
-            value={config.imperative}
-          />
-        </View>
-        <View style={{ paddingBottom: 10 }}>
-          <View><Text>Progress:</Text></View>
-          <Slider
-            minimumValue={0}
-            maximumValue={1}
-            value={this.props.progress.__getValue()}
-            onValueChange={this.props.onProgressChange}
-          />
-        </View>
-        <View>
-          <View><Text>Duration: ({Math.round(config.duration)}ms)</Text></View>
-          <Slider
-            minimumValue={50}
-            maximumValue={4000}
-            value={config.duration}
-            onValueChange={duration => this.onConfigChange({ duration })}
-          />
-        </View>
-      </View>
-    );
-  }
-}
 
 export default class LottieAnimatedExample extends React.Component {
   constructor(props) {
@@ -204,6 +110,7 @@ export default class LottieAnimatedExample extends React.Component {
       <View style={StyleSheet.absoluteFill}>
         <ExamplePicker
           example={this.state.example}
+          examples={EXAMPLES}
           onChange={(example) => this.setState({ example })}
         />
         {playerWindow}
