@@ -37,6 +37,29 @@ respective libraries:
 [Lottie for Android](https://github.com/airbnb/lottie-android)
 
 
+## Installation
+
+Get started with Lottie by installing the node module:
+
+```bash
+npm i --save lottie-react-native
+```
+
+From here, RN's built in linking should work:
+
+```bash
+react-native link lottie-react-native
+```
+
+If you're using CocoaPods on iOS, you can put the following in your `Podfile`:
+
+```ruby
+pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+```
+
+Please file an issue if you have any trouble!
+
+
 ## Basic Usage
 
 [See full component API](/docs/api.md)
@@ -103,6 +126,24 @@ export default class BasicExample extends React.Component {
   }
 }
 ```
+
+
+## Running the Example Project
+
+You can check out the example project with the following instructions
+
+1. Clone the repo: `git clone https://github.com/airbnb/lottie-react-native.git`
+2. Open: `cd lottie-react-native` and Install: `npm install`
+
+For Running iOS:
+1. If you don't have CocoaPods installed, run `sudo gem install cocoapods`
+2. Install pods: `npm run build:pods`
+3. Run Example: `npm run run:ios`
+
+For Running Android:
+1. Run Example: `npm run run:android`
+
+
 
 ## Alternatives
 1. Build animations by hand. Building animations by hand is a huge time commitment for design and engingeering across Android and iOS. It's often hard or even impossible to justify spending so much time to get an animation right.
