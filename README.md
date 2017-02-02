@@ -72,8 +72,8 @@ import { Animated } from 'react-native';
 import Animation from 'lottie-react-native';
 
 export default class BasicExample extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       progress: new Animated.Value(0),
     };
