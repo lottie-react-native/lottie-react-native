@@ -136,11 +136,13 @@ You can check out the example project with the following instructions
 2. Open: `cd lottie-react-native` and Install: `npm install`
 
 For Running iOS:
+
 1. If you don't have CocoaPods installed, run `sudo gem install cocoapods`
 2. Install pods: `npm run build:pods`
 3. Run Example: `npm run run:ios`
 
 For Running Android:
+
 1. Run Example: `npm run run:android`
 
 
