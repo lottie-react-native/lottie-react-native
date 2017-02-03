@@ -28,6 +28,8 @@
 #import "React/RCTUIManager.h"
 #endif
 
+#import <Lottie/Lottie.h>
+
 @implementation LottieAnimationViewManager
 
 RCT_EXPORT_MODULE(LottieAnimationView)
