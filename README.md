@@ -134,6 +134,8 @@ You can check out the example project with the following instructions
 
 1. Clone the repo: `git clone https://github.com/airbnb/lottie-react-native.git`
 2. Open: `cd lottie-react-native` and Install: `npm install`
+3. Run `npm start` to start the packager.
+4. In another CLI window, do the following:
 
 For Running iOS:
 
@@ -146,16 +148,30 @@ For Running Android:
 1. Run Example: `npm run run:android`
 
 
+## Troubleshooting
+
+If you are trying to run `pod install` and you get:
+
+```
+[!] Unable to find a specification for `lottie-ios`
+```
+
+Run `pod repo update` and retry.
+
 
 ## Alternatives
+
 1. Build animations by hand. Building animations by hand is a huge time commitment for design and engineering across Android and iOS. It's often hard or even impossible to justify spending so much time to get an animation right.
 2. [Facebook Keyframes](https://github.com/facebookincubator/Keyframes). Keyframes is a wonderful new library from Facebook that they built for reactions. However, Keyframes doesn't support some of Lottie's features such as masks, mattes, trim paths, dash patterns, and more.
 2. Gifs. Gifs are more than double the size of a bodymovin JSON and are rendered at a fixed size that can't be scaled up to match large and high density screens.
 3. Png sequences. Png sequences are even worse than gifs in that their file sizes are often 30-50x the size of the bodymovin json and also can't be scaled up.
 
+
 ## Why is it called Lottie?
+
 Lottie is named after a German film director and the foremost pioneer of silhouette animation. Her best known films are The Adventures of Prince Achmed (1926) – the oldest surviving feature-length animated film, preceding Walt Disney's feature-length Snow White and the Seven Dwarfs (1937) by over ten years
 [The art of Lotte Reineger](https://www.youtube.com/watch?v=LvU55CUw5Ck&feature=youtu.be)
+
 
 ## Contributing
 
