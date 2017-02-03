@@ -59,7 +59,7 @@
     "eslint-plugin-react": "^6.1.2",
     "gitbook-cli": "^1.0.1",
     "react": "^15.4.1",
-    "react-native": "^0.38.1"
+    "react-native": "^0.41.0"
   },
   "rnpm": {
     "android": {

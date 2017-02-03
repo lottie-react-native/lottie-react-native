@@ -1,4 +1,3 @@
-use_frameworks!
 
 target 'example' do
   pod 'React', :path => '../../node_modules/react-native', :subspecs => [
