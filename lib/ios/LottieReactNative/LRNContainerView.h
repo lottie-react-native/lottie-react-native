@@ -1,5 +1,5 @@
 //
-//  LottieContainerView.h
+//  LRNContainerView.h
 //  LottieReactNative
 //
 //  Created by Leland Richardson on 12/12/16.
@@ -18,7 +18,7 @@
 
 #import <Lottie/Lottie.h>
 
-@interface LottieContainerView : RCTView
+@interface LRNContainerView : RCTView
 
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) CGFloat speed;

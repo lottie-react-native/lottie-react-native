@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8435B8061E38378100CD1749 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8435B8051E38377100CD1749 /* Lottie.framework */; };
-		84CD570E1DFFDA9600ECC964 /* LottieContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CD570D1DFFDA9600ECC964 /* LottieContainerView.m */; };
-		84CD57111DFFDAC000ECC964 /* LottieAnimationViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CD57101DFFDAC000ECC964 /* LottieAnimationViewManager.m */; };
+		84CD570E1DFFDA9600ECC964 /* LRNContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CD570D1DFFDA9600ECC964 /* LRNContainerView.m */; };
+		84CD57111DFFDAC000ECC964 /* LRNAnimationViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CD57101DFFDAC000ECC964 /* LRNAnimationViewManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,10 +38,10 @@
 		11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLottieReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8435B8001E38377100CD1749 /* Lottie.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lottie.xcodeproj; path = ../../../LotteAnimator/Lottie/Lottie.xcodeproj; sourceTree = "<group>"; };
 		8435B8201E383FDF00CD1749 /* libReact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libReact.a; path = "../../../../Library/Developer/Xcode/DerivedData/example-baqmfbbhmfxyvzgeakfzodomjjnv/Build/Products/Debug-iphonesimulator/libReact.a"; sourceTree = "<group>"; };
-		84CD570C1DFFDA9600ECC964 /* LottieContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LottieContainerView.h; path = LottieReactNative/LottieContainerView.h; sourceTree = SOURCE_ROOT; };
-		84CD570D1DFFDA9600ECC964 /* LottieContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LottieContainerView.m; path = LottieReactNative/LottieContainerView.m; sourceTree = SOURCE_ROOT; };
-		84CD570F1DFFDAC000ECC964 /* LottieAnimationViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LottieAnimationViewManager.h; path = LottieReactNative/LottieAnimationViewManager.h; sourceTree = SOURCE_ROOT; };
-		84CD57101DFFDAC000ECC964 /* LottieAnimationViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LottieAnimationViewManager.m; path = LottieReactNative/LottieAnimationViewManager.m; sourceTree = SOURCE_ROOT; };
+		84CD570C1DFFDA9600ECC964 /* LRNContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LRNContainerView.h; path = LottieReactNative/LRNContainerView.h; sourceTree = SOURCE_ROOT; };
+		84CD570D1DFFDA9600ECC964 /* LRNContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LRNContainerView.m; path = LottieReactNative/LRNContainerView.m; sourceTree = SOURCE_ROOT; };
+		84CD570F1DFFDAC000ECC964 /* LRNAnimationViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LRNAnimationViewManager.h; path = LottieReactNative/LRNAnimationViewManager.h; sourceTree = SOURCE_ROOT; };
+		84CD57101DFFDAC000ECC964 /* LRNAnimationViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LRNAnimationViewManager.m; path = LottieReactNative/LRNAnimationViewManager.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,10 +76,10 @@
 		11FA5C531C4A1296003AC2EE /* LottieReactNative */ = {
 			isa = PBXGroup;
 			children = (
-				84CD570C1DFFDA9600ECC964 /* LottieContainerView.h */,
-				84CD570D1DFFDA9600ECC964 /* LottieContainerView.m */,
-				84CD570F1DFFDAC000ECC964 /* LottieAnimationViewManager.h */,
-				84CD57101DFFDAC000ECC964 /* LottieAnimationViewManager.m */,
+				84CD570C1DFFDA9600ECC964 /* LRNContainerView.h */,
+				84CD570D1DFFDA9600ECC964 /* LRNContainerView.m */,
+				84CD570F1DFFDAC000ECC964 /* LRNAnimationViewManager.h */,
+				84CD57101DFFDAC000ECC964 /* LRNAnimationViewManager.m */,
 			);
 			path = LottieReactNative;
 			sourceTree = "<group>";
@@ -173,8 +173,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84CD57111DFFDAC000ECC964 /* LottieAnimationViewManager.m in Sources */,
-				84CD570E1DFFDA9600ECC964 /* LottieContainerView.m in Sources */,
+				84CD57111DFFDAC000ECC964 /* LRNAnimationViewManager.m in Sources */,
+				84CD570E1DFFDA9600ECC964 /* LRNContainerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
