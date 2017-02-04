@@ -1,14 +1,14 @@
 //
-//  LottieAnimationViewManager.m
+//  LRNAnimationViewManager.m
 //  LottieReactNative
 //
 //  Created by Leland Richardson on 12/12/16.
 //  Copyright © 2016 Airbnb. All rights reserved.
 //
 
-#import "LottieAnimationViewManager.h"
+#import "LRNAnimationViewManager.h"
 
-#import "LottieContainerView.h"
+#import "LRNContainerView.h"
 
 // import RCTBridge.h
 #if __has_include("RCTBridge.h")
@@ -30,13 +30,13 @@
 
 #import <Lottie/Lottie.h>
 
-@implementation LottieAnimationViewManager
+@implementation LRNAnimationViewManager
 
 RCT_EXPORT_MODULE(LottieAnimationView)
 
 - (UIView *)view
 {
-  return [LottieContainerView new];
+  return [LRNContainerView new];
 }
 
 - (NSDictionary *)constantsToExport
@@ -56,10 +56,10 @@ RCT_EXPORT_METHOD(play:(nonnull NSNumber *)reactTag)
 {
   [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
     id view = viewRegistry[reactTag];
-    if (![view isKindOfClass:[LottieContainerView class]]) {
+    if (![view isKindOfClass:[LRNContainerView class]]) {
       RCTLogError(@"Invalid view returned from registry, expecting LottieContainerView, got: %@", view);
     } else {
-      LottieContainerView *lottieView = (LottieContainerView *)view;
+      LRNContainerView *lottieView = (LRNContainerView *)view;
       [lottieView play];
     }
   }];
@@ -69,10 +69,10 @@ RCT_EXPORT_METHOD(reset:(nonnull NSNumber *)reactTag)
 {
   [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
     id view = viewRegistry[reactTag];
-    if (![view isKindOfClass:[LottieContainerView class]]) {
+    if (![view isKindOfClass:[LRNContainerView class]]) {
       RCTLogError(@"Invalid view returned from registry, expecting LottieContainerView, got: %@", view);
     } else {
-      LottieContainerView *lottieView = (LottieContainerView *)view;
+      LRNContainerView *lottieView = (LRNContainerView *)view;
       [lottieView reset];
     }
   }];

@@ -1,12 +1,12 @@
 //
-//  LottieContainerView.m
+//  LRNContainerView.m
 //  LottieReactNative
 //
 //  Created by Leland Richardson on 12/12/16.
 //  Copyright © 2016 Airbnb. All rights reserved.
 //
 
-#import "LottieContainerView.h"
+#import "LRNContainerView.h"
 
 // import UIView+React.h
 #if __has_include("UIView+React.h")
@@ -17,7 +17,7 @@
 #import "React/UIView+React.h"
 #endif
 
-@implementation LottieContainerView {
+@implementation LRNContainerView {
   LAAnimationView *_animationView;
 }
 

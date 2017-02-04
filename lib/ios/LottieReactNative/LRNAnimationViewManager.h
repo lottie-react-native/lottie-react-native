@@ -1,5 +1,5 @@
 //
-//  LottieAnimationViewManager.h
+//  LRNAnimationViewManager.h
 //  LottieReactNative
 //
 //  Created by Leland Richardson on 12/12/16.
@@ -15,6 +15,6 @@
 #import "React/RCTViewManager.h"
 #endif
 
-@interface LottieAnimationViewManager : RCTViewManager
+@interface LRNAnimationViewManager : RCTViewManager
 
 @end
