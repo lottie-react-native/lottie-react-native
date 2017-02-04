@@ -39,7 +39,7 @@
   "homepage": "https://github.com/airbnb/lottie-react-native#readme",
   "peerDependencies": {
     "react": ">=15.3.1",
-    "react-native": ">=0.35"
+    "react-native": "*"
   },
   "dependencies": {
     "invariant": "^2.2.2",
@@ -59,7 +59,7 @@
     "eslint-plugin-react": "^6.1.2",
     "gitbook-cli": "^1.0.1",
     "react": "^15.4.1",
-    "react-native": "^0.41.0"
+    "react-native": "^0.41.1"
   },
   "rnpm": {
     "android": {
