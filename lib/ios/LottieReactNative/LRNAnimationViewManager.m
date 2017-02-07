@@ -11,22 +11,10 @@
 #import "LRNContainerView.h"
 
 // import RCTBridge.h
-#if __has_include("RCTBridge.h")
-#import "RCTBridge.h"
-#elif __has_include(<React/RCTBridge.h>)
 #import <React/RCTBridge.h>
-#else
-#import "React/RCTBridge.h"
-#endif
 
 // import RCTUIManager.h
-#if __has_include("RCTUIManager.h")
-#import "RCTUIManager.h"
-#elif __has_include(<React/RCTUIManager.h>)
 #import <React/RCTUIManager.h>
-#else
-#import "React/RCTUIManager.h"
-#endif
 
 #import <Lottie/Lottie.h>
 
