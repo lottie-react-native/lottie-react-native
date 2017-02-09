@@ -45,16 +45,23 @@ Get started with Lottie by installing the node module:
 npm i --save lottie-react-native
 ```
 
-From here, RN's built in linking should work:
-
-```bash
-react-native link lottie-react-native
-```
-
 If you're using CocoaPods on iOS, you can put the following in your `Podfile`:
 
 ```ruby
 pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+```
+
+If you're not using CocoaPods on iOS, you can use `react-native link`:
+
+```bash
+react-native link lottie-react-native
+react-ntive link lottie-ios
+```
+
+For android, you can  `react-native link` as well:
+
+```bash
+react-native link lottie-react-native
 ```
 
 Please file an issue if you have any trouble!
