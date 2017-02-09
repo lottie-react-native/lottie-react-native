@@ -55,7 +55,7 @@ If you're not using CocoaPods on iOS, you can use `react-native link`:
 
 ```bash
 react-native link lottie-react-native
-react-ntive link lottie-ios
+react-native link lottie-ios
 ```
 
 For android, you can  `react-native link` as well:
