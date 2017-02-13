@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.5 (Feb 10, 2017)
+
+- Allow iOS to be statically linked properly with react-native link
+
 ## 1.0.2 - 1.0.4 (Feb 8, 2017)
 
 - Fix Android NativeModule name

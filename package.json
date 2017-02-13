@@ -1,6 +1,6 @@
 {
   "name": "lottie-react-native",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React Native bindings for Lottie",
   "main": "index.js",
   "scripts": {
@@ -44,7 +44,7 @@
   "dependencies": {
     "invariant": "^2.2.2",
     "react-native-safe-module": "^1.1.0",
-    "lottie-ios": "^1.0.0"
+    "lottie-ios": "^1.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
