@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.6 (Feb 13, 2017)
+
+- Fix name conflict with new release of ios cocoapod
+
 ## 1.0.5 (Feb 10, 2017)
 
 - Allow iOS to be statically linked properly with react-native link
