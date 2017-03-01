@@ -48,6 +48,7 @@ npm i --save lottie-react-native
 If you're using CocoaPods on iOS, you can put the following in your `Podfile`:
 
 ```ruby
+pod 'lottie-ios', :path => '../node_modules/lottie-ios'
 pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 ```
 
