@@ -37,7 +37,7 @@ respective libraries:
 [Lottie for Android](https://github.com/airbnb/lottie-android)
 
 
-## Installation
+## Installation iOS
 
 Get started with Lottie by installing the node module:
 
@@ -73,7 +73,15 @@ Verify that lottie is correctly linked
 
 ![VerifyLinking](docs/screenshots/4.jpeg)
 
-For android, you can  `react-native link` as well:
+## Installation Android
+
+Get started with Lottie by installing the node module:
+
+```bash
+npm i --save lottie-react-native
+```
+
+Link library using `react-native link` :
 
 ```bash
 react-native link lottie-react-native
