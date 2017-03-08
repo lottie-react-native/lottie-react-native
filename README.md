@@ -57,6 +57,15 @@ If you're not using CocoaPods on iOS, you can use `react-native link`:
 react-native link lottie-react-native
 ```
 
+In the Xcode's Project navigator, right click on project's Libraries folder ➜ Add Files to <...>. Add node_modules/lottie-ios/Lottie.xcodeproj
+![AddLottie](docs/screenshots/1.jpeg)
+In the Embedded Binaries click on +
+![AddBinaries](docs/screenshots/2.jpeg)
+Add the Lottie.framework
+![AddConfirmation](docs/screenshots/3.jpeg)
+Verify that lottie is correctly linked
+![VerifyLinking](docs/screenshots/4.jpeg)
+
 For android, you can  `react-native link` as well:
 
 ```bash
