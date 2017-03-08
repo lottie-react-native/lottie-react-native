@@ -11,12 +11,12 @@ type AnimationProps = {
   source: string | AnimationJson | { uri: string },
   
   // A number between 0 and 1, or an `Animated` number between 0 and 1. This number 
-  // represents the normalized pregress of the animation. If you update this prop, the 
+  // represents the normalized progress of the animation. If you update this prop, the 
   // animation will correspondingly update to the frame at that progress value. This 
   // prop is not required if you are using the imperative API.
   progress: number | Animated = 0,
   
-  // The speed the animation will pregress. This only affects the imperative API. The 
+  // The speed the animation will progress. This only affects the imperative API. The 
   // default value is 1.
   speed: number = 1,
   
