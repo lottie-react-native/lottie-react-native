@@ -54,7 +54,6 @@ pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 If you're not using CocoaPods on iOS, you can use `react-native link`:
 
 ```bash
-react-native link lottie-ios
 react-native link lottie-react-native
 ```
 
