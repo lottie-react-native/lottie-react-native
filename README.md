@@ -1,7 +1,7 @@
 Lottie for React Native, [iOS](https://github.com/airbnb/lottie-ios), and [Android](https://github.com/airbnb/lottie-android)
 ===
 
-[![npm Version](https://img.shields.io/npm/v/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![License](https://img.shields.io/npm/l/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![Build Status](https://travis-ci.org/airbnb/lottie-react-native.svg)](https://travis-ci.org/airbnb/lottie-react-native) 
+[![npm Version](https://img.shields.io/npm/v/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![License](https://img.shields.io/npm/l/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![Build Status](https://travis-ci.org/airbnb/lottie-react-native.svg)](https://travis-ci.org/airbnb/lottie-react-native)
 
 Lottie component for React Native (iOS and Android)
 
@@ -18,7 +18,7 @@ For the first time, designers can create **and ship** beautiful animations witho
 ![Example3](docs/gifs/Example3.gif)
 
 
-![Community](docs/gifs/Community 2_3.gif)
+![Community](docs/gifs/Community%202_3.gif)
 
 
 ![Example4](docs/gifs/Example4.gif)
