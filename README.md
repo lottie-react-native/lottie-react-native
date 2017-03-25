@@ -167,6 +167,11 @@ If you are trying to run `pod install` and you get:
 Run `pod repo update` and retry.
 
 
+## Supported / Unsupported After Effects features
+
+Please find this information on the [iOS](https://github.com/airbnb/lottie-ios#supported-after-effects-features) and [Android](https://github.com/airbnb/lottie-android#supported-after-effects-features) repositories.
+
+
 ## Alternatives
 
 1. Build animations by hand. Building animations by hand is a huge time commitment for design and engineering across Android and iOS. It's often hard or even impossible to justify spending so much time to get an animation right.
