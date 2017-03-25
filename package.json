@@ -43,24 +43,24 @@
   },
   "dependencies": {
     "invariant": "^2.2.2",
-    "react-native-safe-module": "^1.1.0",
-    "lottie-ios": "^1.0.2"
+    "lottie-ios": "^1.0.2",
+    "react-native-safe-module": "^1.1.0"
   },
   "devDependencies": {
-    "babel-eslint": "^6.1.2",
+    "babel-eslint": "^7.1.1",
     "babel-plugin-module-resolver": "^2.3.0",
-    "babel-preset-airbnb": "^1.1.1",
-    "babel-preset-react-native": "1.9.0",
+    "babel-preset-airbnb": "^2.2.3",
+    "babel-preset-react-native": "^1.9.1",
     "eslint": "^3.3.1",
-    "eslint-config-airbnb": "^10.0.1",
-    "eslint-import-resolver-babel-module": "^2.2.1",
-    "eslint-plugin-import": "^1.14.0",
-    "eslint-plugin-jsx-a11y": "^2.1.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-import-resolver-babel-module": "^3.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-prefer-object-spread": "^1.1.0",
     "eslint-plugin-react": "^6.1.2",
-    "gitbook-cli": "^1.0.1",
+    "gitbook-cli": "^2.3.0",
     "react": "^15.4.1",
-    "react-native": "^0.41.1"
+    "react-native": "^0.42.0"
   },
   "rnpm": {
     "android": {
