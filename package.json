@@ -10,7 +10,7 @@
     "run:android": "react-native run-android --root ./example",
     "lint": "eslint ./",
     "ci": "npm run lint",
-    "build:pods": "cd example/ios; pod install; cd -",
+    "build:pods": "cd example/ios; bundle exec pod install; cd -",
     "postpublish": "npm run publish:maven",
     "publish:maven": "cd lib/android/ && ./gradlew clean check uploadArchives && cd -",
     "docs:clean": "rimraf _book",

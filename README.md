@@ -147,7 +147,7 @@ You can check out the example project with the following instructions
 
 For Running iOS:
 
-1. If you don't have CocoaPods installed, run `sudo gem install cocoapods`
+1. If you don't have CocoaPods installed, run `bundle install`
 2. Install pods: `npm run build:pods`
 3. Run Example: `npm run run:ios`
 
