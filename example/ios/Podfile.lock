@@ -3,26 +3,26 @@ PODS:
   - lottie-react-native (1.0.6):
     - lottie-ios
     - React
-  - React (0.41.1):
-    - React/Core (= 0.41.1)
-  - React/Core (0.41.1):
+  - React (0.41.2):
+    - React/Core (= 0.41.2)
+  - React/Core (0.41.2):
     - React/cxxreact
     - React/yoga
-  - React/cxxreact (0.41.1):
+  - React/cxxreact (0.41.2):
     - React/jschelpers
-  - React/jschelpers (0.41.1)
-  - React/RCTAnimation (0.41.1):
+  - React/jschelpers (0.41.2)
+  - React/RCTAnimation (0.41.2):
     - React/Core
-  - React/RCTImage (0.41.1):
+  - React/RCTImage (0.41.2):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.41.1):
+  - React/RCTNetwork (0.41.2):
     - React/Core
-  - React/RCTText (0.41.1):
+  - React/RCTText (0.41.2):
     - React/Core
-  - React/RCTWebSocket (0.41.1):
+  - React/RCTWebSocket (0.41.2):
     - React/Core
-  - React/yoga (0.41.1)
+  - React/yoga (0.41.2)
 
 DEPENDENCIES:
   - lottie-ios (from `../../node_modules/lottie-ios`)
@@ -45,7 +45,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   lottie-ios: f680a7c4cb7a567ecf258fde0f967913aff111b8
   lottie-react-native: 4ecfdd856f20863cea9d4ddfd25dec5550ef50a6
-  React: 92b73e1de23f052ab049247554427634986b40d1
+  React: 2b10c07d947dea71c144a33764e9162ed81e3825
 
 PODFILE CHECKSUM: f51e2172ed228016b380cd0daa6b749a81ad54f8
 

@@ -11,7 +11,7 @@
     "run:android": "./gradlew installDebug && npm run start:android",
     "lint": "eslint ./",
     "ci": "npm run lint",
-    "build:pods": "cd example/ios; pod install; cd -",
+    "build:pods": "cd example/ios; bundle exec pod install; cd -",
     "postpublish": "npm run publish:maven",
     "publish:maven": "./gradlew clean check uploadArchives",
     "docs:clean": "rimraf _book",
