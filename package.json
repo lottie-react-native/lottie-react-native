@@ -44,7 +44,7 @@
   "dependencies": {
     "invariant": "^2.2.2",
     "react-native-safe-module": "^1.1.0",
-    "lottie-ios": "^1.0.2"
+    "lottie-ios": "^1.5.1"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",

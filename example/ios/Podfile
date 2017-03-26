@@ -10,4 +10,5 @@ target 'example' do
     # Add any other subspecs you want to use in your project
   ]
   pod 'lottie-react-native', :path => '../../'
+  pod 'lottie-ios', :path => '../../node_modules/lottie-ios'
 end

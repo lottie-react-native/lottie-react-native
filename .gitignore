@@ -28,6 +28,8 @@ project.xcworkspace
 *.iml
 .gradle
 local.properties
+example/android/app/src/main/gen/
+lib/android/src/main/gen/
 
 # node.js
 #
