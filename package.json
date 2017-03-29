@@ -12,7 +12,6 @@
     "lint": "eslint ./",
     "ci": "npm run lint",
     "build:pods": "cd example/ios; bundle exec pod install; cd -",
-    "postpublish": "npm run publish:maven",
     "publish:maven": "./gradlew clean check uploadArchives",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
@@ -45,7 +44,7 @@
   "dependencies": {
     "invariant": "^2.2.2",
     "react-native-safe-module": "^1.1.0",
-    "lottie-ios": "^1.5.1"
+    "lottie-ios": "^1.5.2"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
