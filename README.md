@@ -65,6 +65,18 @@ For android, you can  `react-native link` as well:
 react-native link lottie-react-native
 ```
 
+Lottie requires Android support library version 25. If you're using the `react-native init` template,
+you may still be using 23. To change this, simply go to `android/app/build.gradle` and find the
+`compileSdkVersion` option inside of the `android` block and change it to
+
+```
+android {
+    compileSdkVersion 25 // <-- update this to 25
+    // ...
+```
+
+With this change you should be ready to go.
+
 Please file an issue if you have any trouble!
 
 
