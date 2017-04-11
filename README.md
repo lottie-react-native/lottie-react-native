@@ -39,9 +39,11 @@ respective libraries:
 
 ## Installation
 
-Get started with Lottie by installing the node module:
+Get started with Lottie by installing the node module with yarn or npm:
 
 ```bash
+yarn add lottie-react-native
+# or
 npm i --save lottie-react-native
 ```
 
@@ -59,7 +61,9 @@ react-native link lottie-ios
 react-native link lottie-react-native
 ```
 
-For android, you can  `react-native link` as well:
+After this, open the Xcode project configuration and add the `Lottie.framework` as `Embedded Binaries`.
+
+For android, you can `react-native link` as well:
 
 ```bash
 react-native link lottie-react-native
@@ -178,6 +182,13 @@ If you are trying to run `pod install` and you get:
 
 Run `pod repo update` and retry.
 
+When your build fails with:
+
+```
+LottieReactNative/LRNContainerView.h: 'Lottie/Lottie.h' file not found
+```
+
+Add the `Lottie.framework` to the `Embedded Binaries` in your Xcode project configuration.
 
 ## Supported / Unsupported After Effects features
 
