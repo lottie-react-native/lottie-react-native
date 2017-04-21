@@ -205,4 +205,4 @@ See the [Contributors Guide](/CONTRIBUTING.md)
 
 ## License
 
-[Apache-2.0](/LICENSE.md)
+[Apache-2.0](/LICENSE)
