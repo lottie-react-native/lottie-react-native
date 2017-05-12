@@ -6,12 +6,16 @@ import android.support.v4.view.ViewCompat;
 
 import android.util.Log;
 import com.airbnb.lottie.LottieAnimationView;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import java.util.Map;
 
@@ -33,7 +37,7 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   }
 
   @Override public LottieAnimationView createViewInstance(ThemedReactContext context) {
-    return new LottieAnimationView(context);
+    return new ReactLottieAnimationView(context);
   }
 
   @Override public Map<String, Integer> getCommandsMap() {
