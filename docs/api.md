@@ -27,6 +27,10 @@ type AnimationProps = {
   // http://facebook.github.io/react-native/releases/0.39/docs/view.html#style
   // CAVEAT: border styling is not supported.
   style?: ViewStyle,
+
+  // A callback that is fired once animation is finished playing.
+  // Only relevant in case if imperative `.play()` was used to start the animation.
+  onFinish?: function,
 };
 
 ```
