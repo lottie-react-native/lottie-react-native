@@ -60,7 +60,11 @@
 
 - (void)play {
   if (_animationView != nil) {
-    [_animationView play];
+    [_animationView playWithCompletion:^(BOOL animationFinished) {
+      if (self.onChange) {
+        self.onChange(@{});
+      }
+    }];
   }
 }
 
