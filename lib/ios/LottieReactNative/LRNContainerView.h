@@ -26,6 +26,8 @@
 @property (nonatomic, strong) NSDictionary *sourceJson;
 @property (nonatomic, strong) NSString *sourceName;
 
+@property (nonatomic, copy) RCTBubblingEventBlock onChange;
+
 - (void)play;
 - (void)reset;
 

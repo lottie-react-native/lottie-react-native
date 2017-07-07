@@ -60,7 +60,13 @@
 
 - (void)play {
   if (_animationView != nil) {
-    [_animationView play];
+    __weak LRNContainerView *weakSelf = self;
+    [_animationView playWithCompletion:^(BOOL animationFinished) {
+      RCTBubblingEventBlock callback = weakSelf.onChange;
+      if (callback) {
+        callback(@{});
+      }
+    }];
   }
 }
 
