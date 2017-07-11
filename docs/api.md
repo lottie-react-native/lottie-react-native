@@ -27,6 +27,11 @@ type AnimationProps = {
   // http://facebook.github.io/react-native/releases/0.39/docs/view.html#style
   // CAVEAT: border styling is not supported.
   style?: ViewStyle,
+
+  // [Android] Relative folder inside of assets containing image files to be animated.
+  // Make sure that the images that bodymovin export are in that folder with their names unchanged (should be img_#). 
+  // Refer to https://github.com/airbnb/lottie-android#image-support for more details.
+  imageAssetsFolder: string,
 };
 
 ```
