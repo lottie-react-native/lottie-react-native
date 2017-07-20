@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "invariant": "^2.2.2",
+    "prop-types": ">=15.5.10",
     "react-native-safe-module": "^1.1.0",
     "lottie-ios": "^1.5.2"
   },
