@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-import React, { PropTypes } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Switch,
   Button,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 const propTypes = {
   progress: PropTypes.any, // animated
