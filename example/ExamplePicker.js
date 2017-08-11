@@ -1,9 +1,10 @@
 /* eslint-disable global-require */
-import React, { PropTypes } from 'react';
+import React from 'react';
 import {
   Picker,
   Platform,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 const propTypes = {
   example: PropTypes.any,
