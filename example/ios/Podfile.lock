@@ -3,36 +3,40 @@ PODS:
   - lottie-react-native (1.2.0):
     - lottie-ios
     - React
-  - React (0.41.2):
-    - React/Core (= 0.41.2)
-  - React/Core (0.41.2):
-    - React/cxxreact
-    - React/yoga
-  - React/cxxreact (0.41.2):
-    - React/jschelpers
-  - React/jschelpers (0.41.2)
-  - React/RCTAnimation (0.41.2):
+  - React (0.47.1):
+    - React/Core (= 0.47.1)
+  - React/BatchedBridge (0.47.1):
     - React/Core
-  - React/RCTImage (0.41.2):
+    - React/cxxreact_legacy
+  - React/Core (0.47.1):
+    - Yoga (= 0.47.1.React)
+  - React/cxxreact_legacy (0.47.1):
+    - React/jschelpers_legacy
+  - React/jschelpers_legacy (0.47.1)
+  - React/RCTAnimation (0.47.1):
+    - React/Core
+  - React/RCTImage (0.47.1):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.41.2):
+  - React/RCTNetwork (0.47.1):
     - React/Core
-  - React/RCTText (0.41.2):
+  - React/RCTText (0.47.1):
     - React/Core
-  - React/RCTWebSocket (0.41.2):
+  - React/RCTWebSocket (0.47.1):
     - React/Core
-  - React/yoga (0.41.2)
+  - Yoga (0.47.1.React)
 
 DEPENDENCIES:
   - lottie-ios (from `../../node_modules/lottie-ios`)
   - lottie-react-native (from `../../`)
+  - React/BatchedBridge (from `../../node_modules/react-native`)
   - React/Core (from `../../node_modules/react-native`)
   - React/RCTAnimation (from `../../node_modules/react-native`)
   - React/RCTImage (from `../../node_modules/react-native`)
   - React/RCTNetwork (from `../../node_modules/react-native`)
   - React/RCTText (from `../../node_modules/react-native`)
   - React/RCTWebSocket (from `../../node_modules/react-native`)
+  - Yoga (from `../../node_modules/react-native/ReactCommon/Yoga`)
 
 EXTERNAL SOURCES:
   lottie-ios:
@@ -41,12 +45,15 @@ EXTERNAL SOURCES:
     :path: "../../"
   React:
     :path: "../../node_modules/react-native"
+  Yoga:
+    :path: "../../node_modules/react-native/ReactCommon/Yoga"
 
 SPEC CHECKSUMS:
   lottie-ios: d574e45532c6c06ac03c6d6649f759fb1137297b
   lottie-react-native: ed02827c79d65cbc33a6bb03f222bef0770214b3
-  React: 2b10c07d947dea71c144a33764e9162ed81e3825
+  React: f705239a901cb3f95445c34468e5b37b6f80a0d4
+  Yoga: 13a12502dfabb4c75b914071dcb542af800deed4
 
-PODFILE CHECKSUM: f51e2172ed228016b380cd0daa6b749a81ad54f8
+PODFILE CHECKSUM: 3282eaaaebf3af10da6f62276db6dfa66b7bc731
 
 COCOAPODS: 1.2.0

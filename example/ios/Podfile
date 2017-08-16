@@ -1,6 +1,8 @@
 
 target 'example' do
+  pod 'Yoga', :path => '../../node_modules/react-native/ReactCommon/Yoga'
   pod 'React', :path => '../../node_modules/react-native', :subspecs => [
+    'BatchedBridge',
     'Core',
     'RCTImage',
     'RCTNetwork',
