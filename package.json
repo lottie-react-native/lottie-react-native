@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/airbnb/lottie-react-native#readme",
   "peerDependencies": {
-    "react": ">=15.3.1",
+    "react": "*",
     "react-native": "*"
   },
   "dependencies": {
