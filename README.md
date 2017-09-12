@@ -107,7 +107,7 @@ export default class BasicExample extends React.Component {
     Animated.timing(this.state.progress, {
       toValue: 1,
       duration: 5000,
-      easing: Easing.linear
+      easing: Easing.linear,
     }).start();
   }
 
