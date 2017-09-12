@@ -3,6 +3,7 @@ import React from 'react';
 import {
   View,
   Animated,
+  Easing,
   StyleSheet,
 } from 'react-native';
 import Animation from 'lottie-react-native';
@@ -55,6 +56,7 @@ export default class LottieAnimatedExample extends React.Component {
       Animated.timing(this.state.progress, {
         toValue: 1,
         duration: this.state.config.duration,
+        easing: Easing.linear,
       }).start(({ finished }) => {
         if (finished) this.forceUpdate();
       });
@@ -69,6 +71,7 @@ export default class LottieAnimatedExample extends React.Component {
       Animated.timing(this.state.progress, {
         toValue: 0,
         duration: this.state.config.duration,
+        easing: Easing.linear,
       }).start(({ finished }) => {
         if (finished) this.forceUpdate();
       });
