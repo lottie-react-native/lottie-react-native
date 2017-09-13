@@ -104,6 +104,7 @@ export default class LottieAnimatedExample extends React.Component {
             }}
             source={EXAMPLES[this.state.example].getJson()}
             progress={this.state.progress}
+            enableMergePaths={true}
           />
         </View>
       </View>
