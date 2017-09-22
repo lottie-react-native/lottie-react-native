@@ -1,6 +1,7 @@
 package com.airbnb.android.react.lottie;
 
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 
 import org.json.JSONArray;
@@ -107,7 +108,18 @@ class JSONReadableMap extends JSONObject {
 
   @Override
   public Iterator<String> keys() {
-    throw new UnsupportedOperationException(NOT_SUPPORTED_MESSAGE);
+    return new Iterator<String>() {
+      ReadableMapKeySetIterator iterator = map.keySetIterator();
+      @Override
+      public boolean hasNext() {
+        return iterator.hasNextKey();
+      }
+
+      @Override
+      public String next() {
+        return iterator.nextKey();
+      }
+    };
   }
 
   @Override
