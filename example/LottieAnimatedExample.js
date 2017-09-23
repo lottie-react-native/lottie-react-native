@@ -98,10 +98,6 @@ export default class LottieAnimatedExample extends React.Component {
         <View>
           <Animation
             ref={this.setAnim}
-            style={{
-              width: 200,
-              height: 200,
-            }}
             source={EXAMPLES[this.state.example].getJson()}
             progress={this.state.progress}
           />
