@@ -3,7 +3,7 @@ package com.airbnb.android.react.lottie;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewCompat;
-
+import android.widget.ImageView;
 import android.util.Log;
 import com.airbnb.lottie.LottieAnimationView;
 import com.facebook.react.bridge.ReadableArray;
@@ -87,6 +87,49 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     } catch (Exception e) {
       // TODO: expose this to the user better. maybe an `onError` event?
       Log.e(TAG,"setSourceJsonError", e);
+    }
+  }
+
+  @ReactProp(name = "scaleType")
+  public void setScaleType(LottieAnimationView view, String type) {
+    try {
+
+      switch (type) {
+        case "center": {
+          view.setScaleType(ImageView.ScaleType.CENTER);
+        }
+        break;
+        case "centerCrop": {
+          view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+        break;
+        case "centerInside": {
+          view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        }
+        break;
+        case "fitCenter": {
+          view.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }
+        break;
+        case "fitStart": {
+          view.setScaleType(ImageView.ScaleType.FIT_START);
+        }
+        break;
+        case "fitEnd": {
+          view.setScaleType(ImageView.ScaleType.FIT_END);
+        }
+        break;
+        case "fitXY": {
+          view.setScaleType(ImageView.ScaleType.FIT_XY);
+        }
+        break;
+        case "matrix": {
+          view.setScaleType(ImageView.ScaleType.MATRIX);
+        }
+        break;
+      }
+    } catch (Exception e) {
+      Log.e(TAG,"scaleTypeError", e);
     }
   }
 
