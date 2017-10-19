@@ -109,4 +109,9 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   public void setImageAssetsFolder(LottieAnimationView view, String imageAssetsFolder) {
     view.setImageAssetsFolder(imageAssetsFolder);
   }
+
+  @ReactProp(name = "enableMergePathsAndroidForKitKatAndAbove")
+  public void setEnableMergePaths(LottieAnimationView view, boolean enableMergePaths) {
+    view.enableMergePathsForKitKatAndAbove(enableMergePaths);
+  }
 }
