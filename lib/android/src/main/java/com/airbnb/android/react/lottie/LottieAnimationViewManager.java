@@ -97,7 +97,7 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
 
   @ReactProp(name = "speed")
   public void setSpeed(LottieAnimationView view, double speed) {
-    // TODO?
+    view.setSpeed((float)speed);
   }
 
   @ReactProp(name = "loop")
