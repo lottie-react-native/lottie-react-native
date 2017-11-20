@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "build:pods": "cd example/ios; bundle exec pod install; cd -",
-    "run:packager": "./node_modules/react-native/packager/packager.sh",
+    "run:packager": "node node_modules/react-native/local-cli/cli.js start",
     "run:ios": "react-native run-ios --project-path ./example/ios",
     "start:android": "adb shell am start -n com.example/.MainActivity",
     "run:android": "./gradlew installDebug && npm run start:android",
@@ -60,8 +60,8 @@
     "eslint-plugin-prefer-object-spread": "^1.1.0",
     "eslint-plugin-react": "^6.1.2",
     "gitbook-cli": "^1.0.1",
-    "react": "16.0.0-alpha.12",
-    "react-native": "^0.47.1"
+    "react": "16.0.0",
+    "react-native": "0.50.3"
   },
   "rnpm": {
     "android": {
