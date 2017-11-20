@@ -39,6 +39,11 @@ RCT_EXPORT_MODULE(LottieAnimationView)
   return [LRNContainerView new];
 }
 
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
 - (NSDictionary *)constantsToExport
 {
   return @{
