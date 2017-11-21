@@ -5,6 +5,8 @@ import android.os.Looper;
 import android.support.v4.view.ViewCompat;
 
 import android.util.Log;
+import android.widget.ImageView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
@@ -35,7 +37,9 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   }
 
   @Override public LottieAnimationView createViewInstance(ThemedReactContext context) {
-    return new LottieAnimationView(context);
+    LottieAnimationView view = new LottieAnimationView(context);
+    view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+    return view;
   }
 
   @Override public Map<String, Integer> getCommandsMap() {

@@ -80,6 +80,7 @@
   _animationView = next;
   [self addSubview: next];
   [_animationView reactSetFrame:self.frame];
+  [_animationView setContentMode:UIViewContentModeScaleAspectFit];
   [self applyProperties];
 }
 

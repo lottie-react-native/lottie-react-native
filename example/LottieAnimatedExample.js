@@ -95,18 +95,13 @@ export default class LottieAnimatedExample extends React.Component {
           marginVertical: 10,
         }}
       >
-        <View>
-          <Animation
-            ref={this.setAnim}
-            style={{
-              width: 200,
-              height: 200,
-            }}
-            source={EXAMPLES[this.state.example].getJson()}
-            progress={this.state.progress}
-            enableMergePathsAndroidForKitKatAndAbove
-          />
-        </View>
+        <Animation
+          ref={this.setAnim}
+          style={StyleSheet.absoluteFill}
+          source={EXAMPLES[this.state.example].getJson()}
+          progress={this.state.progress}
+          enableMergePathsAndroidForKitKatAndAbove
+        />
       </View>
     );
 
