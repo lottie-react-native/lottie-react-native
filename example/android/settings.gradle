@@ -1,7 +1,0 @@
-rootProject.name = 'example'
-
-include ':app'
-
-include ':lottie';
-
-project(':lottie').projectDir = new File(rootProject.projectDir, '../../src/android')

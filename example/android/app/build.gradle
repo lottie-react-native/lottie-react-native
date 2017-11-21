@@ -70,7 +70,7 @@ project.ext.react = [
   bundleAssetName: "example.bundle",
 
   // the entry file for bundle generation
-  entryFile: "index.js",
+  entryFile: "example/js/index.js",
 
   // the root of your project, i.e. where "package.json" lives
   root: "../../../",
@@ -140,11 +140,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: "libs", include: ["*.jar"])
+    compile project(':lottie-react-native')
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:support-annotations:26.1.0'
     compile "com.facebook.react:react-native:+"  // From node_modules
-    compile project(':lottie-react-native-lib')
 
 }
 
