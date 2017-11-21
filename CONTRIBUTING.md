@@ -19,7 +19,7 @@ cd lottie-react-native
 npm install
 
 # run packager for development
-npm run dev
+npm run run:packager
 ```
 
 ### Developing on Android
