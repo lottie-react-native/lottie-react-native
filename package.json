@@ -2,9 +2,11 @@
   "name": "lottie-react-native",
   "version": "2.2.7",
   "description": "React Native bindings for Lottie",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "src/js/index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "build": "babel src/js --out-dir lib",
     "build:pods": "cd example/ios; bundle exec pod install; cd -",
     "run:packager": "node node_modules/react-native/local-cli/cli.js start",
     "run:ios": "react-native run-ios --project-path ./example/ios",
@@ -66,7 +68,7 @@
   },
   "rnpm": {
     "android": {
-      "sourceDir": "./lib/android"
+      "sourceDir": "./src/android"
     }
   }
 }

@@ -4,4 +4,4 @@ include ":example-android"
 project(":example-android").projectDir = file("./example/android/app")
 
 include ":lottie-react-native-lib"
-project(":lottie-react-native-lib").projectDir = file("./lib/android")
+project(":lottie-react-native-lib").projectDir = file("./src/android")

@@ -29,13 +29,15 @@ project.xcworkspace
 .gradle
 local.properties
 example/android/app/src/main/gen/
-lib/android/src/main/gen/
+src/android/src/main/gen/
 
 # node.js
 #
 node_modules/
 npm-debug.log
 Pods/
+build/
+lib/
 
 # BUCK
 buck-out/
