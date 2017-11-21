@@ -35,7 +35,7 @@ export default class LottieAnimatedExample extends React.Component {
       progress: new Animated.Value(0),
       config: {
         duration: 3000,
-        imperative: false,
+        imperative: true,
       },
     };
     this.onValueChange = this.onValueChange.bind(this);
