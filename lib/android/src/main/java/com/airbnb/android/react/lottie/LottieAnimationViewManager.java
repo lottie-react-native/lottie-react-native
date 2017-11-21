@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
@@ -84,9 +83,9 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   }
 
   @ReactProp(name = "sourceJson")
-  public void setSourceJson(LottieAnimationView view, ReadableMap json) {
+  public void setSourceJson(LottieAnimationView view, String json) {
     try {
-        view.setAnimation(new JSONObject(json.toHashMap()));
+        view.setAnimation(new JSONObject(json));
     } catch (Exception e) {
       // TODO: expose this to the user better. maybe an `onError` event?
       Log.e(TAG,"setSourceJsonError", e);

@@ -52,7 +52,7 @@ RCT_EXPORT_MODULE(LottieAnimationView)
 }
 
 RCT_EXPORT_VIEW_PROPERTY(resizeMode, NSString)
-RCT_EXPORT_VIEW_PROPERTY(sourceJson, NSDictionary);
+RCT_EXPORT_VIEW_PROPERTY(sourceJson, NSString);
 RCT_EXPORT_VIEW_PROPERTY(sourceName, NSString);
 RCT_EXPORT_VIEW_PROPERTY(progress, CGFloat);
 RCT_EXPORT_VIEW_PROPERTY(loop, BOOL);

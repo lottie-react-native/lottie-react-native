@@ -60,7 +60,11 @@
   }
 }
 
-- (void)setSourceJson:(NSDictionary *)json {
+- (void)setSourceJson:(NSString *)jsonString {
+  NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+  NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                       options:kNilOptions
+                                                         error:nil];
   [self replaceAnimationView:[LOTAnimationView animationFromJSON:json]];
 }
 
