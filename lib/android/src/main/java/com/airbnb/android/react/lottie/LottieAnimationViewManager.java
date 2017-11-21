@@ -3,7 +3,6 @@ package com.airbnb.android.react.lottie;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewCompat;
-
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -91,6 +90,17 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     } catch (Exception e) {
       // TODO: expose this to the user better. maybe an `onError` event?
       Log.e(TAG,"setSourceJsonError", e);
+    }
+  }
+
+  @ReactProp(name = "resizeMode")
+  public void setResizeMode(LottieAnimationView view, String resizeMode) {
+    if ("cover".equals(resizeMode)) {
+      view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+    } else if ("contain".equals(resizeMode)) {
+      view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+    } else if ("center".equals(resizeMode)) {
+      view.setScaleType(ImageView.ScaleType.CENTER);
     }
   }
 

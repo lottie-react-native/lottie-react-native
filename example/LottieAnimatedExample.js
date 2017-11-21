@@ -98,6 +98,7 @@ export default class LottieAnimatedExample extends React.Component {
         <Animation
           ref={this.setAnim}
           style={StyleSheet.absoluteFill}
+          resizeMode="contain"
           source={EXAMPLES[this.state.example].getJson()}
           progress={this.state.progress}
           enableMergePathsAndroidForKitKatAndAbove

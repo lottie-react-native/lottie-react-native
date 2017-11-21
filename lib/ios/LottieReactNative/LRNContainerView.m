@@ -50,6 +50,16 @@
   }
 }
 
+- (void)setResizeMode:(NSString *)resizeMode {
+  if ([resizeMode isEqualToString:@"cover"]) {
+    [self setContentMode:UIViewContentModeScaleAspectFill];
+  } else if ([resizeMode isEqualToString:@"contain"]) {
+    [self setContentMode:UIViewContentModeScaleAspectFit];
+  } else if ([resizeMode isEqualToString:@"center"]) {
+    [self setContentMode:UIViewContentModeCenter];
+  }
+}
+
 - (void)setSourceJson:(NSDictionary *)json {
   [self replaceAnimationView:[LOTAnimationView animationFromJSON:json]];
 }
