@@ -6,7 +6,7 @@ import {
   Easing,
   StyleSheet,
 } from 'react-native';
-import Animation from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
 import PlayerControls from './PlayerControls';
 import ExamplePicker from './ExamplePicker';
 
@@ -95,7 +95,7 @@ export default class LottieAnimatedExample extends React.Component {
           marginVertical: 10,
         }}
       >
-        <Animation
+        <LottieView
           ref={this.setAnim}
           style={StyleSheet.absoluteFill}
           resizeMode="contain"

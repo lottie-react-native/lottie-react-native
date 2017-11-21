@@ -10,6 +10,7 @@
     "react/jsx-filename-extension": 0,
     "react/sort-comp": 0,
     "import/no-extraneous-dependencies": 0,
-    "import/no-unresolved": [2, { "ignore": ["^lottie-react-native$"] }]
+    "import/no-unresolved": [2, { "ignore": ["^lottie-react-native$"] }],
+    "no-console": 0
   }
 }
