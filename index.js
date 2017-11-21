@@ -1,1 +1,1 @@
-module.exports = require('./lib/js/Animation');
+module.exports = require('./lib/js/LottieView');
