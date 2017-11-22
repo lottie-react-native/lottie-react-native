@@ -11,6 +11,7 @@
     "react/sort-comp": 0,
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": [2, { "ignore": ["^lottie-react-native$"] }],
-    "no-console": 0
+    "no-console": 0,
+    "no-use-before-define": 0
   }
 }

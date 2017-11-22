@@ -5,10 +5,19 @@ import {
   Animated,
   Easing,
   StyleSheet,
+  Slider,
+  Switch,
+  Image,
+  Text,
+  TouchableOpacity,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
-import PlayerControls from './PlayerControls';
 import ExamplePicker from './ExamplePicker';
+
+const playIcon = require('./images/play.png');
+const pauseIcon = require('./images/pause.png');
+const loopIcon = require('./images/loop.png');
+const inverseIcon = require('./images/inverse.png');
 
 const makeExample = (name, getJson) => ({ name, getJson });
 const EXAMPLES = [
@@ -33,14 +42,15 @@ export default class LottieAnimatedExample extends React.Component {
     this.state = {
       example: Object.keys(EXAMPLES)[0],
       progress: new Animated.Value(0),
-      config: {
-        duration: 3000,
-        imperative: true,
-      },
+      duration: 3000,
+      imperative: true,
+      isPlaying: false,
+      isInverse: false,
+      loop: true,
     };
     this.onValueChange = this.onValueChange.bind(this);
     this.onPlayPress = this.onPlayPress.bind(this);
-    this.onResetPress = this.onResetPress.bind(this);
+    this.onInversePress = this.onInversePress.bind(this);
     this.setAnim = this.setAnim.bind(this);
   }
 
@@ -49,7 +59,7 @@ export default class LottieAnimatedExample extends React.Component {
   }
 
   onPlayPress() {
-    if (this.state.config.imperative) {
+    if (this.state.imperative) {
       this.anim.play();
     } else {
       this.state.progress.setValue(0);
@@ -63,19 +73,8 @@ export default class LottieAnimatedExample extends React.Component {
     }
   }
 
-  onResetPress() {
-    if (this.state.config.imperative) {
-      this.anim.reset();
-    } else {
-      this.state.progress.setValue(1);
-      Animated.timing(this.state.progress, {
-        toValue: 0,
-        duration: this.state.config.duration,
-        easing: Easing.linear,
-      }).start(({ finished }) => {
-        if (finished) this.forceUpdate();
-      });
-    }
+  onInversePress() {
+    this.setState(state => ({ ...state, isInverse: !state.isInverse }));
   }
 
   setAnim(anim) {
@@ -83,46 +82,117 @@ export default class LottieAnimatedExample extends React.Component {
   }
 
   render() {
-    const playerWindow = (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderColor: '#000',
-          borderWidth: 1,
-          backgroundColor: '#dedede',
-          marginVertical: 10,
-        }}
-      >
-        <LottieView
-          ref={this.setAnim}
-          style={StyleSheet.absoluteFill}
-          resizeMode="contain"
-          source={EXAMPLES[this.state.example].getJson()}
-          progress={this.state.progress}
-          enableMergePathsAndroidForKitKatAndAbove
-        />
-      </View>
-    );
+    const { duration, imperative, isPlaying, isInverse, progress, loop, example } = this.state;
 
     return (
       <View style={StyleSheet.absoluteFill}>
         <ExamplePicker
           example={this.state.example}
           examples={EXAMPLES}
-          onChange={(example) => this.setState({ example })}
+          onChange={e => this.setState({ example: e })}
         />
-        {playerWindow}
-        <PlayerControls
-          progress={this.state.progress}
-          config={this.state.config}
-          onProgressChange={this.onValueChange}
-          onConfigChange={config => this.setState({ config })}
-          onPlayPress={this.onPlayPress}
-          onResetPress={this.onResetPress}
-        />
+        <View style={{ flex: 1 }}>
+          <LottieView
+            ref={this.setAnim}
+            style={[StyleSheet.absoluteFill, isInverse && styles.lottieViewInvse]}
+            source={EXAMPLES[example].getJson()}
+            progress={this.state.progress}
+            loop={loop}
+            enableMergePathsAndroidForKitKatAndAbove
+          />
+        </View>
+        <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
+          <View style={styles.controlsRow}>
+            <TouchableOpacity
+              onPress={() => this.setState(state => ({ ...state, loop: !state.loop }))}
+            >
+              <Image
+                style={[styles.controlsIcon, loop && styles.controlsIconEnabled]}
+                resizeMode="contain"
+                source={loopIcon}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.playButton} onPress={this.onPlayPress}>
+              <Image
+                style={styles.playButtonIcon}
+                resizeMode="contain"
+                source={isPlaying ? pauseIcon : playIcon}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onInversePress}>
+              <Image style={styles.controlsIcon} resizeMode="contain" source={inverseIcon} />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10 }}
+          >
+            <Text>Use Imperative API:</Text>
+            <View />
+            <Switch
+              onValueChange={i => this.onConfigChange({ imperative: i })}
+              value={imperative}
+            />
+          </View>
+          <View style={{ paddingBottom: 10 }}>
+            <View>
+              <Text>Progress:</Text>
+            </View>
+            <Slider
+              minimumValue={0}
+              maximumValue={1}
+              // eslint-disable-next-line no-underscore-dangle
+              value={progress.__getValue()}
+              onValueChange={this.onProgressChange}
+            />
+          </View>
+          <View>
+            <View>
+              <Text>Duration: ({Math.round(duration)}ms)</Text>
+            </View>
+            <Slider
+              minimumValue={50}
+              maximumValue={4000}
+              value={duration}
+              onValueChange={d => this.onConfigChange({ duration: d })}
+            />
+          </View>
+        </View>
       </View>
     );
   }
 }
+
+const PLAY_BUTTON_SIZE = 60;
+const styles = StyleSheet.create({
+  controlsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  playButton: {
+    width: PLAY_BUTTON_SIZE,
+    height: PLAY_BUTTON_SIZE,
+    borderRadius: PLAY_BUTTON_SIZE / 2,
+    backgroundColor: '#1d8bf1',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  playButtonIcon: {
+    width: 16,
+    height: 16,
+  },
+  controlsIcon: {
+    width: 24,
+    height: 24,
+    padding: 8,
+  },
+  controlsIconEnabled: {
+    tintColor: '#1d8bf1',
+  },
+  lottieView: {
+    flex: 1,
+  },
+  lottieViewInvse: {
+    backgroundColor: 'black',
+  },
+});
