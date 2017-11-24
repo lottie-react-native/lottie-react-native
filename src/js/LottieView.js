@@ -30,8 +30,8 @@ const ViewStyleExceptBorderPropType = (props, propName, componentName, ...rest) 
   if (usesBorder) {
     return Error(
       `${componentName} does not allow any border related style properties to be specified. ` +
-        "Border styles for this component will behave differently across platforms. If you'd like " +
-        'to render a border around this component, wrap it with a View.',
+        "Border styles for this component will behave differently across platforms. If you'd " +
+        'like to render a border around this component, wrap it with a View.',
     );
   }
   return ViewPropTypes.style(props, propName, componentName, ...rest);

@@ -1,9 +1,6 @@
 /* eslint-disable global-require */
 import React from 'react';
-import {
-  Picker,
-  Platform,
-} from 'react-native';
+import { Picker, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -25,13 +22,9 @@ export default class ExamplePicker extends React.Component {
           }),
         }}
       >
-        {Object.keys(this.props.examples).map(name => this.props.examples[name]).map(ex => (
-          <Picker.Item
-            key={ex.name}
-            label={ex.name}
-            value={ex.name}
-          />
-        ))}
+        {Object.keys(this.props.examples)
+          .map(name => this.props.examples[name])
+          .map(ex => <Picker.Item key={ex.name} label={ex.name} value={ex.name} />)}
       </Picker>
     );
   }
