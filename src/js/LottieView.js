@@ -30,8 +30,8 @@ const ViewStyleExceptBorderPropType = (props, propName, componentName, ...rest) 
   if (usesBorder) {
     return Error(
       `${componentName} does not allow any border related style properties to be specified. ` +
-      'Border styles for this component will behave differently across platforms. If you\'d like ' +
-      'to render a border around this component, wrap it with a View.'
+        "Border styles for this component will behave differently across platforms. If you'd like " +
+        'to render a border around this component, wrap it with a View.',
     );
   }
   return ViewPropTypes.style(props, propName, componentName, ...rest);
@@ -54,10 +54,7 @@ const propTypes = {
   speed: PropTypes.number,
   loop: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
-  source: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ]).isRequired,
+  source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };
 
 const defaultProps = {
@@ -88,8 +85,8 @@ class LottieView extends React.Component {
     });
   }
 
-  play() {
-    this.runCommand('play');
+  play(startFrame, endFrame) {
+    this.runCommand('play', [startFrame, endFrame]);
   }
 
   reset() {
@@ -98,11 +95,12 @@ class LottieView extends React.Component {
 
   runCommand(name, args = []) {
     return Platform.select({
-      android: () => UIManager.dispatchViewManagerCommand(
-        this.getHandle(),
-        UIManager.LottieAnimationView.Commands[name],
-        args
-      ),
+      android: () =>
+        UIManager.dispatchViewManagerCommand(
+          this.getHandle(),
+          UIManager.LottieAnimationView.Commands[name],
+          args,
+        ),
       ios: () => LottieViewManager[name](this.getHandle(), ...args),
     })();
   }
@@ -137,9 +135,9 @@ LottieView.defaultProps = defaultProps;
 
 const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
 
-AnimatedLottieView.prototype.play = function play() {
+AnimatedLottieView.prototype.play = function play(startFrame = -1, endFrame = -1) {
   if (this.getNode()) {
-    return this.getNode().play();
+    return this.getNode().play(startFrame, endFrame);
   }
   console.warn('Trying to animate a view on an unmounted component');
   return null;

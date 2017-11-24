@@ -78,6 +78,14 @@
   }
 }
 
+- (void)playFromFrame:(NSNumber *)startFrame
+              toFrame:(NSNumber *)endFrame {
+  if (_animationView != nil) {
+    [_animationView playFromFrame:startFrame
+                          toFrame:endFrame withCompletion:nil];
+  }
+}
+
 - (void)reset {
   if (_animationView != nil) {
     _animationView.animationProgress = 0;

@@ -48,11 +48,16 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   }
 
   @Override
-  public void receiveCommand(final LottieAnimationView view, int commandId, ReadableArray args) {
+  public void receiveCommand(final LottieAnimationView view, int commandId, final ReadableArray args) {
     switch (commandId) {
       case COMMAND_PLAY: {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
           @Override public void run() {
+            int startFrame = args.getInt(0);
+            int endFrame = args.getInt(1);
+            if (startFrame != -1 && endFrame != -1) {
+              view.setMinAndMaxFrame(args.getInt(0), args.getInt(1));
+            }
             if (ViewCompat.isAttachedToWindow(view)) {
               view.setProgress(0f);
               view.playAnimation();
