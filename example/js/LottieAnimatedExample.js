@@ -62,10 +62,10 @@ export default class LottieAnimatedExample extends React.Component {
     if (this.state.imperative) {
       this.anim.play();
     } else {
-      this.state.progress.setValue(0);
+      this.state.progress.setValue(0.5);
       Animated.timing(this.state.progress, {
         toValue: 1,
-        duration: this.state.config.duration,
+        duration: this.state.duration,
         easing: Easing.linear,
       }).start(({ finished }) => {
         if (finished) this.forceUpdate();
@@ -128,10 +128,7 @@ export default class LottieAnimatedExample extends React.Component {
           >
             <Text>Use Imperative API:</Text>
             <View />
-            <Switch
-              onValueChange={i => this.onConfigChange({ imperative: i })}
-              value={imperative}
-            />
+            <Switch onValueChange={i => this.setState({ imperative: i })} value={imperative} />
           </View>
           <View style={{ paddingBottom: 10 }}>
             <View>
@@ -153,7 +150,7 @@ export default class LottieAnimatedExample extends React.Component {
               minimumValue={50}
               maximumValue={4000}
               value={duration}
-              onValueChange={d => this.onConfigChange({ duration: d })}
+              onValueChange={d => this.setState({ duration: d })}
             />
           </View>
         </View>
