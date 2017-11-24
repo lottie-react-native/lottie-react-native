@@ -1,6 +1,6 @@
 PODS:
   - lottie-ios (2.1.4)
-  - lottie-react-native (2.2.7):
+  - lottie-react-native (2.3.0):
     - lottie-ios
     - React
   - React (0.50.3):
@@ -59,7 +59,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   lottie-ios: 94fa2d82547ce3adf1e61157653ba99999fd279f
-  lottie-react-native: 13a8c5542dc5b8307006223d075059d5dde4cf13
+  lottie-react-native: 0028751f7b377ef5374692e45341ffc015357bc6
   React: 0ba6cae888dc82dc47d6d5f3090615e1b5f6f3e7
   yoga: faecc6be81ca7823ccbb470b93a1b228499fa1c0
 
