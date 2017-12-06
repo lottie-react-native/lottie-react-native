@@ -1,5 +1,9 @@
-## 1.3.0 (November 24, 2017)
+## 2.3.1 (December 5, 2017)
+### Features and Improvements
+* Bumped lottie-ios and lottie-android
 
+
+## 2.3.0 (November 24, 2017)
 ### Features and Improvements
 
 * speed prop
