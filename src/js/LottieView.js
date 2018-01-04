@@ -55,6 +55,7 @@ const propTypes = {
   loop: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  hardwareAcceleration: PropTypes.bool
 };
 
 const defaultProps = {
@@ -63,7 +64,7 @@ const defaultProps = {
   loop: true,
   enableMergePathsAndroidForKitKatAndAbove: false,
   resizeMode: 'contain',
-  style: StyleSheet.absoluteFill,
+  style: StyleSheet.absoluteFill
 };
 
 const viewConfig = {
