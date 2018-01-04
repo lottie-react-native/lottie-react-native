@@ -64,7 +64,7 @@ const defaultProps = {
   loop: true,
   enableMergePathsAndroidForKitKatAndAbove: false,
   resizeMode: 'contain',
-  style: StyleSheet.absoluteFill
+  style: StyleSheet.absoluteFill,
 };
 
 const viewConfig = {
