@@ -1,16 +1,15 @@
+import React from 'react';
 import {
+  findNodeHandle,
+  UIManager,
   Animated,
+  View,
   Platform,
   StyleSheet,
-  UIManager,
-  View,
   ViewPropTypes,
-  findNodeHandle,
 } from 'react-native';
-
-import PropTypes from 'prop-types';
-import React from 'react';
 import SafeModule from 'react-native-safe-module';
+import PropTypes from 'prop-types';
 
 const NativeLottieView = SafeModule.component({
   viewName: 'LottieAnimationView',
