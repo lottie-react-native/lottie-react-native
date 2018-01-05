@@ -69,7 +69,7 @@ export interface AnimationProps extends ViewProperties {
    * and height, e.g. you are not scaling the animation.
    * @platform android
    */
-  hardwareAcceleration?: boolean;
+  hardwareAccelerationAndroid?: boolean;
 }
 
 export default class Animation extends React.Component<AnimationProps, {}> {

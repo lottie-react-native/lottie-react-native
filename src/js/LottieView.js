@@ -1,15 +1,16 @@
-import React from 'react';
 import {
-  findNodeHandle,
-  UIManager,
   Animated,
-  View,
   Platform,
   StyleSheet,
+  UIManager,
+  View,
   ViewPropTypes,
+  findNodeHandle,
 } from 'react-native';
-import SafeModule from 'react-native-safe-module';
+
 import PropTypes from 'prop-types';
+import React from 'react';
+import SafeModule from 'react-native-safe-module';
 
 const NativeLottieView = SafeModule.component({
   viewName: 'LottieAnimationView',
@@ -55,7 +56,7 @@ const propTypes = {
   loop: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-  hardwareAcceleration: PropTypes.bool,
+  hardwareAccelerationAndroid: PropTypes.bool,
 };
 
 const defaultProps = {
