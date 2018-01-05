@@ -55,7 +55,7 @@ const propTypes = {
   loop: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-  hardwareAcceleration: PropTypes.bool
+  hardwareAcceleration: PropTypes.bool,
 };
 
 const defaultProps = {
