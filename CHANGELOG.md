@@ -1,5 +1,8 @@
+## 2.3.2 (January 5, 2018)
+* Moved eslint deps to devDeps
+* Expose hardwareAccelerationAndroid (#254)
+
 ## 2.3.1 (December 5, 2017)
-### Features and Improvements
 * Bumped lottie-ios and lottie-android
 
 
@@ -13,7 +16,7 @@
 * Added resizeMode prop similar to <Image>
 * Added play(fromFrame, toFrame)
 * Removed the need for a style prop
-  ### Bugs Fixes
+  ### Bugs Fixed
 * Improved the json serialization perf ~10x
 * Fixed some build related issues on iOS and for newer versions of RN
 * Enabled dev menu and reload for Android and iOS sample apps
