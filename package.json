@@ -3,7 +3,7 @@
   "version": "2.3.2",
   "description": "React Native bindings for Lottie",
   "main": "lib/index.js",
-  "types": "src/js/index.js",
+  "types": "src/js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "build": "babel src/js --out-dir lib",
