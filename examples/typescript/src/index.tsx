@@ -1,5 +1,8 @@
 import * as React from "react";
 import { Animated, AppRegistry, StyleSheet, View } from "react-native";
+
+// NOTICE =========
+// In typescript you will need to import the lottie view component this way.
 import LottieView = require("lottie-react-native");
 
 interface LottieAnimatedExampleState {
