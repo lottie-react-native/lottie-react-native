@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2017",                       /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
+    "module": "commonjs",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "jsx": "react",                           /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
+    "sourceMap": true,                        /* Generates corresponding '.map' file. */
+    "outDir": "./js/",                       /* Redirect output structure to the directory. */
+    "strict": true                            /* Enable all strict type-checking options. */
+  },
+  "include": [
+    "./src/"
+  ]
+}

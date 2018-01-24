@@ -1,0 +1,68 @@
+PODS:
+  - lottie-ios (2.1.5)
+  - lottie-react-native (2.3.2):
+    - lottie-ios
+    - React
+  - React (0.50.3):
+    - React/Core (= 0.50.3)
+  - React/BatchedBridge (0.50.3):
+    - React/Core
+    - React/cxxreact_legacy
+  - React/Core (0.50.3):
+    - yoga (= 0.50.3.React)
+  - React/cxxreact_legacy (0.50.3):
+    - React/jschelpers_legacy
+  - React/DevSupport (0.50.3):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.50.3)
+  - React/jschelpers_legacy (0.50.3)
+  - React/RCTAnimation (0.50.3):
+    - React/Core
+  - React/RCTBlob (0.50.3):
+    - React/Core
+  - React/RCTImage (0.50.3):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTNetwork (0.50.3):
+    - React/Core
+  - React/RCTText (0.50.3):
+    - React/Core
+  - React/RCTWebSocket (0.50.3):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - yoga (0.50.3.React)
+
+DEPENDENCIES:
+  - lottie-ios (from `../../node_modules/lottie-ios`)
+  - lottie-react-native (from `../../`)
+  - React/BatchedBridge (from `../../node_modules/react-native`)
+  - React/Core (from `../../node_modules/react-native`)
+  - React/DevSupport (from `../../node_modules/react-native`)
+  - React/RCTAnimation (from `../../node_modules/react-native`)
+  - React/RCTImage (from `../../node_modules/react-native`)
+  - React/RCTNetwork (from `../../node_modules/react-native`)
+  - React/RCTText (from `../../node_modules/react-native`)
+  - React/RCTWebSocket (from `../../node_modules/react-native`)
+  - yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
+
+EXTERNAL SOURCES:
+  lottie-ios:
+    :path: "../../node_modules/lottie-ios"
+  lottie-react-native:
+    :path: "../../"
+  React:
+    :path: "../../node_modules/react-native"
+  yoga:
+    :path: "../../node_modules/react-native/ReactCommon/yoga"
+
+SPEC CHECKSUMS:
+  lottie-ios: 836cdbba92f62f3c6a00e37a4ce485321fe317cf
+  lottie-react-native: f2e118cc10f478bc9857bbdb5568b6f4a9d30cf7
+  React: 0ba6cae888dc82dc47d6d5f3090615e1b5f6f3e7
+  yoga: faecc6be81ca7823ccbb470b93a1b228499fa1c0
+
+PODFILE CHECKSUM: be0838159a84a7921938775eaa183204ca6d5832
+
+COCOAPODS: 1.2.0

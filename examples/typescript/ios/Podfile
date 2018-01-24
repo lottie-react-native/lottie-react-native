@@ -1,0 +1,17 @@
+
+target 'example' do
+  pod 'yoga', :path => '../../node_modules/react-native/ReactCommon/yoga'
+  pod 'React', :path => '../../node_modules/react-native', :subspecs => [
+    'BatchedBridge',
+    'Core',
+    'RCTImage',
+    'RCTNetwork',
+    'RCTText',
+    'RCTWebSocket',
+    'RCTAnimation',
+    'DevSupport',
+    # Add any other subspecs you want to use in your project
+  ]
+  pod 'lottie-react-native', :path => '../../'
+  pod 'lottie-ios', :path => '../../node_modules/lottie-ios'
+end
