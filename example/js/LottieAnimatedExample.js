@@ -101,7 +101,10 @@ export default class LottieAnimatedExample extends React.Component {
         <ExamplePicker
           example={example}
           examples={EXAMPLES}
-          onChange={e => this.setState({ example: e })}
+          onChange={e => {
+            this.stopAnimation();
+            this.setState({ example: e });
+          }}
         />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <LottieView
