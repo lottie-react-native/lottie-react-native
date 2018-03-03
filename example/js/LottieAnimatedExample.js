@@ -61,17 +61,29 @@ export default class LottieAnimatedExample extends React.Component {
 
   onPlayPress() {
     if (this.state.imperative) {
-      this.anim.play();
+      if (!this.state.isPlaying) {
+        this.anim.play();
+      } else {
+        this.anim.reset();
+      }
     } else {
-      this.state.progress.setValue(0.5);
-      Animated.timing(this.state.progress, {
-        toValue: 1,
-        duration: this.state.duration,
-        easing: Easing.linear,
-      }).start(({ finished }) => {
-        if (finished) this.forceUpdate();
-      });
+      this.state.progress.setValue(0);
+
+      if (!this.state.isPlaying) {
+        Animated.timing(this.state.progress, {
+          toValue: 1,
+          duration: this.state.duration,
+          easing: Easing.linear,
+        }).start(({ finished }) => {
+          if (finished) {
+            this.setState({ isPlaying: false });
+            this.forceUpdate();
+          }
+        });
+      }
     }
+
+    this.setState({ isPlaying: !this.state.isPlaying });
   }
 
   onInversePress() {
