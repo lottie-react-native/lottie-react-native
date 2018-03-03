@@ -51,7 +51,7 @@ const propTypes = {
   style: ViewStyleExceptBorderPropType,
   children: NotAllowedPropType,
   resizeMode: PropTypes.oneOf(['cover', 'contain', 'center']),
-  progress: PropTypes.number,
+  progress: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   speed: PropTypes.number,
   loop: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
