@@ -43,7 +43,7 @@ export default class LottieAnimatedExample extends React.Component {
     this.state = {
       example: Object.keys(EXAMPLES)[0],
       duration: 3000,
-      isPlaying: false,
+      isPlaying: true,
       isInverse: false,
       loop: true,
     };
@@ -106,6 +106,7 @@ export default class LottieAnimatedExample extends React.Component {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <LottieView
             ref={this.setAnim}
+            autoPlay
             style={[
               selectedExample.width && { width: selectedExample.width },
               isInverse && styles.lottieViewInvse,
