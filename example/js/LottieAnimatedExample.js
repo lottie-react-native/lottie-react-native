@@ -42,9 +42,7 @@ export default class LottieAnimatedExample extends React.Component {
     super(props);
     this.state = {
       example: Object.keys(EXAMPLES)[0],
-      progress: new Animated.Value(0),
       duration: 3000,
-      imperative: true,
       isPlaying: false,
       isInverse: false,
       loop: true,
@@ -59,9 +57,9 @@ export default class LottieAnimatedExample extends React.Component {
     this.state.progress.setValue(value);
   }
 
-  onPlayPress() {
-    if (this.state.imperative) {
-      if (!this.state.isPlaying) {
+  onPlayPress(shouldPlay = !this.state.isPlaying) {
+    if (!this.state.progress) {
+      if (shouldPlay) {
         this.anim.play();
       } else {
         this.anim.reset();
@@ -69,7 +67,7 @@ export default class LottieAnimatedExample extends React.Component {
     } else {
       this.state.progress.setValue(0);
 
-      if (!this.state.isPlaying) {
+      if (shouldPlay) {
         Animated.timing(this.state.progress, {
           toValue: 1,
           duration: this.state.duration,
@@ -83,8 +81,10 @@ export default class LottieAnimatedExample extends React.Component {
       }
     }
 
-    this.setState({ isPlaying: !this.state.isPlaying });
+    this.setState({ isPlaying: shouldPlay });
   }
+
+  stopAnimation = () => this.onPlayPress(false);
 
   onInversePress() {
     this.setState(state => ({ ...state, isInverse: !state.isInverse }));
@@ -95,7 +95,7 @@ export default class LottieAnimatedExample extends React.Component {
   }
 
   render() {
-    const { duration, imperative, isPlaying, isInverse, progress, loop, example } = this.state;
+    const { duration, isPlaying, isInverse, progress, loop, example } = this.state;
     const selectedExample = EXAMPLES[example];
     return (
       <View style={{ flex: 1 }}>
@@ -112,7 +112,7 @@ export default class LottieAnimatedExample extends React.Component {
               isInverse && styles.lottieViewInvse,
             ]}
             source={selectedExample.getJson()}
-            progress={this.state.progress}
+            progress={progress}
             loop={loop}
             enableMergePathsAndroidForKitKatAndAbove
           />
@@ -121,9 +121,14 @@ export default class LottieAnimatedExample extends React.Component {
           <View style={styles.controlsRow}>
             <TouchableOpacity
               onPress={() => this.setState(state => ({ ...state, loop: !state.loop }))}
+              disabled={!!progress}
             >
               <Image
-                style={[styles.controlsIcon, loop && styles.controlsIconEnabled]}
+                style={[
+                  styles.controlsIcon,
+                  loop && styles.controlsIconEnabled,
+                  !!progress && styles.controlsIconDisabled,
+                ]}
                 resizeMode="contain"
                 source={loopIcon}
               />
@@ -144,7 +149,15 @@ export default class LottieAnimatedExample extends React.Component {
           >
             <Text>Use Imperative API:</Text>
             <View />
-            <Switch onValueChange={i => this.setState({ imperative: i })} value={imperative} />
+            <Switch
+              onValueChange={i => {
+                this.stopAnimation();
+                this.setState(() => ({
+                  progress: !i ? new Animated.Value(0) : undefined,
+                }));
+              }}
+              value={!progress}
+            />
           </View>
           <View style={{ paddingBottom: 10 }}>
             <View>
@@ -154,8 +167,9 @@ export default class LottieAnimatedExample extends React.Component {
               minimumValue={0}
               maximumValue={1}
               // eslint-disable-next-line no-underscore-dangle
-              value={progress.__getValue()}
+              value={progress ? progress.__getValue() : 0}
               onValueChange={this.onProgressChange}
+              disabled={!progress}
             />
           </View>
           <View>
@@ -167,6 +181,7 @@ export default class LottieAnimatedExample extends React.Component {
               maximumValue={4000}
               value={duration}
               onValueChange={d => this.setState({ duration: d })}
+              disabled={!progress}
             />
           </View>
         </View>
@@ -201,6 +216,9 @@ const styles = StyleSheet.create({
   },
   controlsIconEnabled: {
     tintColor: '#1d8bf1',
+  },
+  controlsIconDisabled: {
+    tintColor: '#aaa',
   },
   lottieView: {
     flex: 1,
