@@ -54,6 +54,7 @@ const propTypes = {
   progress: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   speed: PropTypes.number,
   loop: PropTypes.bool,
+  autoSize: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   hardwareAccelerationAndroid: PropTypes.bool,
@@ -63,6 +64,7 @@ const defaultProps = {
   progress: 0,
   speed: 1,
   loop: true,
+  autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
   resizeMode: 'contain',
 };
@@ -122,7 +124,7 @@ class LottieView extends React.Component {
   }
 
   render() {
-    const { style, source, ...rest } = this.props;
+    const { style, source, autoSize, ...rest } = this.props;
 
     const sourceName = typeof source === 'string' ? source : undefined;
     const sourceJson = typeof source === 'string' ? undefined : JSON.stringify(source);
@@ -130,10 +132,10 @@ class LottieView extends React.Component {
     const aspectRatioStyle = sourceJson ? { aspectRatio: source.w / source.h } : undefined;
 
     const styleObject = StyleSheet.flatten(style);
-    const sizeStyle =
-      !styleObject || (styleObject.width === undefined && styleObject.height === undefined)
-        ? StyleSheet.absoluteFill
-        : undefined;
+    let sizeStyle;
+    if (!styleObject || (styleObject.width === undefined && styleObject.height === undefined)) {
+      sizeStyle = autoSize && sourceJson ? { width: source.w } : StyleSheet.absoluteFill;
+    }
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>

@@ -6,6 +6,7 @@
 |**`progress`**| A number between 0 and 1, or an `Animated` number between 0 and 1. This number represents the normalized progress of the animation. If you update this prop, the animation will correspondingly update to the frame at that progress value. This prop is not required if you are using the imperative API. |`0`|
 |**`speed`**| The speed the animation will progress. This only affects the imperative API. Sending a negative value will reverse the animation |`1`|
 |**`loop`**|A boolean flag indicating whether or not the animation should loop. |`false`|
+|**`autoSize`**|A boolean flag indicating whether or not the animation should size itself automatically according to the width in the animation's JSON. This only works when `source` is an actual JS object of an animation.  |`false`|
 |**`style`**|Style attributes for the view, as expected in a standard [`View`](http://facebook.github.io/react-native/releases/0.46/docs/layout-props.html), aside from border styling |*None*|
 |**`imageAssetsFolder`**| Needed for **Android** to work properly with assets, iOS will ignore it. |*None*|
 
