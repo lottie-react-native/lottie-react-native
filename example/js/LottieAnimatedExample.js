@@ -19,9 +19,10 @@ const pauseIcon = require('./images/pause.png');
 const loopIcon = require('./images/loop.png');
 const inverseIcon = require('./images/inverse.png');
 
-const makeExample = (name, getJson) => ({ name, getJson });
+const makeExample = (name, getJson, width) => ({ name, getJson, width });
 const EXAMPLES = [
   makeExample('Hamburger Arrow', () => require('./animations/HamburgerArrow.json')),
+  makeExample('Hamburger Arrow (200 px)', () => require('./animations/HamburgerArrow.json'), 200),
   makeExample('Line Animation', () => require('./animations/LineAnimation.json')),
   makeExample('Lottie Logo 1', () => require('./animations/LottieLogo1.json')),
   makeExample('Lottie Logo 2', () => require('./animations/LottieLogo2.json')),
@@ -83,19 +84,22 @@ export default class LottieAnimatedExample extends React.Component {
 
   render() {
     const { duration, imperative, isPlaying, isInverse, progress, loop, example } = this.state;
-
+    const selectedExample = EXAMPLES[example];
     return (
-      <View style={StyleSheet.absoluteFill}>
+      <View style={{ flex: 1 }}>
         <ExamplePicker
-          example={this.state.example}
+          example={example}
           examples={EXAMPLES}
           onChange={e => this.setState({ example: e })}
         />
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <LottieView
             ref={this.setAnim}
-            style={[StyleSheet.absoluteFill, isInverse && styles.lottieViewInvse]}
-            source={EXAMPLES[example].getJson()}
+            style={[
+              selectedExample.width && { width: selectedExample.width },
+              isInverse && styles.lottieViewInvse,
+            ]}
+            source={selectedExample.getJson()}
             progress={this.state.progress}
             loop={loop}
             enableMergePathsAndroidForKitKatAndAbove
