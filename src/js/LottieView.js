@@ -15,6 +15,7 @@ const NativeLottieView = SafeModule.component({
   viewName: 'LottieAnimationView',
   mockComponent: View,
 });
+const AnimatedNativeLottieView = Animated.createAnimatedComponent(NativeLottieView);
 
 const LottieViewManager = SafeModule.module({
   moduleName: 'LottieAnimationView',
@@ -50,9 +51,11 @@ const propTypes = {
   style: ViewStyleExceptBorderPropType,
   children: NotAllowedPropType,
   resizeMode: PropTypes.oneOf(['cover', 'contain', 'center']),
-  progress: PropTypes.number,
+  progress: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   speed: PropTypes.number,
   loop: PropTypes.bool,
+  autoPlay: PropTypes.bool,
+  autoSize: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   hardwareAccelerationAndroid: PropTypes.bool,
@@ -62,9 +65,10 @@ const defaultProps = {
   progress: 0,
   speed: 1,
   loop: true,
+  autoPlay: false,
+  autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
   resizeMode: 'contain',
-  style: StyleSheet.absoluteFill,
 };
 
 const viewConfig = {
@@ -87,7 +91,7 @@ class LottieView extends React.Component {
     });
   }
 
-  play(startFrame, endFrame) {
+  play(startFrame = -1, endFrame = -1) {
     this.runCommand('play', [startFrame, endFrame]);
   }
 
@@ -96,10 +100,16 @@ class LottieView extends React.Component {
   }
 
   runCommand(name, args = []) {
+    const handle = this.getHandle();
+    if (!handle) {
+      console.warn('Trying to animate a view on an unmounted component');
+      return null;
+    }
+
     return Platform.select({
       android: () =>
         UIManager.dispatchViewManagerCommand(
-          this.getHandle(),
+          handle,
           UIManager.LottieAnimationView.Commands[name],
           args,
         ),
@@ -113,21 +123,35 @@ class LottieView extends React.Component {
 
   refRoot(root) {
     this.root = root;
+    if (this.props.autoPlay) {
+      this.play();
+    }
   }
 
   render() {
-    const { source } = this.props;
+    const { style, source, autoSize, ...rest } = this.props;
+
     const sourceName = typeof source === 'string' ? source : undefined;
     const sourceJson = typeof source === 'string' ? undefined : JSON.stringify(source);
 
+    const aspectRatioStyle = sourceJson ? { aspectRatio: source.w / source.h } : undefined;
+
+    const styleObject = StyleSheet.flatten(style);
+    let sizeStyle;
+    if (!styleObject || (styleObject.width === undefined && styleObject.height === undefined)) {
+      sizeStyle = autoSize && sourceJson ? { width: source.w } : StyleSheet.absoluteFill;
+    }
+
     return (
-      <NativeLottieView
-        ref={this.refRoot}
-        {...this.props}
-        source={undefined}
-        sourceName={sourceName}
-        sourceJson={sourceJson}
-      />
+      <View style={[aspectRatioStyle, sizeStyle, style]}>
+        <AnimatedNativeLottieView
+          ref={this.refRoot}
+          {...rest}
+          style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
+          sourceName={sourceName}
+          sourceJson={sourceJson}
+        />
+      </View>
     );
   }
 }
@@ -135,22 +159,4 @@ class LottieView extends React.Component {
 LottieView.propTypes = propTypes;
 LottieView.defaultProps = defaultProps;
 
-const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
-
-AnimatedLottieView.prototype.play = function play(startFrame = -1, endFrame = -1) {
-  if (this.getNode()) {
-    return this.getNode().play(startFrame, endFrame);
-  }
-  console.warn('Trying to animate a view on an unmounted component');
-  return null;
-};
-
-AnimatedLottieView.prototype.reset = function pause() {
-  if (this.getNode()) {
-    return this.getNode().reset();
-  }
-  console.warn('Trying to animate a view on an unmounted component');
-  return null;
-};
-
-module.exports = AnimatedLottieView;
+module.exports = LottieView;
