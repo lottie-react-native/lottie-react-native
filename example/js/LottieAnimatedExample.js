@@ -75,7 +75,6 @@ export default class LottieAnimatedExample extends React.Component {
         }).start(({ finished }) => {
           if (finished) {
             this.setState({ isPlaying: false });
-            this.forceUpdate();
           }
         });
       }
