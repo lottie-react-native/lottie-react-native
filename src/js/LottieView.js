@@ -54,6 +54,7 @@ const propTypes = {
   progress: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   speed: PropTypes.number,
   loop: PropTypes.bool,
+  autoPlay: PropTypes.bool,
   autoSize: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
@@ -64,6 +65,7 @@ const defaultProps = {
   progress: 0,
   speed: 1,
   loop: true,
+  autoPlay: false,
   autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
   resizeMode: 'contain',
@@ -121,6 +123,9 @@ class LottieView extends React.Component {
 
   refRoot(root) {
     this.root = root;
+    if (this.props.autoPlay) {
+      this.play();
+    }
   }
 
   render() {
