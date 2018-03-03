@@ -48,7 +48,6 @@ export default class LottieAnimatedExample extends React.Component {
       loop: true,
     };
     this.onValueChange = this.onValueChange.bind(this);
-    this.onPlayPress = this.onPlayPress.bind(this);
     this.onInversePress = this.onInversePress.bind(this);
     this.setAnim = this.setAnim.bind(this);
   }
@@ -57,7 +56,7 @@ export default class LottieAnimatedExample extends React.Component {
     this.state.progress.setValue(value);
   }
 
-  onPlayPress(shouldPlay = !this.state.isPlaying) {
+  manageAnimation = shouldPlay => {
     if (!this.state.progress) {
       if (shouldPlay) {
         this.anim.play();
@@ -81,12 +80,13 @@ export default class LottieAnimatedExample extends React.Component {
     }
 
     this.setState({ isPlaying: shouldPlay });
-  }
+  };
 
-  stopAnimation = () => this.onPlayPress(false);
+  onPlayPress = () => this.manageAnimation(!this.state.isPlaying);
+  stopAnimation = () => this.manageAnimation(false);
 
   onInversePress() {
-    this.setState(state => ({ ...state, isInverse: !state.isInverse }));
+    this.setState(state => ({ isInverse: !state.isInverse }));
   }
 
   setAnim(anim) {
@@ -119,7 +119,10 @@ export default class LottieAnimatedExample extends React.Component {
         <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
           <View style={styles.controlsRow}>
             <TouchableOpacity
-              onPress={() => this.setState(state => ({ ...state, loop: !state.loop }))}
+              onPress={() => {
+                this.stopAnimation();
+                this.setState(state => ({ loop: !state.loop }));
+              }}
               disabled={!!progress}
             >
               <Image
