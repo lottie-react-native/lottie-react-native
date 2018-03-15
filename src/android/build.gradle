@@ -23,5 +23,5 @@ android {
 
 dependencies {
   provided "com.facebook.react:react-native:+"
-  compile 'com.airbnb.android:lottie:2.3.1'
+  compile 'com.airbnb.android:lottie:2.5.+'
 }
