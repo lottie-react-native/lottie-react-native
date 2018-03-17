@@ -77,6 +77,14 @@ declare module "lottie-react-native" {
      * Refer to https://facebook.github.io/react-native/docs/image.html#resizemode
      */
     resizeMode?: "cover" | "contain" | "center"
+
+    /**
+     * [Android]. Allows to specify kind of cache used for animation. Default value weak.
+     * strong - cached forever
+     * weak   - cached as long it is in active use
+     * none   - not cached
+     */
+    cacheStrategy?: 'strong' | 'weak' | 'none';
   }
 
   /**
