@@ -16,14 +16,13 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> {
-  public static final String TAG = LottieAnimationViewManager.class.getSimpleName();
+  private static final String TAG = LottieAnimationViewManager.class.getSimpleName();
 
   private static final String REACT_CLASS = "LottieAnimationView";
   private static final int VERSION = 1;
   private static final int COMMAND_PLAY = 1;
   private static final int COMMAND_RESET = 2;
 
-  // The idea here is to keep property manager for the view as long as the view is alive
   private Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap = new WeakHashMap<>();
 
   @Override public Map<String, Object> getExportedViewConstants() {

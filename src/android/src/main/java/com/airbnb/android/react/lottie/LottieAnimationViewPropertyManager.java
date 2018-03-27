@@ -9,7 +9,17 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
+/**
+ * Class responsible for applying the properties to the LottieView.
+ * The way react-native works makes it impossible to predict in which order properties will be set,
+ * also some of the properties of the LottieView needs to be set simultaneously.
+ *
+ * To solve this, instance of this class accumulates all changes to the view and applies them at
+ * the end of react transaction, so it could control how changes are applied.
+ */
 public class LottieAnimationViewPropertyManager {
+
+  private static final String TAG = LottieAnimationViewPropertyManager.class.getSimpleName();
 
   private final WeakReference<LottieAnimationView> viewWeakReference;
 
@@ -19,8 +29,8 @@ public class LottieAnimationViewPropertyManager {
   private Float speed;
 
   /**
-   * Should be set to true if one of the animationName related parameters has changed as result of latest
-   * reconciliation. We need to update the animation in this case.
+   * Should be set to true if one of the animationName related parameters has changed as a result
+   * of last reconciliation. We need to update the animation in this case.
    */
   private boolean animationNameDirty;
 
@@ -45,7 +55,7 @@ public class LottieAnimationViewPropertyManager {
       this.animationJson = new JSONObject(json);
     } catch (Exception e) {
        // TODO: expose this to the user better. maybe an `onError` event?
-       Log.e(LottieAnimationViewManager.TAG,"setSourceJsonError", e);
+       Log.e(TAG,"setSourceJsonError", e);
     }
   }
 
@@ -84,7 +94,7 @@ public class LottieAnimationViewPropertyManager {
 
   /**
    * Updates the view with changed fields.
-   * Majority of the properties here are indepenbent so they are has to be reset to null
+   * Majority of the properties here are independent so they are has to be reset to null
    * as soon as view is updated with the value.
    *
    * The only exception from this rule is the group of the properties for the animation.
@@ -93,50 +103,52 @@ public class LottieAnimationViewPropertyManager {
    */
   public void commitChanges() {
     LottieAnimationView view = viewWeakReference.get();
-    if (view != null) {
-      if (animationJson != null) {
-        view.setAnimation(animationJson);
-      }
+    if (view == null) {
+      return;
+    }
 
-      if (animationNameDirty) {
-        view.setAnimation(animationName, cacheStrategy);
-        animationNameDirty = false;
-      }
+    if (animationJson != null) {
+      view.setAnimation(animationJson);
+    }
 
-      if (progress != null) {
-        view.setProgress(progress);
-        progress = null;
-      }
+    if (animationNameDirty) {
+      view.setAnimation(animationName, cacheStrategy);
+      animationNameDirty = false;
+    }
 
-      if (loop != null) {
-        view.loop(loop);
-        loop = null;
-      }
+    if (progress != null) {
+      view.setProgress(progress);
+      progress = null;
+    }
 
-      if (speed != null) {
-        view.setSpeed(speed);
-        speed = null;
-      }
+    if (loop != null) {
+      view.loop(loop);
+      loop = null;
+    }
 
-      if (useHardwareAcceleration != null) {
-        view.useHardwareAcceleration(useHardwareAcceleration);
-        useHardwareAcceleration = null;
-      }
+    if (speed != null) {
+      view.setSpeed(speed);
+      speed = null;
+    }
 
-      if (scaleType != null) {
-        view.setScaleType(scaleType);
-        scaleType = null;
-      }
+    if (useHardwareAcceleration != null) {
+      view.useHardwareAcceleration(useHardwareAcceleration);
+      useHardwareAcceleration = null;
+    }
 
-      if (imageAssetsFolder != null) {
-        view.setImageAssetsFolder(imageAssetsFolder);
-        imageAssetsFolder = null;
-      }
+    if (scaleType != null) {
+      view.setScaleType(scaleType);
+      scaleType = null;
+    }
 
-      if (enableMergePaths != null) {
-          view.enableMergePathsForKitKatAndAbove(enableMergePaths);
-          enableMergePaths = null;
-      }
+    if (imageAssetsFolder != null) {
+      view.setImageAssetsFolder(imageAssetsFolder);
+      imageAssetsFolder = null;
+    }
+
+    if (enableMergePaths != null) {
+        view.enableMergePathsForKitKatAndAbove(enableMergePaths);
+        enableMergePaths = null;
     }
   }
 }
