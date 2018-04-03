@@ -1,3 +1,9 @@
+## 2.5.0 (April 3, 2018)
+* Fixed typescript support 
+* Bump Lottie to 2.5
+* Support Carthage projects
+* Fix resizeMode for iOS and TypeScript
+
 ## 2.3.2 (January 5, 2018)
 * Moved eslint deps to devDeps
 * Expose hardwareAccelerationAndroid (#254)
