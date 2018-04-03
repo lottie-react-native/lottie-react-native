@@ -1,4 +1,4 @@
-## 2.3.3 (April 3, 2018)
+## 2.5.0 (April 3, 2018)
 * Fixed typescript support 
 * Bump Lottie to 2.5
 * Support Carthage projects
