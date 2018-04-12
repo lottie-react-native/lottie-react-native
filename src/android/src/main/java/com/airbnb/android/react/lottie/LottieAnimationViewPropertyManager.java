@@ -1,12 +1,11 @@
 package com.airbnb.android.react.lottie;
 
-import android.util.Log;
+import android.util.JsonReader;
 import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import org.json.JSONObject;
-
+import java.io.StringReader;
 import java.lang.ref.WeakReference;
 
 /**
@@ -23,7 +22,7 @@ public class LottieAnimationViewPropertyManager {
 
   private final WeakReference<LottieAnimationView> viewWeakReference;
 
-  private JSONObject animationJson;
+  private String animationJson;
   private Float progress;
   private Boolean loop;
   private Float speed;
@@ -51,12 +50,7 @@ public class LottieAnimationViewPropertyManager {
   }
 
   public void setAnimationJson(String json) {
-    try {
-      this.animationJson = new JSONObject(json);
-    } catch (Exception e) {
-       // TODO: expose this to the user better. maybe an `onError` event?
-       Log.e(TAG,"setSourceJsonError", e);
-    }
+    this.animationJson = json;
   }
 
   public void setCacheStrategy(LottieAnimationView.CacheStrategy strategy) {
@@ -108,7 +102,7 @@ public class LottieAnimationViewPropertyManager {
     }
 
     if (animationJson != null) {
-      view.setAnimation(animationJson);
+      view.setAnimation(new JsonReader(new StringReader(animationJson)));
     }
 
     if (animationNameDirty) {

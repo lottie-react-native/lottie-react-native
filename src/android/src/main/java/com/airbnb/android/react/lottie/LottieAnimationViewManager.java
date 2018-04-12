@@ -99,8 +99,7 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   @ReactProp(name = "cacheStrategy")
   public void setCacheStrategy(LottieAnimationView view, String name) {
     if (name != null) {
-      // TODO: Use LottieAnimationView.DEFAULT_CACHE_STRATEGY when available
-      LottieAnimationView.CacheStrategy strategy = LottieAnimationView.CacheStrategy.Weak;
+      LottieAnimationView.CacheStrategy strategy = LottieAnimationView.DEFAULT_CACHE_STRATEGY;
       switch (name) {
         case "none":
           strategy = LottieAnimationView.CacheStrategy.None;
