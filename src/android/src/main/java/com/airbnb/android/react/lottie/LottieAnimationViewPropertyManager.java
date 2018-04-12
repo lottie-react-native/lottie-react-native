@@ -18,8 +18,6 @@ import java.lang.ref.WeakReference;
  */
 public class LottieAnimationViewPropertyManager {
 
-  private static final String TAG = LottieAnimationViewPropertyManager.class.getSimpleName();
-
   private final WeakReference<LottieAnimationView> viewWeakReference;
 
   private String animationJson;
