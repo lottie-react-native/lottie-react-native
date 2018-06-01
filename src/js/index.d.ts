@@ -77,6 +77,12 @@ declare module "lottie-react-native" {
      * Refer to https://facebook.github.io/react-native/docs/image.html#resizemode
      */
     resizeMode?: "cover" | "contain" | "center"
+
+    /**
+     * A boolean flag indicating whether or not the animation should start automatically when
+     * mounted. This only affects the imperative API.
+     */
+    autoPlay?: boolean
   }
 
   /**
