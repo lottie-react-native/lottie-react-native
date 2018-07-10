@@ -76,7 +76,7 @@ declare module "lottie-react-native" {
      * dimensions.
      * Refer to https://facebook.github.io/react-native/docs/image.html#resizemode
      */
-    resizeMode?: "cover" | "contain" | "center"
+    resizeMode?: "cover" | "contain" | "center";
 
     /**
      * [Android]. Allows to specify kind of cache used for animation. Default value weak.
@@ -85,6 +85,12 @@ declare module "lottie-react-native" {
      * none   - not cached
      */
     cacheStrategy?: 'strong' | 'weak' | 'none';
+
+    /**
+     * A boolean flag indicating whether or not the animation should start automatically when
+     * mounted. This only affects the imperative API.
+     */
+    autoPlay?: boolean;
   }
 
   /**
