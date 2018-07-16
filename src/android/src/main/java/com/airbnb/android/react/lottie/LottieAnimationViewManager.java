@@ -89,12 +89,7 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
 
   @ReactProp(name = "sourceJson")
   public void setSourceJson(LottieAnimationView view, String json) {
-    try {
-        view.setAnimation(new JSONObject(json));
-    } catch (Exception e) {
-      // TODO: expose this to the user better. maybe an `onError` event?
-      Log.e(TAG,"setSourceJsonError", e);
-    }
+    view.setAnimationFromJson(json);
   }
 
   @ReactProp(name = "resizeMode")
