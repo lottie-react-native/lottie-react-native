@@ -1,14 +1,19 @@
 apply plugin: 'com.android.library'
 apply from: 'gradle-maven-push.gradle'
 
+def DEFAULT_COMPILE_SDK_VERSION   = 26
+def DEFAULT_BUILD_TOOLS_VERSION   = "26.0.1"
+def DEFAULT_TARGET_SDK_VERSION    = 26
+def DEFAULT_MIN_SDK_VERSION       = 16
+
 android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.1"
+  compileSdkVersion rootProject.hasProperty('compileSdkVersion') ? rootProject.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
+  buildToolsVersion rootProject.hasProperty('buildToolsVersion') ? rootProject.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
   publishNonDefault true
 
   defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 26
+    minSdkVersion rootProject.hasProperty('minSdkVersion') ? rootProject.minSdkVersion : DEFAULT_MIN_SDK_VERSION
+    targetSdkVersion rootProject.hasProperty('targetSdkVersion') ? rootProject.targetSdkVersion : DEFAULT_TARGET_SDK_VERSION
   }
 
   lintOptions {
@@ -22,6 +27,6 @@ android {
 }
 
 dependencies {
-  provided "com.facebook.react:react-native:+"
-  compile 'com.airbnb.android:lottie:2.5.+'
+  compileOnly "com.facebook.react:react-native:+"
+  implementation 'com.airbnb.android:lottie:2.5.+'
 }
