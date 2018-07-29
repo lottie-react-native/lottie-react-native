@@ -70,6 +70,19 @@ declare module "lottie-react-native" {
      * @platform android
      */
     hardwareAccelerationAndroid?: boolean;
+
+    /**
+     * Determines how to resize the animated view when the frame doesn't match the raw image 
+     * dimensions.
+     * Refer to https://facebook.github.io/react-native/docs/image.html#resizemode
+     */
+    resizeMode?: "cover" | "contain" | "center"
+
+    /**
+     * A boolean flag indicating whether or not the animation should start automatically when
+     * mounted. This only affects the imperative API.
+     */
+    autoPlay?: boolean
   }
 
   /**
