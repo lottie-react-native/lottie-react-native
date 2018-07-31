@@ -1,3 +1,9 @@
+## 2.5.1 (July 30, 2018)
+* Fixed built library
+* Refactor + RN 0.56
+* Autoplay animations when animation's source has changed
+* Use project-wide properties and new dependency
+
 ## 2.5.0 (April 3, 2018)
 * Fixed typescript support 
 * Bump Lottie to 2.5
