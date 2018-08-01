@@ -1,3 +1,9 @@
+## 2.5.6 (August 1, 2018)
+* Reverted dependencies to ensure compatibility with RN
+
+## 2.5.5 (August 1, 2018)
+* Fixed Android builds
+
 ## 2.5.1 (July 30, 2018)
 * Fixed built library
 * Refactor + RN 0.56
