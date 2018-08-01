@@ -44,7 +44,7 @@ react-native link lottie-react-native
 
 Lottie's animation progress can be controlled with an `Animated` value:
 
-```
+```jsx
 import React from 'react';
 import { Animated, Easing } from 'react-native';
 import LottieView from 'lottie-react-native';
@@ -75,7 +75,7 @@ export default class BasicExample extends React.Component {
 
 Additionally, there is an imperative API which is sometimes simpler.
 
-```
+```jsx
 import React from 'react';
 import LottieView from 'lottie-react-native';
 
