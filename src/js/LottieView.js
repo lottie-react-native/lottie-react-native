@@ -86,6 +86,12 @@ class LottieView extends React.Component {
     this.refRoot = this.refRoot.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.source.nm !== prevProps.source.nm && this.props.autoPlay) {
+      this.play();
+    }
+  }
+
   setNativeProps(props) {
     UIManager.updateView(this.getHandle(), this.viewConfig.uiViewClassName, {
       progress: props.progress,

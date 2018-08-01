@@ -17,7 +17,7 @@
 
 | Method | Description |
 |---|---|
-|**`play`**| Play the animation all the way through, at the speed specified as a prop.
+|**`play`**| Play the animation all the way through, at the speed specified as a prop. It can also play a section of the animation when called as `play(startFrame, endFrame)`.
 |**`reset`**| Reset the animation back to `0` progress.
 
 ## Using animations with assets
