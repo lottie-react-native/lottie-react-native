@@ -59,6 +59,7 @@ const propTypes = {
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   hardwareAccelerationAndroid: PropTypes.bool,
+  cacheStrategy: PropTypes.oneOf(['none', 'weak', 'strong']),
 };
 
 const defaultProps = {
@@ -83,6 +84,12 @@ class LottieView extends React.Component {
     super(props);
     this.viewConfig = viewConfig;
     this.refRoot = this.refRoot.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.source.nm !== prevProps.source.nm && this.props.autoPlay) {
+      this.play();
+    }
   }
 
   setNativeProps(props) {
