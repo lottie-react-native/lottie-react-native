@@ -6,6 +6,7 @@
   "types": "src/js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "prepare": "npm run build",
     "build": "babel src/js --out-dir lib",
     "watch": "babel src/js --out-dir lib --watch",
     "build:pods": "cd example/ios; bundle exec pod install; cd -",

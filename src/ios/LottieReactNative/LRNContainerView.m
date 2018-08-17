@@ -96,13 +96,15 @@
 # pragma mark Private
 
 - (void)replaceAnimationView:(LOTAnimationView *)next {
+  UIViewContentMode contentMode = UIViewContentModeScaleAspectFit;
   if (_animationView != nil) {
+    contentMode = _animationView.contentMode;
     [_animationView removeFromSuperview];
   }
   _animationView = next;
   [self addSubview: next];
   [_animationView reactSetFrame:self.frame];
-  [_animationView setContentMode:UIViewContentModeScaleAspectFit];
+  [_animationView setContentMode:contentMode];
   [self applyProperties];
 }
 
