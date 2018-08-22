@@ -14,6 +14,8 @@ import {
 import LottieView from 'lottie-react-native';
 import ExamplePicker from './ExamplePicker';
 
+const AnimatedSlider = Animated.createAnimatedComponent(Slider);
+
 const playIcon = require('./images/play.png');
 const pauseIcon = require('./images/pause.png');
 const loopIcon = require('./images/loop.png');
@@ -169,11 +171,10 @@ export default class LottieAnimatedExample extends React.Component {
             <View>
               <Text>Progress:</Text>
             </View>
-            <Slider
+            <AnimatedSlider
               minimumValue={0}
               maximumValue={1}
-              // eslint-disable-next-line no-underscore-dangle
-              value={progress ? progress.__getValue() : 0}
+              value={progress || 0}
               onValueChange={this.onProgressChange}
               disabled={!progress}
             />
