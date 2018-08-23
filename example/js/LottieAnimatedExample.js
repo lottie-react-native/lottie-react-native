@@ -36,23 +36,13 @@ const EXAMPLES = [
 ];
 
 export default class LottieAnimatedExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      example: EXAMPLES[0],
-      duration: 3000,
-      isPlaying: true,
-      isInverse: false,
-      loop: true,
-    };
-    this.onValueChange = this.onValueChange.bind(this);
-    this.onInversePress = this.onInversePress.bind(this);
-    this.setAnim = this.setAnim.bind(this);
-  }
-
-  onValueChange(value) {
-    this.state.progress.setValue(value);
-  }
+  state = {
+    example: EXAMPLES[0],
+    duration: 3000,
+    isPlaying: true,
+    isInverse: false,
+    loop: true,
+  };
 
   manageAnimation = shouldPlay => {
     if (!this.state.progress) {
@@ -70,10 +60,8 @@ export default class LottieAnimatedExample extends React.Component {
           duration: this.state.duration,
           easing: Easing.linear,
           useNativeDriver: true,
-        }).start(({ finished }) => {
-          if (finished) {
-            this.setState({ isPlaying: false });
-          }
+        }).start(() => {
+          this.setState({ isPlaying: false });
         });
       }
     }
@@ -84,13 +72,13 @@ export default class LottieAnimatedExample extends React.Component {
   onPlayPress = () => this.manageAnimation(!this.state.isPlaying);
   stopAnimation = () => this.manageAnimation(false);
 
-  onInversePress() {
-    this.setState(state => ({ isInverse: !state.isInverse }));
-  }
+  onInversePress = () => this.setState(state => ({ isInverse: !state.isInverse }));
+  onProgressChange = progress => this.state.progress.setValue(progress);
+  onDurationChange = duration => this.setState({ duration });
 
-  setAnim(anim) {
+  setAnim = anim => {
     this.anim = anim;
-  }
+  };
 
   render() {
     const { duration, isPlaying, isInverse, progress, loop, example } = this.state;
@@ -177,10 +165,11 @@ export default class LottieAnimatedExample extends React.Component {
               <Text>Duration: ({Math.round(duration)}ms)</Text>
             </View>
             <Slider
+              step={50}
               minimumValue={50}
               maximumValue={4000}
               value={duration}
-              onValueChange={d => this.setState({ duration: d })}
+              onValueChange={this.onDurationChange}
               disabled={!progress}
             />
           </View>
