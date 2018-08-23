@@ -33,17 +33,13 @@ const EXAMPLES = [
   makeExample('Twitter Heart', () => require('./animations/TwitterHeart.json')),
   makeExample('Watermelon', () => require('./animations/Watermelon.json')),
   makeExample('Motion Corpse', () => require('./animations/MotionCorpse-Jrcanest.json')),
-].reduce((acc, e) => {
-  // eslint-disable-next-line no-param-reassign
-  acc[e.name] = e;
-  return acc;
-}, {});
+];
 
 export default class LottieAnimatedExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      example: Object.keys(EXAMPLES)[0],
+      example: EXAMPLES[0],
       duration: 3000,
       isPlaying: true,
       isInverse: false,
@@ -73,6 +69,7 @@ export default class LottieAnimatedExample extends React.Component {
           toValue: 1,
           duration: this.state.duration,
           easing: Easing.linear,
+          useNativeDriver: true,
         }).start(({ finished }) => {
           if (finished) {
             this.setState({ isPlaying: false });
@@ -97,26 +94,22 @@ export default class LottieAnimatedExample extends React.Component {
 
   render() {
     const { duration, isPlaying, isInverse, progress, loop, example } = this.state;
-    const selectedExample = EXAMPLES[example];
     return (
       <View style={{ flex: 1 }}>
         <ExamplePicker
           example={example}
           examples={EXAMPLES}
-          onChange={e => {
+          onChange={(e, index) => {
             this.stopAnimation();
-            this.setState({ example: e });
+            this.setState({ example: EXAMPLES[index] });
           }}
         />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <LottieView
             ref={this.setAnim}
-            autoPlay
-            style={[
-              selectedExample.width && { width: selectedExample.width },
-              isInverse && styles.lottieViewInvse,
-            ]}
-            source={selectedExample.getJson()}
+            autoPlay={!progress}
+            style={[example.width && { width: example.width }, isInverse && styles.lottieViewInvse]}
+            source={example.getJson()}
             progress={progress}
             loop={loop}
             enableMergePathsAndroidForKitKatAndAbove
