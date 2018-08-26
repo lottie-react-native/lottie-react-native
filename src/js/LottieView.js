@@ -53,6 +53,7 @@ const propTypes = {
   resizeMode: PropTypes.oneOf(['cover', 'contain', 'center']),
   progress: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   speed: PropTypes.number,
+  duration: PropTypes.number,
   loop: PropTypes.bool,
   autoPlay: PropTypes.bool,
   autoSize: PropTypes.bool,
@@ -149,11 +150,17 @@ class LottieView extends React.Component {
       sizeStyle = autoSize && sourceJson ? { width: source.w } : StyleSheet.absoluteFill;
     }
 
+    const speed =
+      this.props.duration && sourceJson && this.props.source.fr
+        ? Math.round(this.props.source.op / this.props.source.fr * 1000 / this.props.duration)
+        : this.props.speed;
+
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
         <AnimatedNativeLottieView
           ref={this.refRoot}
           {...rest}
+          speed={speed}
           style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
           sourceName={sourceName}
           sourceJson={sourceJson}
