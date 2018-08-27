@@ -1,3 +1,6 @@
+## 2.5.7 (August 27, 2018)
+* Fixed Android play method to be run only when the view is attached
+
 ## 2.5.6 (August 1, 2018)
 * Reverted dependencies to ensure compatibility with RN
 
