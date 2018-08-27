@@ -101,6 +101,7 @@ public class LottieAnimationViewPropertyManager {
 
     if (animationJson != null) {
       view.setAnimation(new JsonReader(new StringReader(animationJson)));
+      animationJson = null;
     }
 
     if (animationNameDirty) {
