@@ -14,6 +14,8 @@ import {
 import LottieView from 'lottie-react-native';
 import ExamplePicker from './ExamplePicker';
 
+const AnimatedSlider = Animated.createAnimatedComponent(Slider);
+
 const playIcon = require('./images/play.png');
 const pauseIcon = require('./images/pause.png');
 const loopIcon = require('./images/loop.png');
@@ -31,30 +33,16 @@ const EXAMPLES = [
   makeExample('Twitter Heart', () => require('./animations/TwitterHeart.json')),
   makeExample('Watermelon', () => require('./animations/Watermelon.json')),
   makeExample('Motion Corpse', () => require('./animations/MotionCorpse-Jrcanest.json')),
-].reduce((acc, e) => {
-  // eslint-disable-next-line no-param-reassign
-  acc[e.name] = e;
-  return acc;
-}, {});
+];
 
 export default class LottieAnimatedExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      example: Object.keys(EXAMPLES)[0],
-      duration: 3000,
-      isPlaying: true,
-      isInverse: false,
-      loop: true,
-    };
-    this.onValueChange = this.onValueChange.bind(this);
-    this.onInversePress = this.onInversePress.bind(this);
-    this.setAnim = this.setAnim.bind(this);
-  }
-
-  onValueChange(value) {
-    this.state.progress.setValue(value);
-  }
+  state = {
+    example: EXAMPLES[0],
+    duration: 3000,
+    isPlaying: true,
+    isInverse: false,
+    loop: true,
+  };
 
   manageAnimation = shouldPlay => {
     if (!this.state.progress) {
@@ -71,10 +59,9 @@ export default class LottieAnimatedExample extends React.Component {
           toValue: 1,
           duration: this.state.duration,
           easing: Easing.linear,
-        }).start(({ finished }) => {
-          if (finished) {
-            this.setState({ isPlaying: false });
-          }
+          useNativeDriver: true,
+        }).start(() => {
+          this.setState({ isPlaying: false });
         });
       }
     }
@@ -85,36 +72,32 @@ export default class LottieAnimatedExample extends React.Component {
   onPlayPress = () => this.manageAnimation(!this.state.isPlaying);
   stopAnimation = () => this.manageAnimation(false);
 
-  onInversePress() {
-    this.setState(state => ({ isInverse: !state.isInverse }));
-  }
+  onInversePress = () => this.setState(state => ({ isInverse: !state.isInverse }));
+  onProgressChange = progress => this.state.progress.setValue(progress);
+  onDurationChange = duration => this.setState({ duration });
 
-  setAnim(anim) {
+  setAnim = anim => {
     this.anim = anim;
-  }
+  };
 
   render() {
     const { duration, isPlaying, isInverse, progress, loop, example } = this.state;
-    const selectedExample = EXAMPLES[example];
     return (
       <View style={{ flex: 1 }}>
         <ExamplePicker
           example={example}
           examples={EXAMPLES}
-          onChange={e => {
+          onChange={(e, index) => {
             this.stopAnimation();
-            this.setState({ example: e });
+            this.setState({ example: EXAMPLES[index] });
           }}
         />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <LottieView
             ref={this.setAnim}
-            autoPlay
-            style={[
-              selectedExample.width && { width: selectedExample.width },
-              isInverse && styles.lottieViewInvse,
-            ]}
-            source={selectedExample.getJson()}
+            autoPlay={!progress}
+            style={[example.width && { width: example.width }, isInverse && styles.lottieViewInvse]}
+            source={example.getJson()}
             progress={progress}
             loop={loop}
             enableMergePathsAndroidForKitKatAndAbove
@@ -169,11 +152,10 @@ export default class LottieAnimatedExample extends React.Component {
             <View>
               <Text>Progress:</Text>
             </View>
-            <Slider
+            <AnimatedSlider
               minimumValue={0}
               maximumValue={1}
-              // eslint-disable-next-line no-underscore-dangle
-              value={progress ? progress.__getValue() : 0}
+              value={progress || 0}
               onValueChange={this.onProgressChange}
               disabled={!progress}
             />
@@ -183,10 +165,11 @@ export default class LottieAnimatedExample extends React.Component {
               <Text>Duration: ({Math.round(duration)}ms)</Text>
             </View>
             <Slider
+              step={50}
               minimumValue={50}
               maximumValue={4000}
               value={duration}
-              onValueChange={d => this.setState({ duration: d })}
+              onValueChange={this.onDurationChange}
               disabled={!progress}
             />
           </View>

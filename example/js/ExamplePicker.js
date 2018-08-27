@@ -22,9 +22,7 @@ export default class ExamplePicker extends React.Component {
           }),
         }}
       >
-        {Object.keys(this.props.examples)
-          .map(name => this.props.examples[name])
-          .map(ex => <Picker.Item key={ex.name} label={ex.name} value={ex.name} />)}
+        {this.props.examples.map(ex => <Picker.Item key={ex.name} label={ex.name} value={ex} />)}
       </Picker>
     );
   }
