@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewCompat;
 import android.widget.ImageView;
+import android.view.View.OnAttachStateChangeListener;
+import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.facebook.react.bridge.ReadableArray;
@@ -62,6 +64,21 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
             if (ViewCompat.isAttachedToWindow(view)) {
               view.setProgress(0f);
               view.playAnimation();
+            } else {
+              view.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
+                   @Override
+                   public void onViewAttachedToWindow(View v) {
+                      LottieAnimationView view = (LottieAnimationView)v;
+                      view.setProgress(0f);
+                      view.playAnimation();
+                      view.removeOnAttachStateChangeListener(this);
+                   }
+
+                   @Override
+                   public void onViewDetachedFromWindow(View v) {
+                      view.removeOnAttachStateChangeListener(this);
+                   }
+               });
             }
           }
         });
