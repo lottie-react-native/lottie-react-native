@@ -1,6 +1,6 @@
 {
   "name": "lottie-react-native",
-  "version": "2.5.6",
+  "version": "2.5.7",
   "description": "React Native bindings for Lottie",
   "main": "lib/index.js",
   "types": "src/js",
