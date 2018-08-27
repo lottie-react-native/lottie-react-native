@@ -1,3 +1,7 @@
+## 2.5.8 (August 27, 2018)
+* Fixed Android flickering
+* Added missing duration prop
+
 ## 2.5.7 (August 27, 2018)
 * Fixed Android play method to be run only when the view is attached
 
