@@ -110,7 +110,6 @@ class LottieView extends React.Component {
   runCommand(name, args = []) {
     const handle = this.getHandle();
     if (!handle) {
-      console.warn('Trying to animate a view on an unmounted component');
       return null;
     }
 
