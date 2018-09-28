@@ -226,13 +226,8 @@
 		11FA5C5B1C4A1296003AC2EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../../ios/Carthage/Build/iOS";
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../../node_modules/react-native/React/**",
-					"$(SRCROOT)/../../node_modules/react-native/ReactCommon/**",
-					"$(SRCROOT)/../../../react-native/React/**",
-					"$(SRCROOT)/../../../react-native/ReactCommon/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -243,13 +238,8 @@
 		11FA5C5C1C4A1296003AC2EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../../ios/Carthage/Build/iOS";
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../../node_modules/react-native/React/**",
-					"$(SRCROOT)/../../node_modules/react-native/ReactCommon/**",
-					"$(SRCROOT)/../../../react-native/React/**",
-					"$(SRCROOT)/../../../react-native/ReactCommon/**",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
