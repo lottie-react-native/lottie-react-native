@@ -26,7 +26,7 @@ const LottieViewManager = SafeModule.module({
 });
 
 const ViewStyleExceptBorderPropType = (props, propName, componentName, ...rest) => {
-  const flattened = StyleSheet.flatten(props[propName]);
+  const flattened = StyleSheet.flatten(props[propName] || {});
   const usesBorder = Object.keys(flattened).some(key => key.startsWith('border'));
   if (usesBorder) {
     return Error(
