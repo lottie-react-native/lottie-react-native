@@ -91,6 +91,18 @@ declare module "lottie-react-native" {
      * mounted. This only affects the imperative API.
      */
     autoPlay?: boolean;
+
+    /**
+     * A boolean flag indicating whether or not the animation should size itself automatically
+     * according to the width in the animation's JSON. This only works when source is an actual 
+     * JS object of an animation.
+     */
+    autoSize?: boolean;
+
+    /**
+     * A boolean flag to enable merge patching in android.  
+     */
+    enableMergePathsAndroidForKitKatAndAbove?: boolean;
   }
 
   /**
@@ -106,5 +118,5 @@ declare module "lottie-react-native" {
     reset(): void;
   }
 
-  export = AnimatedLottieView;
+  export default AnimatedLottieView;
 }
