@@ -4,6 +4,7 @@ import android.util.JsonReader;
 import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 
 import java.io.StringReader;
 import java.lang.ref.WeakReference;
@@ -115,7 +116,7 @@ public class LottieAnimationViewPropertyManager {
     }
 
     if (loop != null) {
-      view.loop(loop);
+      view.setRepeatCount(loop ? LottieDrawable.INFINITE : 0);
       loop = null;
     }
 
