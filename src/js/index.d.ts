@@ -42,6 +42,12 @@ declare module "lottie-react-native" {
      * default value is 1.
      */
     speed?: number;
+    
+    /**
+     * The duration of the animation in ms. Takes precedence over speed when set.
+     * This only works when source is an actual JS object of an animation.
+     */
+    duration?: number;
 
     /**
      * A boolean flag indicating whether or not the animation should loop.
