@@ -124,5 +124,5 @@ declare module "lottie-react-native" {
     reset(): void;
   }
 
-  export default AnimatedLottieView;
+  export = AnimatedLottieView;
 }
