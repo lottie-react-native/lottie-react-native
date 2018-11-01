@@ -109,6 +109,12 @@ declare module "lottie-react-native" {
      * A boolean flag to enable merge patching in android.  
      */
     enableMergePathsAndroidForKitKatAndAbove?: boolean;
+
+    /**
+     * A callback function which will be called when animation is finished. Note that this
+     * callback will be called only when `loop` is set to false.
+     */
+    onAnimationFinish ?: (isCancelled: boolean) => void;
   }
 
   /**

@@ -38,9 +38,56 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   }
 
   @Override public LottieAnimationView createViewInstance(ThemedReactContext context) {
-    LottieAnimationView view = new LottieAnimationView(context);
+    final LottieAnimationView view = new LottieAnimationView(context);
     view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+    view.addAnimatorListener(new Animator.AnimatorListener() {
+      @Override
+      public void onAnimationStart(Animator animation) {}
+
+      @Override
+      public void onAnimationEnd(Animator animation) {
+        sendOnAnimationFinishEvent(view, false);
+      }
+
+      @Override
+      public void onAnimationCancel(Animator animation) {
+        sendOnAnimationFinishEvent(view, true);
+      }
+
+      @Override
+      public void onAnimationRepeat(Animator animation) {}
+    });
     return view;
+  }
+
+  private void sendOnAnimationFinishEvent(final LottieAnimationView view, boolean isCancelled) {
+    WritableMap event = Arguments.createMap();
+    event.putBoolean("isCancelled", isCancelled);
+    Context ctx = view.getContext();
+    ReactContext reactContext = null;
+    while (ctx instanceof ContextWrapper) {
+      if (ctx instanceof ReactContext) {
+        reactContext = (ReactContext)ctx;
+        break;
+      }
+      ctx = ((ContextWrapper)ctx).getBaseContext();
+    }
+    if (reactContext != null) {
+      reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+          view.getId(),
+          "animationFinish",
+          event);
+    }
+  }
+
+  @Override public Map getExportedCustomBubblingEventTypeConstants() {
+    return MapBuilder.builder()
+        .put(
+            "animationFinish",
+            MapBuilder.of(
+                "phasedRegistrationNames",
+                MapBuilder.of("bubbled", "onAnimationFinish")))
+        .build();
   }
 
   @Override public Map<String, Integer> getCommandsMap() {

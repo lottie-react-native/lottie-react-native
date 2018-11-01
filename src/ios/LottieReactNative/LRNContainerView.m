@@ -78,11 +78,22 @@
   }
 }
 
+- (void)play:(nullable LOTAnimationCompletionBlock)completion {
+  if (_animationView != nil) {
+    if (completion != nil) {
+      [_animationView playWithCompletion:completion];
+    } else {
+      [_animationView play];
+    }
+  }
+}
+
 - (void)playFromFrame:(NSNumber *)startFrame
-              toFrame:(NSNumber *)endFrame {
+              toFrame:(NSNumber *)endFrame
+       withCompletion:(nullable LOTAnimationCompletionBlock)completion {
   if (_animationView != nil) {
     [_animationView playFromFrame:startFrame
-                          toFrame:endFrame withCompletion:nil];
+                          toFrame:endFrame withCompletion:completion];
   }
 }
 
