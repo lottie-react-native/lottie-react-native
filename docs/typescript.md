@@ -25,7 +25,7 @@ import LottieView from "lottie-react-native";
 ### Sample code
 
 ```tsx
-import * as React from 'react';
+import React from 'react';
 import LottieView from 'lottie-react-native'; // if you have "esModuleInterop": true
 // import LottieView = require('lottie-react-native'); // otherwise you have "esModuleInterop": false
 
