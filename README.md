@@ -42,6 +42,8 @@ react-native link lottie-react-native
 
 # Usage
 
+(If you are using TypeScript, please read [this first](/docs/typescript.md))
+
 LottieView can be used in a declarative way:
 
 ```jsx

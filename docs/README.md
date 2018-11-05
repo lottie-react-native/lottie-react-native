@@ -1,6 +1,7 @@
 ## Table of Contents
 
 * [Introduction](/README.md)
+* [Caveats with TypeScript](/docs/typescript.md)
 * [React Native API](/docs/api.md)
 * [Change Log](/CHANGELOG.md)
 * [Contributing Guide](/CONTRIBUTING.md)
