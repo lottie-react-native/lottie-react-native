@@ -1,3 +1,9 @@
+## 2.5.10 (November 6, 2018)
+
+- Fixed proptype checking on LottieView
+- Added missing typings
+- Use commonjs object export compatible syntax
+
 ## 2.5.9 (October 10, 2018)
 
 - Fixed Android build - deprecated build script directives
