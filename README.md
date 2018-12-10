@@ -127,7 +127,7 @@ You can find The full list of props and methods available in our [API document](
 |---|---|---|
 |**`source`**| **Mandatory** - The source of animation. This must be a JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')`. This is needed in order to fix things. | *None* |
 |**`style`**| Style attributes for the view, as expected in a standard [`View`](https://facebook.github.io/react-native/docs/layout-props.html). | The `aspectRatio` exported by Bodymovin will be set. Also the `width` if you haven't provided a `width` or `height` |
-|**`loop`**| A boolean flag indicating whether or not the animation should loop. | `false` |
+|**`loop`**| A boolean flag indicating whether or not the animation should loop. | `true` |
 |**`autoPlay`**| A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API. | `false` |
 
 [More...](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md)
