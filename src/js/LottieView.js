@@ -61,6 +61,7 @@ const propTypes = {
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   hardwareAccelerationAndroid: PropTypes.bool,
   cacheStrategy: PropTypes.oneOf(['none', 'weak', 'strong']),
+  onAnimationFinish: PropTypes.func,
 };
 
 const defaultProps = {
@@ -85,6 +86,7 @@ class LottieView extends React.Component {
     super(props);
     this.viewConfig = viewConfig;
     this.refRoot = this.refRoot.bind(this);
+    this.onAnimationFinish = this.onAnimationFinish.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -135,6 +137,12 @@ class LottieView extends React.Component {
     }
   }
 
+  onAnimationFinish(evt) {
+    if (this.props.onAnimationFinish) {
+      this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
+    }
+  }
+
   render() {
     const { style, source, autoSize, ...rest } = this.props;
 
@@ -163,6 +171,7 @@ class LottieView extends React.Component {
           style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
           sourceName={sourceName}
           sourceJson={sourceJson}
+          onAnimationFinish={this.onAnimationFinish}
         />
       </View>
     );
