@@ -30,7 +30,7 @@
 - (void)play;
 - (void)play:(nullable LOTAnimationCompletionBlock)completion;
 - (void)playFromFrame:(NSNumber *)startFrame
-              toFrame:(NSNumber *)endFrame;
+              toFrame:(NSNumber *)endFrame
        withCompletion:(nullable LOTAnimationCompletionBlock)completion;
 - (void)reset;
 
