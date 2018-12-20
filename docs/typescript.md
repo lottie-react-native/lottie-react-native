@@ -16,7 +16,7 @@ The usage of `LottieView` is not that different to its JavaScript counterpart, b
 import LottieView = require("lottie-react-native");
 ```
 
-- Your `tsconfig.json` file deines `"esModuleInterop": true,` and `"allowSyntheticDefaultImports": true,` (the default is `true`). In this case, you can import lottie as:
+- Your `tsconfig.json` file defines `"esModuleInterop": true,` and `"allowSyntheticDefaultImports": true,` (the default is `true`). In this case, you can import lottie as:
 
 ```tsx
 import LottieView from "lottie-react-native";
