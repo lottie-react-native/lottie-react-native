@@ -1,3 +1,9 @@
+## 2.5.11 (December 20, 2018)
+
+- Improved documentation
+- Added `onAnimationFinish` callback
+- Fixed compilation errors
+
 ## 2.5.10 (November 6, 2018)
 
 - Fixed proptype checking on LottieView
