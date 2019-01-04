@@ -2,7 +2,14 @@ package com.airbnb.android.react.lottie;
 
 import android.util.JsonReader;
 import android.widget.ImageView;
+import android.graphics.Color;
 
+import com.airbnb.lottie.value.LottieValueCallback;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+
+import com.airbnb.lottie.LottieProperty;
+import com.airbnb.lottie.model.KeyPath;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 
@@ -25,6 +32,7 @@ public class LottieAnimationViewPropertyManager {
   private Float progress;
   private Boolean loop;
   private Float speed;
+  private ReadableArray theme;
 
   /**
    * Should be set to true if one of the animationName related parameters has changed as a result
@@ -67,6 +75,10 @@ public class LottieAnimationViewPropertyManager {
 
   public void setLoop(boolean loop) {
     this.loop = loop;
+  }
+
+  public void setTheme(ReadableArray theme) {
+    this.theme = theme;
   }
 
   public void setUseHardwareAcceleration(boolean useHardwareAcceleration) {
@@ -123,6 +135,19 @@ public class LottieAnimationViewPropertyManager {
     if (speed != null) {
       view.setSpeed(speed);
       speed = null;
+    }
+
+    if (theme != null) {
+       for (int i = 0; i < theme.size(); i++) {
+           ReadableMap themeObject = theme.getMap(i);
+           String keyPath = themeObject.getString("keyPath");
+           String color = themeObject.getString("color");
+
+           view.addValueCallback(
+                   new KeyPath(keyPath.split("\\.")),
+                   LottieProperty.COLOR,
+                   new LottieValueCallback<>(Color.parseColor(color)));
+       }
     }
 
     if (useHardwareAcceleration != null) {

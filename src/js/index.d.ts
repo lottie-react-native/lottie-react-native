@@ -18,6 +18,14 @@ declare module "lottie-react-native" {
   }
 
   /**
+   * key value pairs between keyPath separated with dots and color value
+   */
+  interface themeObject {
+    kayPath: string;
+    color: string;
+  }
+
+  /**
    * Properties of the AnimatedLottieView component
    */
   interface AnimatedLottieViewProps {
@@ -53,6 +61,11 @@ declare module "lottie-react-native" {
      * A boolean flag indicating whether or not the animation should loop.
      */
     loop?: boolean;
+
+    /**
+     * An Array of key value pairs between keyPath separated with dots and color value to change color dynamically.
+     */
+    theme?: themeObject[];
 
     /**
      * Style attributes for the view, as expected in a standard `View`:

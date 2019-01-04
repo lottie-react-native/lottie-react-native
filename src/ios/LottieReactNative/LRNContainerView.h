@@ -23,6 +23,7 @@
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) CGFloat speed;
 @property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, assign) NSArray *theme;
 @property (nonatomic, strong) NSDictionary *sourceJson;
 @property (nonatomic, strong) NSString *sourceName;
 @property (nonatomic, copy) RCTBubblingEventBlock onAnimationFinish;

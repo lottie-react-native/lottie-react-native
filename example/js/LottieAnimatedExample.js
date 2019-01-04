@@ -21,8 +21,18 @@ const pauseIcon = require('./images/pause.png');
 const loopIcon = require('./images/loop.png');
 const inverseIcon = require('./images/inverse.png');
 
-const makeExample = (name, getJson, width) => ({ name, getJson, width });
+const makeExample = (name, getJson, width, getTheme = () => {}) => ({
+  name,
+  getJson,
+  width,
+  getTheme,
+});
 const EXAMPLES = [
+  makeExample('Android wave', () => require('./animations/AndroidWave.json'), null, color => [
+    { keyPath: 'LeftArmWave.LeftArm.Group 6.Fill 1', color },
+    { keyPath: 'RightArm.Group 6.Fill 1', color },
+    { keyPath: 'Shirt.Group 5.Fill 1', color },
+  ]),
   makeExample('Hamburger Arrow', () => require('./animations/HamburgerArrow.json')),
   makeExample('Hamburger Arrow (200 px)', () => require('./animations/HamburgerArrow.json'), 200),
   makeExample('Line Animation', () => require('./animations/LineAnimation.json')),
@@ -42,6 +52,7 @@ export default class LottieAnimatedExample extends React.Component {
     isPlaying: true,
     isInverse: false,
     loop: true,
+    themeColor: '#009cff',
   };
 
   manageAnimation = shouldPlay => {
@@ -81,7 +92,7 @@ export default class LottieAnimatedExample extends React.Component {
   };
 
   render() {
-    const { duration, isPlaying, isInverse, progress, loop, example } = this.state;
+    const { duration, isPlaying, isInverse, progress, loop, example, themeColor } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <ExamplePicker
@@ -100,6 +111,7 @@ export default class LottieAnimatedExample extends React.Component {
             source={example.getJson()}
             progress={progress}
             loop={loop}
+            theme={example.getTheme(themeColor)}
             enableMergePathsAndroidForKitKatAndAbove
           />
         </View>
@@ -173,6 +185,20 @@ export default class LottieAnimatedExample extends React.Component {
               disabled={!progress}
             />
           </View>
+          <View>
+            <View style={{ paddingBottom: 10 }}>
+              <Text>Dynamic Theming:</Text>
+            </View>
+            <View style={styles.themeButtonsRow}>
+              {THEME_COLORS.map(color => (
+                <TouchableOpacity
+                  key={color}
+                  onPress={() => this.setState({ themeColor: color })}
+                  style={[styles.themeButton, { backgroundColor: color }]}
+                />
+              ))}
+            </View>
+          </View>
         </View>
       </View>
     );
@@ -180,6 +206,7 @@ export default class LottieAnimatedExample extends React.Component {
 }
 
 const PLAY_BUTTON_SIZE = 60;
+const THEME_COLORS = ['#191970', '#00bfff', '#8b008b', '#2f4f4f', '#8b4513', '#18c73e', '#262626'];
 const styles = StyleSheet.create({
   controlsRow: {
     flexDirection: 'row',
@@ -214,5 +241,13 @@ const styles = StyleSheet.create({
   },
   lottieViewInvse: {
     backgroundColor: 'black',
+  },
+  themeButtonsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  themeButton: {
+    width: 50,
+    height: 50,
   },
 });

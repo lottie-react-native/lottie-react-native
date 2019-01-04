@@ -54,6 +54,12 @@ const propTypes = {
   progress: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   speed: PropTypes.number,
   duration: PropTypes.number,
+  theme: PropTypes.arrayOf(
+    PropTypes.shape({
+      keyPath: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    }),
+  ),
   loop: PropTypes.bool,
   autoPlay: PropTypes.bool,
   autoSize: PropTypes.bool,

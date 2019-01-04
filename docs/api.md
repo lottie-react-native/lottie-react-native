@@ -7,6 +7,7 @@
 |**`speed`**| The speed the animation will progress. This only affects the imperative API. Sending a negative value will reverse the animation |`1`|
 |**`duration`**| The duration of the animation in ms. Takes precedence over `speed` when set. This only works when `source` is an actual JS object of an animation. |`undefined`|
 |**`loop`**|A boolean flag indicating whether or not the animation should loop. |`true`|
+|**`theme`**|An Array of key value pairs between keyPath separated with dots and color value to change color dynamically. |`undefined`|
 |**`autoPlay`**|A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.  |`false`|
 |**`autoSize`**|A boolean flag indicating whether or not the animation should size itself automatically according to the width in the animation's JSON. This only works when `source` is an actual JS object of an animation.  |`false`|
 |**`style`**|Style attributes for the view, as expected in a standard [`View`](http://facebook.github.io/react-native/releases/0.46/docs/layout-props.html), aside from border styling |*None*|

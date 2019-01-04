@@ -214,6 +214,11 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     getOrCreatePropertyManager(view).setLoop(loop);
   }
 
+  @ReactProp(name = "theme")
+  public void setTheme(LottieAnimationView view, ReadableArray theme) {
+    getOrCreatePropertyManager(view).setTheme(theme);
+  }
+
   @ReactProp(name = "hardwareAccelerationAndroid")
   public void setHardwareAcceleration(LottieAnimationView view, boolean use) {
     getOrCreatePropertyManager(view).setUseHardwareAcceleration(use);
