@@ -2,7 +2,7 @@
   "name": "lottie-react-native",
   "version": "2.5.10",
   "description": "React Native bindings for Lottie",
-  "main": "src/js/index.js",
+  "main": "lib/index.js",
   "types": "src/js/index.d.ts",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
