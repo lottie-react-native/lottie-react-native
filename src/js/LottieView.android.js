@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-const LottieAnimationViewManager = NativeModules.LottieAnimationViewManager;
 
 
 const ViewStyleExceptBorderPropType = (props, propName, componentName, ...rest) => {
