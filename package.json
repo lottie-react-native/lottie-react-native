@@ -14,7 +14,7 @@
     "run:ios": "react-native run-ios --project-path ./example/ios",
     "start:android": "adb shell am start -n com.example/.MainActivity",
     "run:android": "./gradlew installDebug && npm run start:android",
-    "lint": "eslint ./",
+    "lint": "./node_modules/.bin/eslint ./",
     "ci": "npm run lint",
     "publish:maven": "./gradlew clean check uploadArchives",
     "docs:clean": "rimraf _book",

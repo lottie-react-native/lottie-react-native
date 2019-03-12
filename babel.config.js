@@ -1,14 +1,14 @@
 module.exports = {
-  presets: ["module:metro-react-native-babel-preset"],
+  presets: ['module:metro-react-native-babel-preset'],
   plugins: [
     [
-      "module-resolver",
+      'module-resolver',
       {
-        "alias": {
-          "lottie-react-native": "./src/js"
+        alias: {
+          'lottie-react-native': './src/js',
         },
-        "cwd": "babelrc"
-      }
-    ]
-  ]
+        cwd: 'babelrc',
+      },
+    ],
+  ],
 };
