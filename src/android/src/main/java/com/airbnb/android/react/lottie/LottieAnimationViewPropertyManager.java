@@ -33,7 +33,6 @@ public class LottieAnimationViewPropertyManager {
   private boolean animationNameDirty;
 
   private String animationName;
-  private LottieAnimationView.CacheStrategy cacheStrategy;
   private Boolean useHardwareAcceleration;
   private ImageView.ScaleType scaleType;
   private String imageAssetsFolder;
@@ -50,11 +49,6 @@ public class LottieAnimationViewPropertyManager {
 
   public void setAnimationJson(String json) {
     this.animationJson = json;
-  }
-
-  public void setCacheStrategy(LottieAnimationView.CacheStrategy strategy) {
-    this.cacheStrategy = strategy;
-    this.animationNameDirty = true;
   }
 
   public void setProgress(Float progress) {
@@ -101,12 +95,12 @@ public class LottieAnimationViewPropertyManager {
     }
 
     if (animationJson != null) {
-      view.setAnimation(new JsonReader(new StringReader(animationJson)));
+      view.setAnimation(new JsonReader(new StringReader(animationJson)), null);
       animationJson = null;
     }
 
     if (animationNameDirty) {
-      view.setAnimation(animationName, cacheStrategy);
+      view.setAnimation(animationName);
       animationNameDirty = false;
     }
 

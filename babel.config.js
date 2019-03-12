@@ -1,0 +1,14 @@
+module.exports = {
+  presets: ["module:metro-react-native-babel-preset"],
+  plugins: [
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "lottie-react-native": "./src/js"
+        },
+        "cwd": "babelrc"
+      }
+    ]
+  ]
+};

@@ -6,13 +6,13 @@ apply plugin: 'com.android.library'
 apply from: 'gradle-maven-push.gradle'
 
 android {
-  compileSdkVersion safeExtGet('compileSdkVersion', 26)
-  buildToolsVersion safeExtGet('buildToolsVersion', '26.0.3')
+  compileSdkVersion safeExtGet('compileSdkVersion', 28)
+  buildToolsVersion safeExtGet('buildToolsVersion', '28.0.3')
   publishNonDefault true
 
   defaultConfig {
     minSdkVersion safeExtGet('minSdkVersion', 16)
-    targetSdkVersion safeExtGet('targetSdkVersion', 26)
+    targetSdkVersion safeExtGet('targetSdkVersion', 28)
   }
 
   lintOptions {
@@ -27,5 +27,5 @@ android {
 
 dependencies {
   compileOnly "com.facebook.react:react-native:+"
-  implementation 'com.airbnb.android:lottie:2.6.0'
+  implementation 'com.airbnb.android:lottie:2.8.0'
 }

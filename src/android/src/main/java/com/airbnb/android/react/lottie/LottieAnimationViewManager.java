@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.view.ViewCompat;
+import androidx.core.view.ViewCompat;
 import android.widget.ImageView;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.View;
@@ -160,30 +160,6 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   @ReactProp(name = "sourceJson")
   public void setSourceJson(LottieAnimationView view, String json) {
     getOrCreatePropertyManager(view).setAnimationJson(json);
-  }
-
-  /**
-   *
-   * @param view
-   * @param name
-   */
-  @ReactProp(name = "cacheStrategy")
-  public void setCacheStrategy(LottieAnimationView view, String name) {
-    if (name != null) {
-      LottieAnimationView.CacheStrategy strategy = LottieAnimationView.DEFAULT_CACHE_STRATEGY;
-      switch (name) {
-        case "none":
-          strategy = LottieAnimationView.CacheStrategy.None;
-          break;
-        case "weak":
-           strategy = LottieAnimationView.CacheStrategy.Weak;
-           break;
-        case "strong":
-          strategy = LottieAnimationView.CacheStrategy.Strong;
-          break;
-      }
-      getOrCreatePropertyManager(view).setCacheStrategy(strategy);
-    }
   }
 
   @ReactProp(name = "resizeMode")
