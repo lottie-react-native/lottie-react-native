@@ -40,6 +40,14 @@ For android, you can `react-native link` as well:
 react-native link lottie-react-native
 ```
 
+## React Native Version Note:
+
+React Native 0.59 included several significant changes to support 64-bit Android. Those who are on react-native versions BELOW 0.59.0 should continue using lottie-react-native 2.5.11.
+
+Those using react-native 0.59+ without AndroidX can use lottie-react-native 2.6.0, which includes backwards compatibility for older SDK versions that Lottie currently relies upon.
+
+Those on 0.59+ wanting out of the box AndroidX support should follow [this issue](https://github.com/react-native-community/lottie-react-native/issues/443).
+
 # Usage
 
 (If you are using TypeScript, please read [this first](/docs/typescript.md))
