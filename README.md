@@ -1,5 +1,4 @@
-Lottie for React Native, [iOS](https://github.com/airbnb/lottie-ios), and [Android](https://github.com/airbnb/lottie-android)
-===
+# Lottie for React Native, [iOS](https://github.com/airbnb/lottie-ios), and [Android](https://github.com/airbnb/lottie-android)
 
 [![npm Version](https://img.shields.io/npm/v/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![License](https://img.shields.io/npm/l/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![Build Status](https://travis-ci.org/airbnb/lottie-react-native.svg)](https://travis-ci.org/airbnb/lottie-react-native)
 
@@ -9,16 +8,34 @@ Lottie is a mobile library for Android and iOS that parses [Adobe After Effects]
 
 For the first time, designers can create **and ship** beautiful animations without an engineer painstakingly recreating it by hand.
 
-# Getting Started
+## Getting Started
 
 Get started with Lottie by installing the node module with yarn or npm:
 
 ```
 yarn add lottie-react-native
 ```
+
 or
+
 ```
 npm i --save lottie-react-native
+```
+
+**_ IMPORTANT _**
+
+Apps using older versions of React Native **_(RN < 0.59)_** should use `lottie-react-native` **_2.5.11_** due to AndroidX support being introduced only by React Native 0.59.
+
+Therefore, any app running on RN <= 0.58.4 has to install lottie as follows:
+
+```
+yarn add lottie-react-native@2.5.11
+```
+
+or
+
+```
+npm i --save lottie-react-native@2.5.11
 ```
 
 ## iOS
@@ -40,15 +57,7 @@ For android, you can `react-native link` as well:
 react-native link lottie-react-native
 ```
 
-## React Native Version Note:
-
-React Native 0.59 included several significant changes to support 64-bit Android. Those who are on react-native versions BELOW 0.59.0 should continue using lottie-react-native 2.5.11.
-
-Those using react-native 0.59+ without AndroidX can use lottie-react-native 2.6.0, which includes backwards compatibility for older SDK versions that Lottie currently relies upon.
-
-Those on 0.59+ wanting out of the box AndroidX support should follow [this issue](https://github.com/react-native-community/lottie-react-native/issues/443).
-
-# Usage
+## Usage
 
 (If you are using TypeScript, please read [this first](/docs/typescript.md))
 
@@ -60,13 +69,7 @@ import LottieView from 'lottie-react-native';
 
 export default class BasicExample extends React.Component {
   render() {
-    return (
-      <LottieView
-        source={require('./animation.json')}
-        autoPlay
-        loop
-      />
-    );
+    return <LottieView source={require('./animation.json')} autoPlay loop />;
   }
 }
 ```
@@ -132,16 +135,16 @@ export default class BasicExample extends React.Component {
 
 You can find the full list of props and methods available in our [API document](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md). These are the most common ones:
 
-| Prop | Description | Default |
-|---|---|---|
-|**`source`**| **Mandatory** - The source of animation. Can be referenced as a local asset by a string, or remotely with an object with a `uri` property, or it can be an actual JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')`. | *None* |
-|**`style`**| Style attributes for the view, as expected in a standard [`View`](https://facebook.github.io/react-native/docs/layout-props.html). | The `aspectRatio` exported by Bodymovin will be set. Also the `width` if you haven't provided a `width` or `height` |
-|**`loop`**| A boolean flag indicating whether or not the animation should loop. | `true` |
-|**`autoPlay`**| A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API. | `false` |
+| Prop           | Description                                                                                                                                                                                                                                                                     | Default                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **`source`**   | **Mandatory** - The source of animation. Can be referenced as a local asset by a string, or remotely with an object with a `uri` property, or it can be an actual JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')`. | _None_                                                                                                              |
+| **`style`**    | Style attributes for the view, as expected in a standard [`View`](https://facebook.github.io/react-native/docs/layout-props.html).                                                                                                                                              | The `aspectRatio` exported by Bodymovin will be set. Also the `width` if you haven't provided a `width` or `height` |
+| **`loop`**     | A boolean flag indicating whether or not the animation should loop.                                                                                                                                                                                                             | `true`                                                                                                              |
+| **`autoPlay`** | A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.                                                                                                                                           | `false`                                                                                                             |
 
 [More...](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md)
 
-# More
+## More
 
 View more documentation, FAQ, help, examples, and more at [airbnb.io/lottie](http://airbnb.io/lottie/react-native/react-native.html)
 
