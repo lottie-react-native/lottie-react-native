@@ -1,3 +1,7 @@
+## 2.6.0 (March 18, 2019)
+
+- Add Android app compatability support for RN 0.59 on Android (#455)
+
 ## 2.5.11 (December 20, 2018)
 
 - Improved documentation
