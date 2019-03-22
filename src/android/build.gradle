@@ -32,5 +32,5 @@ dependencies {
 
   compileOnly "com.facebook.react:react-native:+"
   implementation "com.android.support:appcompat-v7:$supportLibVersion"
-  implementation 'com.airbnb.android:lottie:2.6.0'
+  implementation 'com.airbnb.android:lottie:2.5.6'
 }
