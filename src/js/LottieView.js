@@ -22,6 +22,7 @@ const LottieViewManager = SafeModule.module({
   mock: {
     play: () => {},
     reset: () => {},
+    getConstants: () => {},
   },
 });
 
