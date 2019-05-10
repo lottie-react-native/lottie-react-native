@@ -214,11 +214,6 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     getOrCreatePropertyManager(view).setLoop(loop);
   }
 
-  @ReactProp(name = "hardwareAccelerationAndroid")
-  public void setHardwareAcceleration(LottieAnimationView view, boolean use) {
-    getOrCreatePropertyManager(view).setUseHardwareAcceleration(use);
-  }
-
   @ReactProp(name = "imageAssetsFolder")
   public void setImageAssetsFolder(LottieAnimationView view, String imageAssetsFolder) {
     getOrCreatePropertyManager(view).setImageAssetsFolder(imageAssetsFolder);

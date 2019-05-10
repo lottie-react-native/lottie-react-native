@@ -34,7 +34,6 @@ public class LottieAnimationViewPropertyManager {
 
   private String animationName;
   private LottieAnimationView.CacheStrategy cacheStrategy;
-  private Boolean useHardwareAcceleration;
   private ImageView.ScaleType scaleType;
   private String imageAssetsFolder;
   private Boolean enableMergePaths;
@@ -67,10 +66,6 @@ public class LottieAnimationViewPropertyManager {
 
   public void setLoop(boolean loop) {
     this.loop = loop;
-  }
-
-  public void setUseHardwareAcceleration(boolean useHardwareAcceleration) {
-    this.useHardwareAcceleration = useHardwareAcceleration;
   }
 
   public void setScaleType(ImageView.ScaleType scaleType) {
@@ -123,11 +118,6 @@ public class LottieAnimationViewPropertyManager {
     if (speed != null) {
       view.setSpeed(speed);
       speed = null;
-    }
-
-    if (useHardwareAcceleration != null) {
-      view.useHardwareAcceleration(useHardwareAcceleration);
-      useHardwareAcceleration = null;
     }
 
     if (scaleType != null) {
