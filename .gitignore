@@ -47,3 +47,6 @@ android/app/libs
 
 # Gitbook generated files
 _book
+
+# Yarn
+yarn-error.log
