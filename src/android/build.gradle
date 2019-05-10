@@ -5,11 +5,10 @@ def safeExtGet(prop, fallback) {
 apply plugin: 'com.android.library'
 apply from: 'gradle-maven-push.gradle'
 
-def DEFAULT_ANDROID_SUPPORT_LIB_VERSION = "27.0.2"
+def DEFAULT_ANDROID_SUPPORT_LIB_VERSION = "28.0.0"
 
 android {
   compileSdkVersion safeExtGet('compileSdkVersion', 26)
-  buildToolsVersion safeExtGet('buildToolsVersion', '26.0.3')
   publishNonDefault true
 
   defaultConfig {
@@ -32,5 +31,5 @@ dependencies {
 
   compileOnly "com.facebook.react:react-native:+"
   implementation "com.android.support:appcompat-v7:$supportLibVersion"
-  implementation 'com.airbnb.android:lottie:2.5.6'
+  implementation 'com.airbnb.android:lottie:3.0.0'
 }

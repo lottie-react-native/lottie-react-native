@@ -98,7 +98,6 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "com.airbnb.android"
@@ -145,11 +144,10 @@ android {
 }
 
 dependencies {
-    compile project(':lottie-react-native')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-annotations:26.1.0'
-    compile "com.facebook.react:react-native:+"  // From node_modules
-
+    implementation project(':lottie-react-native')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 
 // Run this once to be able to run the application with BUCK
