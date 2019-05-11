@@ -162,30 +162,6 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     getOrCreatePropertyManager(view).setAnimationJson(json);
   }
 
-  /**
-   *
-   * @param view
-   * @param name
-   */
-  @ReactProp(name = "cacheStrategy")
-  public void setCacheStrategy(LottieAnimationView view, String name) {
-    if (name != null) {
-      LottieAnimationView.CacheStrategy strategy = LottieAnimationView.DEFAULT_CACHE_STRATEGY;
-      switch (name) {
-        case "none":
-          strategy = LottieAnimationView.CacheStrategy.None;
-          break;
-        case "weak":
-           strategy = LottieAnimationView.CacheStrategy.Weak;
-           break;
-        case "strong":
-          strategy = LottieAnimationView.CacheStrategy.Strong;
-          break;
-      }
-      getOrCreatePropertyManager(view).setCacheStrategy(strategy);
-    }
-  }
-
   @ReactProp(name = "resizeMode")
   public void setResizeMode(LottieAnimationView view, String resizeMode) {
     ImageView.ScaleType mode = null;
