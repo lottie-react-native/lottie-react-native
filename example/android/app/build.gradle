@@ -97,7 +97,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.airbnb.android"
@@ -145,8 +145,7 @@ android {
 
 dependencies {
     implementation project(':lottie-react-native')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 
