@@ -14,7 +14,7 @@
     "run:ios": "react-native run-ios --project-path ./example/ios",
     "start:android": "adb shell am start -n com.example/.MainActivity",
     "run:android": "./gradlew installDebug && npm run start:android",
-    "build:android": "./gradlew installDebug",
+    "build:android": "./gradlew assembleDebug",
     "lint": "eslint ./",
     "ci": "npm run lint",
     "publish:maven": "./gradlew clean check uploadArchives",
