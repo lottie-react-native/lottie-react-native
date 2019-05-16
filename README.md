@@ -146,7 +146,7 @@ You can find the full list of props and methods available in our [API document](
 
 ## More
 
-View more documentation, FAQ, help, examples, and more at [airbnb.io/lottie](http://airbnb.io/lottie/react-native/react-native.html)
+View more documentation, FAQ, help, examples, and more at [airbnb.io/lottie](https://airbnb.io/lottie/)
 
 ![Example1](docs/gifs/Example1.gif)
 
