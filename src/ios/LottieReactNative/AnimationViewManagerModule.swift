@@ -55,7 +55,21 @@ class AnimationViewManagerModule: RCTViewManager {
     
     @objc(reset:)
     public func reset(_ reactTag: NSNumber) {
-        
+        self.bridge.uiManager.addUIBlock { (uiManager, viewRegistry) in
+            guard let view = viewRegistry?[reactTag] else {
+                if (RCT_DEV == 1) {
+                    print("Invalid view returned from registry, expecting ContainerView")
+                }
+                return
+            }
+            
+            if (!view.isKind(of: ContainerView.self)) {
+                // log error
+            } else {
+                let lottieView = view as! ContainerView
+                lottieView.reset()
+            }
+        }
     }
     
     override static func requiresMainQueueSetup() -> Bool {
