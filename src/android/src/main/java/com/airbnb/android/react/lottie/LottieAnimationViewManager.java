@@ -3,6 +3,7 @@ package com.airbnb.android.react.lottie;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.ColorFilter;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.view.ViewCompat;
@@ -11,6 +12,10 @@ import android.view.View.OnAttachStateChangeListener;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieProperty;
+import com.airbnb.lottie.SimpleColorFilter;
+import com.airbnb.lottie.model.KeyPath;
+import com.airbnb.lottie.value.LottieValueCallback;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
@@ -227,6 +232,11 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   @ReactProp(name = "enableMergePathsAndroidForKitKatAndAbove")
   public void setEnableMergePaths(LottieAnimationView view, boolean enableMergePaths) {
     getOrCreatePropertyManager(view).setEnableMergePaths(enableMergePaths);
+  }
+
+  @ReactProp(name = "colorFilter")
+  public void setcolorFilter(LottieAnimationView view, String color) {
+    getOrCreatePropertyManager(view).setColorFilter(color);
   }
 
   @Override
