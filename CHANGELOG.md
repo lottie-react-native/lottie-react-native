@@ -1,3 +1,6 @@
+## Unrealeased
+- Added `colorFilter` prop for setting animation color
+
 ## 3.0.0 (Jun 1, 2019)
 - React Native lottie upgrade (iOS)
 
