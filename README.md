@@ -133,7 +133,7 @@ export default class BasicExample extends React.Component {
 
 ## API
 
-You can find the full list of props and methods available in our [API document](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md). These are the most common ones:
+You can find the full list of props and methods available in our [API document](/docs/api.md). These are the most common ones:
 
 | Prop           | Description                                                                                                                                                                                                                                                                     | Default                                                                                                             |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
