@@ -30,7 +30,7 @@ android {
 dependencies {
   def supportLibVersion = safeExtGet('supportLibVersion', DEFAULT_ANDROID_SUPPORT_LIB_VERSION)
 
-  compileOnly "com.facebook.react:react-native:+"
+  implementation "com.facebook.react:react-native:+"
   implementation "com.android.support:appcompat-v7:$supportLibVersion"
   implementation 'com.airbnb.android:lottie:2.5.6'
 }
