@@ -33,7 +33,6 @@ const EXAMPLES = [
   makeExample('Twitter Heart', () => require('./animations/TwitterHeart.json')),
   makeExample('Watermelon', () => require('./animations/Watermelon.json')),
   makeExample('Motion Corpse', () => require('./animations/MotionCorpse-Jrcanest.json')),
-  makeExample('Prize Box', () => require('./animations/PrizeBoxLoop.json')),
 ];
 
 export default class LottieAnimatedExample extends React.Component {
