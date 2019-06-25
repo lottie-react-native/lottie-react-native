@@ -13,6 +13,7 @@
 |**`imageAssetsFolder`**| Needed for **Android** to work properly with assets, iOS will ignore it. |*None*|
 |**`cacheStrategy`**| Needed for **Android** for performance tuning reasons. Possible values are: 'strong' - kept in memory forever, 'weak' - cache while in active use, 'none' - not cache, iOS will ignore it. |*weak*|
 |**`onAnimationFinish`**| A callback function which will be called when animation is finished. Note that this callback will be called only when `loop` is set to false. |*None*|
+|**`colorFiltersToLayers`**| An array of objects mapping color filters to specific layers. Objects should be formatted as `{ layer: "layerName", color: "#000000" }`. |`undefined`|
 
 ## Methods (Imperative API):
 
