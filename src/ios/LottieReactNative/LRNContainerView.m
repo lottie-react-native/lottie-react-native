@@ -160,7 +160,6 @@
             NSDictionary *colorFilter = _colorFiltersToLayers[i];
             NSString *color = [colorFilter valueForKey:@"color"];
             NSString *layer = [colorFilter valueForKey:@"layer"];
-            [_animationView logHierarchyKeypaths];
             
             LOTKeypath *keyPath = [LOTKeypath keypathWithString:[layer stringByAppendingString:@".Color"]];
             LOTColorValueCallback *colorValue = [LOTColorValueCallback withCGColor:[self colorFromHexString:color].CGColor];
