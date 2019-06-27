@@ -82,14 +82,14 @@ const viewConfig = {
   },
 };
 
-const safeGetViewManagerConfig = (moduleName) => {
+const safeGetViewManagerConfig = moduleName => {
   if (UIManager.getViewManagerConfig) {
     // RN >= 0.58
-    return UIManager.getViewManagerConfig(moduleName)
+    return UIManager.getViewManagerConfig(moduleName);
   }
   // RN < 0.58
   return UIManager[moduleName];
-}
+};
 
 class LottieView extends React.Component {
   constructor(props) {
