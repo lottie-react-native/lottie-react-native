@@ -1,5 +1,10 @@
-## 2.6.2 (May 30, 2019)
- - Resolving UIViewManager deprecation warning
+## 3.0.1 (Jun 28, 2019)
+
+- Resolving UIViewManager deprecation warning
+
+## 3.0.0 (Jun 1, 2019)
+
+- React Native lottie upgrade (iOS)
 
 ## 2.6.1 (March 29, 2019)
 
