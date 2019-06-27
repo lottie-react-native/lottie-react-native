@@ -1,7 +1,7 @@
 PODS:
-  - lottie-ios (2.5.0)
-  - lottie-react-native (2.3.2):
-    - lottie-ios
+  - lottie-ios (3.0.6)
+  - lottie-react-native (2.6.1):
+    - lottie-ios (~> 3.0.4)
     - React
   - React (0.50.3):
     - React/Core (= 0.50.3)
@@ -35,7 +35,7 @@ PODS:
   - yoga (0.50.3.React)
 
 DEPENDENCIES:
-  - lottie-ios (from `../../node_modules/lottie-ios`)
+  - lottie-ios (~> 3.0.4)
   - lottie-react-native (from `../../`)
   - React/BatchedBridge (from `../../node_modules/react-native`)
   - React/Core (from `../../node_modules/react-native`)
@@ -47,9 +47,11 @@ DEPENDENCIES:
   - React/RCTWebSocket (from `../../node_modules/react-native`)
   - yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - lottie-ios
+
 EXTERNAL SOURCES:
-  lottie-ios:
-    :path: "../../node_modules/lottie-ios"
   lottie-react-native:
     :path: "../../"
   React:
@@ -58,11 +60,11 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  lottie-ios: d699fdee68d7b63e721d949388b015fef1aaa4ac
-  lottie-react-native: f2e118cc10f478bc9857bbdb5568b6f4a9d30cf7
+  lottie-ios: d030b6cda141cfd8bbaa3db89264785e6fdf675a
+  lottie-react-native: e0781901771782f8d231c3cbefdf8129fb600f0d
   React: 0ba6cae888dc82dc47d6d5f3090615e1b5f6f3e7
   yoga: faecc6be81ca7823ccbb470b93a1b228499fa1c0
 
-PODFILE CHECKSUM: be0838159a84a7921938775eaa183204ca6d5832
+PODFILE CHECKSUM: b846d52957d8b11934117b2fd30c355985adf25f
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.6.1

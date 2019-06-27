@@ -1,3 +1,6 @@
+## 3.0.0 (Jun 1, 2019)
+- React Native lottie upgrade (iOS)
+
 ## 2.6.1 (March 29, 2019)
 
 - Lock lottie-ios on version 2.5.0

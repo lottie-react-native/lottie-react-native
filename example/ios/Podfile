@@ -1,4 +1,9 @@
+source 'https://github.com/CocoaPods/Specs.git'
 
+# Platform version to build against
+platform :ios, '9.0'
+inhibit_all_warnings!
+use_frameworks!
 target 'example' do
   pod 'yoga', :path => '../../node_modules/react-native/ReactCommon/yoga'
   pod 'React', :path => '../../node_modules/react-native', :subspecs => [
@@ -12,6 +17,8 @@ target 'example' do
     'DevSupport',
     # Add any other subspecs you want to use in your project
   ]
+
+
   pod 'lottie-react-native', :path => '../../'
-  pod 'lottie-ios', :path => '../../node_modules/lottie-ios'
+  pod 'lottie-ios', '~> 3.0.4'
 end
