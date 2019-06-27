@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "invariant": "^2.2.2",
-    "lottie-ios": "2.5.0",
+    "lottie-ios": "git://github.com/skillz/lottie-ios.git#870f70f7322e138cf8bbcb91f4508674a23c8d2c",
     "prop-types": "^15.5.10",
     "react-native-safe-module": "^1.1.0"
   },
