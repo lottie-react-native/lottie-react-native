@@ -160,9 +160,7 @@ public class LottieAnimationViewPropertyManager {
         }
 
         if (colorFilters != null && colorFilters.size() > 0) {
-            int size = colorFilters.size();
-            for (int i = 0; i < size; i++) {
-                Map<String,String> colorLayer = colorFilters.get(i);
+            for (Map<String,String> colorLayer : colorFilters) {
                 String layer = colorLayer.get("layer");
                 String color = colorLayer.get("color");
 
