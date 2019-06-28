@@ -25,6 +25,7 @@
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, strong) NSDictionary *sourceJson;
 @property (nonatomic, strong) NSString *sourceName;
+@property (nullable, nonatomic, copy) NSArray<NSDictionary *> *colorFiltersToLayers;
 @property (nonatomic, copy) RCTBubblingEventBlock onAnimationFinish;
 
 - (void)play;

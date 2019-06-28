@@ -9,8 +9,7 @@ def DEFAULT_ANDROID_SUPPORT_LIB_VERSION = "27.0.2"
 
 android {
   compileSdkVersion safeExtGet('compileSdkVersion', 26)
-  buildToolsVersion safeExtGet('buildToolsVersion', '26.0.3')
-  publishNonDefault true
+    publishNonDefault true
 
   defaultConfig {
     minSdkVersion safeExtGet('minSdkVersion', 16)

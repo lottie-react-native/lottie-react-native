@@ -98,7 +98,10 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "com.airbnb.android"
@@ -140,10 +143,10 @@ android {
 }
 
 dependencies {
-    compile project(':lottie-react-native')
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:support-annotations:26.1.0'
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    api project(':lottie-react-native')
+    api 'com.android.support:appcompat-v7:26.1.0'
+    api 'com.android.support:support-annotations:26.1.0'
+    api "com.facebook.react:react-native:+"  // From node_modules
 
 }
 

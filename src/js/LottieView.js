@@ -62,6 +62,7 @@ const propTypes = {
   hardwareAccelerationAndroid: PropTypes.bool,
   cacheStrategy: PropTypes.oneOf(['none', 'weak', 'strong']),
   onAnimationFinish: PropTypes.func,
+  colorFilterToLayers: PropTypes.arrayOf(PropTypes.object),
 };
 
 const defaultProps = {
