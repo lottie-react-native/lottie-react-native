@@ -1,11 +1,7 @@
-//
-//  AnimationViewManagerModule.swift
-//  lottie-react-native
-//
-//  Created by Kohli, Prateek on 5/20/19.
-//
-
+#if canImport(React)
 import React
+#endif
+
 import Lottie
 
 @objc(LottieAnimationView)

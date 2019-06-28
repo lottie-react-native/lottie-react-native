@@ -38,6 +38,10 @@ or
 npm i --save lottie-react-native@2.5.11
 ```
 
+**_ IMPORTANT _**
+
+Apps that use static Xcode project linking need to set iOS deployment version to iOS 12 *or* switch to CocoaPods-based linking (using frameworks) *or* downgrade `lottie-react-native` to version **_2.6.1_**.
+
 ## iOS
 
 Use `react-native link` to add the library to your project:
