@@ -1,11 +1,7 @@
-//
-//  ContainerView.swift
-//  1PasswordExtension
-//
-//  Created by Kohli, Prateek on 5/20/19.
-//
-
+#if canImport(React)
 import React
+#endif
+
 import Lottie
 
 class ContainerView:RCTView {

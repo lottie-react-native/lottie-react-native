@@ -1,10 +1,3 @@
-//
-//  LRNAnimationViewManagerObjC.m
-//  Pods
-//
-//  Created by Kohli, Prateek on 05/20/18.
-//
-
 #import <React/RCTViewManager.h>
 
 @interface RCT_EXTERN_MODULE(LottieAnimationView, RCTViewManager)
