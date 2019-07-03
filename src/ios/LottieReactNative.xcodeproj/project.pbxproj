@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84CD570E1DFFDA9600ECC964 /* LRNContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CD570D1DFFDA9600ECC964 /* LRNContainerView.m */; };
-		84CD57111DFFDAC000ECC964 /* LRNAnimationViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CD57101DFFDAC000ECC964 /* LRNAnimationViewManager.m */; };
+		6E31134322B3A73000690A5B /* AnimationViewManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */; };
+		6E31134422B3A73000690A5B /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134122B3A73000690A5B /* ContainerView.swift */; };
+		6E31134522B3A73000690A5B /* LRNAnimationViewManagerObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,10 +26,10 @@
 
 /* Begin PBXFileReference section */
 		11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLottieReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		84CD570C1DFFDA9600ECC964 /* LRNContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LRNContainerView.h; path = LottieReactNative/LRNContainerView.h; sourceTree = SOURCE_ROOT; };
-		84CD570D1DFFDA9600ECC964 /* LRNContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LRNContainerView.m; path = LottieReactNative/LRNContainerView.m; sourceTree = SOURCE_ROOT; };
-		84CD570F1DFFDAC000ECC964 /* LRNAnimationViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LRNAnimationViewManager.h; path = LottieReactNative/LRNAnimationViewManager.h; sourceTree = SOURCE_ROOT; };
-		84CD57101DFFDAC000ECC964 /* LRNAnimationViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LRNAnimationViewManager.m; path = LottieReactNative/LRNAnimationViewManager.m; sourceTree = SOURCE_ROOT; };
+		6E31133F22B3A72F00690A5B /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
+		6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationViewManagerModule.swift; sourceTree = "<group>"; };
+		6E31134122B3A73000690A5B /* ContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRNAnimationViewManagerObjC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +63,10 @@
 		11FA5C531C4A1296003AC2EE /* LottieReactNative */ = {
 			isa = PBXGroup;
 			children = (
-				84CD570C1DFFDA9600ECC964 /* LRNContainerView.h */,
-				84CD570D1DFFDA9600ECC964 /* LRNContainerView.m */,
-				84CD570F1DFFDAC000ECC964 /* LRNAnimationViewManager.h */,
-				84CD57101DFFDAC000ECC964 /* LRNAnimationViewManager.m */,
+				6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */,
+				6E31134122B3A73000690A5B /* ContainerView.swift */,
+				6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */,
+				6E31133F22B3A72F00690A5B /* Bridging.h */,
 			);
 			path = LottieReactNative;
 			sourceTree = "<group>";
@@ -108,6 +109,7 @@
 				TargetAttributes = {
 					11FA5C501C4A1296003AC2EE = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -116,6 +118,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 11FA5C481C4A1296003AC2EE;
@@ -133,8 +136,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84CD57111DFFDAC000ECC964 /* LRNAnimationViewManager.m in Sources */,
-				84CD570E1DFFDA9600ECC964 /* LRNContainerView.m in Sources */,
+				6E31134422B3A73000690A5B /* ContainerView.swift in Sources */,
+				6E31134522B3A73000690A5B /* LRNAnimationViewManagerObjC.m in Sources */,
+				6E31134322B3A73000690A5B /* AnimationViewManagerModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +182,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -216,7 +220,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -226,22 +230,31 @@
 		11FA5C5B1C4A1296003AC2EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = LottieReactNative/Bridging.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		11FA5C5C1C4A1296003AC2EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = LottieReactNative/Bridging.h;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
