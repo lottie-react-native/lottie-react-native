@@ -30,6 +30,10 @@ Go to your ios folder and run:
 pod install
 ```
 
+** IMPORTANT **
+
+If you have issues linking your iOS project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
+
 ## Installing (React Native == 0.59.x)
 
 Install `lottie-react-native` (latest) and `lottie-ios` (3.0.3):
@@ -88,7 +92,7 @@ Go to your ios folder and run:
 pod install
 ```
 
-**_ IMPORTANT _**
+** IMPORTANT **
 
 If you have issues with your iOS project, open the Xcode project configuration and add the `Lottie.framework` as `Embedded Binaries`.
 
