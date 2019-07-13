@@ -30,7 +30,7 @@ Go to your ios folder and run:
 pod install
 ```
 
-** IMPORTANT **
+**_ IMPORTANT _**
 
 If you have issues linking your iOS project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
 
@@ -92,7 +92,7 @@ Go to your ios folder and run:
 pod install
 ```
 
-** IMPORTANT **
+**_ IMPORTANT _**
 
 If you have issues with your iOS project, open the Xcode project configuration and add the `Lottie.framework` as `Embedded Binaries`.
 
