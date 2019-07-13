@@ -1,3 +1,7 @@
+## 3.0.2 (Jul 13, 2019)
+
+- Lock lottie-ios on version 3.3.0
+
 ## 3.0.1 (Jun 28, 2019)
 
 - Resolving UIViewManager deprecation warning
