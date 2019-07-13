@@ -8,41 +8,43 @@ Lottie is a mobile library for Android and iOS that parses [Adobe After Effects]
 
 For the first time, designers can create **and ship** beautiful animations without an engineer painstakingly recreating it by hand.
 
-## Getting Started
+## Installing (React Native >= 0.60.0)
 
-Get started with Lottie by installing the node module with yarn or npm:
+Install `lottie-react-native` (latest) and `lottie-ios` (3.0.3):
 
 ```
 yarn add lottie-react-native
+yarn add lottie-ios@3.0.3
 ```
 
 or
 
 ```
 npm i --save lottie-react-native
+npm i --save lottie-ios@3.0.3
 ```
 
-**_ IMPORTANT _**
-
-Apps using older versions of React Native **_(RN < 0.59)_** should use `lottie-react-native` **_2.5.11_** due to AndroidX support being introduced only by React Native 0.59.
-
-Therefore, any app running on RN <= 0.58.4 has to install lottie as follows:
+Go to your ios folder and run:
 
 ```
-yarn add lottie-react-native@2.5.11
+pod install
+```
+
+## Installing (React Native == 0.59.x)
+
+Install `lottie-react-native` (latest) and `lottie-ios` (3.0.3):
+
+```
+yarn add lottie-react-native
+yarn add lottie-ios@3.0.3
 ```
 
 or
 
 ```
-npm i --save lottie-react-native@2.5.11
+npm i --save lottie-react-native
+npm i --save lottie-ios@3.0.3
 ```
-
-**_ IMPORTANT _**
-
-Apps that use static Xcode project linking need to set iOS deployment version to iOS 12 *or* switch to CocoaPods-based linking (using frameworks) *or* downgrade `lottie-react-native` to version **_2.6.1_**.
-
-## iOS
 
 Use `react-native link` to add the library to your project:
 
@@ -51,15 +53,46 @@ react-native link lottie-ios
 react-native link lottie-react-native
 ```
 
-After this, open the Xcode project configuration and add the `Lottie.framework` as `Embedded Binaries`.
-
-## Android
-
-For android, you can `react-native link` as well:
+Go to your ios folder and run:
 
 ```
+pod install
+```
+
+## Installing (React Native <= 0.58.x)
+
+Install `lottie-react-native` (2.5.11) and `lottie-ios` (3.0.3):
+
+```
+yarn add lottie-react-native@2.5.11
+yarn add lottie-ios@3.0.3
+```
+
+or
+
+```
+npm i --save lottie-react-native@2.5.11
+npm i --save lottie-ios@3.0.3
+```
+
+Use `react-native link` to add the library to your project:
+
+```
+react-native link lottie-ios
 react-native link lottie-react-native
 ```
+
+Go to your ios folder and run:
+
+```
+pod install
+```
+
+**_ IMPORTANT _**
+
+If you have issues with your iOS project, open the Xcode project configuration and add the `Lottie.framework` as `Embedded Binaries`.
+
+Apps that use static Xcode project linking need to set iOS deployment version to iOS 12 _or_ switch to CocoaPods-based linking (using frameworks) _or_ downgrade `lottie-react-native` to version **_2.6.1_**.
 
 ## Usage
 
