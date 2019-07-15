@@ -63,6 +63,12 @@ Go to your ios folder and run:
 pod install
 ```
 
+**_ IMPORTANT _**
+
+If you have issues with your iOS project, open the Xcode project configuration and add the `Lottie.framework` as `Embedded Binaries`.
+
+Apps that use static Xcode project linking need to set iOS deployment version to iOS 12 _or_ switch to CocoaPods-based linking (using frameworks) _or_ downgrade `lottie-react-native` to version **_2.6.1_**.
+
 ## Installing (React Native <= 0.58.x)
 
 Install `lottie-react-native` (2.5.11) and `lottie-ios` (3.0.3):
