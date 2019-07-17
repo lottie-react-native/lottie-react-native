@@ -19,6 +19,7 @@
 
 @implementation LRNContainerView {
     LOTAnimationView *_animationView;
+    NSArray *_colorFilters;
 }
 
 - (void)reactSetFrame:(CGRect)frame
@@ -153,7 +154,6 @@
     
     if (_colorFiltersToLayers && [_colorFiltersToLayers count]) {
         
-        // This is used to save a reference to the colors applied to animation layers
         NSMutableArray *colors = [@[] mutableCopy];
         
         for (int i = 0; i < [_colorFiltersToLayers count]; i++) {
@@ -167,6 +167,9 @@
             [_animationView setValueDelegate:colorValue
                                   forKeypath:keyPath];
         }
+        
+        // This is used to save a reference to the colors applied to animation layers
+        _colorFilters = colors;
     }
 }
 
