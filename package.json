@@ -1,6 +1,6 @@
 {
   "name": "lottie-react-native",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "React Native bindings for Lottie",
   "main": "lib/index.js",
   "types": "src/js/index.d.ts",
@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "invariant": "^2.2.2",
-    "lottie-ios": "2.5.0",
+    "lottie-ios": "^3.0.3",
     "prop-types": "^15.5.10",
     "react-native-safe-module": "^1.1.0"
   },

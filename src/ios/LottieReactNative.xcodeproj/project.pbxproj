@@ -26,7 +26,7 @@
 
 /* Begin PBXFileReference section */
 		11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLottieReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E31133F22B3A72F00690A5B /* LottieReactNative-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LottieReactNative-Bridging-Header.h"; sourceTree = "<group>"; };
+		6E31133F22B3A72F00690A5B /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
 		6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationViewManagerModule.swift; sourceTree = "<group>"; };
 		6E31134122B3A73000690A5B /* ContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRNAnimationViewManagerObjC.m; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 				6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */,
 				6E31134122B3A73000690A5B /* ContainerView.swift */,
 				6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */,
-				6E31133F22B3A72F00690A5B /* LottieReactNative-Bridging-Header.h */,
+				6E31133F22B3A72F00690A5B /* Bridging.h */,
 			);
 			path = LottieReactNative;
 			sourceTree = "<group>";
@@ -182,7 +182,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -220,7 +220,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -237,7 +237,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "LottieReactNative/LottieReactNative-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = LottieReactNative/Bridging.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -253,7 +253,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "LottieReactNative/LottieReactNative-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = LottieReactNative/Bridging.h;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

@@ -1,7 +1,16 @@
 ## Unrealeased
 - Added `colorFilter` prop for setting animation color
 
+## 3.0.2 (Jul 13, 2019)
+
+- Lock lottie-ios on version 3.3.0
+
+## 3.0.1 (Jun 28, 2019)
+
+- Resolving UIViewManager deprecation warning
+
 ## 3.0.0 (Jun 1, 2019)
+
 - React Native lottie upgrade (iOS)
 
 ## 2.6.1 (March 29, 2019)
