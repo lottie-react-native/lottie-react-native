@@ -11,6 +11,7 @@ class ContainerView: RCTView {
     private var sourceJson: String = ""
     private var resizeMode: String = ""
     private var sourceName: String = ""
+    private var color:String = ""
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     var animationView: AnimationView?
 
