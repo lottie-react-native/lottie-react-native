@@ -99,5 +99,10 @@ class ContainerView: RCTView {
         animationView?.currentProgress = progress
         animationView?.animationSpeed = speed
         animationView?.loopMode = loop
+        if (color != "") {
+            let fillKeypath = AnimationKeypath(keypath: "**")
+            let colorFilterValueProvider = ColorValueProvider(UIColor(rgba: color))
+            animationView.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
+        }
     }
 }
