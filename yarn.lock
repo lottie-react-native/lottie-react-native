@@ -3330,7 +3330,6 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
 lottie-ios@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/lottie-ios/-/lottie-ios-3.0.3.tgz#8b1d6463a04fe59509a55ec8cc5feea7f40f4cf3"
-  integrity sha512-p7dx7bq+1yUX3qA9Xof7Lpa2Gfopi6bPtMfFdv9Qi6iKVSkg0FwJXc7fD2AiiW8trHVFhHgjj2ELTZrZF6uu1A==
 
 lru-cache@2, lru-cache@~2.7.0:
   version "2.7.3"
@@ -4429,9 +4428,9 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-safe-module@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-safe-module/-/react-native-safe-module-1.2.0.tgz#a23824ca24edc2901913694a76646475113d570d"
+react-native-safe-modules@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-safe-modules/-/react-native-safe-modules-1.0.0.tgz#10a918adf97da920adb1e33e0c852b1e80123b65"
   dependencies:
     dedent "^0.6.0"
 
