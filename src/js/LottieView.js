@@ -8,7 +8,7 @@ import {
   StyleSheet,
   ViewPropTypes,
 } from 'react-native';
-import SafeModule from 'react-native-safe-module';
+import SafeModule from 'react-native-safe-modules';
 import PropTypes from 'prop-types';
 
 const NativeLottieView = SafeModule.component({
