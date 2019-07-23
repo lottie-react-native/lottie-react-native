@@ -42,9 +42,11 @@ If your app crashes on **Android**, means auto linking didn't work. You will nee
 - add `packages.add(new LottiePackage());` in `List<ReactPackage> getPackages()`;
 
 **android/app/build.gradle**
+
 add `implementation project(':lottie-react-native')` in the `dependencies` block
 
-**Settings.gradle**
+**android/settings.gradle**
+
 ```
 include ':lottie-react-native'
 project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
