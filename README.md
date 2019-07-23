@@ -32,7 +32,25 @@ pod install
 
 **_ IMPORTANT _**
 
-If you have issues linking your iOS project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
+If you have issues linking your **iOS** project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
+
+If your app crashes on **Android**, means auto linking didn't work. You will need to make the following changes:
+
+**android/app/src/main/java/<AppName>/MainApplication.java**
+
+- add `import com.airbnb.android.react.lottie.LottiePackage;` on the imports section
+- add `packages.add(new LottiePackage());` in `List<ReactPackage> getPackages()`;
+
+**android/app/build.gradle**
+add `implementation project(':lottie-react-native')` in the `dependencies` block
+
+**Settings.gradle**
+```
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
+
+```
+
 
 ## Installing (React Native == 0.59.x)
 
