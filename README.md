@@ -47,6 +47,8 @@ add `implementation project(':lottie-react-native')` in the `dependencies` block
 
 **android/settings.gradle**
 
+add:
+
 ```
 include ':lottie-react-native'
 project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
