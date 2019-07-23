@@ -1,8 +1,9 @@
 module.exports = {
-  project: {
-    ios: {},
-    android: {
-      sourceDir: './src/android',
-    }, // grouped into "project"
+  dependency: {
+    platforms: {
+      android: {
+        sourceDir: './src/android',
+      },
+    },
   },
 };
