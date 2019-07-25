@@ -32,5 +32,5 @@ dependencies {
 
   implementation "com.facebook.react:react-native:+"
   implementation "androidx.appcompat:appcompat:1.0.0"
-  implementation 'com.airbnb.android:lottie:2.5.6'
+  implementation 'com.airbnb.android:lottie:3.0.0'
 }

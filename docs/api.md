@@ -11,8 +11,6 @@
 |**`autoSize`**|A boolean flag indicating whether or not the animation should size itself automatically according to the width in the animation's JSON. This only works when `source` is an actual JS object of an animation.  |`false`|
 |**`style`**|Style attributes for the view, as expected in a standard [`View`](http://facebook.github.io/react-native/releases/0.46/docs/layout-props.html), aside from border styling |*None*|
 |**`imageAssetsFolder`**| Needed for **Android** to work properly with assets, iOS will ignore it. |*None*|
-|**`cacheStrategy`**| Needed for **Android** for performance tuning reasons. Possible values are: 'strong' - kept in memory forever, 'weak' - cache while in active use, 'none' - not cache, iOS will ignore it. |*weak*|
-|**`hardwareAccelerationAndroid`**| Only for **Android**. Uses hardware acceleration to perform the animation. This should only be used for animations where your width and height are equal to the composition width and height, e.g. you are not scaling the animation. |`false`|
 |**`onAnimationFinish`**| A callback function which will be called when animation is finished. Note that this callback will be called only when `loop` is set to false. |*None*|
 
 ## Methods (Imperative API):
