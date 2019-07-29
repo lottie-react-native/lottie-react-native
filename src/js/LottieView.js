@@ -60,8 +60,6 @@ const propTypes = {
   autoSize: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-  hardwareAccelerationAndroid: PropTypes.bool,
-  cacheStrategy: PropTypes.oneOf(['none', 'weak', 'strong']),
   onAnimationFinish: PropTypes.func,
 };
 
