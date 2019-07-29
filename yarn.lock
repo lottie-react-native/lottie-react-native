@@ -3327,9 +3327,9 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
   dependencies:
     js-tokens "^3.0.0"
 
-"lottie-ios@git://github.com/skillz/lottie-ios.git#e160ff68b84627fc5041fe8dbccf9419df958221":
+"lottie-ios@git://github.com/skillz/lottie-ios.git#dd40b9650d56f3fbbc7a473d2cca88c8b8d1e915":
   version "2.5.0"
-  resolved "git://github.com/skillz/lottie-ios.git#e160ff68b84627fc5041fe8dbccf9419df958221"
+  resolved "git://github.com/skillz/lottie-ios.git#dd40b9650d56f3fbbc7a473d2cca88c8b8d1e915"
 
 lru-cache@2, lru-cache@~2.7.0:
   version "2.7.3"
