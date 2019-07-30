@@ -152,10 +152,6 @@
     _animationView.animationSpeed = _speed;
     _animationView.loopAnimation = _loop;
     
-    if (_colorFilters == nil) {
-        _colorFilters = [[NSMutableArray alloc] init];
-    }
-    
     if (_colorFiltersToLayers && [_colorFiltersToLayers count]) {
         
         for (int i = 0; i < [_colorFiltersToLayers count]; i++) {
