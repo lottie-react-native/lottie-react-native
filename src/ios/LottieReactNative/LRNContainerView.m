@@ -20,6 +20,7 @@
 @implementation LRNContainerView {
     LOTAnimationView *_animationView;
     NSMutableArray *_colorFilters;
+    NSMutableArray *_colors;
 }
 
 - (void)reactSetFrame:(CGRect)frame
@@ -154,17 +155,25 @@
     
     if (_colorFiltersToLayers && [_colorFiltersToLayers count]) {
         
+        NSMutableArray *colorCallbacks = [@[] mutableCopy];
+        NSMutableArray *colorObjs = [@[] mutableCopy];
+        
         for (int i = 0; i < [_colorFiltersToLayers count]; i++) {
             NSDictionary *colorFilter = _colorFiltersToLayers[i];
             NSString *color = [colorFilter valueForKey:@"color"];
             NSString *layer = [colorFilter valueForKey:@"layer"];
             
+            UIColor *colorObj = [self colorFromHexString:color];
+            [colorObjs addObject:colorObj];
+            
             LOTKeypath *keyPath = [LOTKeypath keypathWithString:[layer stringByAppendingString:@".Color"]];
-            LOTColorValueCallback *colorValue = [LOTColorValueCallback withCGColor:[self colorFromHexString:color].CGColor];
-            [_colorFilters addObject:colorValue];
+            LOTColorValueCallback *colorValue = [LOTColorValueCallback withCGColor:colorObj.CGColor];
+            [colorCallbacks addObject:colorValue];
             [_animationView setValueDelegate:colorValue
                                   forKeypath:keyPath];
         }
+        _colorFilters = colorCallbacks;
+        _colors = colorObjs;
     }
 }
 
