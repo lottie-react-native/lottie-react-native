@@ -93,18 +93,18 @@ Apps that use static Xcode project linking need to set iOS deployment version to
 
 ## Installing (React Native <= 0.58.x)
 
-Install `lottie-react-native` (2.5.11) and `lottie-ios` (3.0.3):
+Install `lottie-react-native` (2.5.11) and `lottie-ios` (2.5.3):
 
 ```
 yarn add lottie-react-native@2.5.11
-yarn add lottie-ios@3.0.3
+yarn add lottie-ios@2.5.3
 ```
 
 or
 
 ```
 npm i --save lottie-react-native@2.5.11
-npm i --save lottie-ios@3.0.3
+npm i --save lottie-ios@2.5.3
 ```
 
 Use `react-native link` to add the library to your project:
