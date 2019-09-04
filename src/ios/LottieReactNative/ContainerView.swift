@@ -50,7 +50,13 @@ class ContainerView: RCTView {
     }
     
     @objc func setSourceName(_ newSourceName: String) {
+        if (newSourceName == sourceName) {
+          return
+        }
         sourceName = newSourceName
+
+        let starAnimationView = AnimationView(name: sourceName)
+        replaceAnimationView(next: starAnimationView)
     }
     
     @objc func setResizeMode(_ resizeMode: String) {
