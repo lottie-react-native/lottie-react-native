@@ -36,7 +36,7 @@ If you have issues linking your **iOS** project check out this [StackOverflow th
 
 If your app crashes on **Android**, means auto linking didn't work. You will need to make the following changes:
 
-**android/app/src/main/java/<AppName>/MainApplication.java**
+**android/app/src/main/java/\<AppName\>/MainApplication.java**
 
 - add `import com.airbnb.android.react.lottie.LottiePackage;` on the imports section
 - add `packages.add(new LottiePackage());` in `List<ReactPackage> getPackages()`;
