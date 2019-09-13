@@ -154,6 +154,14 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
 
   @ReactProp(name = "sourceName")
   public void setSourceName(LottieAnimationView view, String name) {
+    // To match the behaviour on iOS we expect the source name to be
+    // extensionless. This means "myAnimation" corresponds to a file
+    // named `myAnimation.json` in `main/assets`. To maintain backwards
+    // compatibility we only add the .json extension if no extension is
+    // passed.
+    if (!name.contains(".")) {
+      name = name + ".json";
+    }
     getOrCreatePropertyManager(view).setAnimationName(name);
   }
 
