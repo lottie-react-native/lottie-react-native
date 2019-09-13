@@ -126,6 +126,9 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
                             view.addOnAttachStateChangeListener(new OnAttachStateChangeListener() {
                                 @Override
                                 public void onViewAttachedToWindow(View v) {
+                                    if (startFrame != -1 && endFrame != -1) {
+                                        view.setMinAndMaxFrame(args.getInt(0), args.getInt(1));
+                                    }
                                     LottieAnimationView view = (LottieAnimationView)v;
                                     view.setProgress(0f);
                                     view.playAnimation();
