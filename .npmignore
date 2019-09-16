@@ -29,3 +29,15 @@ _book
 example
 rn-cli.config.js
 npm-packages-offline-cache
+.github
+.settings
+docs
+book.json
+.watchmanconfig
+.travis.yml
+.project
+.prettierrc
+.prettierignore
+.eslintrc
+.eslintignore
+.yarnrc
