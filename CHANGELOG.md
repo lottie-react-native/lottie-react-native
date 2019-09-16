@@ -1,3 +1,9 @@
+## 3.1.1 (Sep 16, 2019)
+
+* Fix loading assets from app bundle on iOS
+* Remove unused deprecated `publishNonDefault` Gradle option
+* Support passing extensionless file names on Android
+
 ## 3.1.0 (Jul 25, 2019)
 
 * Support for `lottie-android` 3.0.0
