@@ -58,17 +58,17 @@ project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '.
 
 ## Installing (React Native == 0.59.x)
 
-Install `lottie-react-native` (latest) and `lottie-ios` (3.0.3):
+Install `lottie-react-native` (3.0.2) and `lottie-ios` (3.0.3):
 
 ```
-yarn add lottie-react-native
+yarn add lottie-react-native@3.0.2
 yarn add lottie-ios@3.0.3
 ```
 
 or
 
 ```
-npm i --save lottie-react-native
+npm i --save lottie-react-native@3.0.2
 npm i --save lottie-ios@3.0.3
 ```
 
