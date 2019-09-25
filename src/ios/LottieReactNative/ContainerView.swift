@@ -4,7 +4,7 @@ import React
 
 import Lottie
 
-class ContainerView: RCTView {
+public class ContainerView: RCTView {
     private var speed: CGFloat = 0.0
     private var progress: CGFloat = 0.0
     private var loop: LottieLoopMode = .playOnce
@@ -12,7 +12,7 @@ class ContainerView: RCTView {
     private var resizeMode: String = ""
     private var sourceName: String = ""
     @objc var onAnimationFinish: RCTBubblingEventBlock?
-    var animationView: AnimationView?
+    public var animationView: AnimationView?
 
     @objc func setSpeed(_ newSpeed: CGFloat) {
         speed = newSpeed
@@ -23,7 +23,7 @@ class ContainerView: RCTView {
         animationView?.currentProgress = progress
     }
     
-    override func reactSetFrame(_ frame: CGRect) {
+    override public func reactSetFrame(_ frame: CGRect) {
         super.reactSetFrame(frame)
         animationView?.reactSetFrame(frame)
     }
