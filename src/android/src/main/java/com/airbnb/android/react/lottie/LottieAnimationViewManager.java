@@ -113,12 +113,12 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
             int startFrame = args.getInt(0);
             int endFrame = args.getInt(1);
             if (startFrame != -1 && endFrame != -1) {
-               if(startFrame > endFrame){
-                view.setMinAndMaxFrame(endFrame, startFrame );
-                view.reverseAnimationSpeed();
-              } else{
-                view.setMinAndMaxFrame(startFrame, endFrame);
-              }
+               if(startFrame > endFrame){
+                view.setMinAndMaxFrame(endFrame, startFrame);
+                view.reverseAnimationSpeed();
+              } else {
+                view.setMinAndMaxFrame(startFrame, endFrame);
+              }
             }
             if (ViewCompat.isAttachedToWindow(view)) {
               view.setProgress(0f);
