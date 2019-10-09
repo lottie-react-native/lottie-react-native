@@ -76,7 +76,6 @@
 
 - (void)setColorFiltersToLayers:(NSArray *)colorLayers {
     _colorFiltersToLayers = colorLayers;
-    _colorFilters = nil;
     if (_animationView != nil) {
         [self applyProperties];
     }
@@ -156,10 +155,6 @@
     _animationView.animationProgress = _progress;
     _animationView.animationSpeed = _speed;
     _animationView.loopAnimation = _loop;
-    
-    if (_colorFilters && [_colorFilters count]) {
-        return;
-    }
     
     if (_colorFiltersToLayers && [_colorFiltersToLayers count]) {
         
