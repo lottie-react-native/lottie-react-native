@@ -73,10 +73,12 @@ class ContainerView: RCTView {
     
     
     func play(fromFrame: AnimationFrameTime? = nil, toFrame: AnimationFrameTime, completion: LottieCompletionBlock? = nil) {
+        animationView?.backgroundBehavior = .pauseAndRestore
         animationView?.play(fromFrame: fromFrame, toFrame: toFrame, loopMode: self.loop, completion: completion);
     }
     
     func play(completion: LottieCompletionBlock? = nil) {
+        animationView?.backgroundBehavior = .pauseAndRestore
         animationView?.play(completion: completion)
     }
     
