@@ -145,7 +145,7 @@ public class LottieAnimationViewPropertyManager {
         String color = current.getString("color");
         String path = current.getString("keypath");
         SimpleColorFilter colorFilter = new SimpleColorFilter(Color.parseColor(color));
-        KeyPath keyPath = new KeyPath(path);
+        KeyPath keyPath = new KeyPath(path, "**");
         LottieValueCallback<ColorFilter> callback = new LottieValueCallback<>(colorFilter);
         view.addValueCallback(keyPath, LottieProperty.COLOR_FILTER, callback);
       }
