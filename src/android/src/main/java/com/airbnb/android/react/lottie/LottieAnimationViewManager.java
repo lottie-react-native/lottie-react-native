@@ -213,6 +213,11 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     getOrCreatePropertyManager(view).setEnableMergePaths(enableMergePaths);
   }
 
+  @ReactProp(name = "colorFilters")
+  public void setColorFilters(LottieAnimationView view, ReadableArray colorFilters) {
+    getOrCreatePropertyManager(view).setColorFilters(colorFilters);
+  }
+
   @Override
   protected void onAfterUpdateTransaction(LottieAnimationView view) {
     super.onAfterUpdateTransaction(view);
