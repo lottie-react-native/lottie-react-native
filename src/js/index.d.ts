@@ -16,6 +16,11 @@ declare module "lottie-react-native" {
     layers: any[];
   }
 
+  type ColorFilter = {
+    keypath: string;
+    color: string;
+  }
+
   /**
    * Properties of the AnimatedLottieView component
    */
@@ -41,7 +46,7 @@ declare module "lottie-react-native" {
      * default value is 1.
      */
     speed?: number;
-    
+
     /**
      * The duration of the animation in ms. Takes precedence over speed when set.
      * This only works when source is an actual JS object of an animation.
@@ -77,7 +82,7 @@ declare module "lottie-react-native" {
     hardwareAccelerationAndroid?: boolean;
 
     /**
-     * Determines how to resize the animated view when the frame doesn't match the raw image 
+     * Determines how to resize the animated view when the frame doesn't match the raw image
      * dimensions.
      * Refer to https://facebook.github.io/react-native/docs/image.html#resizemode
      */
@@ -99,13 +104,13 @@ declare module "lottie-react-native" {
 
     /**
      * A boolean flag indicating whether or not the animation should size itself automatically
-     * according to the width in the animation's JSON. This only works when source is an actual 
+     * according to the width in the animation's JSON. This only works when source is an actual
      * JS object of an animation.
      */
     autoSize?: boolean;
 
     /**
-     * A boolean flag to enable merge patching in android.  
+     * A boolean flag to enable merge patching in android.
      */
     enableMergePathsAndroidForKitKatAndAbove?: boolean;
 
@@ -114,14 +119,19 @@ declare module "lottie-react-native" {
      * callback will be called only when `loop` is set to false.
      */
     onAnimationFinish ?: (isCancelled: boolean) => void;
+
+    /**
+     * An array of layers you want to override its color filter.
+     */
+    colorFilters ?: Array<ColorFilter>;
   }
 
   /**
    * View hosting the lottie animation. In order to successfully import this definition in
    * your typescript file, you need to import the view as:
-   * 
+   *
    * `import LottieView = require("lottie-react-native");`
-   * 
+   *
    * Otherwise the compiler will give you issues and won't work.
    */
   class AnimatedLottieView extends React.Component<AnimatedLottieViewProps, {}> {
