@@ -28,7 +28,7 @@ class AnimationViewManagerModule: RCTViewManager {
 
             let callback: LottieCompletionBlock = { animationFinished in
                 if let onFinish = view.onAnimationFinish {
-                    onFinish(["isCancelled": animationFinished])
+                    onFinish(["isCancelled": !animationFinished])
                 }
             }
 
