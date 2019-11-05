@@ -78,6 +78,7 @@ Use `react-native link` to add the library to your project:
 react-native link lottie-ios
 react-native link lottie-react-native
 ```
+Note: 
 
 Go to your ios folder and run:
 
@@ -113,6 +114,7 @@ Use `react-native link` to add the library to your project:
 react-native link lottie-ios
 react-native link lottie-react-native
 ```
+Note: If you are using react-native version 0.60 or higher you don't need to link [lottie-react-native](https://github.com/react-native-community/lottie-react-native).
 
 Go to your ios folder and run:
 
