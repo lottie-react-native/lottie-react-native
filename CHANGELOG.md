@@ -1,5 +1,8 @@
-## Unrealeased
+## 3.3.1 (Nov 12, 2019)
+
+- Support for `Reanimated`
 - Added `colorFilters` prop for setting individually layers color
+- Documentation update
 
 ## 3.2.1 (Sep 30, 2019)
 
