@@ -1,3 +1,6 @@
+## Unrealeased
+- Added `colorFilters` prop for setting individually layers color
+
 ## 3.2.1 (Sep 30, 2019)
 
 - Fix for strange characters in some Java files
