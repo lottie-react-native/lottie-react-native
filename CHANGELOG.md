@@ -1,3 +1,7 @@
+## 3.3.2 (Nov 15, 2019)
+
+- Removed support for `Reanimated`
+
 ## 3.3.1 (Nov 12, 2019)
 
 - Support for `Reanimated`
