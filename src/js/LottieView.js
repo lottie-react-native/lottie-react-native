@@ -8,7 +8,6 @@ import {
   StyleSheet,
   ViewPropTypes,
 } from 'react-native';
-import Reanimated from 'react-native-reanimated';
 import SafeModule from 'react-native-safe-modules';
 import PropTypes from 'prop-types';
 
@@ -17,7 +16,6 @@ const NativeLottieView = SafeModule.component({
   mockComponent: View,
 });
 const AnimatedNativeLottieView = Animated.createAnimatedComponent(NativeLottieView);
-const ReanimatedNativeLottieView = Reanimated.createAnimatedComponent(NativeLottieView);
 
 const LottieViewManager = SafeModule.module({
   moduleName: 'LottieAnimationView',
@@ -169,32 +167,20 @@ class LottieView extends React.Component {
 
     const speed =
       this.props.duration && sourceJson && this.props.source.fr
-        ? Math.round(((this.props.source.op / this.props.source.fr) * 1000) / this.props.duration)
+        ? Math.round(this.props.source.op / this.props.source.fr * 1000 / this.props.duration)
         : this.props.speed;
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
-        {this.props.progress instanceof Reanimated.Node ? (
-          <ReanimatedNativeLottieView
-            ref={this.refRoot}
-            {...rest}
-            speed={speed}
-            style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
-            sourceName={sourceName}
-            sourceJson={sourceJson}
-            onAnimationFinish={this.onAnimationFinish}
-          />
-        ) : (
-          <AnimatedNativeLottieView
-            ref={this.refRoot}
-            {...rest}
-            speed={speed}
-            style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
-            sourceName={sourceName}
-            sourceJson={sourceJson}
-            onAnimationFinish={this.onAnimationFinish}
-          />
-        )}
+        <AnimatedNativeLottieView
+          ref={this.refRoot}
+          {...rest}
+          speed={speed}
+          style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
+          sourceName={sourceName}
+          sourceJson={sourceJson}
+          onAnimationFinish={this.onAnimationFinish}
+        />
       </View>
     );
   }
