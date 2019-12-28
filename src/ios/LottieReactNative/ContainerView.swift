@@ -17,6 +17,15 @@ class ContainerView: RCTView {
 
     @objc func setSpeed(_ newSpeed: CGFloat) {
         speed = newSpeed
+        
+        if (newSpeed != 0.0) {
+            animationView?.animationSpeed = newSpeed
+            if (!(animationView?.isAnimationPlaying ?? true)) {
+                animationView?.play()
+            }
+        } else if (animationView?.isAnimationPlaying ?? false) {
+            animationView?.pause()
+        }
     }
 
     @objc func setProgress(_ newProgress: CGFloat) {

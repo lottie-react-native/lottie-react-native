@@ -1,3 +1,6 @@
+## 3.3.3
+- Fix iOS speed not changing dynamically
+
 ## 3.3.2 (Nov 15, 2019)
 
 - Removed support for `Reanimated`
