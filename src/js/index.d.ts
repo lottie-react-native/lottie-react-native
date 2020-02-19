@@ -124,6 +124,11 @@ declare module "lottie-react-native" {
      * An array of layers you want to override its color filter.
      */
     colorFilters ?: Array<ColorFilter>;
+    
+    /**
+     * A string to identify the component during testing
+     */
+    testID?: string;
   }
 
   /**
