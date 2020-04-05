@@ -54,6 +54,34 @@ class AnimationViewManagerModule: RCTViewManager {
         }
     }
     
+    @objc(pause:)
+    public func pause(_ reactTag: NSNumber) {
+        self.bridge.uiManager.addUIBlock { uiManager, viewRegistry in
+            guard let view = viewRegistry?[reactTag] as? ContainerView else {
+                if (RCT_DEV == 1) {
+                    print("Invalid view returned from registry, expecting ContainerView")
+                }
+                return
+            }
+
+            view.pause()
+        }
+    }
+
+    @objc(resume:)
+    public func resume(_ reactTag: NSNumber) {
+        self.bridge.uiManager.addUIBlock { uiManager, viewRegistry in
+            guard let view = viewRegistry?[reactTag] as? ContainerView else {
+                if (RCT_DEV == 1) {
+                    print("Invalid view returned from registry, expecting ContainerView")
+                }
+                return
+            }
+
+            view.resume()
+        }
+    }
+    
     override static func requiresMainQueueSetup() -> Bool {
         return true
     }
