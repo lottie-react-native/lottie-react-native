@@ -31,6 +31,8 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   private static final int VERSION = 1;
   private static final int COMMAND_PLAY = 1;
   private static final int COMMAND_RESET = 2;
+  private static final int COMMAND_PAUSE = 3;
+  private static final int COMMAND_RESUME = 4;
 
   private Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap = new WeakHashMap<>();
 
@@ -100,7 +102,9 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   @Override public Map<String, Integer> getCommandsMap() {
     return MapBuilder.of(
         "play", COMMAND_PLAY,
-        "reset", COMMAND_RESET
+        "reset", COMMAND_RESET,
+        "pause", COMMAND_PAUSE,
+        "resume", COMMAND_RESUME
     );
   }
 
@@ -149,6 +153,28 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
             if (ViewCompat.isAttachedToWindow(view)) {
               view.cancelAnimation();
               view.setProgress(0f);
+            }
+          }
+        });
+      }
+      break;
+      case COMMAND_PAUSE: {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+            if (ViewCompat.isAttachedToWindow(view)) {
+                view.pauseAnimation();
+            }
+            }
+        });
+      }
+      break;
+      case COMMAND_RESUME: {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+          @Override
+          public void run() {
+            if (ViewCompat.isAttachedToWindow(view)) {
+              view.resumeAnimation();
             }
           }
         });
