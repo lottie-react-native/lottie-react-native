@@ -119,6 +119,11 @@ declare module "lottie-react-native" {
      * callback will be called only when `loop` is set to false.
      */
     onAnimationFinish ?: (isCancelled: boolean) => void;
+    
+    /**
+     * A callback function which will be called when the view has been laid out.
+     */
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * An array of layers you want to override its color filter.
@@ -142,6 +147,8 @@ declare module "lottie-react-native" {
   class AnimatedLottieView extends React.Component<AnimatedLottieViewProps, {}> {
     play(startFrame?: number, endFrame?: number): void;
     reset(): void;
+    pause(): void;
+    resume(): void;
   }
 
   export = AnimatedLottieView;
