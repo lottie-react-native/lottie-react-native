@@ -1,3 +1,6 @@
+## 3.3.4
+- Added Pause & Resume commands. Also added `onLayout` prop.
+
 ## 3.3.3
 - Fix iOS speed not changing dynamically
 
