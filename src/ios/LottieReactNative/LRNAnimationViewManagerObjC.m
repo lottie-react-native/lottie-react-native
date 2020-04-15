@@ -14,6 +14,8 @@ RCT_EXPORT_VIEW_PROPERTY(colorFilters, NSArray);
 RCT_EXTERN_METHOD(play:(nonnull NSNumber *)reactTag fromFrame:(nonnull NSNumber *) startFrame toFrame:(nonnull NSNumber *) endFrame);
 
 RCT_EXTERN_METHOD(reset:(nonnull NSNumber *)reactTag);
+RCT_EXTERN_METHOD(pause:(nonnull NSNumber *)reactTag);
+RCT_EXTERN_METHOD(resume:(nonnull NSNumber *)reactTag);
 
 @end
 

@@ -126,6 +126,14 @@ class ContainerView: RCTView {
         animationView?.currentProgress = 0;
         animationView?.pause()
     }
+    
+    func pause() {
+        animationView?.pause()
+    }
+
+    func resume() {
+        play()
+    }
 
     // MARK: Private
 
