@@ -78,12 +78,11 @@ Use `react-native link` to add the library to your project:
 react-native link lottie-ios
 react-native link lottie-react-native
 ```
-Note: 
 
-Go to your ios folder and run:
+Link the native iOS code by running:
 
 ```
-pod install
+npx pod-install
 ```
 
 **_ IMPORTANT _**
