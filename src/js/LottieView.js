@@ -90,7 +90,7 @@ const safeGetViewManagerConfig = moduleName => {
   return UIManager[moduleName];
 };
 
-class LottieView extends React.Component {
+class LottieView extends React.PureComponent {
   constructor(props) {
     super(props);
     this.viewConfig = viewConfig;
