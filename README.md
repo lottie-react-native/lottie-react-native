@@ -10,18 +10,18 @@ For the first time, designers can create **and ship** beautiful animations witho
 
 ## Installing (React Native >= 0.60.0)
 
-Install `lottie-react-native` (latest) and `lottie-ios` (3.1.3):
+Install `lottie-react-native` (latest) and `lottie-ios` (3.1.8):
 
 ```
 yarn add lottie-react-native
-yarn add lottie-ios@3.1.3
+yarn add lottie-ios@3.1.8
 ```
 
 or
 
 ```
 npm i --save lottie-react-native
-npm i --save lottie-ios@3.1.3
+npm i --save lottie-ios@3.1.8
 ```
 
 Go to your ios folder and run:

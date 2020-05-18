@@ -1,5 +1,7 @@
 ## 3.4.1
 - Updated the development app to React Native 0.62.2
+- Updated `lottie-ios` dependency to 3.1.8
+- Updated `lottie-android` dependency to 3.4.0
 
 ## 3.4.0 (May 20, 2020)
 
