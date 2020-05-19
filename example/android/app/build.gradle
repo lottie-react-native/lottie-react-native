@@ -100,7 +100,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.airbnb.android"
+        applicationId "com.example"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
