@@ -12,7 +12,7 @@
     "build:pods": "cd example/ios; bundle exec pod install; cd -",
     "run:packager": "node node_modules/react-native/local-cli/cli.js start",
     "run:ios": "react-native run-ios --project-path ./example/ios",
-    "start:android": "adb shell am start -n com.example/.MainActivity",
+    "start:android": "adb shell am start -n com.airbnb.android.lottie.rnexample/.MainActivity",
     "run:android": "./gradlew installDebug && npm run start:android",
     "lint": "eslint ./",
     "ci": "npm run lint",

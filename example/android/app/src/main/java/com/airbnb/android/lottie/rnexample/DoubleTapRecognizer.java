@@ -1,4 +1,4 @@
-package com.example;
+package com.airbnb.android.lottie.rnexample;
 
 
 import android.os.Handler;

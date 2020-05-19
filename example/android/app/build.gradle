@@ -100,7 +100,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.example"
+        applicationId "com.airbnb.android.lottie.rnexample"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
