@@ -24,6 +24,18 @@ npm run run:packager
 
 ### Developing on Android
 
+While the packager is running and you have an Android device or emulator connected to your computer, build and launch the Android app.
+
+```
+npm run run:android
+```
+
+If you're using a physical device and have trouble connecting your app to the Metro Bundler (e.g. you get a red screen), try checking your reverse proxy.
+
+```
+adb reverse tcp:8081 tcp:8081
+```
+
 ### Developing on iOS
 
 ### Style & Linting
