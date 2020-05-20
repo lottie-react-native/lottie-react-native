@@ -1,8 +1,11 @@
-## 3.3.4
-- Added Pause & Resume commands. Also added `onLayout` prop.
+## 3.4.0
 
-## 3.3.3
+- Add auto embed fastlane
+- Updated Android Building environment
+- Add testID prop to AnimatedLottieView typescript definition
+- Added Pause & Resume commands. Also added `onLayout` prop.
 - Fix iOS speed not changing dynamically
+- Improved documentation
 
 ## 3.3.2 (Nov 15, 2019)
 
