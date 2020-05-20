@@ -59,17 +59,17 @@
     "babel-preset-react-native": "^4.0.0",
     "eslint": "^3.3.1",
     "eslint-config-airbnb": "^10.0.1",
+    "eslint-config-prettier": "^2.8.0",
     "eslint-import-resolver-babel-module": "^2.2.1",
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-prefer-object-spread": "^1.1.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^6.1.2",
     "gitbook-cli": "^1.0.1",
-    "react": "16.0.0",
-    "react-native": "0.50.3",
-    "eslint-config-prettier": "^2.8.0",
-    "eslint-plugin-prettier": "^2.3.1",
     "prettier": "^1.8.2",
-    "prettier-eslint": "^8.2.2"
+    "prettier-eslint": "^8.2.2",
+    "react": "16.11.0",
+    "react-native": "0.62.2"
   }
 }
