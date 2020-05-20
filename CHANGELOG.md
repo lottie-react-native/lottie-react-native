@@ -1,4 +1,4 @@
-## 3.4.0
+## 3.4.0 (May 20, 2020)
 
 - Add auto embed fastlane
 - Updated Android Building environment
