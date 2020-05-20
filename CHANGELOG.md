@@ -1,3 +1,6 @@
+## 3.4.1
+- Updated the development app to React Native 0.62.2
+
 ## 3.4.0 (May 20, 2020)
 
 - Add auto embed fastlane
