@@ -20,5 +20,5 @@ target 'example' do
 
 
   pod 'lottie-react-native', :path => '../../'
-  pod 'lottie-ios', '~> 3.0.4'
+  pod 'lottie-ios', '~> 3.1.3'
 end
