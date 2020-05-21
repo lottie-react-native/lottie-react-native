@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.airbnb.lottie.LottieProperty;
+import com.airbnb.lottie.RenderMode;
 import com.airbnb.lottie.SimpleColorFilter;
 import com.airbnb.lottie.model.KeyPath;
 import com.airbnb.lottie.value.LottieValueCallback;
@@ -42,6 +43,7 @@ public class LottieAnimationViewPropertyManager {
   private String imageAssetsFolder;
   private Boolean enableMergePaths;
   private ReadableArray colorFilters;
+  private RenderMode renderMode;
 
   public LottieAnimationViewPropertyManager(LottieAnimationView view) {
     this.viewWeakReference = new WeakReference<>(view);
@@ -70,6 +72,10 @@ public class LottieAnimationViewPropertyManager {
 
   public void setScaleType(ImageView.ScaleType scaleType) {
     this.scaleType = scaleType;
+  }
+
+  public void setRenderMode(RenderMode renderMode) {
+    this.renderMode = renderMode;
   }
 
   public void setImageAssetsFolder(String imageAssetsFolder) {
@@ -127,6 +133,11 @@ public class LottieAnimationViewPropertyManager {
     if (scaleType != null) {
       view.setScaleType(scaleType);
       scaleType = null;
+    }
+
+    if (renderMode != null) {
+      view.setRenderMode(renderMode);
+      renderMode = null;
     }
 
     if (imageAssetsFolder != null) {

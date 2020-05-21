@@ -11,6 +11,7 @@ import android.view.View.OnAttachStateChangeListener;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.RenderMode;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
@@ -212,6 +213,19 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
       mode = ImageView.ScaleType.CENTER;
     }
     getOrCreatePropertyManager(view).setScaleType(mode);
+  }
+
+  @ReactProp(name = "renderMode")
+  public void setRenderMode(LottieAnimationView view, String renderMode) {
+    RenderMode mode = null;
+    if ("AUTOMATIC".equals(renderMode) ){
+      mode = RenderMode.AUTOMATIC;
+    }else if ("HARDWARE".equals(renderMode)){
+      mode = RenderMode.HARDWARE;
+    }else if ("SOFTWARE".equals(renderMode)){
+      mode = RenderMode.SOFTWARE;
+    }
+    getOrCreatePropertyManager(view).setRenderMode(mode);
   }
 
   @ReactProp(name = "progress")

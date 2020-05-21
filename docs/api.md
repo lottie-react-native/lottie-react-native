@@ -12,6 +12,7 @@
 |**`style`**|Style attributes for the view, as expected in a standard [`View`](http://facebook.github.io/react-native/releases/0.46/docs/layout-props.html), aside from border styling |*None*|
 |**`imageAssetsFolder`**| Needed for **Android** to work properly with assets, iOS will ignore it. |*None*|
 |**`onAnimationFinish`**| A callback function which will be called when animation is finished. Note that this callback will be called only when `loop` is set to false. |*None*|
+|**`renderMode`**| **Only Android**, a String flag to set whether or not to render with `HARDWARE` or `SOFTWARE` acceleration |`AUTOMATIC`|
 
 ## Methods (Imperative API):
 
