@@ -30,13 +30,19 @@ While the packager is running and you have an Android device or emulator connect
 npm run run:android
 ```
 
-If you're using a physical device and have trouble connecting your app to the Metro Bundler (e.g. you get a red screen), try checking your reverse proxy.
-
-```
-adb reverse tcp:8081 tcp:8081
-```
-
 ### Developing on iOS
+
+You need to download the iOS dependencies at least once before you run the app.
+
+```
+npm run build:pods
+```
+
+While the packager is running and you have an iOS device or simulator connected to your computer, build and launch the iOS app.
+
+```
+npm run run:ios
+```
 
 ### Style & Linting
 

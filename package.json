@@ -52,24 +52,25 @@
     "react-native-safe-modules": "^1.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^6.1.2",
-    "babel-plugin-module-resolver": "^3.0.0",
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "babel-eslint": "^9.0.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "babel-preset-airbnb": "^1.1.1",
-    "babel-preset-react-native": "^4.0.0",
     "eslint": "^3.3.1",
     "eslint-config-airbnb": "^10.0.1",
+    "eslint-config-prettier": "^2.8.0",
     "eslint-import-resolver-babel-module": "^2.2.1",
     "eslint-plugin-import": "^1.14.0",
     "eslint-plugin-jsx-a11y": "^2.1.0",
     "eslint-plugin-prefer-object-spread": "^1.1.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^6.1.2",
     "gitbook-cli": "^1.0.1",
-    "react": "16.0.0",
-    "react-native": "0.50.3",
-    "eslint-config-prettier": "^2.8.0",
-    "eslint-plugin-prettier": "^2.3.1",
+    "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^1.8.2",
-    "prettier-eslint": "^8.2.2"
+    "prettier-eslint": "^8.2.2",
+    "react": "16.11.0",
+    "react-native": "0.62.2"
   }
 }
