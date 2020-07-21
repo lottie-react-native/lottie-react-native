@@ -1,5 +1,5 @@
 declare module "lottie-react-native" {
-  import { Animated, StyleProp, ViewStyle } from "react-native";
+  import { Animated, StyleProp, ViewStyle, LayoutChangeEvent } from "react-native";
   /**
    * Serialized animation as generated from After Effects
    */
