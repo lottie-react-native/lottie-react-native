@@ -14,7 +14,7 @@ import com.airbnb.lottie.value.LottieValueCallback;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import java.lang.ref.WeakReference;
-
+import java.util.regex.Pattern;
 /**
  * Class responsible for applying the properties to the LottieView.
  * The way react-native works makes it impossible to predict in which order properties will be set,
@@ -156,7 +156,9 @@ public class LottieAnimationViewPropertyManager {
         String color = current.getString("color");
         String path = current.getString("keypath");
         SimpleColorFilter colorFilter = new SimpleColorFilter(Color.parseColor(color));
-        KeyPath keyPath = new KeyPath(path, "**");
+        String pathWithGlobstar = path +".**";
+        String[] keys = pathWithGlobstar.split(Pattern.quote("."));
+        KeyPath keyPath = new  KeyPath(keys);
         LottieValueCallback<ColorFilter> callback = new LottieValueCallback<>(colorFilter);
         view.addValueCallback(keyPath, LottieProperty.COLOR_FILTER, callback);
       }
