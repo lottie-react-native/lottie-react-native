@@ -14,13 +14,13 @@ import SafeModule from 'react-native-safe-modules';
 import PropTypes from 'prop-types';
 
 
-const getNativeLottieViewForMac = () => {
+const getNativeLottieViewForDesktop = () => {
   return requireNativeComponent('LottieAnimationView') 
 }
 
 const NativeLottieView =
-  Platform.OS === 'macos' ?
-    getNativeLottieViewForMac() :
+  Platform.OS === 'macos' || Platform.OS === 'windows' ?
+    getNativeLottieViewForDesktop() :
     SafeModule.component({ viewName: 'LottieAnimationView', mockComponent: View })
 
 const AnimatedNativeLottieView = Animated.createAnimatedComponent(NativeLottieView);
@@ -28,6 +28,7 @@ const AnimatedNativeLottieView = Animated.createAnimatedComponent(NativeLottieVi
 const LottieViewManager = Platform.select({
   // react-native-windows doesn't work with SafeModule, it always returns the mock component
   macos: NativeModules.LottieAnimationView,
+  windows: NativeModules.LottieAnimationView,
   default: SafeModule.module({
     moduleName: 'LottieAnimationView',
     mock: {
@@ -149,6 +150,12 @@ class LottieView extends React.PureComponent {
 
     return Platform.select({
       android: () =>
+        UIManager.dispatchViewManagerCommand(
+          handle,
+          safeGetViewManagerConfig('LottieAnimationView').Commands[name],
+          args,
+        ),
+      windows: () =>
         UIManager.dispatchViewManagerCommand(
           handle,
           safeGetViewManagerConfig('LottieAnimationView').Commands[name],
