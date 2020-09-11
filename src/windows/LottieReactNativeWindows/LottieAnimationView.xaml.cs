@@ -52,22 +52,22 @@ namespace LottieReactNativeWindows
             }
         }
 
-        static string sha256(string randomString)
+        static string Sha256(string data)
         {
             var crypt = new SHA256Managed();
-            string hash = String.Empty;
-            byte[] crypto = crypt.ComputeHash(Encoding.ASCII.GetBytes(randomString));
+            var hashBuilder = new StringBuilder();
+            byte[] crypto = crypt.ComputeHash(Encoding.ASCII.GetBytes(data));
             foreach (byte theByte in crypto)
             {
-                hash += theByte.ToString("x2");
+                hashBuilder.Append(theByte.ToString("x2"));
             }
-            return hash;
+            return hashBuilder.ToString();
         }
 
         async void AssignTempFileWithValue(String value)
         {
             var tempFolder = ApplicationData.Current.TemporaryFolder;
-            var fileName = sha256(value);
+            var fileName = Sha256(value);
             var exists = (await tempFolder.TryGetItemAsync(fileName)) != null;
             if (!exists)
             {
