@@ -146,11 +146,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\node_modules\react-native-windows\Microsoft.ReactNative.Managed\Microsoft.ReactNative.Managed.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\LottieWindowsDemoApp\LottieWindowsDemoApp\node_modules\react-native-windows\Microsoft.ReactNative.Managed\Microsoft.ReactNative.Managed.csproj">
       <Project>{f2824844-ce15-4242-9420-308923cd76c3}</Project>
       <Name>Microsoft.ReactNative.Managed</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\node_modules\react-native-windows\Microsoft.ReactNative\Microsoft.ReactNative.vcxproj">
+    <ProjectReference Include="..\..\..\..\..\..\LottieWindowsDemoApp\LottieWindowsDemoApp\node_modules\react-native-windows\Microsoft.ReactNative\Microsoft.ReactNative.vcxproj">
       <Project>{f7d32bd0-2749-483e-9a0d-1635ef7e3136}</Project>
       <Name>Microsoft.ReactNative</Name>
     </ProjectReference>

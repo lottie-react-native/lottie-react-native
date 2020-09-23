@@ -1,11 +1,11 @@
 ﻿using Microsoft.ReactNative.Managed;
 using Microsoft.Toolkit.Uwp.UI.Lottie;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,6 +17,8 @@ namespace LottieReactNativeWindows
 {
     public sealed partial class LottieAnimationView : UserControl
     {
+        private const string CODEGEN_PREFIX = "CodeGen";
+
         private Uri _source;
         private double _speed;
         private double _progress;
@@ -31,10 +33,7 @@ namespace LottieReactNativeWindows
             }
             set
             {
-                LottiePlayer.Source = new LottieVisualSource
-                {
-                    UriSource = value
-                };
+                LottiePlayer.Source = GenerateSource(value);
                 _source = value;
             }
         }
@@ -161,6 +160,49 @@ namespace LottieReactNativeWindows
         public LottieAnimationView()
         {
             InitializeComponent();
+        }
+
+        private IAnimatedVisualSource InstantiateCodeGenSource(string objectToInstantiate)
+        {
+            var objectType = Type.GetType(objectToInstantiate);
+            if (objectType == null)
+            {
+                return null;
+            }
+            return (IAnimatedVisualSource)Activator.CreateInstance(objectType);
+        }
+
+        private string CleanupPrefix(string s)
+        {
+            return s.Replace(String.Format("{0}://", CODEGEN_PREFIX), "", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private string HostnameToTypeName(string s)
+        {
+            var components = s.Split(".");
+            if (components.Length <= 1)
+            {
+                return s;
+            }
+
+            var projectName = components[0];
+            var classNameComponents = new string[components.Length - 1];
+            Array.Copy(components, 1, classNameComponents, 0, components.Length - 1);
+
+            return String.Format("{0}, {1}", String.Join(".", classNameComponents), projectName);
+        }
+
+        private IAnimatedVisualSource GenerateSource(Uri uri)
+        {
+            if (uri.Scheme.Equals(CODEGEN_PREFIX, StringComparison.OrdinalIgnoreCase))
+            {
+                return InstantiateCodeGenSource(HostnameToTypeName(CleanupPrefix(uri.OriginalString)));
+            }
+
+            return new LottieVisualSource
+            {
+                UriSource = uri
+            };
         }
     }
 }
