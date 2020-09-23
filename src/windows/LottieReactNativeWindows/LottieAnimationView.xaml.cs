@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -226,7 +227,32 @@ namespace LottieReactNativeWindows
 
         private void ApplyColorFilters()
         {
-            Debug.WriteLine("Apply Color Filters {0}", _colorFilters);
+            if (_colorFilters == null || _animatedVisualSource == null)
+            {
+                return;
+            }
+
+            foreach (var kv in _colorFilters)
+            {
+                TryApplyColorFilter(_animatedVisualSource, kv.Key, kv.Value);
+            }
+        }
+
+        private void TryApplyColorFilter(object data, string propertyName, Color color)
+        {
+            var args = new object[] { color };
+            try
+            {
+                data.GetType().InvokeMember(
+                       propertyName,
+                       BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty,
+                       Type.DefaultBinder,
+                       data, args);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Exception while setting color filter: {0}", e.Message);
+            }
         }
     }
 }
