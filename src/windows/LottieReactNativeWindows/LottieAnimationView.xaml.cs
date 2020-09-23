@@ -3,10 +3,12 @@ using Microsoft.Toolkit.Uwp.UI.Lottie;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -19,22 +21,39 @@ namespace LottieReactNativeWindows
     {
         private const string CODEGEN_PREFIX = "CodeGen";
 
-        private Uri _source;
+        private Uri _sourceUri;
+        private IAnimatedVisualSource _animatedVisualSource;
+        private Dictionary<string, Color> _colorFilters;
         private double _speed;
         private double _progress;
         private Task _playback;
         private string _sourceJson;
 
+        public Dictionary<string, Color> ColorFilters
+        {  
+            get 
+            { 
+                return _colorFilters; 
+            }
+            set 
+            {
+                _colorFilters = value; 
+                ApplyColorFilters();
+            } 
+        }
+
         public Uri Source
         {
             get
             {
-                return _source;
+                return _sourceUri;
             }
             set
             {
-                LottiePlayer.Source = GenerateSource(value);
-                _source = value;
+                _animatedVisualSource = GenerateSource(value);
+                LottiePlayer.Source = _animatedVisualSource;
+                _sourceUri = value;
+                ApplyColorFilters();
             }
         }
 
@@ -203,6 +222,11 @@ namespace LottieReactNativeWindows
             {
                 UriSource = uri
             };
+        }
+
+        private void ApplyColorFilters()
+        {
+            Debug.WriteLine("Apply Color Filters {0}", _colorFilters);
         }
     }
 }

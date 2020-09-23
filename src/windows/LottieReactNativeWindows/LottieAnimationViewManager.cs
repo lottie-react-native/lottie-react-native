@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using Windows.UI;
+using Windows.UI.Xaml;
 
 namespace LottieReactNativeWindows
 {
@@ -31,6 +34,29 @@ namespace LottieReactNativeWindows
         public void SetSpeed(LottieAnimationView view, double value)
         {
             view.PlaybackRate = value;
+        }
+
+        [ViewManagerProperty("colorFilters")]
+        public void SetColorFilters(LottieAnimationView view, IList<JSValue> filtersFromJS)
+        {
+            var filters = new Dictionary<String, Windows.UI.Color>();
+
+            foreach (var filterValue in filtersFromJS) {
+                JSValue keyPathValue;
+                JSValue colorValue;
+                if (!filterValue.TryGetObjectProperty("keypath", out keyPathValue)) { continue; }
+                if (!filterValue.TryGetObjectProperty("color", out colorValue)) { continue; }
+
+                string keyPath;
+                string colorString;
+                if (!keyPathValue.TryGetString(out keyPath)) { continue; }
+                if (!colorValue.TryGetString(out colorString)) { continue; }
+
+                var mediaColor = ColorTranslator.FromHtml(colorString);
+                var color = Windows.UI.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
+                filters.Add(keyPath, color);
+            }
+            view.ColorFilters = filters;
         }
 
         [ViewManagerProperty("resizeMode")]
