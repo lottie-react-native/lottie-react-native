@@ -36,10 +36,30 @@ namespace LottieReactNativeWindows
             view.PlaybackRate = value;
         }
 
+        public Windows.UI.Color ParseColorHex(string hex)
+        {
+            var argb = new byte[4];
+            var current = 0;
+            hex = hex.Replace("#", string.Empty);
+            if (hex.Length == 6)
+            {
+                argb[0] = 255;
+                current++;
+            }
+            for (var i = 0; current < argb.Length; i++)
+            {
+                var v = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+                argb[current] = v;
+                current++;
+            }
+
+            return Windows.UI.Color.FromArgb(argb[0], argb[1], argb[2], argb[3]);
+        }
+
         [ViewManagerProperty("colorFilters")]
         public void SetColorFilters(LottieAnimationView view, IList<JSValue> filtersFromJS)
         {
-            var filters = new Dictionary<String, Windows.UI.Color>();
+            var filters = new Dictionary<string, Windows.UI.Color>();
 
             foreach (var filterValue in filtersFromJS) {
                 JSValue keyPathValue;
@@ -52,8 +72,7 @@ namespace LottieReactNativeWindows
                 if (!keyPathValue.TryGetString(out keyPath)) { continue; }
                 if (!colorValue.TryGetString(out colorString)) { continue; }
 
-                var mediaColor = ColorTranslator.FromHtml(colorString);
-                var color = Windows.UI.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
+                var color = ParseColorHex(colorString);
                 filters.Add(keyPath, color);
             }
             view.ColorFilters = filters;
