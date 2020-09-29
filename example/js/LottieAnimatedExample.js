@@ -17,9 +17,13 @@ import ExamplePicker from './ExamplePicker';
 const AnimatedSlider = Animated.createAnimatedComponent(Slider);
 
 const playIcon = require('./images/play.png');
+const stopIcon = require('./images/stop.png');
+const stopIconOff = require('./images/stop_off.png');
 const pauseIcon = require('./images/pause.png');
 const loopIcon = require('./images/loop.png');
+const loopIconOff = require('./images/loop_off.png');
 const inverseIcon = require('./images/inverse.png');
+const inverseIconOff = require('./images/inverse_off.png');
 
 const makeExample = (name, getJson, width) => ({ name, getJson, width });
 const EXAMPLES = [
@@ -41,20 +45,39 @@ export default class LottieAnimatedExample extends React.Component {
     duration: 3000,
     isPlaying: true,
     isInverse: false,
+    isPaused: false,
     loop: true,
   };
 
-  manageAnimation = shouldPlay => {
+  stopAnimation = () => {
     if (!this.state.progress) {
-      if (shouldPlay) {
-        this.anim.play();
-      } else {
+      this.anim.reset();
+    } else {
+      this.state.progress.setValue(0);
+    }
+  };
+
+  onPlayPress = () => {
+    let isPlaying = this.state.isPlaying;
+    let isPaused = this.state.isPaused;
+
+    if (!this.state.progress) {
+      if (isPlaying && isPaused) {
+        this.anim.resume();
+        isPaused = false;
+      } else if (isPlaying && !isPaused) {
+        this.anim.pause();
+        isPaused = true;
+      } else if (!isPlaying) {
         this.anim.reset();
+        this.anim.play();
+        isPlaying = true;
+        isPaused = false;
       }
     } else {
       this.state.progress.setValue(0);
 
-      if (shouldPlay) {
+      if (!isPlaying) {
         Animated.timing(this.state.progress, {
           toValue: 1,
           duration: this.state.duration,
@@ -66,11 +89,18 @@ export default class LottieAnimatedExample extends React.Component {
       }
     }
 
-    this.setState({ isPlaying: shouldPlay });
+    this.setState({ isPlaying, isPaused });
   };
 
-  onPlayPress = () => this.manageAnimation(!this.state.isPlaying);
-  stopAnimation = () => this.manageAnimation(false);
+  onLoopPress = () => {
+    this.stopAnimation();
+    this.setState({ loop: !this.state.loop, isPlaying: false, isPaused: false });
+  };
+
+  onStopPress = () => {
+    this.stopAnimation();
+    this.setState({ isPlaying: false, isPaused: false });
+  };
 
   onInversePress = () => this.setState(state => ({ isInverse: !state.isInverse }));
   onProgressChange = progress => this.state.progress.setValue(progress);
@@ -81,7 +111,7 @@ export default class LottieAnimatedExample extends React.Component {
   };
 
   render() {
-    const { duration, isPlaying, isInverse, progress, loop, example } = this.state;
+    const { duration, isPlaying, isPaused, isInverse, progress, loop, example } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <ExamplePicker
@@ -89,7 +119,11 @@ export default class LottieAnimatedExample extends React.Component {
           examples={EXAMPLES}
           onChange={(e, index) => {
             this.stopAnimation();
-            this.setState({ example: EXAMPLES[index] });
+            setTimeout(
+              () =>
+                this.setState({ example: EXAMPLES[index], isPlaying: !progress, isPaused: false }),
+              500,
+            );
           }}
         />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -100,18 +134,15 @@ export default class LottieAnimatedExample extends React.Component {
             source={example.getJson()}
             progress={progress}
             loop={loop}
+            onAnimationFinish={() => {
+              this.setState({ isPlaying: false, isPaused: false });
+            }}
             enableMergePathsAndroidForKitKatAndAbove
           />
         </View>
         <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
           <View style={styles.controlsRow}>
-            <TouchableOpacity
-              onPress={() => {
-                this.stopAnimation();
-                this.setState(state => ({ loop: !state.loop }));
-              }}
-              disabled={!!progress}
-            >
+            <TouchableOpacity onPress={this.onLoopPress} disabled={!!progress}>
               <Image
                 style={[
                   styles.controlsIcon,
@@ -119,18 +150,29 @@ export default class LottieAnimatedExample extends React.Component {
                   !!progress && styles.controlsIconDisabled,
                 ]}
                 resizeMode="contain"
-                source={loopIcon}
+                source={loop ? loopIcon : loopIconOff}
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.playButton} onPress={this.onPlayPress}>
               <Image
                 style={styles.playButtonIcon}
                 resizeMode="contain"
-                source={isPlaying ? pauseIcon : playIcon}
+                source={isPlaying && !isPaused ? pauseIcon : playIcon}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onStopPress} disabled={!isPlaying}>
+              <Image
+                style={styles.controlsIcon}
+                resizeMode="contain"
+                source={isPlaying ? stopIcon : stopIconOff}
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={this.onInversePress}>
-              <Image style={styles.controlsIcon} resizeMode="contain" source={inverseIcon} />
+              <Image
+                style={styles.controlsIcon}
+                resizeMode="contain"
+                source={isInverse ? inverseIcon : inverseIconOff}
+              />
             </TouchableOpacity>
           </View>
           <View

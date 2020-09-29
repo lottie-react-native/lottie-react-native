@@ -19,6 +19,7 @@ export default class ExamplePicker extends React.Component {
           marginBottom: Platform.select({
             ios: -30,
             android: 0,
+            windows: 0,
           }),
         }}
       >

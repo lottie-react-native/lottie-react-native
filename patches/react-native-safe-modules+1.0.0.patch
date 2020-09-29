@@ -1,0 +1,103 @@
+diff --git a/node_modules/react-native-safe-modules/lib/NativeSafeComponent.js b/node_modules/react-native-safe-modules/lib/NativeSafeComponent.js
+index d392c84..475b6f7 100644
+--- a/node_modules/react-native-safe-modules/lib/NativeSafeComponent.js
++++ b/node_modules/react-native-safe-modules/lib/NativeSafeComponent.js
+@@ -117,13 +117,15 @@ var nativeComponent=(0,_reactNative.requireNativeComponent)(realViewName);
+ var result=nativeComponent;
+ 
+ result.runCommand=function(instance,name){for(var _len=arguments.length,args=Array(_len>2?_len-2:0),_key=2;_key<_len;_key++){args[_key-2]=arguments[_key];}
+-return _reactNative.Platform.select({
+-android:function android(){return _reactNative.UIManager.dispatchViewManagerCommand(
++var native=function native(){return _reactNative.UIManager.dispatchViewManagerCommand(
+ (0,_reactNative.findNodeHandle)(instance),
+ getViewManagerConfig(realViewName).Commands[name],
+-args);},
++args);};
+ 
++return _reactNative.Platform.select({
++android:native,
+ ios:function ios(){return nativeModule[name].apply(nativeModule,[(0,_reactNative.findNodeHandle)(instance)].concat(args));},
++windows:native,
+ default:function _default(){}})();
+ 
+ };
+@@ -133,6 +135,7 @@ var native=function native(){return _reactNative.UIManager.updateView((0,_reactN
+ _reactNative.Platform.select({
+ ios:native,
+ android:native,
++windows:native,
+ default:function _default(){}})();
+ 
+ };
+diff --git a/node_modules/react-native-safe-modules/lib/SafeComponent.windows.js b/node_modules/react-native-safe-modules/lib/SafeComponent.windows.js
+new file mode 100644
+index 0000000..c67ee33
+--- /dev/null
++++ b/node_modules/react-native-safe-modules/lib/SafeComponent.windows.js
+@@ -0,0 +1 @@
++module.exports=require('./NativeSafeComponent');
+\ No newline at end of file
+diff --git a/node_modules/react-native-safe-modules/lib/SafeModule.windows.js b/node_modules/react-native-safe-modules/lib/SafeModule.windows.js
+new file mode 100644
+index 0000000..d5495ee
+--- /dev/null
++++ b/node_modules/react-native-safe-modules/lib/SafeModule.windows.js
+@@ -0,0 +1 @@
++module.exports=require('./NativeSafeModule');
+\ No newline at end of file
+diff --git a/node_modules/react-native-safe-modules/src/NativeSafeComponent.js b/node_modules/react-native-safe-modules/src/NativeSafeComponent.js
+index f3ff56e..8eadb24 100644
+--- a/node_modules/react-native-safe-modules/src/NativeSafeComponent.js
++++ b/node_modules/react-native-safe-modules/src/NativeSafeComponent.js
+@@ -21,7 +21,7 @@ const first = (array, fn) => {
+ const getViewManagerConfig = (moduleName) => {
+   if (UIManager.getViewManagerConfig) {
+     // RN >= 0.58
+-    return UIManager.getViewManagerConfig(moduleName)
++    return UIManager.getViewManagerConfig(moduleName);
+   }
+ 
+   // RN < 0.58
+@@ -117,13 +117,15 @@ function SafeComponentCreate(options) {
+   let result = nativeComponent;
+ 
+   result.runCommand = (instance, name, ...args) => {
++    const native = () => UIManager.dispatchViewManagerCommand(
++      findNodeHandle(instance),
++      getViewManagerConfig(realViewName).Commands[name],
++      args
++    );
+     return Platform.select({
+-      android: () => UIManager.dispatchViewManagerCommand(
+-        findNodeHandle(instance),
+-        getViewManagerConfig(realViewName).Commands[name],
+-        args
+-      ),
++      android: native,
+       ios: () => nativeModule[name](findNodeHandle(instance), ...args),
++      windows: native,
+       default: () => {},
+     })();
+   };
+@@ -133,6 +135,7 @@ function SafeComponentCreate(options) {
+     Platform.select({
+       ios: native,
+       android: native,
++      windows: native,
+       default: () => {},
+     })();
+   };
+diff --git a/node_modules/react-native-safe-modules/src/SafeComponent.windows.js b/node_modules/react-native-safe-modules/src/SafeComponent.windows.js
+new file mode 100644
+index 0000000..f584b48
+--- /dev/null
++++ b/node_modules/react-native-safe-modules/src/SafeComponent.windows.js
+@@ -0,0 +1 @@
++module.exports = require('./NativeSafeComponent');
+diff --git a/node_modules/react-native-safe-modules/src/SafeModule.windows.js b/node_modules/react-native-safe-modules/src/SafeModule.windows.js
+new file mode 100644
+index 0000000..056caec
+--- /dev/null
++++ b/node_modules/react-native-safe-modules/src/SafeModule.windows.js
+@@ -0,0 +1 @@
++module.exports = require('./NativeSafeModule');
