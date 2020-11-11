@@ -41,3 +41,7 @@ book.json
 .eslintrc
 .eslintignore
 .yarnrc
+babel.config.json
+.flowconfig
+Gemfile
+Gemfile.lock
