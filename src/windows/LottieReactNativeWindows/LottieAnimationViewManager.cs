@@ -16,6 +16,11 @@ namespace LottieReactNativeWindows
         {
             if (null != value)
             {
+                // supported schemas
+                if (!value.StartsWith("ms-appx:") && !value.StartsWith("codegen:"))
+                {
+                    value = String.Format("ms-appx:///Assets/{0}", value);
+                }
                 view.Source = new Uri(value);
             }
             else
