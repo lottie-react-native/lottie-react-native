@@ -2,17 +2,28 @@ package com.airbnb.android.react.lottie;
 
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.os.FileUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
+import com.airbnb.lottie.LottieCompositionFactory;
 import com.airbnb.lottie.LottieDrawable;
 import com.airbnb.lottie.LottieProperty;
+import com.airbnb.lottie.LottieResult;
 import com.airbnb.lottie.RenderMode;
 import com.airbnb.lottie.SimpleColorFilter;
 import com.airbnb.lottie.model.KeyPath;
+import com.airbnb.lottie.utils.Utils;
 import com.airbnb.lottie.value.LottieValueCallback;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.util.regex.Pattern;
 /**
@@ -28,6 +39,7 @@ public class LottieAnimationViewPropertyManager {
   private final WeakReference<LottieAnimationView> viewWeakReference;
 
   private String animationJson;
+  private String animationPath;
   private Float progress;
   private Boolean loop;
   private Float speed;
@@ -56,6 +68,10 @@ public class LottieAnimationViewPropertyManager {
 
   public void setAnimationJson(String json) {
     this.animationJson = json;
+  }
+
+  public void setAnimationPath(String path) {
+    this.animationPath = path;
   }
 
   public void setProgress(Float progress) {
@@ -108,6 +124,28 @@ public class LottieAnimationViewPropertyManager {
     if (animationJson != null) {
       view.setAnimationFromJson(animationJson, Integer.toString(animationJson.hashCode()));
       animationJson = null;
+    }
+
+    if (animationPath != null) {
+      try(InputStream inputStream = new FileInputStream(animationPath);
+          BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+        final StringBuilder stringBuilder = new StringBuilder();
+        boolean done = false;
+        while (!done) {
+          final String line = reader.readLine();
+          done = (line == null);
+
+          if (line != null) {
+            stringBuilder.append(line);
+          }
+        }
+
+        view.setAnimationFromJson(stringBuilder.toString(), animationPath);
+        animationPath = null;
+      } catch(Exception e) {
+        Log.w("LottieAnimationViewPropertyManager", e);
+        e.printStackTrace();
+      }
     }
 
     if (animationNameDirty) {

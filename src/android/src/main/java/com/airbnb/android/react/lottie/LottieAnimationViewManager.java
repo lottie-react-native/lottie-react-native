@@ -202,6 +202,11 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     getOrCreatePropertyManager(view).setAnimationJson(json);
   }
 
+  @ReactProp(name = "sourcePath")
+  public void setSourcePath(LottieAnimationView view, String path) {
+    getOrCreatePropertyManager(view).setAnimationPath(path);
+  }
+
   @ReactProp(name = "resizeMode")
   public void setResizeMode(LottieAnimationView view, String resizeMode) {
     ImageView.ScaleType mode = null;

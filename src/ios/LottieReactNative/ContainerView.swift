@@ -11,6 +11,7 @@ class ContainerView: RCTView {
     private var sourceJson: String = ""
     private var resizeMode: String = ""
     private var sourceName: String = ""
+    private var sourcePath: String = ""
     private var colorFilters: [NSDictionary] = []
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     var animationView: AnimationView?
@@ -66,6 +67,26 @@ class ContainerView: RCTView {
         sourceName = newSourceName
 
         let starAnimationView = AnimationView(name: sourceName)
+        replaceAnimationView(next: starAnimationView)
+    }
+
+    @objc func setSourceName(_ newSourceName: String) {
+        if (newSourceName == sourceName) {
+          return
+        }
+        sourceName = newSourceName
+
+        let starAnimationView = AnimationView(name: sourceName)
+        replaceAnimationView(next: starAnimationView)
+    }
+
+    @objc func setSourcePath(_ newSourcePath: String) {
+        if (newSourcePath == sourcePath) {
+          return
+        }
+        sourcePath = newSourcePath
+
+        let starAnimationView = AnimationView(filePath: sourcePath)
         replaceAnimationView(next: starAnimationView)
     }
 

@@ -1,3 +1,7 @@
+## Unreleased
+
+- Add support for loading animations from a local path
+
 ## 3.4.1
 - Updated the development app to React Native 0.62.2
 - Updated `lottie-ios` dependency to 3.1.8
