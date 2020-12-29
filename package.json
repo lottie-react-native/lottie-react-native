@@ -43,7 +43,8 @@
   "homepage": "https://github.com/airbnb/lottie-react-native#readme",
   "peerDependencies": {
     "react": "*",
-    "react-native": ">=0.46"
+    "react-native": ">=0.46",
+    "react-native-windows": ">=0.63.x"
   },
   "dependencies": {
     "invariant": "^2.2.2",
@@ -70,7 +71,8 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^1.8.2",
     "prettier-eslint": "^8.2.2",
-    "react": "16.11.0",
-    "react-native": "0.62.2"
+    "react": "16.13.0",
+    "react-native": "0.63.4",
+    "react-native-windows": "0.63.15"
   }
 }

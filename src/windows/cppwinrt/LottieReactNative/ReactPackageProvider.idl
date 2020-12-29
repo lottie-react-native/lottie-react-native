@@ -1,0 +1,13 @@
+namespace LottieReactNative
+{
+    interface ILottieSourceProvider
+    {
+        Microsoft.UI.Xaml.Controls.IAnimatedVisualSource GetSourceFromName(String name);
+    }
+
+    [default_interface]
+    runtimeclass ReactPackageProvider : Microsoft.ReactNative.IReactPackageProvider
+    {
+        ReactPackageProvider(ILottieSourceProvider sourceProvider);
+    }
+}

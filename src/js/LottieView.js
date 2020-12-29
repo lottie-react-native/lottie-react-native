@@ -143,6 +143,12 @@ class LottieView extends React.PureComponent {
           args,
         ),
       ios: () => LottieViewManager[name](this.getHandle(), ...args),
+      windows: () =>
+        UIManager.dispatchViewManagerCommand(
+          handle,
+          safeGetViewManagerConfig('LottieAnimationView').Commands[name],
+          args,
+        ),
     })();
   }
 

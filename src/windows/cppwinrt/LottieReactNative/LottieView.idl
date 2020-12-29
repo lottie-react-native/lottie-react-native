@@ -1,0 +1,24 @@
+namespace LottieReactNative
+{
+    //
+    // Subclassing WinUI 2.x classes is broken, so we'll subclass Grid instead and compose
+    //
+    [default_interface]
+    runtimeclass LottieView : Windows.UI.Xaml.Controls.Grid
+    {
+        LottieView();
+        LottieView(Microsoft.ReactNative.IReactContext context);
+
+        Boolean Loop { get; set; };
+        Boolean AutoPlay { get; set; };
+        Double Speed{ get; set; };
+        Windows.UI.Xaml.Media.Stretch ResizeMode { get; set; };
+        Microsoft.UI.Xaml.Controls.IAnimatedVisualSource Source{ get; set; };
+
+        void SetProgress(Double progress);
+        void Play(Double from, Double to);
+        void Pause();
+        void Resume();
+        void Reset();
+    }
+}

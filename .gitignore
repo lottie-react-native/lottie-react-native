@@ -47,3 +47,12 @@ android/app/libs
 
 # Gitbook generated files
 _book
+
+# Visual Studio
+.vs/
+Generated Files/
+bin/
+obj/
+
+# NuGet
+packages/
