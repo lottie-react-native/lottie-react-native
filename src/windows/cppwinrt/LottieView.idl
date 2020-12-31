@@ -10,7 +10,6 @@ namespace LottieReactNative
         LottieView(Microsoft.ReactNative.IReactContext context);
 
         Boolean Loop { get; set; };
-        Boolean AutoPlay { get; set; };
         Double Speed{ get; set; };
         Windows.UI.Xaml.Media.Stretch ResizeMode { get; set; };
         Microsoft.UI.Xaml.Controls.IAnimatedVisualSource Source{ get; set; };

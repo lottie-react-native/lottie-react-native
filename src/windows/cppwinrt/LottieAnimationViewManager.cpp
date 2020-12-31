@@ -46,7 +46,6 @@ namespace winrt::LottieReactNative::implementation {
     {
         auto nativeProps = winrt::single_threaded_map<winrt::hstring, ViewManagerPropertyType>();
 
-        nativeProps.Insert(L"autoPlay", ViewManagerPropertyType::Boolean);
         nativeProps.Insert(L"loop", ViewManagerPropertyType::Boolean);
         nativeProps.Insert(L"speed", ViewManagerPropertyType::Number);
         nativeProps.Insert(L"progress", ViewManagerPropertyType::Number);
@@ -69,10 +68,7 @@ namespace winrt::LottieReactNative::implementation {
                 auto const& propertyName = pair.first;
                 auto const& propertyValue = pair.second;
 
-                if (propertyName == "autoPlay") {
-                    control.AutoPlay(propertyValue.AsBoolean());
-                }
-                else if (propertyName == "loop") {
+                if (propertyName == "loop") {
                     control.Loop(propertyValue.AsBoolean());
                 }
                 else if (propertyName == "speed") {
