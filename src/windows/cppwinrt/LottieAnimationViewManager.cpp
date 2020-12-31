@@ -49,6 +49,8 @@ namespace winrt::LottieReactNative::implementation {
         nativeProps.Insert(L"autoPlay", ViewManagerPropertyType::Boolean);
         nativeProps.Insert(L"loop", ViewManagerPropertyType::Boolean);
         nativeProps.Insert(L"speed", ViewManagerPropertyType::Number);
+        nativeProps.Insert(L"progress", ViewManagerPropertyType::Number);
+        nativeProps.Insert(L"resizeMode", ViewManagerPropertyType::String);
         nativeProps.Insert(L"sourceName", ViewManagerPropertyType::String);
         nativeProps.Insert(L"sourceJson", ViewManagerPropertyType::String);
         nativeProps.Insert(L"imageAssetsFolder", ViewManagerPropertyType::String);
@@ -133,8 +135,8 @@ namespace winrt::LottieReactNative::implementation {
     {
         if (auto control = view.try_as<winrt::LottieReactNative::LottieView>()) {
             if (command == L"play") {
-                auto from = commandArgsReader.GetInt64();
-                auto to = commandArgsReader.GetInt64();
+                int64_t from, to;
+                ReadArgs(commandArgsReader, from, to);
                 control.Play(from, to);
             }
             else if (command == L"pause") {
@@ -149,6 +151,13 @@ namespace winrt::LottieReactNative::implementation {
         }
     }
 
+    // IViewManagerWithExportedViewConstants
+    winrt::Microsoft::ReactNative::ConstantProviderDelegate LottieAnimationViewManager::ExportedViewConstants() noexcept
+    {
+        return [](IJSValueWriter const& constantWriter) {
+            WriteProperty(constantWriter, "VERSION", 1);
+        };
+    }
 
     // IViewManagerWithExportedEventTypeConstants
     winrt::Microsoft::ReactNative::ConstantProviderDelegate LottieAnimationViewManager::ExportedCustomBubblingEventTypeConstants() noexcept

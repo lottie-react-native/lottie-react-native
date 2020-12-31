@@ -16,7 +16,7 @@ namespace LottieReactNative
         Microsoft.UI.Xaml.Controls.IAnimatedVisualSource Source{ get; set; };
 
         void SetProgress(Double progress);
-        void Play(Double from, Double to);
+        void Play(Int64 from, Int64 to);
         void Pause();
         void Resume();
         void Reset();

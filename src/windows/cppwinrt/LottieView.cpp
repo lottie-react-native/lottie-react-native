@@ -11,6 +11,10 @@ namespace winrt::LottieReactNative::implementation
         FlowDirection(winrt::Windows::UI::Xaml::FlowDirection::LeftToRight);
 
         m_player = winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer();
+        m_player.AutoPlay(false);
+        //m_player.HorizontalAlignment(winrt::Windows::UI::Xaml::HorizontalAlignment::Stretch);
+        //m_player.VerticalAlignment(winrt::Windows::UI::Xaml::VerticalAlignment::Stretch);
+        m_playerLoadedRevoker = m_player.Loaded(winrt::auto_revoke, { get_weak(), &LottieView::OnPlayerMounted });
         Children().Append(m_player);
     }
 
@@ -39,7 +43,7 @@ namespace winrt::LottieReactNative::implementation
     }
 
     void LottieView::AutoPlay(bool autoPlay) {
-        m_player.AutoPlay(autoPlay);
+        //m_player.AutoPlay(autoPlay);
     }
 
     double LottieView::Speed() {
@@ -68,21 +72,41 @@ namespace winrt::LottieReactNative::implementation
 
     void LottieView::Source(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource source) {
         if (source) {
-            m_player.Source(source);
+            if (m_player.IsLoaded()) {
+                m_player.Source(source);
+            }
+            else {
+                m_sourceToLoad = source;
+            }
         }
         else {
             m_player.ClearValue(winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer::SourceProperty());
+            m_sourceToLoad = nullptr;
         }
     }
 
-    void LottieView::Play(double from, double to) {
-        m_from = from;
-        m_to = to;
+    constexpr double ticksToSeconds(winrt::TimeSpan ticks)
+    {
+        return std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1>>>(ticks).count();
+    }
 
-        auto play = m_player.PlayAsync(from, to, m_loop);
+    void LottieView::Play(int64_t from, int64_t to) {
+        if (from == -1 && to == -1) {
+            m_from = 0;
+            m_to = 1;
+        }
+        else {
+            static const double framesPerSecond = 60.0;
+            const double totalFrames = std::max<double>(ticksToSeconds(m_player.Duration()) * framesPerSecond, 1.0);
+
+            m_from = from / totalFrames;
+            m_to = to / totalFrames;
+        }
+
+        auto play = m_player.PlayAsync(m_from, m_to, m_loop);
 
         if (!m_loop) {
-            play.Completed([weakThis = get_weak()](const auto& asyncOp, const auto& status) {
+            play.Completed([weakThis = get_weak()](const auto& /*asyncOp*/, const auto& status) {
                 if (status == winrt::Windows::Foundation::AsyncStatus::Completed) {
                     if (auto strongThis{ weakThis.get() }) {
                         strongThis->m_reactContext.DispatchEvent(*strongThis, L"onAnimationFinish");
@@ -100,5 +124,12 @@ namespace winrt::LottieReactNative::implementation
     }
     void LottieView::Reset() {
         m_player.Stop();
+    }
+
+    void LottieView::OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& args) {
+        if (m_sourceToLoad) {
+            m_player.Source(m_sourceToLoad);
+            m_sourceToLoad = nullptr;
+        }
     }
 }

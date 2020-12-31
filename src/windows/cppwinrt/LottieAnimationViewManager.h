@@ -11,6 +11,7 @@ namespace winrt::LottieReactNative::implementation {
         winrt::Microsoft::ReactNative::IViewManagerWithReactContext,
         winrt::Microsoft::ReactNative::IViewManagerWithNativeProperties,
         winrt::Microsoft::ReactNative::IViewManagerWithCommands,
+        winrt::Microsoft::ReactNative::IViewManagerWithExportedViewConstants,
         winrt::Microsoft::ReactNative::IViewManagerWithExportedEventTypeConstants> {
     public:
         LottieAnimationViewManager(winrt::LottieReactNative::ILottieSourceProvider lottieSourceProvider);
@@ -38,6 +39,9 @@ namespace winrt::LottieReactNative::implementation {
             winrt::Windows::UI::Xaml::FrameworkElement const& view,
             winrt::hstring command,
             winrt::Microsoft::ReactNative::IJSValueReader const& commandArgsReader) noexcept;
+
+        // IViewManagerWithExportedViewConstants
+        winrt::Microsoft::ReactNative::ConstantProviderDelegate ExportedViewConstants() noexcept;
 
         // IViewManagerWithExportedEventTypeConstants
         winrt::Microsoft::ReactNative::ConstantProviderDelegate ExportedCustomBubblingEventTypeConstants() noexcept;

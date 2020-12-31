@@ -28,7 +28,7 @@ namespace winrt::LottieReactNative::implementation
         winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource Source();
         void Source(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource source);
 
-        void Play(double from, double to);
+        void Play(int64_t from, int64_t to);
         void Pause();
         void Resume();
         void Reset();
@@ -36,11 +36,15 @@ namespace winrt::LottieReactNative::implementation
     private:
         winrt::Microsoft::ReactNative::ReactContext m_reactContext;
         winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer m_player;
+        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource m_sourceToLoad;
+        winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer::Loaded_revoker m_playerLoadedRevoker;
         bool m_loop;
         bool m_autoPlay;
         double m_from;
         double m_to;
         winrt::hstring m_sourceName;
+
+        void OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& args);
     };
 }
 
