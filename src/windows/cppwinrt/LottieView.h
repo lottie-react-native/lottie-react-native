@@ -18,8 +18,6 @@ namespace winrt::LottieReactNative::implementation
 
         bool Loop();
         void Loop(bool loop);
-        bool AutoPlay();
-        void AutoPlay(bool autoPlay);
         double Speed();
         void Speed(double speed);
         void SetProgress(double progress);
@@ -38,13 +36,14 @@ namespace winrt::LottieReactNative::implementation
         winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer m_player;
         winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource m_sourceToLoad;
         winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer::Loaded_revoker m_playerLoadedRevoker;
-        bool m_loop;
-        bool m_autoPlay;
-        double m_from;
-        double m_to;
+        bool m_loop = false;
+        bool m_playOnLoad = false;
+        double m_from = 0;
+        double m_to = 1;
         winrt::hstring m_sourceName;
 
         void OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& args);
+        void PlayInternal();
     };
 }
 

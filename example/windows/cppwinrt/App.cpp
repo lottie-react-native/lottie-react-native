@@ -36,6 +36,18 @@ namespace winrt::Example::implementation {
                 return winrt::AnimatedVisuals::LottieLogo1();
             } else if (name == L"Lottie Logo 2") {
                 return winrt::AnimatedVisuals::LottieLogo2();
+            } else if (name == L"Lottie Walkthrough") {
+                return winrt::AnimatedVisuals::LottieWalkthrough();
+            } else if (name == L"Pin Jump") {
+                return winrt::AnimatedVisuals::PinJump();
+            } else if (name == L"Twitter Heart") {
+                return winrt::AnimatedVisuals::TwitterHeart();
+            } else if (name == L"Watermelon") {
+                return winrt::AnimatedVisuals::Watermelon();
+            } else if (name == L"Motion Corpse") {
+                return winrt::AnimatedVisuals::MotionCorpse_Jrcanest();
+            } else if (name == L"9 squares") {
+                return winrt::AnimatedVisuals::_9squares_AlBoardman();
             }
             return nullptr;
         }

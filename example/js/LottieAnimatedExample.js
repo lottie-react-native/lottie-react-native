@@ -31,16 +31,17 @@ const makeExample = (name, getJson, width) => ({
   width
 });
 const EXAMPLES = [
+  makeExample('9 squares', () => require('./animations/9squares-AlBoardman.json')),
   makeExample('Hamburger Arrow', () => require('./animations/HamburgerArrow.json')),
   makeExample('Hamburger Arrow (200 px)', () => require('./animations/HamburgerArrow.json'), 200),
   makeExample('Line Animation', () => require('./animations/LineAnimation.json')),
   makeExample('Lottie Logo 1', () => require('./animations/LottieLogo1.json')),
   makeExample('Lottie Logo 2', () => require('./animations/LottieLogo2.json')),
   makeExample('Lottie Walkthrough', () => require('./animations/LottieWalkthrough.json')),
+  makeExample('Motion Corpse', () => require('./animations/MotionCorpse-Jrcanest.json')),
   makeExample('Pin Jump', () => require('./animations/PinJump.json')),
   makeExample('Twitter Heart', () => require('./animations/TwitterHeart.json')),
   makeExample('Watermelon', () => require('./animations/Watermelon.json')),
-  makeExample('Motion Corpse', () => require('./animations/MotionCorpse-Jrcanest.json')),
 ];
 
 export default class LottieAnimatedExample extends React.Component {

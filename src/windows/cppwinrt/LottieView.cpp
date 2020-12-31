@@ -38,14 +38,6 @@ namespace winrt::LottieReactNative::implementation
         }
     }
 
-    bool LottieView::AutoPlay() {
-        return m_player.AutoPlay();
-    }
-
-    void LottieView::AutoPlay(bool autoPlay) {
-        //m_player.AutoPlay(autoPlay);
-    }
-
     double LottieView::Speed() {
         return m_player.PlaybackRate();
     }
@@ -103,16 +95,11 @@ namespace winrt::LottieReactNative::implementation
             m_to = to / totalFrames;
         }
 
-        auto play = m_player.PlayAsync(m_from, m_to, m_loop);
-
-        if (!m_loop) {
-            play.Completed([weakThis = get_weak()](const auto& /*asyncOp*/, const auto& status) {
-                if (status == winrt::Windows::Foundation::AsyncStatus::Completed) {
-                    if (auto strongThis{ weakThis.get() }) {
-                        strongThis->m_reactContext.DispatchEvent(*strongThis, L"onAnimationFinish");
-                    }
-                }
-            });
+        if (!m_player.IsLoaded()) {
+            m_playOnLoad = true;
+        }
+        else {
+            PlayInternal();
         }
     }
 
@@ -130,6 +117,25 @@ namespace winrt::LottieReactNative::implementation
         if (m_sourceToLoad) {
             m_player.Source(m_sourceToLoad);
             m_sourceToLoad = nullptr;
+        }
+
+        if (m_playOnLoad) {
+            m_playOnLoad = false;
+            PlayInternal();
+        }
+    }
+
+    void LottieView::PlayInternal() {
+        auto play = m_player.PlayAsync(m_from, m_to, m_loop);
+
+        if (!m_loop) {
+            play.Completed([weakThis = get_weak()](const auto& /*asyncOp*/, const auto& status) {
+                if (status == winrt::Windows::Foundation::AsyncStatus::Completed) {
+                    if (auto strongThis{ weakThis.get() }) {
+                        strongThis->m_reactContext.DispatchEvent(*strongThis, L"onAnimationFinish");
+                    }
+                }
+            });
         }
     }
 }
