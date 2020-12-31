@@ -51,6 +51,9 @@ namespace winrt::Example::implementation {
             }
             return nullptr;
         }
+        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource GetSourceFromJson(winrt::hstring json) {
+            return nullptr;
+        }
     };
 
     /// <summary>

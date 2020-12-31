@@ -4,6 +4,8 @@
 #include <winrt/Windows.UI.Xaml.h>
 #include <winrt/Windows.UI.Xaml.Controls.h>
 #include <winrt/Windows.UI.Xaml.Media.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.h>
+
 
 #include "NativeModules.h"
 
@@ -100,7 +102,9 @@ namespace winrt::LottieReactNative::implementation {
                     control.Source(source);
                 }
                 else if (propertyName == "sourceJson") {
-                    // Currently unsupported by WinUI 2.x without involving .NET Framework
+                    auto sourceName = ReadValue<std::optional<std::wstring>>(propertyValue);
+                    auto source = m_lottieSourceProvider.GetSourceFromJson(sourceName.value_or(L""));
+                    control.Source(source);
                 }
                 else if (propertyName == "imageAssetsFolder") {
                     
