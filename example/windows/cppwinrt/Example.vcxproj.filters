@@ -5,45 +5,15 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
-    <Midl Include="Animations\AnimatedVisuals._9squares_AlBoardman.idl" />
-    <Midl Include="Animations\AnimatedVisuals.HamburgerArrow.idl" />
-    <Midl Include="Animations\AnimatedVisuals.LineAnimation.idl" />
-    <Midl Include="Animations\AnimatedVisuals.LottieLogo1.idl" />
-    <Midl Include="Animations\AnimatedVisuals.LottieLogo2.idl" />
-    <Midl Include="Animations\AnimatedVisuals.LottieWalkthrough.idl" />
-    <Midl Include="Animations\AnimatedVisuals.MotionCorpse_Jrcanest.idl" />
-    <Midl Include="Animations\AnimatedVisuals.PinJump.idl" />
-    <Midl Include="Animations\AnimatedVisuals.TwitterHeart.idl" />
-    <Midl Include="Animations\AnimatedVisuals.Watermelon.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals._9squares_AlBoardman.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.HamburgerArrow.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.LineAnimation.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.LottieLogo1.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.LottieLogo2.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.LottieWalkthrough.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.MotionCorpse_Jrcanest.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.PinJump.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.TwitterHeart.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.Watermelon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h" />
-    <ClInclude Include="Animations\AnimatedVisuals._9squares_AlBoardman.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.HamburgerArrow.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.LineAnimation.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.LottieLogo1.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.LottieLogo2.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.LottieWalkthrough.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.MotionCorpse_Jrcanest.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.PinJump.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.TwitterHeart.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.Watermelon.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

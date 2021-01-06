@@ -101,16 +101,6 @@
     </Reference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Animations\AnimatedVisuals.HamburgerArrow.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.LineAnimation.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.LottieLogo1.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.LottieLogo2.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.LottieWalkthrough.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.MotionCorpse_Jrcanest.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.PinJump.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.TwitterHeart.h" />
-    <ClInclude Include="Animations\AnimatedVisuals.Watermelon.h" />
-    <ClInclude Include="Animations\AnimatedVisuals._9squares_AlBoardman.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -136,16 +126,18 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animations\AnimatedVisuals.HamburgerArrow.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.LineAnimation.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.LottieLogo1.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.LottieLogo2.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.LottieWalkthrough.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.MotionCorpse_Jrcanest.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.PinJump.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.TwitterHeart.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals.Watermelon.cpp" />
-    <ClCompile Include="Animations\AnimatedVisuals._9squares_AlBoardman.cpp" />
+    <LottieAnimation Include="..\..\js\animations\9squares-AlBoardman.json" Name="9 squares" />
+    <LottieAnimation Include="..\..\js\animations\HamburgerArrow.json" Name="Hamburger Arrow" />
+    <LottieAnimation Include="..\..\js\animations\LineAnimation.json" Name="Line Animation" />
+    <LottieAnimation Include="..\..\js\animations\LottieLogo1.json" Name="Lottie Logo 1" />
+    <LottieAnimation Include="..\..\js\animations\LottieLogo2.json" Name="Lottie Logo 2" />
+    <LottieAnimation Include="..\..\js\animations\LottieWalkthrough.json" Name="Lottie Walkthrough" />
+    <LottieAnimation Include="..\..\js\animations\MotionCorpse-Jrcanest.json" Name="Motion Corpse" />
+    <LottieAnimation Include="..\..\js\animations\PinJump.json" Name="Pin Jump" />
+    <LottieAnimation Include="..\..\js\animations\TwitterHeart.json" Name="Twitter Heart" />
+    <LottieAnimation Include="..\..\js\animations\Watermelon.json" Name="Watermelon" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -155,16 +147,6 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Animations\AnimatedVisuals.HamburgerArrow.idl" />
-    <Midl Include="Animations\AnimatedVisuals.LineAnimation.idl" />
-    <Midl Include="Animations\AnimatedVisuals.LottieLogo1.idl" />
-    <Midl Include="Animations\AnimatedVisuals.LottieLogo2.idl" />
-    <Midl Include="Animations\AnimatedVisuals.LottieWalkthrough.idl" />
-    <Midl Include="Animations\AnimatedVisuals.MotionCorpse_Jrcanest.idl" />
-    <Midl Include="Animations\AnimatedVisuals.PinJump.idl" />
-    <Midl Include="Animations\AnimatedVisuals.TwitterHeart.idl" />
-    <Midl Include="Animations\AnimatedVisuals.Watermelon.idl" />
-    <Midl Include="Animations\AnimatedVisuals._9squares_AlBoardman.idl" />
     <Midl Include="App.idl">
       <DependentUpon>App.xaml</DependentUpon>
     </Midl>
@@ -178,6 +160,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Project="..\..\..\src\windows\cppwinrt\PropertySheets\LottieGen.Cpp.targets" />
   <PropertyGroup Label="ReactNativeWindowsNodeProps">
     <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
   </PropertyGroup>

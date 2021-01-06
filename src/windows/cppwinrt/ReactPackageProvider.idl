@@ -1,5 +1,12 @@
 namespace LottieReactNative
 {
+    interface ILottieCodegenSource
+    {
+        Double FrameToProgress(Double frame);
+        void SetColorProperty(String propertyName, Windows.UI.Color value);
+        void SetScalarProperty(String propertyName, Double value);
+    };
+
     interface ILottieSourceProvider
     {
         Microsoft.UI.Xaml.Controls.IAnimatedVisualSource GetSourceFromName(String name);

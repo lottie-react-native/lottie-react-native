@@ -88,11 +88,18 @@ namespace winrt::LottieReactNative::implementation
             m_to = 1;
         }
         else {
-            static const double framesPerSecond = 60.0;
-            const double totalFrames = std::max<double>(ticksToSeconds(m_player.Duration()) * framesPerSecond, 1.0);
+            auto codegenSource = m_player.Source().try_as<LottieReactNative::ILottieCodegenSource>();
+            if (codegenSource) {
+                m_from = codegenSource.FrameToProgress(from);
+                m_to = codegenSource.FrameToProgress(to);
+            }
+            else {
+                static const double framesPerSecond = 30.0;
+                const double totalFrames = std::max<double>(ticksToSeconds(m_player.Duration()) * framesPerSecond, 1.0);
 
-            m_from = from / totalFrames;
-            m_to = to / totalFrames;
+                m_from = from / totalFrames;
+                m_to = to / totalFrames;
+            }
         }
 
         if (!m_player.IsLoaded()) {

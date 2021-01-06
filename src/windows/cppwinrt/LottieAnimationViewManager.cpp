@@ -102,15 +102,15 @@ namespace winrt::LottieReactNative::implementation {
                     control.Source(source);
                 }
                 else if (propertyName == "sourceJson") {
-                    auto sourceName = ReadValue<std::optional<std::wstring>>(propertyValue);
-                    auto source = m_lottieSourceProvider.GetSourceFromJson(sourceName.value_or(L""));
+                    auto sourceJson = ReadValue<std::optional<std::wstring>>(propertyValue);
+                    auto source = m_lottieSourceProvider.GetSourceFromJson(sourceJson.value_or(L""));
                     control.Source(source);
                 }
                 else if (propertyName == "imageAssetsFolder") {
                     
                 }
                 else if (propertyName == "colorFilters") {
-
+                    
                 }
             }
         }
@@ -154,6 +154,7 @@ namespace winrt::LottieReactNative::implementation {
     // IViewManagerWithExportedViewConstants
     winrt::Microsoft::ReactNative::ConstantProviderDelegate LottieAnimationViewManager::ExportedViewConstants() noexcept
     {
+        // Export VERSION constant for use with react-native-safe-modules and CodePush
         return [](IJSValueWriter const& constantWriter) {
             WriteProperty(constantWriter, "VERSION", 1);
         };
