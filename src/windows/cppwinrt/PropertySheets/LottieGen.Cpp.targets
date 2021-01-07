@@ -1,20 +1,43 @@
 <Project>
+<!--
+    MSBuild script for automating codegen of Lottie animations and inclusion of the results into an app build.
+
+    Usage:
+        1. Include this targets file in your project:
+
+            <Import Project="path/to/LottieGen.cpp.targets"
+
+        2. Add an ItemGroup to your project with elements like this:
+
+            <LottieAnimation Include="path/to/myAnimation.json" Name="Id to use in JS" />
+
+        The name field is optional and will default to the filename.
+
+        3. In your native React Native Windows setup code, register the native animation provider:
+
+            PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::AnimatedVisuals::LottieCodegenSourceProvider()));
+-->
     <PropertyGroup>
         <EnableLottieCodegen Condition="'$(EnableLottieCodegen)' == ''">true</EnableLottieCodegen>
         <LottieGenPath Condition="'$(LottieGenPath)' == ''">C:\dev\ms\Lottie-Windows\LottieGen\bin\AnyCPU\Debug\netcoreapp3.1\lottiegen.exe</LottieGenPath>
-        <!-- <LottieInputFolder></LottieInputFolder> -->
-        <LottieOutputFolder Condition="'$(LottieOutputFolder)' == ''">$(IntDir)\Generated Files\Animations\</LottieOutputFolder>
+        <LottieOutputFolder Condition="'$(LottieOutputFolder)' == ''">$(IntDir)Generated Files\Animations\</LottieOutputFolder>
         <LottieOutputFolder>$(LottieOutputFolder.TrimEnd('\'))</LottieOutputFolder>
         <LottieMinimumUapVersion Condition="'$(LottieMinimumUapVersion)' == ''">10</LottieMinimumUapVersion>
         <LottieTargetUAPVersion Condition="'$(LottieTargetUAPVersion)' == ''">10</LottieTargetUAPVersion>
         <LottieAnimationNamespace>AnimatedVisuals</LottieAnimationNamespace>
+        <LottieVerbosity>normal</LottieVerbosity>
+
+        <_LottieProviderIdlFilePath>$(LottieOutputFolder)\LottieCodegenSourceProvider.idl</_LottieProviderIdlFilePath>
+        <_LottieProviderHeaderFilePath>$(LottieOutputFolder)\LottieCodegenSourceProvider.h</_LottieProviderHeaderFilePath>
+        <_LottieProviderCppFilePath>$(LottieOutputFolder)\LottieCodegenSourceProvider.cpp</_LottieProviderCppFilePath>
     </PropertyGroup>
 
-    <ItemGroup>
-        <LottieAnimation Condition="'$(LottieInputFolder)' != ''" Include="$(LottieInputFolder)\*.json" />
-    </ItemGroup>
+    <!-- Hook up our targets to run before any CppWinRT/MIDL processing happens -->
+    <PropertyGroup>
+        <BeforeMidlCompileTargets>LottieGen_IncludeBuiltFiles;$(BeforeMidlCompileTargets)</BeforeMidlCompileTargets>
+    </PropertyGroup>
 
-    <!-- Helper for doing find/replace on a file -->
+    <!-- Helper for doing find/replace on a text file -->
     <UsingTask TaskName="ReplaceFileText" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
         <ParameterGroup>
             <Filename ParameterType="System.String" Required="true" />
@@ -38,10 +61,10 @@
     </UsingTask>
 
     <!-- 
-        Add metadata to LottieAnimation items. 
+        Add metadata to LottieAnimation items. The generated name needs to match what LottieGen outputs.
     
         This is a little goofy because we want to use Regex and we can't do that directly with Item Metadata.
-        So instead, we use Target batching (via the Outputs attribute) with 1 item per run of the task, and use a Property to run the Regex. -->
+        So instead, we use Target batching (via the %() Outputs attribute) with 1 item per run of the task, and use a Property to run the Regex. -->
     <Target Name="LottieGen_UpdateMetadata"
         Outputs="%(LottieAnimation.Identity)">
 
@@ -57,72 +80,115 @@
                 <Name>$(_LottieAnimationName)</Name>
                 <GeneratedName>$(_LottieAnimationGeneratedName)</GeneratedName>
                 <GeneratedFileName>$(LottieAnimationNamespace).$(_LottieAnimationGeneratedName)</GeneratedFileName>
-                <FactoryExpression>
-                    if(name == L"$(_LottieAnimationName)") {
-                        return winrt::$(LottieAnimationNamespace)::$(_LottieAnimationGeneratedName)()%3B
-                    }
-                </FactoryExpression>
             </LottieAnimation>
         </ItemGroup>
 
-        <Message Importance="High" Text="Processing metadata for %(LottieAnimation.Identity) -> %(LottieAnimation.Name)" />
+        <Message Importance="$(LottieVerbosity)" Text="Processing metadata for %(LottieAnimation.Identity) -> %(LottieAnimation.Name)" />
     </Target>
 
     <Target Name="LottieGen_CreateOutputPath">        
         <MakeDir Directories="$(LottieOutputFolder)" />
     </Target>
 
-    <Target Name="LottieGen_CreateProvider" DependsOnTargets="LottieGen_CreateOutputPath;LottieGen_UpdateMetadata">
+    <!-- 
+        Create a provider component that maps names to native animation implementations. 
+    
+        We're not using incremental build here because changes to item metadata (like the Name attribute) wouldn't trigger rebuild.
+        Instead, we can use WriteOnlyWhenDifferent to avoid changing the output file if our code is the same.
+    -->
+    <Target Name="LottieGen_CreateProvider" 
+        DependsOnTargets="LottieGen_CreateOutputPath;LottieGen_UpdateMetadata"
+        Outputs="$(_LottieProviderIdlFilePath);$(_LottieProviderHeaderFilePath);$(_LottieProviderCppFilePath)">
         <PropertyGroup>
-            <_LottieProviderFilePath>$(LottieOutputFolder)\LottieSourceProvider.g.cpp</_LottieProviderFilePath>
-            <_LottieProviderContent>
+            <_LottieProviderIdlContent>
 <![CDATA[
-#include "pch.h"
-
-#include <winrt/Microsoft.ReactNative.h>
-#include <winrt/LottieReactNative.h>
-#include <winrt/AnimatedVisuals.h>
-
-namespace winrt::LottieReactNative
+namespace $(LottieAnimationNamespace)
 {
-    struct LottieCodegenSourceProvider : winrt::implements<LottieCodegenSourceProvider, winrt::LottieReactNative::ILottieSourceProvider>
+    runtimeclass LottieCodegenSourceProvider : [default]LottieReactNative.ILottieSourceProvider
+    {
+        LottieCodegenSourceProvider()%3B
+    }
+}
+]]>
+            </_LottieProviderIdlContent>
+            <_LottieProviderHeaderContent>
+<![CDATA[
+#pragma once
+#include "$(LottieAnimationNamespace).LottieCodegenSourceProvider.g.h"
+
+namespace winrt::$(LottieAnimationNamespace)::implementation
+{
+    struct LottieCodegenSourceProvider : LottieCodegenSourceProviderT<LottieCodegenSourceProvider>
     {
         LottieCodegenSourceProvider() = default%3B
 
-        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource GetSourceFromName(winrt::hstring name) {
-]]>
-        @(LottieAnimation->'%(FactoryExpression)')
-<![CDATA[
-            return nullptr%3B
-        }
-        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource GetSourceFromJson(winrt::hstring json) {
-            return nullptr%3B
-        }
+        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource GetSourceFromName(winrt::hstring name)%3B
+        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource GetSourceFromJson(winrt::hstring json)%3B
     }%3B
 }
+namespace winrt::$(LottieAnimationNamespace)::factory_implementation
+{
+    struct LottieCodegenSourceProvider : LottieCodegenSourceProviderT<LottieCodegenSourceProvider, implementation::LottieCodegenSourceProvider> {}%3B
+}
 ]]>
-            </_LottieProviderContent>
+            </_LottieProviderHeaderContent>
+            <_LottieProviderCppContent>
+<![CDATA[
+#include "pch.h"
+#include "LottieCodegenSourceProvider.h"
+#include "$(LottieAnimationNamespace).LottieCodegenSourceProvider.g.cpp"
+
+namespace winrt::$(LottieAnimationNamespace)::implementation
+{
+    winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource LottieCodegenSourceProvider::GetSourceFromName(winrt::hstring name) {
+        @(LottieAnimation->'
+            if(name == L"%(Name)") {
+                return winrt::$(LottieAnimationNamespace)::%(GeneratedName)()%3B
+            }
+        ')
+        return nullptr%3B
+    }
+    winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource LottieCodegenSourceProvider::GetSourceFromJson(winrt::hstring json) {
+        return nullptr%3B
+    }
+}
+]]>
+            </_LottieProviderCppContent>
         </PropertyGroup>
 
+        <Message Importance="$(LottieVerbosity)" Text="Creating Lottie React Native provider" />
         <WriteLinesToFile
-            File="$(_LottieProviderFilePath)"
+            File="$(_LottieProviderIdlFilePath)"
             Overwrite="true"
-            Lines="$(_LottieProviderContent)" />
+            Lines="$(_LottieProviderIdlContent)"
+            WriteOnlyWhenDifferent="true" />
 
-        <!-- <ItemGroup>
-            <ClCompile Include="$(_LottieProviderFilePath)" />
-        </ItemGroup> -->
+        <WriteLinesToFile
+            File="$(_LottieProviderHeaderFilePath)"
+            Overwrite="true"
+            Lines="$(_LottieProviderHeaderContent)"
+            WriteOnlyWhenDifferent="true" />
+
+        <WriteLinesToFile
+            File="$(_LottieProviderCppFilePath)"
+            Overwrite="true"
+            Lines="$(_LottieProviderCppContent)"
+            WriteOnlyWhenDifferent="true" />
     </Target>
 
-    <!-- Needs to run very early in the overall build to ensure any CppWinRT/WinMD/MIDL-related targets can reference the IDL files we generate -->
+    <!--
+        Runs LottieGen on JSON files to generate native animations.
+
+        We use Target batching (via %() in Outputs) to run this target for each animation.
+        We specify Inputs and Outputs to support incremental builds. Only changes to the input JSON timestamps will trigger rebuild.
+    -->
     <Target Name="LottieGen_Build"
         Condition="'$(EnableLottieCodegen)' == 'true'"
-        BeforeTargets="BeforeResolveReferences"
-        DependsOnTargets="LottieGen_CreateOutputPath;LottieGen_UpdateMetadata;LottieGen_CreateProvider"
+        DependsOnTargets="LottieGen_CreateOutputPath;LottieGen_UpdateMetadata"
         Inputs="@(LottieAnimation)"
         Outputs="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).idl">
 
-        <Message Importance="High" Text="Generating Lottie files" />
+        <Message Importance="$(LottieVerbosity)" Text="Generating Lottie animation files" />
         <Exec WorkingDirectory="$(LottieOutputFolder)" Command='"$(LottieGenPath)" -L cppwinrt -AdditionalInterface LottieReactNative.ILottieCodegenSource -Namespace "$(LottieAnimationNamespace)" -MinimumUapVersion $(LottieMinimumUapVersion) -TargetUapVersion $(LottieTargetUapVersion)  -inp "%(LottieAnimation.FullPath)" -o "$(LottieOutputFolder)"' />
 
         <!-- Hack to remove unncessary import statement -->
@@ -130,12 +196,24 @@ namespace winrt::LottieReactNative
             Filename="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).idl" 
             MatchExpression='import "LottieReactNative.ILottieCodegenSource.idl";' 
             ReplacementText="" />
-            
-        <!-- Add generated files to the build -->
+    </Target>
+
+    <!-- 
+        Add generated files to the build. 
+        
+        Done as a separate step to make sure the Items are always created even if codegen was skipped due to no changes. 
+    -->
+    <Target Name="LottieGen_IncludeBuiltFiles"
+        Condition="'$(EnableLottieCodegen)' == 'true'"
+        DependsOnTargets="LottieGen_Build;LottieGen_CreateProvider">
         <ItemGroup>
             <Midl Include="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).idl" />
             <ClInclude Include="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).h" />
-            <ClCompile Include="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).cpp" />
+            <ClCompile Include="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).cpp" />            
+
+            <Midl Include="$(_LottieProviderIdlFilePath)" />
+            <ClInclude Include="$(_LottieProviderHeaderFilePath)" />
+            <ClCompile Include="$(_LottieProviderCppFilePath)" />
         </ItemGroup>
     </Target>
 </Project>

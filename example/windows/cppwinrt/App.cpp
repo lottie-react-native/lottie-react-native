@@ -10,8 +10,6 @@
 #include <winrt/LottieReactNative.h>
 #include <winrt/AnimatedVisuals.h>
 
-#include "Animations/LottieSourceProvider.g.cpp"
-
 namespace winrt {
     using namespace winrt::Windows::UI::Xaml;
     using namespace winrt::Windows::ApplicationModel;
@@ -44,7 +42,7 @@ namespace winrt::Example::implementation {
 
         // RegisterAutolinkedNativeModulePackages(PackageProviders()); // Includes any autolinked modules
 
-        PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::make<winrt::LottieReactNative::LottieCodegenSourceProvider>()));
+        PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::AnimatedVisuals::LottieCodegenSourceProvider()));
 
         InitializeComponent();
     }

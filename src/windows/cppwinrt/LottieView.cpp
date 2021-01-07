@@ -33,7 +33,7 @@ namespace winrt::LottieReactNative::implementation
             if (m_player.IsPlaying()) {
                 // Restart with looping enabled
                 Reset();
-                Play(m_from, m_to);
+                PlayInternal();
             }
         }
     }
@@ -90,8 +90,8 @@ namespace winrt::LottieReactNative::implementation
         else {
             auto codegenSource = m_player.Source().try_as<LottieReactNative::ILottieCodegenSource>();
             if (codegenSource) {
-                m_from = codegenSource.FrameToProgress(from);
-                m_to = codegenSource.FrameToProgress(to);
+                m_from = codegenSource.FrameToProgress(static_cast<double>(from));
+                m_to = codegenSource.FrameToProgress(static_cast<double>(to));
             }
             else {
                 static const double framesPerSecond = 30.0;
@@ -120,7 +120,7 @@ namespace winrt::LottieReactNative::implementation
         m_player.Stop();
     }
 
-    void LottieView::OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& args) {
+    void LottieView::OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& /*sender*/, winrt::Windows::Foundation::IInspectable const& /*args*/) {
         if (m_sourceToLoad) {
             m_player.Source(m_sourceToLoad);
             m_sourceToLoad = nullptr;
