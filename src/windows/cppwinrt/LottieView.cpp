@@ -12,8 +12,6 @@ namespace winrt::LottieReactNative::implementation
 
         m_player = winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer();
         m_player.AutoPlay(false);
-        //m_player.HorizontalAlignment(winrt::Windows::UI::Xaml::HorizontalAlignment::Stretch);
-        //m_player.VerticalAlignment(winrt::Windows::UI::Xaml::VerticalAlignment::Stretch);
         m_playerLoadedRevoker = m_player.Loaded(winrt::auto_revoke, { get_weak(), &LottieView::OnPlayerMounted });
         Children().Append(m_player);
     }
@@ -88,12 +86,13 @@ namespace winrt::LottieReactNative::implementation
             m_to = 1;
         }
         else {
-            auto codegenSource = m_player.Source().try_as<LottieReactNative::ILottieCodegenSource>();
+            auto codegenSource = m_player.Source().try_as<LottieReactNative::ILottieMediaSource>();
             if (codegenSource) {
                 m_from = codegenSource.FrameToProgress(static_cast<double>(from));
                 m_to = codegenSource.FrameToProgress(static_cast<double>(to));
             }
             else {
+                // No metadata available. Use a reasonable default to convert from frames to time.
                 static const double framesPerSecond = 30.0;
                 const double totalFrames = std::max<double>(ticksToSeconds(m_player.Duration()) * framesPerSecond, 1.0);
 

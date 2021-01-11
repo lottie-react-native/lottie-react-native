@@ -16,10 +16,17 @@
         3. In your native React Native Windows setup code, register the native animation provider:
 
             PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::AnimatedVisuals::LottieCodegenSourceProvider()));
+
+        4. Either install LottieGen as a .NET Core global tool:
+            dotnet tool install -g LottieGen
+
+            OR
+
+            Set the LottieGenPath variable to point to the LottieGenPath exe
 -->
     <PropertyGroup>
         <EnableLottieCodegen Condition="'$(EnableLottieCodegen)' == ''">true</EnableLottieCodegen>
-        <LottieGenPath Condition="'$(LottieGenPath)' == ''">C:\dev\ms\Lottie-Windows\LottieGen\bin\AnyCPU\Debug\netcoreapp3.1\lottiegen.exe</LottieGenPath>
+        <LottieGenPath Condition="'$(LottieGenPath)' == ''">lottiegen</LottieGenPath>
         <LottieOutputFolder Condition="'$(LottieOutputFolder)' == ''">$(IntDir)Generated Files\Animations\</LottieOutputFolder>
         <LottieOutputFolder>$(LottieOutputFolder.TrimEnd('\'))</LottieOutputFolder>
         <LottieMinimumUapVersion Condition="'$(LottieMinimumUapVersion)' == ''">10</LottieMinimumUapVersion>
@@ -189,12 +196,12 @@ namespace winrt::$(LottieAnimationNamespace)::implementation
         Outputs="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).idl">
 
         <Message Importance="$(LottieVerbosity)" Text="Generating Lottie animation files" />
-        <Exec WorkingDirectory="$(LottieOutputFolder)" Command='"$(LottieGenPath)" -L cppwinrt -AdditionalInterface LottieReactNative.ILottieCodegenSource -Namespace "$(LottieAnimationNamespace)" -MinimumUapVersion $(LottieMinimumUapVersion) -TargetUapVersion $(LottieTargetUapVersion)  -inp "%(LottieAnimation.FullPath)" -o "$(LottieOutputFolder)"' />
+        <Exec WorkingDirectory="$(LottieOutputFolder)" Command='"$(LottieGenPath)" -L cppwinrt -AdditionalInterface LottieReactNative.ILottieMediaSource -Namespace "$(LottieAnimationNamespace)" -MinimumUapVersion $(LottieMinimumUapVersion) -TargetUapVersion $(LottieTargetUapVersion)  -inp "%(LottieAnimation.FullPath)" -o "$(LottieOutputFolder)"' />
 
         <!-- Hack to remove unncessary import statement -->
         <ReplaceFileText 
             Filename="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).idl" 
-            MatchExpression='import "LottieReactNative.ILottieCodegenSource.idl";' 
+            MatchExpression='import "LottieReactNative.ILottieMediaSource.idl";' 
             ReplacementText="" />
     </Target>
 
