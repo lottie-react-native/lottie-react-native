@@ -24,7 +24,7 @@ declare module "lottie-react-native" {
   /**
    * Properties of the AnimatedLottieView component
    */
-  interface AnimatedLottieViewProps {
+  export interface AnimatedLottieViewProps {
     /**
      * The source of animation. Can be referenced as a local asset by a string, or remotely
      * with an object with a `uri` property, or it can be an actual JS object of an
@@ -157,5 +157,5 @@ declare module "lottie-react-native" {
     resume(): void;
   }
 
-  export = AnimatedLottieView;
+  export default AnimatedLottieView;
 }
