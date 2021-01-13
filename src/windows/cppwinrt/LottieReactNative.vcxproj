@@ -119,26 +119,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="LottieAnimationViewManager.h" />
+    <ClInclude Include="LottieView.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="LottieView.h">
-      <DependentUpon>LottieView.idl</DependentUpon>
-    </ClInclude>
     <ClInclude Include="ReactPackageProvider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LottieAnimationViewManager.cpp" />
+    <ClCompile Include="LottieView.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="LottieView.cpp">
-      <DependentUpon>LottieView.idl</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="ReactPackageProvider.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="LottieView.idl" />
-    <Midl Include="ReactPackageProvider.idl" />
+    <Midl Include="LottieReactNative.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LottieReactNative.def" />

@@ -5,7 +5,7 @@
     Usage:
         1. Include this targets file in your project:
 
-            <Import Project="path/to/LottieGen.cpp.targets"
+            <Import Project="path/to/LottieGen.Cpp.targets"
 
         2. Add an ItemGroup to your project with elements like this:
 
@@ -28,15 +28,15 @@
         <EnableLottieCodegen Condition="'$(EnableLottieCodegen)' == ''">true</EnableLottieCodegen>
         <LottieGenPath Condition="'$(LottieGenPath)' == ''">lottiegen</LottieGenPath>
         <LottieOutputFolder Condition="'$(LottieOutputFolder)' == ''">$(IntDir)Generated Files\Animations\</LottieOutputFolder>
-        <LottieOutputFolder>$(LottieOutputFolder.TrimEnd('\'))</LottieOutputFolder>
+        <LottieOutputFolder>$([MSBuild]::NormalizeDirectory('$(LottieOutputFolder)'))</LottieOutputFolder>
         <LottieMinimumUapVersion Condition="'$(LottieMinimumUapVersion)' == ''">10</LottieMinimumUapVersion>
         <LottieTargetUAPVersion Condition="'$(LottieTargetUAPVersion)' == ''">10</LottieTargetUAPVersion>
         <LottieAnimationNamespace>AnimatedVisuals</LottieAnimationNamespace>
         <LottieVerbosity>normal</LottieVerbosity>
 
-        <_LottieProviderIdlFilePath>$(LottieOutputFolder)\LottieCodegenSourceProvider.idl</_LottieProviderIdlFilePath>
-        <_LottieProviderHeaderFilePath>$(LottieOutputFolder)\LottieCodegenSourceProvider.h</_LottieProviderHeaderFilePath>
-        <_LottieProviderCppFilePath>$(LottieOutputFolder)\LottieCodegenSourceProvider.cpp</_LottieProviderCppFilePath>
+        <_LottieProviderIdlFilePath>$(LottieOutputFolder)LottieCodegenSourceProvider.idl</_LottieProviderIdlFilePath>
+        <_LottieProviderHeaderFilePath>$(LottieOutputFolder)LottieCodegenSourceProvider.h</_LottieProviderHeaderFilePath>
+        <_LottieProviderCppFilePath>$(LottieOutputFolder)LottieCodegenSourceProvider.cpp</_LottieProviderCppFilePath>
     </PropertyGroup>
 
     <!-- Hook up our targets to run before any CppWinRT/MIDL processing happens -->
@@ -129,8 +129,8 @@ namespace winrt::$(LottieAnimationNamespace)::implementation
     {
         LottieCodegenSourceProvider() = default%3B
 
-        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource GetSourceFromName(winrt::hstring name)%3B
-        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource GetSourceFromJson(winrt::hstring json)%3B
+        winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> GetSourceFromName(winrt::hstring name)%3B
+        winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> GetSourceFromJson(winrt::hstring json)%3B
     }%3B
 }
 namespace winrt::$(LottieAnimationNamespace)::factory_implementation
@@ -147,16 +147,16 @@ namespace winrt::$(LottieAnimationNamespace)::factory_implementation
 
 namespace winrt::$(LottieAnimationNamespace)::implementation
 {
-    winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource LottieCodegenSourceProvider::GetSourceFromName(winrt::hstring name) {
+    winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> LottieCodegenSourceProvider::GetSourceFromName(winrt::hstring name) {
         @(LottieAnimation->'
             if(name == L"%(Name)") {
-                return winrt::$(LottieAnimationNamespace)::%(GeneratedName)()%3B
+                co_return winrt::$(LottieAnimationNamespace)::%(GeneratedName)()%3B
             }
         ')
-        return nullptr%3B
+        co_return nullptr%3B
     }
-    winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource LottieCodegenSourceProvider::GetSourceFromJson(winrt::hstring json) {
-        return nullptr%3B
+    winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> LottieCodegenSourceProvider::GetSourceFromJson(winrt::hstring json) {
+        co_return nullptr%3B
     }
 }
 ]]>
@@ -166,20 +166,20 @@ namespace winrt::$(LottieAnimationNamespace)::implementation
         <Message Importance="$(LottieVerbosity)" Text="Creating Lottie React Native provider" />
         <WriteLinesToFile
             File="$(_LottieProviderIdlFilePath)"
-            Overwrite="true"
             Lines="$(_LottieProviderIdlContent)"
+            Overwrite="true"
             WriteOnlyWhenDifferent="true" />
 
         <WriteLinesToFile
             File="$(_LottieProviderHeaderFilePath)"
-            Overwrite="true"
             Lines="$(_LottieProviderHeaderContent)"
+            Overwrite="true"
             WriteOnlyWhenDifferent="true" />
 
         <WriteLinesToFile
             File="$(_LottieProviderCppFilePath)"
-            Overwrite="true"
             Lines="$(_LottieProviderCppContent)"
+            Overwrite="true"
             WriteOnlyWhenDifferent="true" />
     </Target>
 
@@ -193,30 +193,33 @@ namespace winrt::$(LottieAnimationNamespace)::implementation
         Condition="'$(EnableLottieCodegen)' == 'true'"
         DependsOnTargets="LottieGen_CreateOutputPath;LottieGen_UpdateMetadata"
         Inputs="@(LottieAnimation)"
-        Outputs="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).idl">
+        Outputs="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).idl">
+
+        <!-- LottieGen fails if output path ends with a slash -->
+        <PropertyGroup>
+            <_LottieGenOutPath>$(LottieOutputFolder.TrimEnd('\'))</_LottieGenOutPath>
+        </PropertyGroup>
 
         <Message Importance="$(LottieVerbosity)" Text="Generating Lottie animation files" />
-        <Exec WorkingDirectory="$(LottieOutputFolder)" Command='"$(LottieGenPath)" -L cppwinrt -AdditionalInterface LottieReactNative.ILottieMediaSource -Namespace "$(LottieAnimationNamespace)" -MinimumUapVersion $(LottieMinimumUapVersion) -TargetUapVersion $(LottieTargetUapVersion)  -inp "%(LottieAnimation.FullPath)" -o "$(LottieOutputFolder)"' />
+        <Exec WorkingDirectory="$(LottieOutputFolder)" Command='"$(LottieGenPath)" -L cppwinrt -AdditionalInterface LottieReactNative.ILottieMediaSource -Namespace "$(LottieAnimationNamespace)" -MinimumUapVersion $(LottieMinimumUapVersion) -TargetUapVersion $(LottieTargetUapVersion)  -inp "%(LottieAnimation.FullPath)" -o "$(_LottieGenOutPath)"' />
 
         <!-- Hack to remove unncessary import statement -->
         <ReplaceFileText 
-            Filename="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).idl" 
+            Filename="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).idl" 
             MatchExpression='import "LottieReactNative.ILottieMediaSource.idl";' 
             ReplacementText="" />
     </Target>
 
     <!-- 
-        Add generated files to the build. 
-        
-        Done as a separate step to make sure the Items are always created even if codegen was skipped due to no changes. 
+        Add generated files to the build.
     -->
     <Target Name="LottieGen_IncludeBuiltFiles"
         Condition="'$(EnableLottieCodegen)' == 'true'"
         DependsOnTargets="LottieGen_Build;LottieGen_CreateProvider">
         <ItemGroup>
-            <Midl Include="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).idl" />
-            <ClInclude Include="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).h" />
-            <ClCompile Include="$(LottieOutputFolder)\%(LottieAnimation.GeneratedFileName).cpp" />            
+            <Midl Include="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).idl" />
+            <ClInclude Include="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).h" />
+            <ClCompile Include="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).cpp" />            
 
             <Midl Include="$(_LottieProviderIdlFilePath)" />
             <ClInclude Include="$(_LottieProviderHeaderFilePath)" />

@@ -163,6 +163,7 @@
   <Import Project="..\..\..\src\windows\cppwinrt\PropertySheets\LottieGen.Cpp.targets" />
   <PropertyGroup Label="ReactNativeWindowsNodeProps">
     <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
+    <BundleEntryFile Condition="'$(BundleEntryFile)' == ''">example/js/index.js</BundleEntryFile>
   </PropertyGroup>
   <ImportGroup Label="ReactNativeWindowsNodeTargets">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppApp.props" Condition="Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppApp.props')" />

@@ -1,0 +1,43 @@
+namespace LottieReactNative
+{
+    interface ILottieMediaSource
+    {
+        Double FrameToProgress(Double frame);
+    };
+
+    interface ILottieSourceProvider
+    {
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromName(String name);
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromJson(String json);
+    }
+
+    runtimeclass ReactPackageProvider : [default]Microsoft.ReactNative.IReactPackageProvider
+    {
+        ReactPackageProvider(ILottieSourceProvider sourceProvider);
+    }
+
+    //
+    // Subclassing WinUI 2.x classes is broken, so we'll subclass Grid instead and compose
+    //
+    [default_interface]
+    runtimeclass LottieView : Windows.UI.Xaml.Controls.Grid
+    {
+        LottieView();
+        LottieView(Microsoft.ReactNative.IReactContext context, ILottieSourceProvider sourceProvider);
+
+        Windows.UI.Xaml.Media.Stretch ResizeMode { get; set; };
+
+        void SetSourceName(String name);
+        void SetSourceJson(String json);
+        void SetLoop(Boolean loop);
+        void SetProgress(Double progress);
+        void SetSpeed(Double speed);
+
+        void ApplyPropertyChanges();
+
+        void Play(Int64 from, Int64 to);
+        void Pause();
+        void Resume();
+        void Reset();
+    }
+}

@@ -13,7 +13,7 @@ module.exports = {
                 directDependency: true,
             },
         ],
-    },
+      },
     },
   },
 };

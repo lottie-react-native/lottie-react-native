@@ -53,6 +53,7 @@ _book
 Generated Files/
 bin/
 obj/
+Bundle/
 
 # NuGet
 packages/

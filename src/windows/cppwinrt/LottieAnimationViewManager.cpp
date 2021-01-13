@@ -31,7 +31,7 @@ namespace winrt::LottieReactNative::implementation {
     }
 
     winrt::Windows::UI::Xaml::FrameworkElement LottieAnimationViewManager::CreateView() noexcept {
-        auto control = winrt::LottieReactNative::LottieView(m_reactContext);
+        auto control = winrt::LottieReactNative::LottieView(m_reactContext, m_lottieSourceProvider);
         return control;
     }
 
@@ -70,14 +70,15 @@ namespace winrt::LottieReactNative::implementation {
                 auto const& propertyName = pair.first;
                 auto const& propertyValue = pair.second;
 
-                if (propertyName == "loop") {
-                    control.Loop(propertyValue.AsBoolean());
+                if (propertyName == "progress") {
+                    auto progress = ReadValue<std::optional<double>>(propertyValue);
+
+                    control.SetProgress(progress.value_or(0));
                 }
                 else if (propertyName == "speed") {
-                    control.Speed(propertyValue.AsDouble());
-                }
-                else if (propertyName == "progress") {
-                    control.SetProgress(propertyValue.AsDouble());
+                    auto speed = ReadValue<std::optional<double>>(propertyValue);
+
+                    control.SetSpeed(speed.value_or(1.0));
                 }
                 else if (propertyName == "resizeMode") {
                     auto resizeMode = ReadValue<std::optional<std::string>>(propertyValue);
@@ -96,15 +97,17 @@ namespace winrt::LottieReactNative::implementation {
                     }
                     control.ResizeMode(stretch);
                 }
+                else if (propertyName == "loop") {
+                    control.SetLoop(propertyValue.AsBoolean());
+                }
                 else if (propertyName == "sourceName") {
                     auto sourceName = ReadValue<std::optional<std::wstring>>(propertyValue);
-                    auto source = m_lottieSourceProvider.GetSourceFromName(sourceName.value_or(L""));
-                    control.Source(source);
+
+                    control.SetSourceName(sourceName.value_or(L""));
                 }
                 else if (propertyName == "sourceJson") {
                     auto sourceJson = ReadValue<std::optional<std::wstring>>(propertyValue);
-                    auto source = m_lottieSourceProvider.GetSourceFromJson(sourceJson.value_or(L""));
-                    control.Source(source);
+                    control.SetSourceJson(sourceJson.value_or(L""));
                 }
                 else if (propertyName == "imageAssetsFolder") {
                     
@@ -113,9 +116,9 @@ namespace winrt::LottieReactNative::implementation {
                     
                 }
             }
+            control.ApplyPropertyChanges();
         }
     }
-
 
     // IViewManagerWithCommands
     winrt::Windows::Foundation::Collections::IVectorView<winrt::hstring> LottieAnimationViewManager::Commands() noexcept

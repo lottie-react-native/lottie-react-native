@@ -14,18 +14,19 @@
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="LottieAnimationViewManager.cpp" />
     <ClCompile Include="ReactPackageProvider.cpp" />
+    <ClCompile Include="LottieView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="LottieAnimationViewManager.h" />
     <ClInclude Include="ReactPackageProvider.h" />
+    <ClInclude Include="LottieView.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LottieReactNative.def" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="LottieView.idl" />
-    <Midl Include="ReactPackageProvider.idl" />
+    <Midl Include="LottieReactNative.idl" />
   </ItemGroup>
 </Project>
