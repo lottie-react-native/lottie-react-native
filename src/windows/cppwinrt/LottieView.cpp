@@ -12,6 +12,19 @@ namespace winrt::LottieReactNative::implementation
         return std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1>>>(ticks).count();
     }
 
+    template<typename T>
+    bool PropChanged(T const& member, std::optional<T> const& value) {
+        return value.has_value() ? value.value() != member : false;
+    }
+
+    template<typename T>
+    void ApplyProp(T& member, std::optional<T>& value) {
+        if (value.has_value()) {
+            member = value.value();
+        }
+        value.reset();
+    }
+
     LottieView::LottieView() : Super() {
         FlowDirection(winrt::Windows::UI::Xaml::FlowDirection::LeftToRight);
 
@@ -29,6 +42,7 @@ namespace winrt::LottieReactNative::implementation
     }
 
     void LottieView::SetSpeed(double speed) {
+        m_speed = speed;
         m_player.PlaybackRate(speed);
     }
 
@@ -41,73 +55,88 @@ namespace winrt::LottieReactNative::implementation
     }
 
     void LottieView::SetProgress(double position) {
-        m_propProgress = position;
+        m_pendingProgressProp = position;
     }
 
     void LottieView::SetLoop(bool loop) {
-        m_propLoop = loop;
+        m_pendingLoopProp = loop;
+    }
+
+    void LottieView::SetNativeLooping(bool enable) {
+        m_pendingNativeLoopingProp = enable;
     }
 
     void LottieView::SetSourceName(winrt::hstring const& name) {
-        if (m_pendingSourceLoad) {
-            m_pendingSourceLoad.Cancel();
+        if (m_pendingSourceProp) {
+            m_pendingSourceProp.Cancel();
         }
-        m_pendingSourceLoad = m_lottieSourceProvider.GetSourceFromName(name);
+        m_pendingSourceProp = m_lottieSourceProvider.GetSourceFromName(name);
     }
     void LottieView::SetSourceJson(winrt::hstring const& json) {
-        if (m_pendingSourceLoad) {
-            m_pendingSourceLoad.Cancel();
+        if (m_pendingSourceProp) {
+            m_pendingSourceProp.Cancel();
         }
-        m_pendingSourceLoad = m_lottieSourceProvider.GetSourceFromJson(json);
+        m_pendingSourceProp = m_lottieSourceProvider.GetSourceFromJson(json);
     }
 
     void LottieView::OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& /*sender*/, winrt::Windows::Foundation::IInspectable const& /*args*/) {
-        ApplyPropertyChanges();
+        // Unblock any pending loads
+        if (m_activeSource) {
+            HandleSourceLoaded(m_activeSource);
+        }
     }
 
+    //
+    // Property Behaviors:
+    //      loop        - Defers until loading complete. May reset playback.
+    //      progress    - Defers until loading complete. Ignored if play() is called.
+    //      resizeMode  - Applied immediately.
+    //      source      - Applied immediately.
+    //      speed       - Applied immediately.
+    //
     void LottieView::ApplyPropertyChanges() {
-        if (!IsLoaded()) {
-            // Player hasn't been mounted in the UI tree yet. We'll apply props once it has.
-            return;
-        }
 
-        if (m_pendingSourceLoad) {
+        if (m_pendingSourceProp) {
             // Source changed. We'll defer applying other properties until it has finished loading.
             if (m_activeSourceLoad) {
                 m_activeSourceLoad.Cancel();
             }
-            m_activeSourceLoad = m_pendingSourceLoad;
-            m_pendingSourceLoad = nullptr;
+            m_activeSourceLoad = m_pendingSourceProp;
+            m_activeSource = nullptr;
+            m_pendingSourceProp = nullptr;
 
-            m_from = FRAME_UNSET;
-            m_to = FRAME_UNSET;
-            m_loop = m_propLoop.value_or(m_loop);
-            m_propLoop.reset();
-
+            Reset();
             LoadSourceAsync();
             return;
         }
-        
-        if (m_propLoop.has_value()) {
-            bool changed = m_propLoop != m_loop;
-            m_loop = m_propLoop.value();
-            m_propLoop.reset();
 
-            // If we're already playing, we need to restart for the change to take effect
-            if (changed && m_player.IsPlaying()) {
-                Reset();
-                PlayInternal(m_from, m_to, m_loop);
-                return;
+        if (!IsLoaded() || m_activeSourceLoad) {
+            // Not mounted or a load is in progress. Apply properties later.
+            return;
+        }
+
+        if (m_pendingProgressProp.has_value()) {
+            m_player.SetProgress(m_pendingProgressProp.value());
+            m_pendingProgressProp.reset();
+        }
+
+        if (m_pendingLoopProp.has_value() || m_pendingNativeLoopingProp.has_value()) {
+            // Looping changed. We may need to reset playback to handle it.
+            bool loopChanged = PropChanged(m_loop, m_pendingLoopProp);
+            bool useNativeChanged = PropChanged(m_useNativeLooping, m_pendingNativeLoopingProp);
+
+            ApplyProp(m_loop, m_pendingLoopProp);
+            ApplyProp(m_useNativeLooping, m_pendingNativeLoopingProp);
+
+            bool needsResetForLooping = useNativeChanged || (loopChanged && m_useNativeLooping);
+
+            if (needsResetForLooping && m_player.IsPlaying()) {
+                PlayInternal();
             }
-        } 
-        
-        if (m_propProgress.has_value()) {
-            m_player.SetProgress(m_propProgress.value());
-            m_propProgress.reset();
         }
     }
 
-    winrt::Windows::Foundation::IAsyncAction LottieView::LoadSourceAsync() {
+    winrt::fire_and_forget LottieView::LoadSourceAsync() {
         // Use weak ref in case this control is removed from the page while we're loading.
         // We also keep a local handle to the load task we're trying to complete. If it doesn't match the 
         // member var after loading, we've moved on to loading different content and we can discard this load.
@@ -127,32 +156,48 @@ namespace winrt::LottieReactNative::implementation
     }
 
     void LottieView::HandleSourceLoaded(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource const& source) {
+        if (!IsLoaded()) {
+            // We aren't mounted to the UI yet, so applying a source will error. Wait until we mount.
+            m_activeSource = source;
+            return;
+        }
+
+        // Apply source
         if (source) {
             m_player.Source(source);
-            if (m_playOnLoad) {
-                PlayInternal(m_from, m_to, m_loop);
-            } 
-            else if (m_propProgress.has_value() && m_propProgress.value() != 0) {
-                m_player.SetProgress(m_propProgress.value());
-            }
         }
         else {
             m_player.ClearValue(winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer::SourceProperty());
         }
         m_activeSourceLoad = nullptr;
-        m_playOnLoad = false;
-        m_propProgress.reset();
+        m_activeSource = nullptr;
+
+        // Apply deferred properties
+        ApplyProp(m_loop, m_pendingLoopProp);
+        ApplyProp(m_useNativeLooping, m_pendingNativeLoopingProp);
+
+        if (m_pendingProgressProp.has_value()) {
+            m_player.SetProgress(m_pendingProgressProp.value());
+            m_pendingProgressProp.reset();
+        }
+
+        // Apply deferred playback
+        if (source && m_playOnLoad) {
+            m_playOnLoad = false;
+            PlayInternal();
+        }
     }
 
     void LottieView::Play(int64_t from, int64_t to) {
-        if (!m_player.IsLoaded() || m_activeSourceLoad) {
+        m_pendingProgressProp.reset();
+        m_from = from;
+        m_to = to;
+
+        if (!IsLoaded() || m_activeSourceLoad) {
             m_playOnLoad = true;
-            m_from = from;
-            m_to = to;
-            return;
         }
         else {
-            PlayInternal(from, to, m_loop);
+            PlayInternal();
         }
     }
 
@@ -164,13 +209,19 @@ namespace winrt::LottieReactNative::implementation
         m_player.Resume();
     }
     void LottieView::Reset() {
+        m_from = FRAME_UNSET;
+        m_to = FRAME_UNSET;
         m_playOnLoad = false;
-        m_propProgress.reset();
+        m_pendingProgressProp.reset();
+
+        ++m_activePlayId;
         m_player.Pause();
         m_player.SetProgress(0);
     }
 
-    void LottieView::PlayInternal(int64_t from, int64_t to, bool loop) {
+    void LottieView::PlayInternal() {
+        int64_t from = m_from;
+        int64_t to = m_to;
         double normalizedFrom;
         double normalizedTo;
 
@@ -194,16 +245,51 @@ namespace winrt::LottieReactNative::implementation
             normalizedTo = to / totalFrames;
         }
 
-        auto play = m_player.PlayAsync(normalizedFrom, normalizedTo, loop);
+        //
+        // Starting a new play will stop any previous ones, but we don't want to trigger their Completed callbacks. Not only would it
+        // fire events we don't want, when using manual looping it will infinitely recurse.
+        // 
+        // A simple solution is to store an ID for the current play. Completed can then bail if its ID doesn't match the latest play call.
+        //
+        int playId = ++m_activePlayId;
+        m_player.Stop();
 
-        if (!loop) {
-            play.Completed([weakThis = get_weak()](const auto& /*asyncOp*/, const auto& status) {
-                if (status == winrt::Windows::Foundation::AsyncStatus::Completed) {
-                    if (auto strongThis{ weakThis.get() }) {
-                        strongThis->m_reactContext.DispatchEvent(*strongThis, L"onAnimationFinish");
+        // AnimatedVisualPlayer and Lottie have different behaviors when "from" > "to"
+        //  Lottie                  - Start at "from" and play backwards to "to"
+        //  AnimatedVisualPlayer    - Start at "from" and play forwards, looping around to "to"
+        //
+        // We want the Lottie behavior, so use a negative PlaybackRate to play in reverse
+        if (normalizedFrom > normalizedTo) {
+            std::swap(normalizedFrom, normalizedTo);
+            m_player.PlaybackRate(-1 * std::abs(m_speed));
+        }
+        else {
+            m_player.PlaybackRate(std::abs(m_speed));
+        }
+
+        // Using the player's native looping will result in smoother playback, but doesn't signal completion of a loop
+        // or allow for entering/exiting looping state while playback is already underway.
+        bool nativeLoop = m_loop && m_useNativeLooping;
+
+        auto play = m_player.PlayAsync(normalizedFrom, normalizedTo, nativeLoop);
+        play.Completed([weakThis = get_weak(), playId](const auto& /*asyncOp*/, const auto& status) {
+            if (status == winrt::Windows::Foundation::AsyncStatus::Completed) {
+                if (auto strongThis{ weakThis.get() }) {
+                    if (strongThis->m_activePlayId == playId) {
+                        strongThis->HandlePlayCompleted();
                     }
                 }
-            });
+            }
+        });
+    }
+
+    void LottieView::HandlePlayCompleted() {
+        if (m_loop) {
+            m_reactContext.DispatchEvent(*this, L"onAnimationLoop");
+            PlayInternal();
+        }
+        else {
+            m_reactContext.DispatchEvent(*this, L"onAnimationFinish");
         }
     }
 }

@@ -23,6 +23,7 @@ namespace winrt::LottieReactNative::implementation
 
         void SetSpeed(double speed);
         void SetLoop(bool loop);
+        void SetNativeLooping(bool enable);
         void SetProgress(double progress);
 
         void SetSourceName(winrt::hstring const& name);
@@ -40,21 +41,33 @@ namespace winrt::LottieReactNative::implementation
         winrt::LottieReactNative::ILottieSourceProvider m_lottieSourceProvider;
         winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer m_player;
         winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer::Loaded_revoker m_playerLoadedRevoker;
-        int m_loop = false;
+        double m_speed = 1.0;
+        bool m_loop = false;
+        bool m_useNativeLooping = false;
 
-        // Values 
-        winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> m_pendingSourceLoad;
+        // Temporaries used to capture prop changes
+        winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> m_pendingSourceProp;
+        std::optional<double> m_pendingProgressProp;
+        std::optional<bool> m_pendingLoopProp;
+        std::optional<bool> m_pendingNativeLoopingProp;
+
+        // Temporaries used during source loading
         winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> m_activeSourceLoad;
+        winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource m_activeSource;
+
+        // Temporaries used to capture play() calls
         int64_t m_from = FRAME_UNSET;
         int64_t m_to = FRAME_UNSET;
         bool m_playOnLoad = false;
-        std::optional<double> m_propProgress;
-        std::optional<bool> m_propLoop;
+
+        // Helper for ignoring callbacks on old play calls
+        int m_activePlayId = 0;
 
         void OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& args);
-        winrt::Windows::Foundation::IAsyncAction LoadSourceAsync();
+        winrt::fire_and_forget LoadSourceAsync();
         void HandleSourceLoaded(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource const& source);
-        void PlayInternal(int64_t from, int64_t to, bool loop);
+        void PlayInternal();
+        void HandlePlayCompleted();
     };
 }
 

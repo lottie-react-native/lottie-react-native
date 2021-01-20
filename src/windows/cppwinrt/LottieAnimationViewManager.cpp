@@ -57,6 +57,8 @@ namespace winrt::LottieReactNative::implementation {
         nativeProps.Insert(L"imageAssetsFolder", ViewManagerPropertyType::String);
         nativeProps.Insert(L"colorFilters", ViewManagerPropertyType::Array);
 
+        nativeProps.Insert(L"useNativeLooping", ViewManagerPropertyType::Boolean);
+
         return nativeProps.GetView();
     }
 
@@ -99,6 +101,9 @@ namespace winrt::LottieReactNative::implementation {
                 }
                 else if (propertyName == "loop") {
                     control.SetLoop(propertyValue.AsBoolean());
+                }
+                else if (propertyName == "useNativeLooping") {
+                    control.SetNativeLooping(propertyValue.AsBoolean());
                 }
                 else if (propertyName == "sourceName") {
                     auto sourceName = ReadValue<std::optional<std::wstring>>(propertyValue);
@@ -172,6 +177,7 @@ namespace winrt::LottieReactNative::implementation {
     winrt::Microsoft::ReactNative::ConstantProviderDelegate LottieAnimationViewManager::ExportedCustomDirectEventTypeConstants() noexcept
     {
         return [](IJSValueWriter const& constantWriter) {
+            WriteCustomDirectEventTypeConstant(constantWriter, "onAnimationLoop", "onAnimationLoop");
             WriteCustomDirectEventTypeConstant(constantWriter, "onAnimationFinish", "onAnimationFinish");
         };
     }

@@ -30,6 +30,7 @@ namespace LottieReactNative
         void SetSourceName(String name);
         void SetSourceJson(String json);
         void SetLoop(Boolean loop);
+        void SetNativeLooping(Boolean enable);
         void SetProgress(Double progress);
         void SetSpeed(Double speed);
 

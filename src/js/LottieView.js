@@ -63,8 +63,10 @@ const propTypes = {
   autoPlay: PropTypes.bool,
   autoSize: PropTypes.bool,
   enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
+  useNativeLooping: PropTypes.bool,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   onAnimationFinish: PropTypes.func,
+  onAnimationLoop: PropTypes.func,
   onLayout: PropTypes.func,
 };
 
@@ -75,6 +77,7 @@ const defaultProps = {
   autoPlay: false,
   autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
+  useNativeLooping: false,
   resizeMode: 'contain',
 };
 
