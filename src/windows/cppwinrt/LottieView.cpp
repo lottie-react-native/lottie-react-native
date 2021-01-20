@@ -13,16 +13,14 @@ namespace winrt::LottieReactNative::implementation
     }
 
     template<typename T>
-    bool PropChanged(T const& member, std::optional<T> const& value) {
-        return value.has_value() ? value.value() != member : false;
-    }
-
-    template<typename T>
-    void ApplyProp(T& member, std::optional<T>& value) {
+    bool ApplyProp(T& member, std::optional<T>& value) {
+        bool changed = false;
         if (value.has_value()) {
+            changed = value.value() != member;
             member = value.value();
+            value.reset();
         }
-        value.reset();
+        return changed;
     }
 
     LottieView::LottieView() : Super() {
@@ -95,9 +93,12 @@ namespace winrt::LottieReactNative::implementation
     //      speed       - Applied immediately.
     //
     void LottieView::ApplyPropertyChanges() {
+        bool progressChanged = ApplyProp(m_progress, m_pendingProgressProp);
+        bool loopChanged = ApplyProp(m_loop, m_pendingLoopProp);
+        bool useNativeChanged = ApplyProp(m_useNativeLooping, m_pendingNativeLoopingProp);
 
         if (m_pendingSourceProp) {
-            // Source changed. We'll defer applying other properties until it has finished loading.
+            // Source changed
             if (m_activeSourceLoad) {
                 m_activeSourceLoad.Cancel();
             }
@@ -115,24 +116,13 @@ namespace winrt::LottieReactNative::implementation
             return;
         }
 
-        if (m_pendingProgressProp.has_value()) {
-            m_player.SetProgress(m_pendingProgressProp.value());
-            m_pendingProgressProp.reset();
+        if (progressChanged) {
+            m_player.SetProgress(m_progress);
         }
 
-        if (m_pendingLoopProp.has_value() || m_pendingNativeLoopingProp.has_value()) {
-            // Looping changed. We may need to reset playback to handle it.
-            bool loopChanged = PropChanged(m_loop, m_pendingLoopProp);
-            bool useNativeChanged = PropChanged(m_useNativeLooping, m_pendingNativeLoopingProp);
-
-            ApplyProp(m_loop, m_pendingLoopProp);
-            ApplyProp(m_useNativeLooping, m_pendingNativeLoopingProp);
-
-            bool needsResetForLooping = useNativeChanged || (loopChanged && m_useNativeLooping);
-
-            if (needsResetForLooping && m_player.IsPlaying()) {
-                PlayInternal();
-            }
+        bool needsResetForLooping = useNativeChanged || (loopChanged && m_useNativeLooping);
+        if (needsResetForLooping && m_player.IsPlaying()) {
+            PlayInternal();
         }
     }
 
@@ -155,7 +145,7 @@ namespace winrt::LottieReactNative::implementation
         catch (hresult_canceled const&) {}
     }
 
-    void LottieView::HandleSourceLoaded(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource const& source) {
+    void LottieView::HandleSourceLoaded(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource source) {
         if (!IsLoaded()) {
             // We aren't mounted to the UI yet, so applying a source will error. Wait until we mount.
             m_activeSource = source;
@@ -172,24 +162,17 @@ namespace winrt::LottieReactNative::implementation
         m_activeSourceLoad = nullptr;
         m_activeSource = nullptr;
 
-        // Apply deferred properties
-        ApplyProp(m_loop, m_pendingLoopProp);
-        ApplyProp(m_useNativeLooping, m_pendingNativeLoopingProp);
-
-        if (m_pendingProgressProp.has_value()) {
-            m_player.SetProgress(m_pendingProgressProp.value());
-            m_pendingProgressProp.reset();
-        }
-
         // Apply deferred playback
         if (source && m_playOnLoad) {
             m_playOnLoad = false;
             PlayInternal();
         }
+        else {
+            m_player.SetProgress(m_progress);
+        }
     }
 
     void LottieView::Play(int64_t from, int64_t to) {
-        m_pendingProgressProp.reset();
         m_from = from;
         m_to = to;
 
@@ -205,14 +188,15 @@ namespace winrt::LottieReactNative::implementation
         m_playOnLoad = false;
         m_player.Pause();
     }
+
     void LottieView::Resume() {
         m_player.Resume();
     }
+
     void LottieView::Reset() {
+        m_playOnLoad = false;
         m_from = FRAME_UNSET;
         m_to = FRAME_UNSET;
-        m_playOnLoad = false;
-        m_pendingProgressProp.reset();
 
         ++m_activePlayId;
         m_player.Pause();

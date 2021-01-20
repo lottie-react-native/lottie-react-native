@@ -42,6 +42,7 @@ namespace winrt::LottieReactNative::implementation
         winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer m_player;
         winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer::Loaded_revoker m_playerLoadedRevoker;
         double m_speed = 1.0;
+        double m_progress = 0;
         bool m_loop = false;
         bool m_useNativeLooping = false;
 
@@ -65,7 +66,7 @@ namespace winrt::LottieReactNative::implementation
 
         void OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& args);
         winrt::fire_and_forget LoadSourceAsync();
-        void HandleSourceLoaded(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource const& source);
+        void HandleSourceLoaded(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource source);
         void PlayInternal();
         void HandlePlayCompleted();
     };
