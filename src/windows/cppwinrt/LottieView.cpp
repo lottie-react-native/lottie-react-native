@@ -1,9 +1,6 @@
 ﻿#include "pch.h"
 #include "LottieView.h"
 #include "LottieView.g.cpp"
-#include <winrt/Windows.Foundation.h>
-#include <winrt/Windows.UI.Xaml.h>
-#include <winrt/Microsoft.UI.Xaml.Controls.h>
 
 namespace winrt::LottieReactNative::implementation
 {
@@ -24,7 +21,7 @@ namespace winrt::LottieReactNative::implementation
     }
 
     LottieView::LottieView() : Super() {
-        FlowDirection(winrt::Windows::UI::Xaml::FlowDirection::LeftToRight);
+        FlowDirection(xaml::FlowDirection::LeftToRight);
 
         m_player = winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer();
         m_player.AutoPlay(false);
@@ -44,11 +41,11 @@ namespace winrt::LottieReactNative::implementation
         m_player.PlaybackRate(speed);
     }
 
-    winrt::Windows::UI::Xaml::Media::Stretch LottieView::ResizeMode() {
+    xaml::Media::Stretch LottieView::ResizeMode() {
         return m_player.Stretch();
     }
 
-    void LottieView::ResizeMode(winrt::Windows::UI::Xaml::Media::Stretch resizeMode) {
+    void LottieView::ResizeMode(xaml::Media::Stretch resizeMode) {
         m_player.Stretch(resizeMode);
     }
 

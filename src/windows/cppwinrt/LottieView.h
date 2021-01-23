@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include "LottieView.g.h"
-#include <winrt/Windows.UI.Xaml.Controls.h>
-#include <winrt/Windows.UI.Xaml.Media.h>
+
+#include "CppWinRTIncludes.h"
+#include "UI.Xaml.Media.h"
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.ReactNative.h>
 #include <winrt/LottieReactNative.h>
@@ -18,8 +19,8 @@ namespace winrt::LottieReactNative::implementation
         LottieView();
         LottieView(winrt::Microsoft::ReactNative::IReactContext const& context, winrt::LottieReactNative::ILottieSourceProvider const& lottieSourceProvider);
 
-        winrt::Windows::UI::Xaml::Media::Stretch ResizeMode();
-        void ResizeMode(winrt::Windows::UI::Xaml::Media::Stretch resizeMode);
+        xaml::Media::Stretch ResizeMode();
+        void ResizeMode(xaml::Media::Stretch resizeMode);
 
         void SetSpeed(double speed);
         void SetLoop(bool loop);

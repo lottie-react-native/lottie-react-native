@@ -1,5 +1,5 @@
 #pragma once
-#include <winrt/Windows.UI.Xaml.h>
+#include "CppWinRTIncludes.h"
 #include <winrt/Microsoft.ReactNative.h>
 #include <winrt/LottieReactNative.h>
 
@@ -18,7 +18,7 @@ namespace winrt::LottieReactNative::implementation {
 
         // IViewManager
         winrt::hstring Name() noexcept;
-        winrt::Windows::UI::Xaml::FrameworkElement CreateView() noexcept;
+        xaml::FrameworkElement CreateView() noexcept;
 
         // IViewManagerWithReactContext
         winrt::Microsoft::ReactNative::IReactContext ReactContext() noexcept;
@@ -29,14 +29,14 @@ namespace winrt::LottieReactNative::implementation {
             NativeProps() noexcept;
 
         void UpdateProperties(
-            winrt::Windows::UI::Xaml::FrameworkElement const& view,
+            xaml::FrameworkElement const& view,
             winrt::Microsoft::ReactNative::IJSValueReader const& propertyMapReader) noexcept;
 
         // IViewManagerWithCommands
         winrt::Windows::Foundation::Collections::IVectorView<winrt::hstring> Commands() noexcept;
 
         void DispatchCommand(
-            winrt::Windows::UI::Xaml::FrameworkElement const& view,
+            xaml::FrameworkElement const& view,
             winrt::hstring command,
             winrt::Microsoft::ReactNative::IJSValueReader const& commandArgsReader) noexcept;
 

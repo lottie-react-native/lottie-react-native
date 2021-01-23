@@ -1,21 +1,15 @@
 #include "pch.h"
 #include "LottieAnimationViewManager.h"
 
-#include <winrt/Windows.UI.Xaml.h>
-#include <winrt/Windows.UI.Xaml.Controls.h>
-#include <winrt/Windows.UI.Xaml.Media.h>
+#include "UI.Xaml.Controls.h"
+#include "UI.Xaml.Media.h"
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
-
 
 #include "NativeModules.h"
 
 namespace winrt {
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Windows::Foundation::Collections;
-    using namespace winrt::Windows::UI;
-    using namespace winrt::Windows::UI::Xaml;
-    using namespace winrt::Windows::UI::Xaml::Controls;
-    using namespace winrt::Windows::UI::Xaml::Media;
 }
 using namespace winrt::Microsoft::ReactNative;
 
@@ -30,7 +24,7 @@ namespace winrt::LottieReactNative::implementation {
         return L"LottieAnimationView";
     }
 
-    winrt::Windows::UI::Xaml::FrameworkElement LottieAnimationViewManager::CreateView() noexcept {
+    xaml::FrameworkElement LottieAnimationViewManager::CreateView() noexcept {
         auto control = winrt::LottieReactNative::LottieView(m_reactContext, m_lottieSourceProvider);
         return control;
     }
@@ -63,7 +57,7 @@ namespace winrt::LottieReactNative::implementation {
     }
 
     void LottieAnimationViewManager::UpdateProperties(
-        winrt::FrameworkElement const& view,
+        xaml::FrameworkElement const& view,
         IJSValueReader const& propertyMapReader) noexcept
     {
         if (auto control = view.try_as<winrt::LottieReactNative::LottieView>()) {
@@ -84,18 +78,18 @@ namespace winrt::LottieReactNative::implementation {
                 }
                 else if (propertyName == "resizeMode") {
                     auto resizeMode = ReadValue<std::optional<std::string>>(propertyValue);
-                    auto stretch = winrt::Windows::UI::Xaml::Media::Stretch::Uniform;
+                    auto stretch = xaml::Media::Stretch::Uniform;
                     if (resizeMode == "cover") {
-                        stretch = winrt::Windows::UI::Xaml::Media::Stretch::UniformToFill;
+                        stretch = xaml::Media::Stretch::UniformToFill;
                     }
                     else if (resizeMode == "stretch") {
-                        stretch = winrt::Windows::UI::Xaml::Media::Stretch::Fill;
+                        stretch = xaml::Media::Stretch::Fill;
                     }
                     else if (resizeMode == "contain") {
-                        stretch = winrt::Windows::UI::Xaml::Media::Stretch::Uniform;
+                        stretch = xaml::Media::Stretch::Uniform;
                     }
                     else if (resizeMode == "center") {
-                        stretch = winrt::Windows::UI::Xaml::Media::Stretch::None;
+                        stretch = xaml::Media::Stretch::None;
                     }
                     control.ResizeMode(stretch);
                 }
@@ -137,7 +131,7 @@ namespace winrt::LottieReactNative::implementation {
     }
 
     void LottieAnimationViewManager::DispatchCommand(
-        winrt::Windows::UI::Xaml::FrameworkElement const& view,
+        xaml::FrameworkElement const& view,
         winrt::hstring command,
         winrt::Microsoft::ReactNative::IJSValueReader const& commandArgsReader) noexcept
     {
