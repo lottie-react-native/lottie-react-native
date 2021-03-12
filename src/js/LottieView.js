@@ -7,26 +7,38 @@ import {
   Platform,
   StyleSheet,
   ViewPropTypes,
+  requireNativeComponent,
+  NativeModules,
 } from 'react-native';
 import SafeModule from 'react-native-safe-modules';
 import PropTypes from 'prop-types';
 
-const NativeLottieView = SafeModule.component({
-  viewName: 'LottieAnimationView',
-  mockComponent: View,
-});
+
+const getNativeLottieViewForMac = () => {
+  return requireNativeComponent('LottieAnimationView') 
+}
+
+const NativeLottieView =
+  Platform.OS === 'macos' ?
+    getNativeLottieViewForMac() :
+    SafeModule.component({ viewName: 'LottieAnimationView', mockComponent: View })
+
 const AnimatedNativeLottieView = Animated.createAnimatedComponent(NativeLottieView);
 
-const LottieViewManager = SafeModule.module({
-  moduleName: 'LottieAnimationView',
-  mock: {
-    play: () => {},
-    reset: () => {},
-    pause: () => {},
-    resume: () => {},
-    getConstants: () => {},
-  },
-});
+const LottieViewManager = Platform.select({
+  // react-native-windows doesn't work with SafeModule, it always returns the mock component
+  macos: NativeModules.LottieAnimationView,
+  default: SafeModule.module({
+    moduleName: 'LottieAnimationView',
+    mock: {
+      play: () => {},
+      reset: () => {},
+      pause: () => {},
+      resume: () => {},
+      getConstants: () => {},
+    },
+  })
+})
 
 const ViewStyleExceptBorderPropType = (props, propName, componentName, ...rest) => {
   const flattened = StyleSheet.flatten(props[propName] || {});
@@ -143,6 +155,7 @@ class LottieView extends React.PureComponent {
           args,
         ),
       ios: () => LottieViewManager[name](this.getHandle(), ...args),
+      macos: () => LottieViewManager[name](this.getHandle(), ...args),
     })();
   }
 
