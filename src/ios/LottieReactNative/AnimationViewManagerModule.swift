@@ -31,7 +31,7 @@ class AnimationViewManagerModule: RCTViewManager {
     public func play(_ reactTag: NSNumber, startFrame: NSNumber, endFrame: NSNumber) {
         self.bridge.uiManager.addUIBlock { (uiManager, viewRegistry) in
             guard let view = viewRegistry?[reactTag] as? ContainerView else {
-                if (RCT_DEV == 1) {
+                if (RCT_DEBUG == 1) {
                     print("Invalid view returned from registry, expecting ContainerView")
                 }
                 return
@@ -55,7 +55,7 @@ class AnimationViewManagerModule: RCTViewManager {
     public func reset(_ reactTag: NSNumber) {
         self.bridge.uiManager.addUIBlock { uiManager, viewRegistry in
             guard let view = viewRegistry?[reactTag] as? ContainerView else {
-                if (RCT_DEV == 1) {
+                if (RCT_DEBUG == 1) {
                     print("Invalid view returned from registry, expecting ContainerView")
                 }
                 return
@@ -69,7 +69,7 @@ class AnimationViewManagerModule: RCTViewManager {
     public func pause(_ reactTag: NSNumber) {
         self.bridge.uiManager.addUIBlock { uiManager, viewRegistry in
             guard let view = viewRegistry?[reactTag] as? ContainerView else {
-                if (RCT_DEV == 1) {
+                if (RCT_DEBUG == 1) {
                     print("Invalid view returned from registry, expecting ContainerView")
                 }
                 return
@@ -83,7 +83,7 @@ class AnimationViewManagerModule: RCTViewManager {
     public func resume(_ reactTag: NSNumber) {
         self.bridge.uiManager.addUIBlock { uiManager, viewRegistry in
             guard let view = viewRegistry?[reactTag] as? ContainerView else {
-                if (RCT_DEV == 1) {
+                if (RCT_DEBUG == 1) {
                     print("Invalid view returned from registry, expecting ContainerView")
                 }
                 return
