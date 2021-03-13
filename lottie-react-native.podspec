@@ -17,5 +17,6 @@ Pod::Spec.new do |s|
   s.source_files  = "src/ios/**/*.{h,m,swift}"
   s.swift_version = "5.0"
   s.dependency 'React'
+  s.requires_arc = true
   s.dependency 'lottie-ios', '~> 3.1.8'
 end
