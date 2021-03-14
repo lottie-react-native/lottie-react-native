@@ -1,7 +1,3 @@
-#if canImport(React)
-import React
-#endif
-
 import Lottie
 
 #if os(OSX)
