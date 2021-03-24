@@ -207,6 +207,11 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     getOrCreatePropertyManager(view).setAnimationJson(json);
   }
 
+  @ReactProp(name = "cacheComposition")
+  public void setCacheComposition(LottieAnimationView view, boolean cacheComposition) {
+    view.setCacheComposition(cacheComposition);
+  }
+
   @ReactProp(name = "resizeMode")
   public void setResizeMode(LottieAnimationView view, String resizeMode) {
     ImageView.ScaleType mode = null;

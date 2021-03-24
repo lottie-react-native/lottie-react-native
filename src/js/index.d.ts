@@ -95,6 +95,12 @@ declare module "lottie-react-native" {
     renderMode?: "AUTOMATIC" | "HARDWARE" | "SOFTWARE";
 
     /**
+     * [Android]. A boolean flag indicating whether or not the animation should caching. Defaults to true.
+     * Refer to LottieAnimationView#setCacheComposition(boolean) for more information.
+     */
+    cacheComposition?: boolean;
+
+    /**
      * [Android]. Allows to specify kind of cache used for animation. Default value weak.
      * strong - cached forever
      * weak   - cached as long it is in active use

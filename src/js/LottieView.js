@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 
 
 const getNativeLottieViewForMac = () => {
-  return requireNativeComponent('LottieAnimationView') 
+  return requireNativeComponent('LottieAnimationView')
 }
 
 const NativeLottieView =
@@ -76,6 +76,7 @@ const propTypes = {
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   onAnimationFinish: PropTypes.func,
   onLayout: PropTypes.func,
+  cacheComposition: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -85,6 +86,7 @@ const defaultProps = {
   autoPlay: false,
   autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
+  cacheComposition: true,
   resizeMode: 'contain',
 };
 
@@ -132,7 +134,7 @@ class LottieView extends React.PureComponent {
   reset() {
     this.runCommand('reset');
   }
-  
+
   pause() {
     this.runCommand('pause');
   }
@@ -175,7 +177,7 @@ class LottieView extends React.PureComponent {
       this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
     }
   }
-  
+
   onLayout(evt) {
     if (this.props.onLayout) {
       this.props.onLayout(evt);
