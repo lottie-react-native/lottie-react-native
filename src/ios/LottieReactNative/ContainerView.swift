@@ -1,7 +1,3 @@
-#if canImport(React)
-import React
-#endif
-
 import Lottie
 
 class ContainerView: RCTView {
@@ -17,7 +13,7 @@ class ContainerView: RCTView {
 
     @objc func setSpeed(_ newSpeed: CGFloat) {
         speed = newSpeed
-        
+
         if (newSpeed != 0.0) {
             animationView?.animationSpeed = newSpeed
             if (!(animationView?.isAnimationPlaying ?? true)) {
@@ -48,7 +44,7 @@ class ContainerView: RCTView {
 
         guard let data = sourceJson.data(using: String.Encoding.utf8),
         let animation = try? JSONDecoder().decode(Animation.self, from: data) else {
-            if (RCT_DEV == 1) {
+            if (RCT_DEBUG == 1) {
                 print("Unable to create the lottie animation object from the JSON source")
             }
             return
@@ -100,7 +96,7 @@ class ContainerView: RCTView {
         animationView?.currentProgress = 0;
         animationView?.pause()
     }
-    
+
     func pause() {
         animationView?.pause()
     }
