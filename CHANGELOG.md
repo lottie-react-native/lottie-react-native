@@ -1,3 +1,7 @@
+## 4.0.1
+
+- Update react-native-safe-modules dependency
+
 ## 4.0.0
 
 - Fix react-native 0.64 compatibility
