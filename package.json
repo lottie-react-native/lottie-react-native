@@ -1,6 +1,6 @@
 {
   "name": "lottie-react-native",
-  "version": "3.4.1",
+  "version": "4.0.0",
   "description": "React Native bindings for Lottie",
   "main": "lib/index.js",
   "types": "src/js/index.d.ts",
@@ -42,9 +42,9 @@
   },
   "homepage": "https://github.com/airbnb/lottie-react-native#readme",
   "peerDependencies": {
+    "lottie-ios": "^3.1.8",
     "react": "*",
-    "react-native": ">=0.46",
-    "lottie-ios": "^3.1.8"
+    "react-native": ">=0.46"
   },
   "dependencies": {
     "invariant": "^2.2.2",
