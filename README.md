@@ -165,6 +165,9 @@ If you have issues with your iOS project, open the Xcode project configuration a
 
 Apps that use static Xcode project linking need to set iOS deployment version to iOS 12 _or_ switch to CocoaPods-based linking (using frameworks) _or_ downgrade `lottie-react-native` to version **_2.6.1_**.
 
+**_ IMPORTANT _**
+Not all After Effects features are supported by Lottie. If you notice there's some layers or animations missing check [this list](https://github.com/airbnb/lottie/blob/master/supported-features.md) to ensure they are supported.
+
 ## Usage
 
 (If you are using TypeScript, please read [this first](/docs/typescript.md))
