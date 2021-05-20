@@ -268,6 +268,11 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
     getOrCreatePropertyManager(view).setColorFilters(colorFilters);
   }
 
+  @ReactProp(name = "textFiltersAndroid")
+  public void setTextFilters(LottieAnimationView view, ReadableArray textFilters) {
+    getOrCreatePropertyManager(view).setTextFilters(textFilters);
+  }
+
   @Override
   protected void onAfterUpdateTransaction(LottieAnimationView view) {
     super.onAfterUpdateTransaction(view);
