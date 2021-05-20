@@ -51,6 +51,7 @@ class ContainerView: RCTView {
                 filters[key] = value;
             }
             animationView?.textProvider = DictionaryTextProvider(filters)
+            // Force animation to reload
             animationView?.animation = animationView?.animation
         }
     }
