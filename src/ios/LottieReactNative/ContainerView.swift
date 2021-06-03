@@ -50,9 +50,11 @@ class ContainerView: RCTView {
                 let value = filter.value(forKey: "text") as! String
                 filters[key] = value;
             }
-            animationView?.textProvider = DictionaryTextProvider(filters)
-            // Force animation to reload
-            animationView?.animation = animationView?.animation
+            
+            let starAnimationView = AnimationView()
+            starAnimationView.textProvider = DictionaryTextProvider(filters)
+            starAnimationView.animation = animationView?.animation
+            replaceAnimationView(next: starAnimationView)
         }
     }
 
