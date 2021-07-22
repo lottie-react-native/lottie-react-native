@@ -1,3 +1,11 @@
+## 4.0.3
+
+- Updated `lottie-ios` dependency to 3.2.3
+
+## 4.0.2
+
+- Minor fixes
+
 ## 4.0.1
 
 - Update react-native-safe-modules dependency

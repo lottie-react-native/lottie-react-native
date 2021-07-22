@@ -10,18 +10,18 @@ For the first time, designers can create **and ship** beautiful animations witho
 
 ## Installing (React Native >= 0.60.0)
 
-Install `lottie-react-native` (latest) and `lottie-ios` (3.1.8):
+Install `lottie-react-native` (latest) and `lottie-ios` (3.2.3):
 
 ```
 yarn add lottie-react-native
-yarn add lottie-ios@3.1.8
+yarn add lottie-ios@3.2.3
 ```
 
 or
 
 ```
 npm i --save lottie-react-native
-npm i --save lottie-ios@3.1.8
+npm i --save lottie-ios@3.2.3
 ```
 
 Go to your ios folder and run:
@@ -54,7 +54,6 @@ include ':lottie-react-native'
 project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
 
 ```
-
 
 ## Installing (React Native == 0.59.x)
 
@@ -151,6 +150,7 @@ Use `react-native link` to add the library to your project:
 react-native link lottie-ios
 react-native link lottie-react-native
 ```
+
 Note: If you are using react-native version 0.60 or higher you don't need to link [lottie-react-native](https://github.com/react-native-community/lottie-react-native).
 
 Go to your ios folder and run:
