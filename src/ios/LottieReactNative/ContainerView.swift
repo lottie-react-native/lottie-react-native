@@ -84,7 +84,7 @@ class ContainerView: RCTView {
 
     func play(fromFrame: AnimationFrameTime? = nil, toFrame: AnimationFrameTime) {
         let callback: LottieCompletionBlock = { animationFinished in
-            if let onFinish = view.onAnimationFinish {
+            if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
         }
@@ -95,7 +95,7 @@ class ContainerView: RCTView {
 
     func play() {
         let callback: LottieCompletionBlock = { animationFinished in
-            if let onFinish = view.onAnimationFinish {
+            if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
         }
