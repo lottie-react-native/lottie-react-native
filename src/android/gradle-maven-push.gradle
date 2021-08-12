@@ -73,6 +73,11 @@ afterEvaluate { project ->
               name = POM_DEVELOPER_NAME
             }
           }
+          scm {
+            connection = 'scm:git:git://github.com/lottie-react-native/lottie-react-native.git'
+            developerConnection = 'scm:git:ssh://github.com/lottie-react-native/lottie-react-native.git'
+            url = 'https://github.com/lottie-react-native/lottie-react-native'
+          }
         }
       }
     }
