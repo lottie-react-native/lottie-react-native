@@ -8,11 +8,11 @@ apply from: 'gradle-maven-push.gradle'
 //def DEFAULT_ANDROID_SUPPORT_LIB_VERSION = "1.0.0"
 
 android {
-  compileSdkVersion safeExtGet('compileSdkVersion', 28)
+  compileSdkVersion safeExtGet('compileSdkVersion', 30)
 
   defaultConfig {
     minSdkVersion safeExtGet('minSdkVersion', 16)
-    targetSdkVersion safeExtGet('targetSdkVersion', 28)
+    targetSdkVersion safeExtGet('targetSdkVersion', 30)
   }
 
   lintOptions {
