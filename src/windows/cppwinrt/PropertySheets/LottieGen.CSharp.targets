@@ -131,7 +131,7 @@ namespace AnimatedVisuals
         #pragma warning disable 1998
         private async Task<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromJson_Task(string json) {
 #if LOTTIEVISUALSOURCE
-            var lottieStream = await CreateStream(json)%3B
+            var lottieStream = CreateStream(json)%3B
             var lottieSource = new LottieVisualSource()%3B
             await lottieSource.SetSourceAsync(lottieStream)%3B
             return lottieSource%3B
