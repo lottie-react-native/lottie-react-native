@@ -1,4 +1,25 @@
+## 4.0.3
+
+- Updated `lottie-ios` dependency to 3.2.3
+
+## 4.0.2
+
+- Minor fixes
+
+## 4.0.1
+
+- Update react-native-safe-modules dependency
+
+## 4.0.0
+
+- Fix react-native 0.64 compatibility
+- Windows support [C#]
+- macOS Support (based on react-native-windows)
+- Moved lottie-ios to peerDependencies
+- Fix Android playback when startFrame > endFrame
+
 ## 3.4.1
+
 - Updated the development app to React Native 0.62.2
 - Updated `lottie-ios` dependency to 3.1.8
 - Updated `lottie-android` dependency to 3.4.0

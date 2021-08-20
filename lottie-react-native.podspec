@@ -10,11 +10,16 @@ Pod::Spec.new do |s|
   s.authors      = { "intelligibabble" => "leland.m.richardson@gmail.com" }
   s.homepage     = "https://github.com/airbnb/lottie-react-native#readme"
   s.license      = package['license']
-  s.platform     = :ios, "9.0"
+  s.ios.deployment_target = '12.0'
+  s.osx.deployment_target = '10.10'
 
   s.source       = { :git => "https://github.com/react-community/lottie-react-native.git", :tag => "v#{s.version}" }
   s.source_files  = "src/ios/**/*.{h,m,swift}"
+
+  s.requires_arc = true
+
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = "5.0"
-  s.dependency 'React'
-  s.dependency 'lottie-ios', '~> 3.1.8'
+  s.dependency 'React-Core'
+  s.dependency 'lottie-ios', '~> 3.2.3'
 end

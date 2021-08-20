@@ -24,7 +24,7 @@ declare module "lottie-react-native" {
   /**
    * Properties of the AnimatedLottieView component
    */
-  interface AnimatedLottieViewProps {
+  export interface AnimatedLottieViewProps {
     /**
      * The source of animation. Can be referenced as a local asset by a string, or remotely
      * with an object with a `uri` property, or it can be an actual JS object of an
@@ -93,6 +93,12 @@ declare module "lottie-react-native" {
      * Refer to LottieAnimationView#setRenderMode(RenderMode) for more information.
      */
     renderMode?: "AUTOMATIC" | "HARDWARE" | "SOFTWARE";
+
+    /**
+     * [Android]. A boolean flag indicating whether or not the animation should caching. Defaults to true.
+     * Refer to LottieAnimationView#setCacheComposition(boolean) for more information.
+     */
+    cacheComposition?: boolean;
 
     /**
      * [Android]. Allows to specify kind of cache used for animation. Default value weak.
@@ -170,5 +176,5 @@ declare module "lottie-react-native" {
     resume(): void;
   }
 
-  export = AnimatedLottieView;
+  export default AnimatedLottieView;
 }
