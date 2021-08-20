@@ -9,7 +9,7 @@ using Windows.Storage.Streams;
 namespace AnimatedVisuals {
     public partial class LottieCodegenSourceProvider : LottieReactNative.ILottieSourceProvider
     {
-        private async Task<IInputStream> CreateStream(string contents) {
+        private Task<IInputStream> CreateStream(string contents) {
             byte[] data = Encoding.UTF8.GetBytes(contents);
             MemoryStream stream = new MemoryStream(data);
             return stream.AsRandomAccessStream();
