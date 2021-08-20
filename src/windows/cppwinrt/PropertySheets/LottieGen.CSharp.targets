@@ -54,6 +54,9 @@
     <ItemGroup>
         <UpToDateCheckInput Include="@(LottieAnimation)" />
     </ItemGroup>
+    <ItemGroup>  
+        <Compile Include="$(MSBuildThisFileDirectory)\LottieCodegenSourceProvider.cs" />
+    </ItemGroup>
 
     <!-- 
         Add metadata to LottieAnimation items. The generated name needs to match what LottieGen outputs.
@@ -110,20 +113,10 @@ using System.Threading.Tasks%3B
 using Windows.Foundation%3B
 using Windows.Storage%3B
 
-namespace $(LottieAnimationNamespace)
+namespace AnimatedVisuals
 {
-    public class LottieCodegenSourceProvider : LottieReactNative.ILottieSourceProvider
+    public partial class LottieCodegenSourceProvider : LottieReactNative.ILottieSourceProvider
     {
-        private async Task<StorageFile> CreateTempFileAsync(string contents)
-        {
-            var storageFolder = ApplicationData.Current.TemporaryFolder%3B
-            var tempFile = await storageFolder.CreateFileAsync(Path.GetFileName(Path.GetTempFileName()))%3B
-
-            await FileIO.WriteTextAsync(tempFile, contents)%3B
-
-            return tempFile%3B
-        }
-
         #pragma warning disable 1998
         private async Task<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromName_Task(string name) {
             @(LottieAnimation->'
@@ -138,30 +131,15 @@ namespace $(LottieAnimationNamespace)
         #pragma warning disable 1998
         private async Task<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromJson_Task(string json) {
 #if LOTTIEVISUALSOURCE
-            var lottieFile = await CreateTempFileAsync(json)%3B
-            try {
-                var lottieSource = new LottieVisualSource()%3B
-                await lottieSource.SetSourceAsync(lottieFile)%3B
-                return lottieSource%3B
-            }
-            finally {
-                _ = lottieFile.DeleteAsync(StorageDeleteOption.PermanentDelete)%3B
-            }
+            var lottieStream = await CreateStream(json)%3B
+            var lottieSource = new LottieVisualSource()%3B
+            await lottieSource.SetSourceAsync(lottieStream)%3B
+            return lottieSource%3B
 #else
             return null%3B
 #endif
         }
         #pragma warning restore 1998
-
-        public Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromName(string name)
-        {
-            return AsyncInfo.Run((cancel) => { return GetSourceFromName_Task(name)%3B  })%3B
-        }
-
-        public Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromJson(string json)
-        {
-            return AsyncInfo.Run((cancel) => { return GetSourceFromJson_Task(json)%3B  })%3B
-        }
     }
 }
 ]]>
@@ -213,7 +191,7 @@ namespace $(LottieAnimationNamespace)
     -->
     <Target Name="LottieGen_IncludeBuiltFiles"
         Condition="'$(EnableLottieCodegen)' == 'true' OR '$(EnableLottieDynamicSource)' == 'true'"
-        BeforeTargets="BeforeBuild"
+        BeforeTargets="BeforeBuild;CoreCompile"
         DependsOnTargets="LottieGen_Build;LottieGen_CreateProvider">
         <ItemGroup>
             <Compile Include="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).cs" />        

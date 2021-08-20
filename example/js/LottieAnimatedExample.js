@@ -25,7 +25,7 @@ const inverseIcon = require('./images/inverse.png');
 const makeExample = (name, getJson, width) => ({ 
   name, 
   getSource: Platform.select({ 
-    windows: () => name, 
+    windows: () => name, // Use codegen resources, which are referenced by name
     default: getJson
   }), 
   width
