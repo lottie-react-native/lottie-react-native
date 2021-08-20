@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\LottieGen.MsBuild.7.0.5\build\native\LottieGen.MsBuild.props" Condition="Exists('packages\LottieGen.MsBuild.7.0.5\build\native\LottieGen.MsBuild.props')" />
   <Import Project="packages\Microsoft.Windows.CppWinRT.2.0.201217.4\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('packages\Microsoft.Windows.CppWinRT.2.0.201217.4\build\native\Microsoft.Windows.CppWinRT.props')" />
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
@@ -155,6 +156,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\node_modules\@react-native-community\slider\windows\SliderWindows\SliderWindows.vcxproj">
+      <Project>{685a83ae-36bc-4e9d-bdc6-417ebf168463}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\windows\cppwinrt\LottieReactNative.vcxproj">
       <Project>{e5a7828d-f596-4793-80ec-4c071e575c58}</Project>
     </ProjectReference>
@@ -187,5 +191,6 @@
     <Error Condition="!Exists('packages\Microsoft.Windows.CppWinRT.2.0.201217.4\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Windows.CppWinRT.2.0.201217.4\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('packages\Microsoft.Windows.CppWinRT.2.0.201217.4\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Windows.CppWinRT.2.0.201217.4\build\native\Microsoft.Windows.CppWinRT.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.UI.Xaml.2.3.191129002\build\native\Microsoft.UI.Xaml.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.UI.Xaml.2.3.191129002\build\native\Microsoft.UI.Xaml.targets'))" />
+    <Error Condition="!Exists('packages\LottieGen.MsBuild.7.0.5\build\native\LottieGen.MsBuild.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\LottieGen.MsBuild.7.0.5\build\native\LottieGen.MsBuild.props'))" />
   </Target>
 </Project>

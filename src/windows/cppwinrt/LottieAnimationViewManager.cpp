@@ -13,7 +13,31 @@ namespace winrt {
 }
 using namespace winrt::Microsoft::ReactNative;
 
+REACT_STRUCT(ColorFilter);
+struct ColorFilter {
+    REACT_FIELD(keypath);
+    std::wstring keypath;
+
+    REACT_FIELD(color);
+    std::wstring color;
+};
+
 namespace winrt::LottieReactNative::implementation {
+    winrt::Windows::UI::Color HexToColor(std::wstring hex) {
+        // For now, only support full #AARRGGBB or #RRGGBB hex, not web-style #RGB
+
+        // Skip over any # prefix.
+        const wchar_t* start = hex.length() > 0 && hex[0] == '#' ? hex.data() + 1 : hex.data();
+        int value = std::stoi(start, nullptr, 16);
+
+        uint8_t a = (value >> 24) & 0xFF;
+        uint8_t r = (value >> 16) & 0xFF;
+        uint8_t g = (value >> 8) & 0xFF;
+        uint8_t b = (value >> 0) & 0xFF;
+
+        return winrt::Windows::UI::Color{ a, r, g, b };
+    }
+
 
     LottieAnimationViewManager::LottieAnimationViewManager(winrt::LottieReactNative::ILottieSourceProvider lottieSourceProvider)
         : m_lottieSourceProvider(lottieSourceProvider) {
@@ -101,7 +125,6 @@ namespace winrt::LottieReactNative::implementation {
                 }
                 else if (propertyName == "sourceName") {
                     auto sourceName = ReadValue<std::optional<std::wstring>>(propertyValue);
-
                     control.SetSourceName(sourceName.value_or(L""));
                 }
                 else if (propertyName == "sourceJson") {
@@ -112,7 +135,12 @@ namespace winrt::LottieReactNative::implementation {
                     
                 }
                 else if (propertyName == "colorFilters") {
-                    
+                    auto filters = winrt::single_threaded_map<winrt::hstring, winrt::Windows::UI::Color>();                    
+                    auto filterData = ReadValue<std::vector<ColorFilter>>(propertyValue);
+                    for (auto const& filterEntry : filterData) {
+                        filters.Insert(filterEntry.keypath, HexToColor(filterEntry.color));
+                    }
+                    control.SetColorFilters(filters.GetView());
                 }
             }
             control.ApplyPropertyChanges();

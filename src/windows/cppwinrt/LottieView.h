@@ -15,6 +15,7 @@ namespace winrt::LottieReactNative::implementation
     public:
         using Super = LottieViewT<LottieView>;
         const int64_t FRAME_UNSET = -1;
+        const int64_t FRAME_PROGRESS = -2;
 
         LottieView();
         LottieView(winrt::Microsoft::ReactNative::IReactContext const& context, winrt::LottieReactNative::ILottieSourceProvider const& lottieSourceProvider);
@@ -26,6 +27,7 @@ namespace winrt::LottieReactNative::implementation
         void SetLoop(bool loop);
         void SetNativeLooping(bool enable);
         void SetProgress(double progress);
+        void SetColorFilters(winrt::Windows::Foundation::Collections::IMapView<winrt::hstring, winrt::Windows::UI::Color> filters);
 
         void SetSourceName(winrt::hstring const& name);
         void SetSourceJson(winrt::hstring const& json);
@@ -46,12 +48,15 @@ namespace winrt::LottieReactNative::implementation
         double m_progress = 0;
         bool m_loop = false;
         bool m_useNativeLooping = false;
+        double m_sourceFrameCount = 0;
+        winrt::Windows::Foundation::Collections::IMapView<winrt::hstring, winrt::Windows::UI::Color> m_colorFilters;
 
         // Temporaries used to capture prop changes
         winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> m_pendingSourceProp;
         std::optional<double> m_pendingProgressProp;
         std::optional<bool> m_pendingLoopProp;
         std::optional<bool> m_pendingNativeLoopingProp;
+        bool m_colorFiltersChanged = false;
 
         // Temporaries used during source loading
         winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource> m_activeSourceLoad;
@@ -70,6 +75,7 @@ namespace winrt::LottieReactNative::implementation
         void HandleSourceLoaded(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource source);
         void PlayInternal();
         void HandlePlayCompleted();
+        void ApplyColorFilters();
     };
 }
 

@@ -42,6 +42,9 @@ namespace winrt::Example::implementation {
 
         // RegisterAutolinkedNativeModulePackages(PackageProviders()); // Includes any autolinked modules
 
+        // Register LottieReactNative. The supplied ILottieSourceProvider is used by LottieView to load sources.
+        // Only sources supported by the provider will be supported within JS. For example, LottieCodegenSourceProvider
+        // supports loading codegen animations by name.
         PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::AnimatedVisuals::LottieCodegenSourceProvider()));
 
         InitializeComponent();

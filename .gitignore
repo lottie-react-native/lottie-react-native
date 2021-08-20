@@ -54,6 +54,9 @@ Generated Files/
 bin/
 obj/
 Bundle/
+example/windows/cppwinrt/**/Debug
+example/windows/cppwinrt/**/Release
+*.user
 
 # NuGet
 packages/

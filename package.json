@@ -22,7 +22,9 @@
     "docs:build": "npm run docs:prepare && gitbook build",
     "docs:watch": "npm run docs:prepare && gitbook serve",
     "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git fetch git@github.com:airbnb/lottie-react-native.git gh-pages && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:airbnb/lottie-react-native.git gh-pages --force",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vscpp": "start example/windows/cppwinrt/Example.sln",
+    "vssharp": "start example/windows/csharp/Example.sln"
   },
   "repository": {
     "type": "git",
@@ -71,7 +73,7 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^1.8.2",
     "prettier-eslint": "^8.2.2",
-    "react": "16.13.0",
+    "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-windows": "0.63.15"
   }

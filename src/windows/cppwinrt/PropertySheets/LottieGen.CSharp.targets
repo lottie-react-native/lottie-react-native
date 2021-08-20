@@ -17,30 +17,32 @@
 
             PackageProviders().Append(LottieReactNative.ReactPackageProvider(AnimatedVisuals.LottieCodegenSourceProvider()));
 
-        4. Either install LottieGen as a .NET Core global tool:
-            dotnet tool install -g LottieGen
-
-            OR
-
-            Set the LottieGenPath variable to point to the LottieGenPath exe
+        4. Install the LottieGen.MsBuild nuget package into the app project
 
         5. Ensure you have the following NuGet packages installed into your app project:
             - Win2D.uwp (if using codegen)
             - Microsoft.Toolkit.Uwp.UI.Lottie (if using LottieVisualSource for dynamic JSON loading)
-
 -->
     <PropertyGroup>
+        <!-- Enable to support codegen of LottieAnimation json files -->
         <EnableLottieCodegen Condition="'$(EnableLottieCodegen)' == ''">true</EnableLottieCodegen>
-        <EnableLottieDynamicSource Condition="'$(EnableLottieDynamicSource)' == ''">true</EnableLottieDynamicSource> <!-- Enable if you want to use LottieVisualSource for dynamic JSON loading. Disable to remove the dependency. -->
-        <LottieGenPath Condition="'$(LottieGenPath)' == ''">lottiegen</LottieGenPath>
+
+        <!-- Enable if you want to use LottieVisualSource for dynamic JSON loading. Disable to remove the dependency. -->        
+        <EnableLottieDynamicSource Condition="'$(EnableLottieDynamicSource)' == ''">true</EnableLottieDynamicSource>
+
+        <!-- Generate properties for colors to enable modification at runtime -->
+        <LottieGenGenerateColorBindings Condition="'$(LottieGenGenerateColorBindings)' == ''"></LottieGenGenerateColorBindings>
+
         <LottieOutputFolder Condition="'$(LottieOutputFolder)' == ''">$(IntermediateOutputPath)Generated Files\Animations\</LottieOutputFolder>
         <LottieOutputFolder>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', '$(LottieOutputFolder)'))</LottieOutputFolder>
-        <LottieMinimumUapVersion Condition="'$(LottieMinimumUapVersion)' == ''">10</LottieMinimumUapVersion>
-        <LottieTargetUAPVersion Condition="'$(LottieTargetUAPVersion)' == ''">10</LottieTargetUAPVersion>
+        <LottieGenWinUIVersion Condition="'$(LottieGenWinUIVersion)' == ''">2.4</LottieGenWinUIVersion>        
+        <LottieMinimumUapVersion Condition="'$(LottieMinimumUapVersion)' == ''">0</LottieMinimumUapVersion>
+        <LottieTargetUAPVersion Condition="'$(LottieTargetUAPVersion)' == ''">0</LottieTargetUAPVersion>
         <LottieAnimationNamespace>AnimatedVisuals</LottieAnimationNamespace>
-        <LottieVerbosity>normal</LottieVerbosity>
+        <LottieVerbosity Condition="'$(LottieVerbosity)' == ''">normal</LottieVerbosity>
 
         <_LottieProviderFilePath>$(LottieOutputFolder)LottieCodegenSourceProvider.cs</_LottieProviderFilePath>
+
         <!--
             Visual Studio has its own incremental build logic on top of MSBuild's that
             will skip targets if it thinks inputs haven't changed. This falls over for
@@ -48,11 +50,6 @@
         -->
         <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     </PropertyGroup>
-
-    <!-- Hook up our targets to run before any CppWinRT/MIDL processing happens -->
-    <!-- <PropertyGroup>
-        <PrepareResourcesDependsOn>LottieGen_IncludeBuiltFiles;$(PrepareResourcesDependsOn)</PrepareResourcesDependsOn>
-    </PropertyGroup> -->
 
     <ItemGroup>
         <UpToDateCheckInput Include="@(LottieAnimation)" />
@@ -191,13 +188,24 @@ namespace $(LottieAnimationNamespace)
         Inputs="@(LottieAnimation)"
         Outputs="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).cs">
 
-        <!-- LottieGen fails if output path ends with a slash -->
-        <PropertyGroup>
-            <_LottieGenOutPath>$(LottieOutputFolder.TrimEnd('\'))</_LottieGenOutPath>
-        </PropertyGroup>
-
         <Message Importance="$(LottieVerbosity)" Text="Generating Lottie animation files" />
-        <Exec WorkingDirectory="$(LottieOutputFolder)" Command='"$(LottieGenPath)" -L csharp -AdditionalInterface LottieReactNative.ILottieMediaSource -Namespace "$(LottieAnimationNamespace)" -MinimumUapVersion $(LottieMinimumUapVersion) -TargetUapVersion $(LottieTargetUapVersion)  -inp "%(LottieAnimation.FullPath)" -o "$(_LottieGenOutPath)"' />
+        <Message Importance="$(LottieVerbosity)" Text="%(LottieAnimation.FullPath)" />
+        <Message Importance="$(LottieVerbosity)" Text="$(LottieOutputFolder)" />
+
+        <LottieGen.Task.LottieGen 
+            Language="cs" 
+            InputFile="%(LottieAnimation.FullPath)"
+            OutputFolder="$(LottieOutputFolder)"
+            Namespace="$(LottieAnimationNamespace)"
+            MinimumUapVersion="$(LottieMinimumUapVersion)"
+            TargetUapVersion="$(LottieTargetUapVersion)"
+            AdditionalInterface="LottieReactNative.ILottieMediaSource"
+            StandardOutputImportance="$(LottieVerbosity)"
+            WinUIVersion="$(LottieGenWinUIVersion)"
+            GenerateColorBindings="$(LottieGenGenerateColorBindings)"
+        >
+            <Output TaskParameter="OutputFiles" ItemName="LotteGenFiles" />
+        </LottieGen.Task.LottieGen>
     </Target>
 
     <!-- 

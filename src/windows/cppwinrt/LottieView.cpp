@@ -74,8 +74,16 @@ namespace winrt::LottieReactNative::implementation
         m_pendingSourceProp = m_lottieSourceProvider.GetSourceFromJson(json);
     }
 
+    void LottieView::SetColorFilters(winrt::Windows::Foundation::Collections::IMapView<winrt::hstring, winrt::Windows::UI::Color> filters)
+    {
+        m_colorFilters = filters;
+        m_colorFiltersChanged = true;
+    }
+
+
     void LottieView::OnPlayerMounted(winrt::Windows::Foundation::IInspectable const& /*sender*/, winrt::Windows::Foundation::IInspectable const& /*args*/) {
-        // Unblock any pending loads
+        // Player was mounted into the XAML tree. If we have new source content that was waiting for mount,
+        // we can now safely apply it to the player.
         if (m_activeSource) {
             HandleSourceLoaded(m_activeSource);
         }
@@ -113,7 +121,12 @@ namespace winrt::LottieReactNative::implementation
             return;
         }
 
+        if (m_colorFiltersChanged) {
+            ApplyColorFilters();
+        }
+
         if (progressChanged) {
+            ++m_activePlayId; // Prevent any active play's callback from running when we stop playback by seeking
             m_player.SetProgress(m_progress);
         }
 
@@ -144,7 +157,7 @@ namespace winrt::LottieReactNative::implementation
 
     void LottieView::HandleSourceLoaded(winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource source) {
         if (!IsLoaded()) {
-            // We aren't mounted to the UI yet, so applying a source will error. Wait until we mount.
+            // We aren't mounted to the UI yet so applying a source will error. Wait until we mount.
             m_activeSource = source;
             return;
         }
@@ -152,9 +165,21 @@ namespace winrt::LottieReactNative::implementation
         // Apply source
         if (source) {
             m_player.Source(source);
+
+            auto codegenSource = source.try_as<LottieReactNative::ILottieMediaSource>();
+            if (codegenSource) {
+                m_sourceFrameCount = codegenSource.FrameCount();
+            }
+            else {
+                // No metadata available. Use a reasonable default to convert from time to frames.
+                // TODO: Fetch this from the JSON or have JS pass it in
+                m_sourceFrameCount = std::max<double>(ticksToSeconds(m_player.Duration()) * 30, 1);
+            }
+            ApplyColorFilters();
         }
         else {
             m_player.ClearValue(winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer::SourceProperty());
+            m_sourceFrameCount = 0;
         }
         m_activeSourceLoad = nullptr;
         m_activeSource = nullptr;
@@ -166,6 +191,21 @@ namespace winrt::LottieReactNative::implementation
         }
         else {
             m_player.SetProgress(m_progress);
+        }
+    }
+
+    void LottieView::ApplyColorFilters()
+    {
+        m_colorFiltersChanged = false;        
+        if (m_colorFilters) {
+            if (auto codegenSource = m_player.Source().try_as<LottieReactNative::ILottieMediaSource>()) {
+                for (auto const& item : m_colorFilters) {
+                    codegenSource.SetColorProperty(item.Key(), item.Value());
+                }
+            }
+            /*else if (auto visualSource2 = m_player.Source().try_as<winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer2>()) {
+                // Requires WinUI 2.6+
+            }*/
         }
     }
 
@@ -206,24 +246,25 @@ namespace winrt::LottieReactNative::implementation
         double normalizedFrom;
         double normalizedTo;
 
-        // Convert from frame number to normalized time [0,1]
-        if (from == FRAME_UNSET && to == FRAME_UNSET) {
-            // Sentinel values. Play full range.
-            normalizedFrom = 0;
-            normalizedTo = 1;
+        if (m_sourceFrameCount == 0) {
+            return;
         }
-        else if (auto codegenSource = m_player.Source().try_as<LottieReactNative::ILottieMediaSource>()) {
-            // Query media source for conversion
-            normalizedFrom = codegenSource.FrameToProgress(static_cast<double>(from));
-            normalizedTo = codegenSource.FrameToProgress(static_cast<double>(to));
-        }
-        else {
-            // No metadata available. Use a reasonable default to convert from frames to time.
-            static const double framesPerSecond = 30.0;
-            const double totalFrames = std::max<double>(ticksToSeconds(m_player.Duration()) * framesPerSecond, 1.0);
 
-            normalizedFrom = from / totalFrames;
-            normalizedTo = to / totalFrames;
+        // Convert from frame number to normalized time [0,1]
+        if (from == FRAME_UNSET) {
+            normalizedFrom = 0.0;
+        }
+        else
+        {
+            normalizedFrom = static_cast<double>(from) / m_sourceFrameCount;
+        }
+
+        if (to == FRAME_UNSET) {
+            normalizedTo = 1.0;
+        }
+        else
+        {
+            normalizedTo = static_cast<double>(to) / m_sourceFrameCount;
         }
 
         //
@@ -240,7 +281,7 @@ namespace winrt::LottieReactNative::implementation
         //  AnimatedVisualPlayer    - Start at "from" and play forwards, looping around to "to"
         //
         // We want the Lottie behavior, so use a negative PlaybackRate to play in reverse
-        if (normalizedFrom > normalizedTo) {
+        if (from > to) {
             std::swap(normalizedFrom, normalizedTo);
             m_player.PlaybackRate(-1 * std::abs(m_speed));
         }
