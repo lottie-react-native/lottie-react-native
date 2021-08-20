@@ -5,13 +5,13 @@ module.exports = {
         sourceDir: './src/android',
       },
       windows: {
-        sourceDir: "./src/windows",
-        solutionFile: "cppwinrt/LottieReactNative.sln",
+        sourceDir: './src/windows',
+        solutionFile: 'cppwinrt/LottieReactNative.sln',
         projects: [
-            {
-                projectFile: "cppwinrt/LottieReactNative.vcxproj",
-                directDependency: true,
-            },
+          {
+            projectFile: 'cppwinrt/LottieReactNative.vcxproj',
+            directDependency: true,
+          },
         ],
       },
     },

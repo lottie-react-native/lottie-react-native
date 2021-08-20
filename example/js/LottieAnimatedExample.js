@@ -72,10 +72,10 @@ export default class LottieAnimatedExample extends React.Component {
       if (isPlaying && isPaused) {
         this.anim.resume();
         isPaused = false;
-      } else if (isPlaying && !isPaused) {
+      } else if (isPlaying) {
         this.anim.pause();
         isPaused = true;
-      } else if (!isPlaying) {
+      } else {
         this.anim.reset();
         this.anim.play();
         isPlaying = true;
