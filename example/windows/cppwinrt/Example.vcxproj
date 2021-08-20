@@ -156,9 +156,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\node_modules\@react-native-community\slider\windows\SliderWindows\SliderWindows.vcxproj">
-      <Project>{685a83ae-36bc-4e9d-bdc6-417ebf168463}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\src\windows\cppwinrt\LottieReactNative.vcxproj">
       <Project>{e5a7828d-f596-4793-80ec-4c071e575c58}</Project>
     </ProjectReference>
