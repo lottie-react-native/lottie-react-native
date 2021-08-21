@@ -196,15 +196,18 @@ namespace winrt::LottieReactNative::implementation
 
     void LottieView::ApplyColorFilters()
     {
-        m_colorFiltersChanged = false;        
+        m_colorFiltersChanged = false;
         if (m_colorFilters) {
             if (auto codegenSource = m_player.Source().try_as<LottieReactNative::ILottieMediaSource>()) {
                 for (auto const& item : m_colorFilters) {
                     codegenSource.SetColorProperty(item.Key(), item.Value());
                 }
             }
-            /*else if (auto visualSource2 = m_player.Source().try_as<winrt::Microsoft::UI::Xaml::Controls::AnimatedVisualPlayer2>()) {
-                // Requires WinUI 2.6+
+            /*else if (auto visualSource2 = m_player.Source().try_as<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource2>()) {
+                // Requires WinUI 2.6+ which won't come to RNW until 0.65
+                for (auto const& item : m_colorFilters) {
+                    visualSource2.SetColorProperty(item.Key(), item.Value());
+                }
             }*/
         }
     }
