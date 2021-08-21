@@ -25,17 +25,21 @@ struct ColorFilter {
 namespace winrt::LottieReactNative::implementation {
     winrt::Windows::UI::Color HexToColor(std::wstring hex) {
         // For now, only support full #AARRGGBB or #RRGGBB hex, not web-style #RGB
+        try {
+            // Skip over any # prefix.
+            const wchar_t* start = hex.length() > 0 && hex[0] == '#' ? hex.data() + 1 : hex.data();
+            unsigned long value = std::stoul(start, nullptr, 16);
 
-        // Skip over any # prefix.
-        const wchar_t* start = hex.length() > 0 && hex[0] == '#' ? hex.data() + 1 : hex.data();
-        int value = std::stoi(start, nullptr, 16);
+            uint8_t a = (value >> 24) & 0xFF;
+            uint8_t r = (value >> 16) & 0xFF;
+            uint8_t g = (value >> 8) & 0xFF;
+            uint8_t b = (value >> 0) & 0xFF;
 
-        uint8_t a = (value >> 24) & 0xFF;
-        uint8_t r = (value >> 16) & 0xFF;
-        uint8_t g = (value >> 8) & 0xFF;
-        uint8_t b = (value >> 0) & 0xFF;
-
-        return winrt::Windows::UI::Color{ a, r, g, b };
+            return winrt::Windows::UI::Color{ a, r, g, b };
+        }
+        catch (...) {
+            return {};
+        }
     }
 
 
