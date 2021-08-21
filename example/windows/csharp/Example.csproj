@@ -172,17 +172,16 @@
       <Version>1.25.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\windows\cppwinrt\LottieReactNative.vcxproj">
-      <Project>{e5a7828d-f596-4793-80ec-4c071e575c58}</Project>
-      <Name>LottieReactNative</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\..\..\src\windows\cppwinrt\PropertySheets\LottieGen.CSharp.targets" />
+  <PropertyGroup Label="LottieReactNativeProps">
+    <LottieReactNativeDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'package.json'))</LottieReactNativeDir>
+  </PropertyGroup>
+  <ImportGroup Label="LottieReactNativeTargets">
+    <Import Project="$(LottieReactNativeDir)\src\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
+  </ImportGroup>
   <PropertyGroup Label="ReactNativeWindowsNodeProps">
     <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
     <BundleEntryFile Condition="'$(BundleEntryFile)' == ''">example/js/index.js</BundleEntryFile>

@@ -1,15 +1,15 @@
-# Lottie for React Native, [iOS](https://github.com/airbnb/lottie-ios), and [Android](https://github.com/airbnb/lottie-android)
-
+# Lottie React Native
 [![npm Version](https://img.shields.io/npm/v/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![License](https://img.shields.io/npm/l/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native)
 
-Lottie component for React Native (iOS and Android)
+Lottie component for React Native ([iOS](https://github.com/airbnb/lottie-ios), [Android](https://github.com/airbnb/lottie-android), and [Windows](https://github.com/CommunityToolkit/Lottie-Windows))
 
-Lottie is a mobile library for Android and iOS that parses [Adobe After Effects](http://www.adobe.com/products/aftereffects.html) animations exported as JSON with [bodymovin](https://github.com/bodymovin/bodymovin) and renders them natively on mobile!
+Lottie is an ecosystem of libraries for parsing [Adobe After Effects](http://www.adobe.com/products/aftereffects.html) animations exported as JSON with [bodymovin](https://github.com/bodymovin/bodymovin) and rendering them natively!
 
 For the first time, designers can create **and ship** beautiful animations without an engineer painstakingly recreating it by hand.
 
 ## Installing (React Native >= 0.60.0)
 
+### iOS and Android
 Install `lottie-react-native` (latest) and `lottie-ios` (3.2.3):
 
 ```
@@ -54,6 +54,58 @@ include ':lottie-react-native'
 project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
 
 ```
+
+### Windows (React Native >= 0.63)
+Install the `lottie-react-native` npm package.
+
+Add the following to the end of your project file. For C# apps, this should come after any `Microsoft.Windows.UI.Xaml.CSharp.targets` includes. For C++ apps, it should come after any `Microsoft.Cpp.targets` includes.
+```xml
+<PropertyGroup Label="LottieReactNativeProps">
+    <LottieReactNativeDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\lottie-react-native\package.json'))\node_modules\lottie-react-native</LottieReactNativeDir>
+</PropertyGroup>
+<ImportGroup Label="LottieReactNativeTargets">
+    <Import Project="$(LottieReactNativeDir)\src\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
+</ImportGroup>
+```
+
+Make sure to also add the LottieReactNative project to your Visual Studio solution to ensure it takes part in the build.
+
+For C# apps, you'll need to install the following packages through NuGet:
+- LottieGen.MsBuild
+- Microsoft.UI.Xaml
+- Win2D.uwp
+- Microsoft.Toolkit.Uwp.UI.Lottie
+  - This package is used for loading JSON dynamically. If you only need codegen animation, you can set `<EnableLottieDynamicSource>false</EnableLottieDynamicSource>` in your project file and omit this reference.
+
+For C++ apps, you'll need these NuGet packages:
+- LottieGen.MsBuild
+- Microsoft.UI.Xaml
+
+WinUI 2.3 (Microsoft.UI.Xaml 2.3.191129002) is required by default. Overriding this requires creating a Directory.Build.props file in your project root with a `<WinUIVersion>` property.
+
+In your application code where you set up your React Native Windows PackageProviders list, add the LottieReactNative provider:
+```csharp
+// C#
+PackageProviders.Add(new LottieReactNative.ReactPackageProvider(new AnimatedVisuals.LottieCodegenSourceProvider()));
+```
+```cpp
+// C++
+PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::AnimatedVisuals::LottieCodegenSourceProvider()));
+```
+
+Codegen animations are supported by adding LottieAnimation items to your project file. These will be compiled into your application and available at runtime by name. For example:
+```xml
+<!-- .vcxproj or .csproj -->
+<ItemGroup>
+    <LottieAnimation Include="Assets/Animations/MyAnimation.json" Name="MyAnimation" />
+</ItemGroup>
+```
+```js
+// js
+<LottieView source={"MyAnimation"} />
+```
+
+Codegen is available to both C# and C++ applications. Dynamic loading of JSON strings at runtime is currently only supported in C# applications.
 
 ## Installing (React Native == 0.59.x)
 
