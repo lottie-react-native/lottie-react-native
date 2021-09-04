@@ -129,6 +129,8 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
                   view.reverseAnimationSpeed();
                 }
               }
+            } else {
+              view.setMinAndMaxFrame(Integer.MIN_VALUE, Integer.MAX_VALUE);
             }
             if (ViewCompat.isAttachedToWindow(view)) {
               view.setProgress(0f);
