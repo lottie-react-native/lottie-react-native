@@ -1,3 +1,9 @@
+## 4.1.0
+
+- Upgrading Native lottie-android to 4.0.0
+- Migrated to maven_publish
+- Migrated to gradle 7
+
 ## 4.0.3
 
 - Updated `lottie-ios` dependency to 3.2.3
