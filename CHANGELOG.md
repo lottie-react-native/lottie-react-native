@@ -1,3 +1,7 @@
+## 4.1.3
+
+- Added pod support for tvOS
+
 ## 4.1.2
 
 - iOS target moved to 11.0 to align with React Native 64
