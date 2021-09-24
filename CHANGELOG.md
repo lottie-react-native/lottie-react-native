@@ -1,3 +1,11 @@
+## 4.1.2
+
+- iOS target moved to 11.0 to align with React Native 64
+
+## 4.1.1
+
+- Updating Documentation
+
 ## 4.1.0
 
 - Upgrading Native lottie-android to 4.0.0
