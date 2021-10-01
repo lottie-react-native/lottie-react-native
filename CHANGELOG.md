@@ -1,3 +1,21 @@
+## 4.1.3
+
+- Added pod support for tvOS
+
+## 4.1.2
+
+- iOS target moved to 11.0 to align with React Native 64
+
+## 4.1.1
+
+- Updating Documentation
+
+## 4.1.0
+
+- Upgrading Native lottie-android to 4.0.0
+- Migrated to maven_publish
+- Migrated to gradle 7
+
 ## 4.0.3
 
 - Updated `lottie-ios` dependency to 3.2.3
