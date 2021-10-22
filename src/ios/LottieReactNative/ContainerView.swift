@@ -1,4 +1,5 @@
 import Lottie
+import Foundation
 
 class ContainerView: RCTView {
     private var speed: CGFloat = 0.0
@@ -138,7 +139,7 @@ class ContainerView: RCTView {
             for filter in colorFilters {
                 let keypath: String = "\(filter.value(forKey: "keypath") as! String).**.Color"
                 let fillKeypath = AnimationKeypath(keypath: keypath)
-                let colorFilterValueProvider = ColorValueProvider(hexStringToColor(hex: filter.value(forKey: "color") as! String))
+                let colorFilterValueProvider = ColorValueProvider((filter.value(forKey: "color") as! PlatformColor).lottieColorValue)
                 animationView?.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
             }
         }
