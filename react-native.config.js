@@ -10,7 +10,7 @@ module.exports = {
         projects: [
           {
             projectFile: 'cppwinrt/LottieReactNative.vcxproj',
-            directDependency: true,
+            directDependency: false,
           },
         ],
       },

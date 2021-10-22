@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <_LottieGen_IsCSharpBuild Condition="'$(MSBuildProjectExtension)' == '.csproj'">true</_LottieGen_IsCSharpBuild>
+        <_LottieGen_IsCSharpBuild Condition="'$(MSBuildProjectExtension)' == '.csproj' OR $(ProjectTypeGuids.Contains('FAE04EC0-301F-11D3-BF4B-00C04F79EFBC'))">true</_LottieGen_IsCSharpBuild>
         <_LottieGen_IsCppBuild Condition="'$(_LottieGen_IsCSharpBuild)' != 'true'">true</_LottieGen_IsCppBuild>
     </PropertyGroup>
 

@@ -68,7 +68,7 @@ Add the following to the end of your project file. For C# apps, this should come
 </ImportGroup>
 ```
 
-Make sure to also add the LottieReactNative project to your Visual Studio solution to ensure it takes part in the build.
+Make sure to also add the LottieReactNative.vcxproj to your Visual Studio solution to ensure it takes part in the build.
 
 For C# apps, you'll need to install the following packages through NuGet:
 - LottieGen.MsBuild
@@ -90,6 +90,11 @@ PackageProviders.Add(new LottieReactNative.ReactPackageProvider(new AnimatedVisu
 ```
 ```cpp
 // C++
+#include <winrt/LottieReactNative.h>
+#include <winrt/AnimatedVisuals.h>
+
+...
+
 PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::AnimatedVisuals::LottieCodegenSourceProvider()));
 ```
 
