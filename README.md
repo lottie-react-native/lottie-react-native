@@ -34,6 +34,8 @@ pod install
 
 If you have issues linking your **iOS** project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
 
+Please check if you can use the latest version of lottie with the version of React Native you are using. If you are using 0.63.x, you need to download 4.0.3 for lottie-react-native.
+
 If your app crashes on **Android**, means auto linking didn't work. You will need to make the following changes:
 
 **android/app/src/main/java/\<AppName\>/MainApplication.java**
