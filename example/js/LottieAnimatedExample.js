@@ -5,13 +5,13 @@ import {
   Animated,
   Easing,
   StyleSheet,
-  Slider,
   Switch,
   Image,
   Text,
   TouchableOpacity,
 } from 'react-native';
 import LottieView from 'lottie-react-native';
+import Slider from '@react-native-community/slider';
 import ExamplePicker from './ExamplePicker';
 
 const AnimatedSlider = Animated.createAnimatedComponent(Slider);
