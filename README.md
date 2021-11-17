@@ -30,7 +30,7 @@ Go to your ios folder and run:
 pod install
 ```
 
-** Versioning **
+**Versioning**
 
 Depending on which version of React Native your app runs on you might need to install a specific version of lottie-react-native. Here's the compatibility list:
 
