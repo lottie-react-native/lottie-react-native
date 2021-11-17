@@ -9,19 +9,19 @@ import {
   ViewPropTypes,
   requireNativeComponent,
   NativeModules,
+  processColor,
 } from 'react-native';
 import SafeModule from 'react-native-safe-modules';
 import PropTypes from 'prop-types';
 
-
 const getNativeLottieViewForDesktop = () => {
-  return requireNativeComponent('LottieAnimationView') 
-}
+  return requireNativeComponent('LottieAnimationView');
+};
 
 const NativeLottieView =
-  Platform.OS === 'macos' || Platform.OS === 'windows' ?
-    getNativeLottieViewForDesktop() :
-    SafeModule.component({ viewName: 'LottieAnimationView', mockComponent: View })
+  Platform.OS === 'macos' || Platform.OS === 'windows'
+    ? getNativeLottieViewForDesktop()
+    : SafeModule.component({ viewName: 'LottieAnimationView', mockComponent: View });
 
 const AnimatedNativeLottieView = Animated.createAnimatedComponent(NativeLottieView);
 
@@ -38,8 +38,8 @@ const LottieViewManager = Platform.select({
       resume: () => {},
       getConstants: () => {},
     },
-  })
-})
+  }),
+});
 
 const ViewStyleExceptBorderPropType = (props, propName, componentName, ...rest) => {
   const flattened = StyleSheet.flatten(props[propName] || {});
@@ -207,14 +207,22 @@ class LottieView extends React.PureComponent {
 
     const speed =
       this.props.duration && sourceJson && this.props.source.fr
-        ? Math.round(this.props.source.op / this.props.source.fr * 1000 / this.props.duration)
+        ? Math.round(((this.props.source.op / this.props.source.fr) * 1000) / this.props.duration)
         : this.props.speed;
+
+    const colorFilters = Array.isArray(this.props.colorFilters)
+      ? this.props.colorFilters.map(({ keypath, color }) => ({
+          keypath,
+          color: processColor(color),
+        }))
+      : undefined;
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
         <AnimatedNativeLottieView
           ref={this.refRoot}
           {...rest}
+          colorFilters={colorFilters}
           speed={speed}
           style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
           sourceName={sourceName}
