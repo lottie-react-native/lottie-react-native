@@ -5,3 +5,5 @@ project(":example").projectDir = file("./example/android/app")
 
 include ":lottie-react-native"
 project(":lottie-react-native").projectDir = file("./src/android")
+
+apply from: file("./node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
