@@ -1,3 +1,8 @@
+## 5.0.0
+
+- Upgraded to RN 0.66.1
+- Support for PlatformColor
+
 ## 4.1.3
 
 - Added pod support for tvOS
