@@ -1,3 +1,7 @@
+## 5.0.1
+
+- Fix SimpleColorFilter casting error
+
 ## 5.0.0
 
 - Upgraded to RN 0.66.1
