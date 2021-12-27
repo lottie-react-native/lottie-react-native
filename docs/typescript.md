@@ -13,7 +13,7 @@ The usage of `LottieView` is not that different to its JavaScript counterpart, b
 - Your `tsconfig.json` file defines `"esModuleInterop": false,`. In this case, you are forced to define your import as 
 
 ```tsx
-import LottieView = require("lottie-react-native");
+const LottieView = require("lottie-react-native");
 ```
 
 - Your `tsconfig.json` file defines `"esModuleInterop": true,` and `"allowSyntheticDefaultImports": true,` (the default is `true`). In this case, you can import lottie as:
