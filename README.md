@@ -30,31 +30,6 @@ Go to your ios folder and run:
 pod install
 ```
 
-**_ IMPORTANT _**
-
-If you have issues linking your **iOS** project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
-
-If your app crashes on **Android**, means auto linking didn't work. You will need to make the following changes:
-
-**android/app/src/main/java/\<AppName\>/MainApplication.java**
-
-- add `import com.airbnb.android.react.lottie.LottiePackage;` on the imports section
-- add `packages.add(new LottiePackage());` in `List<ReactPackage> getPackages()`;
-
-**android/app/build.gradle**
-
-add `implementation project(':lottie-react-native')` in the `dependencies` block
-
-**android/settings.gradle**
-
-add:
-
-```
-include ':lottie-react-native'
-project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
-
-```
-
 ### Windows (React Native >= 0.63)
 Install the `lottie-react-native` npm package.
 
@@ -68,7 +43,7 @@ Add the following to the end of your project file. For C# apps, this should come
 </ImportGroup>
 ```
 
-Make sure to also add the LottieReactNative.vcxproj to your Visual Studio solution to ensure it takes part in the build.
+Add the LottieReactNative.vcxproj file to your Visual Studio solution to ensure it takes part in the build.
 
 For C# apps, you'll need to install the following packages through NuGet:
 - LottieGen.MsBuild
@@ -112,8 +87,18 @@ Codegen animations are supported by adding LottieAnimation items to your project
 
 Codegen is available to both C# and C++ applications. Dynamic loading of JSON strings at runtime is currently only supported in C# applications.
 
-**_ IMPORTANT _**
-Not all After Effects features are supported by Lottie. If you notice there are some layers or animations missing check [this list](https://github.com/airbnb/lottie/blob/master/supported-features.md) to ensure they are supported.
+
+**Versioning**
+
+Depending on which version of React Native your app runs on you might need to install a specific version of lottie-react-native. Here's the compatibility list:
+
+| App built in React Native version                | Requires lottie-react-native version                                                                                                                                                                                                                                                                      | Requires lottie-ios version                                                                                                              |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| >= 0.59       | 3.0.2 | 3.0.3 
+| >= 0.60       | 4.0.2 | 3.2.3 
+| >= 0.63       | 4.0.3 | 3.2.3 
+| >= 0.64       | 4.1.3 | 3.2.3 
+| >= 0.66       | latest | 3.2.3 
 
 ## Usage
 
@@ -231,6 +216,37 @@ You can find the full list of props and methods available in our [API document](
 | **`colorFilters`** | An Array of layers you want to change the color filter.                                                                                                                                                                                                                         | `[]`                                                                                                                |
 
 [More...](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md)
+
+## Troubleshooting
+
+Not all After Effects features are supported by Lottie. If you notice there are some layers or animations missing check [this list](https://github.com/airbnb/lottie/blob/master/supported-features.md) to ensure they are supported.
+
+### iOS specifc problems
+
+If you have issues linking your **iOS** project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
+
+### Android specific problems
+
+If your app crashes on **Android**, means auto linking didn't work. You will need to make the following changes:
+
+**android/app/src/main/java/\<AppName\>/MainApplication.java**
+
+- add `import com.airbnb.android.react.lottie.LottiePackage;` on the imports section
+- add `packages.add(new LottiePackage());` in `List<ReactPackage> getPackages()`;
+
+**android/app/build.gradle**
+
+add `implementation project(':lottie-react-native')` in the `dependencies` block
+
+**android/settings.gradle**
+
+add:
+
+```
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
+
+```
 
 ## More
 
