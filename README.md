@@ -56,7 +56,7 @@ For C++ apps, you'll need these NuGet packages:
 - LottieGen.MsBuild
 - Microsoft.UI.Xaml
 
-WinUI 2.3 (Microsoft.UI.Xaml 2.3.191129002) is required by default. Overriding this requires creating a Directory.Build.props file in your project root with a `<WinUIVersion>` property.
+WinUI 2.6 (Microsoft.UI.Xaml 2.6.0) is required by default. Overriding this requires creating a Directory.Build.props file in your project root with a `<WinUIVersion>` property.
 
 In your application code where you set up your React Native Windows PackageProviders list, add the LottieReactNative provider:
 ```csharp

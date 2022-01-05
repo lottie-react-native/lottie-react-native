@@ -7,6 +7,8 @@
 #include <winrt/Windows.UI.Xaml.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.ReactNative.h>
+#include <winrt/ReactNativePicker.h>
+#include <winrt/SliderWindows.h>
 #include <winrt/LottieReactNative.h>
 #include <winrt/AnimatedVisuals.h>
 
@@ -29,15 +31,15 @@ namespace winrt::Example::implementation {
         InstanceSettings().UseWebDebugger(false);
         InstanceSettings().UseFastRefresh(false);
 #else
-        JavaScriptMainModuleName(L"example/js/index");
+        JavaScriptBundleFile(L"example/js/index");
         InstanceSettings().UseWebDebugger(true);
         InstanceSettings().UseFastRefresh(true);
 #endif
 
 #if _DEBUG
-        InstanceSettings().EnableDeveloperMenu(true);
+        InstanceSettings().UseDeveloperSupport(true);
 #else
-        InstanceSettings().EnableDeveloperMenu(false);
+        InstanceSettings().UseDeveloperSupport(false);
 #endif
 
         // RegisterAutolinkedNativeModulePackages(PackageProviders()); // Includes any autolinked modules
@@ -46,6 +48,9 @@ namespace winrt::Example::implementation {
         // Only sources supported by the provider will be supported within JS. For example, LottieCodegenSourceProvider
         // supports loading codegen animations by name.
         PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::AnimatedVisuals::LottieCodegenSourceProvider()));
+
+        PackageProviders().Append(winrt::ReactNativePicker::ReactPackageProvider());
+        PackageProviders().Append(winrt::SliderWindows::ReactPackageProvider());
 
         InitializeComponent();
     }
