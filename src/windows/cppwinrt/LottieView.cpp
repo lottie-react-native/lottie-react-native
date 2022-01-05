@@ -203,12 +203,12 @@ namespace winrt::LottieReactNative::implementation
                     codegenSource.SetColorProperty(item.Key(), item.Value());
                 }
             }
-            /*else if (auto visualSource2 = m_player.Source().try_as<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource2>()) {
-                // Requires WinUI 2.6+ which won't come to RNW until 0.65
+            else if (auto visualSource2 = m_player.Source().try_as<winrt::Microsoft::UI::Xaml::Controls::IAnimatedVisualSource2>()) {
+                // Requires WinUI 2.6+
                 for (auto const& item : m_colorFilters) {
                     visualSource2.SetColorProperty(item.Key(), item.Value());
                 }
-            }*/
+            }
         }
     }
 
