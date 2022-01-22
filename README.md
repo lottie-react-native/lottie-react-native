@@ -164,7 +164,7 @@ You can find the full list of props and methods available in our [API document](
 
 Not all After Effects features are supported by Lottie. If you notice there are some layers or animations missing check [this list](https://github.com/airbnb/lottie/blob/master/supported-features.md) to ensure they are supported.
 
-### iOS specifc problems
+### iOS specific problems
 
 If you have issues linking your **iOS** project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
 

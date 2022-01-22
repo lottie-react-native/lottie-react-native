@@ -178,7 +178,7 @@ public class LottieAnimationViewPropertyManager {
           color = current.getInt("color");
         }
         String path = current.getString("keypath");
-        SimpleColorFilter colorFilter = new SimpleColorFilter(color);
+        ColorFilter colorFilter = new SimpleColorFilter(color);
         String pathWithGlobstar = path +".**";
         String[] keys = pathWithGlobstar.split(Pattern.quote("."));
         KeyPath keyPath = new  KeyPath(keys);
