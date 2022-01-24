@@ -14,6 +14,9 @@
 |**`onAnimationFinish`**| A callback function which will be called when animation is finished. This callback is called with a boolean `isCancelled` argument, indicating if the animation actually completed playing, or if it was cancelled, for instance by calling `play()` or `reset()` while is was still playing. Note that this callback will be called only when `loop` is set to false. |*None*|
 |**`renderMode`**| **Only Android**, a String flag to set whether or not to render with `HARDWARE` or `SOFTWARE` acceleration |`AUTOMATIC`|
 |**`cacheComposition`**| **Only Android**, a boolean flag indicating whether or not the animation should do caching. |`true`|
+|**`colorFilters`**| An array of objects denoting layers by KeyPath and a new color filter value (as hex string). |`[]`|
+|**`textFiltersAndroid`**| **Only Android**, an array of objects denoting text values to find and replace. |`[]`|
+|**`textFiltersIOS`**| **Only iOS**, an array of objects denoting text layers by KeyPath and a new string value. |`[]`|
 
 ## Methods (Imperative API):
 

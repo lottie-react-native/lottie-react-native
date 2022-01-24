@@ -9,6 +9,7 @@ class ContainerView: RCTView {
     private var resizeMode: String = ""
     private var sourceName: String = ""
     private var colorFilters: [NSDictionary] = []
+    private var textFilters: [NSDictionary] = []
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     var animationView: AnimationView?
 
@@ -48,6 +49,24 @@ class ContainerView: RCTView {
     @objc func setLoop(_ isLooping: Bool) {
         loop = isLooping ? .loop : .playOnce
         animationView?.loopMode = loop
+    }
+    
+    @objc func setTextFiltersIOS(_ newTextFilters: [NSDictionary]) {
+        textFilters = newTextFilters
+        
+        if (textFilters.count > 0) {
+            var filters = [String:String]()
+            for filter in textFilters {
+                let key = filter.value(forKey: "keypath") as! String
+                let value = filter.value(forKey: "text") as! String
+                filters[key] = value;
+            }
+            
+            let starAnimationView = AnimationView()
+            starAnimationView.textProvider = DictionaryTextProvider(filters)
+            starAnimationView.animation = animationView?.animation
+            replaceAnimationView(next: starAnimationView)
+        }
     }
 
     @objc func setSourceJson(_ newSourceJson: String) {

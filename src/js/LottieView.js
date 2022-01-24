@@ -78,6 +78,18 @@ const propTypes = {
   onAnimationFinish: PropTypes.func,
   onLayout: PropTypes.func,
   cacheComposition: PropTypes.bool,
+  colorFilters: PropTypes.arrayOf(PropTypes.shape({
+    keypath: PropTypes.string,
+    color: PropTypes.string
+  })),
+  textFiltersAndroid: PropTypes.arrayOf(PropTypes.shape({
+    find: PropTypes.string,
+    replace: PropTypes.string
+  })),
+  textFiltersIOS: PropTypes.arrayOf(PropTypes.shape({
+    keypath: PropTypes.string,
+    text: PropTypes.string
+  })),
 };
 
 const defaultProps = {
@@ -89,6 +101,9 @@ const defaultProps = {
   enableMergePathsAndroidForKitKatAndAbove: false,
   cacheComposition: true,
   resizeMode: 'contain',
+  colorFilters: [],
+  textFiltersAndroid: [],
+  textFiltersIOS: [],
 };
 
 const viewConfig = {
