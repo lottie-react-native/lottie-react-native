@@ -13,15 +13,13 @@ For the first time, designers can create **and ship** beautiful animations witho
 Install `lottie-react-native` (latest) and `lottie-ios` (3.2.3):
 
 ```
-yarn add lottie-react-native
-yarn add lottie-ios@3.2.3
+yarn add lottie-react-native lottie-ios@3.2.3
 ```
 
 or
 
 ```
-npm i --save lottie-react-native
-npm i --save lottie-ios@3.2.3
+npm i --save lottie-react-native lottie-ios@3.2.3
 ```
 
 Go to your ios folder and run:
@@ -46,73 +44,69 @@ Depending on which version of React Native your app runs on you might need to in
 
 (If you are using TypeScript, please read [this first](/docs/typescript.md))
 
-LottieView can be used in a declarative way:
+Lottie can be used in a declarative way:
 
 ```jsx
 import React from 'react';
-import LottieView from 'lottie-react-native';
+import Lottie from 'lottie-react-native';
 
-export default class BasicExample extends React.Component {
-  render() {
-    return <LottieView source={require('./animation.json')} autoPlay loop />;
-  }
+export default function Animation() {
+  return (
+    <Lottie source={require('./animation.json')} autoPlay loop />
+  );
 }
 ```
 
 Additionally, there is an imperative API which is sometimes simpler.
 
 ```jsx
-import React from 'react';
-import LottieView from 'lottie-react-native';
+import React, { useEffect, useRef } from 'react';
+import Lottie from 'lottie-react-native';
 
-export default class BasicExample extends React.Component {
-  componentDidMount() {
-    this.animation.play();
+export default function AnimationWithImperativeApi() {
+  const animationRef = useRef<Lottie>(null)
+  
+  useEffect(() => {
+    animationRef.current?.play()
+
     // Or set a specific startFrame and endFrame with:
-    this.animation.play(30, 120);
-  }
+    animationRef.current?.play(30, 120);
+  }, [])
 
-  render() {
-    return (
-      <LottieView
-        ref={animation => {
-          this.animation = animation;
-        }}
-        source={require('../path/to/animation.json')}
-      />
-    );
-  }
+  return (
+    <Lottie
+      ref={animationRef}
+      source={require('../path/to/animation.json')}
+    />
+  );
 }
 ```
 
 Lottie's animation progress can be controlled with an `Animated` value:
 
 ```jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Animated, Easing } from 'react-native';
-import LottieView from 'lottie-react-native';
+import Lottie from 'lottie-react-native';
 
-export default class BasicExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      progress: new Animated.Value(0),
-    };
-  }
+export default function ControllingAnimationProgress() {
+  const animationProgress = useRef(new Animated.Value(0))
 
-  componentDidMount() {
-    Animated.timing(this.state.progress, {
+  useEffect(() => {
+    Animated.timing(animationProgress.current, {
       toValue: 1,
       duration: 5000,
       easing: Easing.linear,
+      useNativeDriver: false
     }).start();
-  }
+  }, [])
 
-  render() {
-    return (
-      <LottieView source={require('../path/to/animation.json')} progress={this.state.progress} />
-    );
-  }
+  return (
+     <Lottie
+      source={require('../path/to/animation.json')}
+      progress={animationProgress.current}
+    />
+  );
 }
 ```
 
@@ -120,28 +114,26 @@ Changing color of layers:
 
 ```jsx
 import React from 'react';
-import LottieView from 'lottie-react-native';
+import Lottie from 'lottie-react-native';
 
-export default class BasicExample extends React.Component {
-  render() {
-    return (
-      <LottieView
-        source={require('../path/to/animation.json')}
-        colorFilters={[
-          {
-            keypath: 'button',
-            color: '#F00000',
-          },
-          {
-            keypath: 'Sending Loader',
-            color: '#F00000',
-          },
-        ]}
-        autoPlay
-        loop
-      />
-    );
-  }
+export default function ChangingColorOfLayers() {
+  return (
+    <Lottie
+      source={require('../path/to/animation.json')}
+      colorFilters={[
+        {
+          keypath: 'button',
+          color: '#F00000',
+        },
+        {
+          keypath: 'Sending Loader',
+          color: '#F00000',
+        },
+      ]}
+      autoPlay
+      loop
+    />
+  );
 }
 ```
 
@@ -172,23 +164,22 @@ If you have issues linking your **iOS** project check out this [StackOverflow th
 
 If your app crashes on **Android**, means auto linking didn't work. You will need to make the following changes:
 
-**android/app/src/main/java/\<AppName\>/MainApplication.java**
+`android/app/src/main/java/\<AppName\>/MainApplication.java`
 
 - add `import com.airbnb.android.react.lottie.LottiePackage;` on the imports section
 - add `packages.add(new LottiePackage());` in `List<ReactPackage> getPackages()`;
 
-**android/app/build.gradle**
+`android/app/build.gradle`
 
 add `implementation project(':lottie-react-native')` in the `dependencies` block
 
-**android/settings.gradle**
+`android/settings.gradle`
 
 add:
 
 ```
 include ':lottie-react-native'
 project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
-
 ```
 
 ## More
