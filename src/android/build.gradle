@@ -8,12 +8,12 @@ apply from: 'gradle-maven-push.gradle'
 //def DEFAULT_ANDROID_SUPPORT_LIB_VERSION = "1.0.0"
 
 android {
-  compileSdkVersion safeExtGet('compileSdkVersion', 28)
+  compileSdkVersion safeExtGet('compileSdkVersion', 30)
   buildToolsVersion safeExtGet('buildToolsVersion', '28.0.3')
 
   defaultConfig {
     minSdkVersion safeExtGet('minSdkVersion', 16)
-    targetSdkVersion safeExtGet('targetSdkVersion', 28)
+    targetSdkVersion safeExtGet('targetSdkVersion', 30)
   }
 
   lintOptions {
@@ -31,5 +31,5 @@ dependencies {
 
   implementation "com.facebook.react:react-native:+"
   implementation "androidx.appcompat:appcompat:1.0.0"
-  implementation 'com.airbnb.android:lottie:3.5.0'
+  implementation 'com.airbnb.android:lottie:4.0.0'
 }
