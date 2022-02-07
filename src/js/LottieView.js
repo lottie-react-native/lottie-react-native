@@ -6,13 +6,11 @@ import {
   View,
   Platform,
   StyleSheet,
-  ViewPropTypes,
   requireNativeComponent,
   NativeModules,
   processColor,
 } from 'react-native';
 import SafeModule from 'react-native-safe-modules';
-import PropTypes from 'prop-types';
 
 const getNativeLottieViewForDesktop = () => {
   return requireNativeComponent('LottieAnimationView');
@@ -40,57 +38,6 @@ const LottieViewManager = Platform.select({
     },
   }),
 });
-
-const ViewStyleExceptBorderPropType = (props, propName, componentName, ...rest) => {
-  const flattened = StyleSheet.flatten(props[propName] || {});
-  const usesBorder = Object.keys(flattened).some(key => key.startsWith('border'));
-  if (usesBorder) {
-    return Error(
-      `${componentName} does not allow any border related style properties to be specified. ` +
-        "Border styles for this component will behave differently across platforms. If you'd " +
-        'like to render a border around this component, wrap it with a View.',
-    );
-  }
-  return ViewPropTypes.style(props, propName, componentName, ...rest);
-};
-
-const NotAllowedPropType = (props, propName, componentName) => {
-  const value = props[propName];
-  if (value != null) {
-    return Error(`${componentName} cannot specify '${propName}'.`);
-  }
-  return null;
-};
-
-const propTypes = {
-  ...ViewPropTypes,
-  style: ViewStyleExceptBorderPropType,
-  children: NotAllowedPropType,
-  resizeMode: PropTypes.oneOf(['cover', 'contain', 'center']),
-  progress: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-  speed: PropTypes.number,
-  duration: PropTypes.number,
-  loop: PropTypes.bool,
-  autoPlay: PropTypes.bool,
-  autoSize: PropTypes.bool,
-  enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
-  source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-  onAnimationFinish: PropTypes.func,
-  onLayout: PropTypes.func,
-  cacheComposition: PropTypes.bool,
-  colorFilters: PropTypes.arrayOf(PropTypes.shape({
-    keypath: PropTypes.string,
-    color: PropTypes.string
-  })),
-  textFiltersAndroid: PropTypes.arrayOf(PropTypes.shape({
-    find: PropTypes.string,
-    replace: PropTypes.string
-  })),
-  textFiltersIOS: PropTypes.arrayOf(PropTypes.shape({
-    keypath: PropTypes.string,
-    text: PropTypes.string
-  })),
-};
 
 const defaultProps = {
   progress: 0,
@@ -250,7 +197,6 @@ class LottieView extends React.PureComponent {
   }
 }
 
-LottieView.propTypes = propTypes;
 LottieView.defaultProps = defaultProps;
 
 module.exports = LottieView;
