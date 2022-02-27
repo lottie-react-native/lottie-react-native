@@ -10,10 +10,11 @@ declare module "lottie-react-native" {
     op: number;
     w: number;
     h: number;
-    nm: string;
-    ddd: number;
+    nm?: string;
+    ddd?: number;
     assets: any[];
     layers: any[];
+    markers?: any[];
   }
 
   type ColorFilter = {
