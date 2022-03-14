@@ -161,16 +161,21 @@ class ContainerView: RCTView {
     }
 
     func applyProperties() {
-        animationView?.currentProgress = progress
-        animationView?.animationSpeed = speed
-        animationView?.loopMode = loop
+        guard let animationView = animationView else { return }
+        let isPlaying = animationView.isAnimationPlaying
+        animationView.currentProgress = progress
+        animationView.animationSpeed = speed
+        animationView.loopMode = loop
         if (colorFilters.count > 0) {
             for filter in colorFilters {
                 let keypath: String = "\(filter.value(forKey: "keypath") as! String).**.Color"
                 let fillKeypath = AnimationKeypath(keypath: keypath)
                 let colorFilterValueProvider = ColorValueProvider((filter.value(forKey: "color") as! PlatformColor).lottieColorValue)
-                animationView?.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
+                animationView.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
             }
+        }
+        if isPlaying {
+           resume()
         }
     }
 }
