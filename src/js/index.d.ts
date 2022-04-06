@@ -3,7 +3,7 @@ declare module "lottie-react-native" {
   /**
    * Serialized animation as generated from After Effects
    */
-  interface AnimationObject {
+  export interface AnimationObject {
     v: string;
     fr: number;
     ip: number;
