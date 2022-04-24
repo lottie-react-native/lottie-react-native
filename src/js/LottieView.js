@@ -6,7 +6,6 @@ import {
   View,
   Platform,
   StyleSheet,
-  ViewPropTypes,
   requireNativeComponent,
   NativeModules,
   processColor,
