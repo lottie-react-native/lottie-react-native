@@ -22,5 +22,5 @@ android {
 
 dependencies {
   implementation "com.facebook.react:react-native:+"
-  implementation 'com.airbnb.android:lottie:5.0.3'
+  implementation 'com.airbnb.android:lottie:5.1.1'
 }
