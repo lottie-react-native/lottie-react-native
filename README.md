@@ -88,7 +88,7 @@ Codegen animations are supported by adding LottieAnimation items to your project
 Codegen is available to both C# and C++ applications. Dynamic loading of JSON strings at runtime is currently only supported in C# applications.
 
 
-**Versioning**
+## Versioning
 
 Depending on which version of React Native your app runs on you might need to install a specific version of lottie-react-native. Here's the compatibility list:
 
