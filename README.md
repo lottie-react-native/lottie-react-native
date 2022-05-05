@@ -112,7 +112,7 @@ import LottieView from 'lottie-react-native';
 
 export default class BasicExample extends React.Component {
   render() {
-    return <LottieView source={require('./animation.json')} autoPlay loop />;
+    return <LottieView source={require('./animation.json')} autoPlay loop />
   }
 }
 ```
@@ -207,13 +207,14 @@ export default class BasicExample extends React.Component {
 
 You can find the full list of props and methods available in our [API document](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md). These are the most common ones:
 
+
 | Prop               | Description                                                                                                                                                                                                                                                                     | Default                                                                                                             |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | **`source`**       | **Mandatory** - The source of animation. Can be referenced as a local asset by a string, or remotely with an object with a `uri` property, or it can be an actual JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')`. | _None_                                                                                                              |
 | **`style`**        | Style attributes for the view, as expected in a standard [`View`](https://facebook.github.io/react-native/docs/layout-props.html).                                                                                                                                              | The `aspectRatio` exported by Bodymovin will be set. Also the `width` if you haven't provided a `width` or `height` |
 | **`loop`**         | A boolean flag indicating whether or not the animation should loop.                                                                                                                                                                                                             | `true`                                                                                                              |
 | **`autoPlay`**     | A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.                                                                                                                                           | `false`                                                                                                             |
-| **`colorFilters`** | An Array of layers you want to change the color filter.                                                                                                                                                                                                                         | `[]`                                                                                                                |
+| **`colorFilters`** | An array of objects denoting layers by KeyPath and a new color filter value (as hex string).                                                                                                                                                                                    | `[]`                                                                                                                |
 
 [More...](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md)
 
@@ -221,7 +222,7 @@ You can find the full list of props and methods available in our [API document](
 
 Not all After Effects features are supported by Lottie. If you notice there are some layers or animations missing check [this list](https://github.com/airbnb/lottie/blob/master/supported-features.md) to ensure they are supported.
 
-### iOS specifc problems
+### iOS specific problems
 
 If you have issues linking your **iOS** project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
 
