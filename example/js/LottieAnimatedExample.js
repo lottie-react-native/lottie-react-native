@@ -56,57 +56,62 @@ export default class LottieAnimatedExample extends React.Component {
   };
   anim = undefined;
 
+  isImperativeMode = () => this.state.progress === undefined;
+
   stopAnimation = () => {
-    if (!this.state.progress) {
+    if (this.isImperativeMode()) {
       this.anim.reset();
     } else {
       this.state.progress.setValue(0);
     }
+    this.setState({ isPlaying: false, isPaused: false });
   };
 
   onPlayPress = () => {
     let isPlaying = this.state.isPlaying;
     let isPaused = this.state.isPaused;
 
-    if (!this.state.progress) {
-      if (isPlaying && isPaused) {
-        this.anim.resume();
-        isPaused = false;
-      } else if (isPlaying) {
-        this.anim.pause();
-        isPaused = true;
+    if (this.isImperativeMode()) {
+      if (isPlaying) {
+        if (isPaused) {
+          this.anim.resume();
+          isPaused = false;
+        } else {
+          this.anim.pause();
+          isPaused = true;
+        }
       } else {
         this.anim.reset();
         this.anim.play();
         isPlaying = true;
         isPaused = false;
       }
+      this.setState({ isPlaying, isPaused });
     } else {
       this.state.progress.setValue(0);
 
       if (!isPlaying) {
+        this.setState({ isPlaying: true, isPaused: false });
+
         Animated.timing(this.state.progress, {
           toValue: 1,
           duration: this.state.duration,
           easing: Easing.linear,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }).start(() => {
-          this.setState({ isPlaying: false });
+          this.setState({ isPlaying: false, isPaused: false });
         });
       }
     }
-
-    this.setState({ isPlaying, isPaused });
   };
 
   onLoopPress = () => {
     this.stopAnimation();
-    this.setState({ loop: !this.state.loop, isPlaying: false, isPaused: false });
+    this.setState({ loop: !this.state.loop });
   };
 
   onStopPress = () => {
     this.stopAnimation();
-    this.setState({ isPlaying: false, isPaused: false });
   };
 
   onInversePress = () => this.setState(state => ({ isInverse: !state.isInverse }));
@@ -115,7 +120,7 @@ export default class LottieAnimatedExample extends React.Component {
   onAnimationFinish = () => this.setState({ isPlaying: false, isPaused: false });
   onExampleSelectionChange = (e, index) => {
     this.stopAnimation();
-    this.setState(state => ({ example: EXAMPLES[index], isPlaying: !state.progress, isPaused: false }));
+    this.setState(state => ({ example: EXAMPLES[index], isPlaying: this.isImperativeMode() }));
   };
   onToggleImperative = i => {
     this.stopAnimation();
