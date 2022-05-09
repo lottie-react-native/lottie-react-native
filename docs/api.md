@@ -1,23 +1,25 @@
 ## Component API
 
-| Prop | Description | Default |
-|---|---|---|
-|**`source`**| **Mandatory** - The source of animation. Can be referenced as a local asset by a string, or remotely with an object with a `uri` property, or it can be an actual JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')` |*None*|
-|**`progress`**| A number between 0 and 1, or an `Animated` number between 0 and 1. This number represents the normalized progress of the animation. If you update this prop, the animation will correspondingly update to the frame at that progress value. This prop is not required if you are using the imperative API. |`0`|
-|**`speed`**| The speed the animation will progress. Sending a negative value will reverse the animation |`1`|
-|**`duration`**| The duration of the animation in ms. Takes precedence over `speed` when set. This only works when `source` is an actual JS object of an animation. |`undefined`|
-|**`loop`**|A boolean flag indicating whether or not the animation should loop. |`true`|
-|**`autoPlay`**|A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.  |`false`|
-|**`autoSize`**|A boolean flag indicating whether or not the animation should size itself automatically according to the width in the animation's JSON. This only works when `source` is an actual JS object of an animation.  |`false`|
-|**`resizeMode`**|Determines how to resize the animated view when the frame doesn't match the raw image dimensions. Supports `cover`, `contain` and `center`.  |`contain`|
-|**`style`**|Style attributes for the view, as expected in a standard [`View`](http://facebook.github.io/react-native/releases/0.46/docs/layout-props.html), aside from border styling |*None*|
-|**`imageAssetsFolder`**| Needed for **Android** to work properly with assets, iOS will ignore it. |*None*|
-|**`onAnimationFinish`**| A callback function which will be called when animation is finished. This callback is called with a boolean `isCancelled` argument, indicating if the animation actually completed playing, or if it was cancelled, for instance by calling `play()` or `reset()` while is was still playing. Note that this callback will be called only when `loop` is set to false. |*None*|
-|**`renderMode`**| **Only Android**, a String flag to set whether or not to render with `HARDWARE` or `SOFTWARE` acceleration |`AUTOMATIC`|
-|**`cacheComposition`**| **Only Android**, a boolean flag indicating whether or not the animation should do caching. |`true`|
-|**`colorFilters`**| An array of objects denoting layers by KeyPath and a new color filter value (as hex string). |`[]`|
-|**`textFiltersAndroid`**| **Only Android**, an array of objects denoting text values to find and replace. |`[]`|
-|**`textFiltersIOS`**| **Only iOS**, an array of objects denoting text layers by KeyPath and a new string value. |`[]`|
+| Prop | Description | Default | Platform |
+|---|---|---|---|
+|**`source`**| **Mandatory** - The source of animation. Can be referenced as a local asset by a string, or remotely with an object with a `uri` property, or it can be an actual JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')` |*None*| All |
+|**`progress`**| A number between 0 and 1, or an `Animated` number between 0 and 1. This number represents the normalized progress of the animation. If you update this prop, the animation will correspondingly update to the frame at that progress value. This prop is not required if you are using the imperative API. |`0`| All |
+|**`speed`**| The speed the animation will progress. Sending a negative value will reverse the animation |`1`| All |
+|**`duration`**| The duration of the animation in ms. Takes precedence over `speed` when set. This only works when `source` is an actual JS object of an animation. |`undefined`| All |
+|**`loop`**|A boolean flag indicating whether or not the animation should loop. |`true`| All |
+|**`autoPlay`**|A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.  |`false`| All |
+|**`autoSize`**|A boolean flag indicating whether or not the animation should size itself automatically according to the width in the animation's JSON. This only works when `source` is an actual JS object of an animation.  |`false`| All |
+|**`resizeMode`**|Determines how to resize the animated view when the frame doesn't match the raw image dimensions. Supports `cover`, `contain` and `center`.  |`contain`| All |
+|**`style`**|Style attributes for the view, as expected in a standard [`View`](http://facebook.github.io/react-native/releases/0.46/docs/layout-props.html), aside from border styling |*None*| All |
+|**`imageAssetsFolder`**| Needed for **Android** to work properly with assets, iOS will ignore it. |*None*| Android |
+|**`useNativeLooping`**| **Only Windows**. When enabled, uses platform-level looping to improve smoothness, but onAnimationLoop will not fire and changing the `loop` prop will reset playback rather than finishing gracefully. | false | Windows |
+|**`onAnimationLoop`**| **Only Windows**. A callback function invoked when the animation loops. | *None* | Windows |
+|**`onAnimationFinish`**| A callback function which will be called when animation is finished. This callback is called with a boolean `isCancelled` argument, indicating if the animation actually completed playing, or if it was cancelled, for instance by calling `play()` or `reset()` while is was still playing. Note that this callback will be called only when `loop` is set to false. |*None*| All |
+|**`renderMode`**| **Only Android**, a String flag to set whether or not to render with `HARDWARE` or `SOFTWARE` acceleration |`AUTOMATIC`| Android |
+|**`cacheComposition`**| **Only Android**, a boolean flag indicating whether or not the animation should do caching. |`true`| Android |
+|**`colorFilters`**| An array of objects denoting layers by KeyPath and a new color filter value (as hex string). |`[]`| All |
+|**`textFiltersAndroid`**| **Only Android**, an array of objects denoting text values to find and replace. |`[]`| Android |
+|**`textFiltersIOS`**| **Only iOS**, an array of objects denoting text layers by KeyPath and a new string value. |`[]`| iOS |
 
 ## Methods (Imperative API):
 

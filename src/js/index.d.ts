@@ -138,6 +138,19 @@ declare module "lottie-react-native" {
     enableMergePathsAndroidForKitKatAndAbove?: boolean;
 
     /**
+     * A boolean flag to enable use of platform-level looping on Windows. This improves loop smoothness, 
+     * but onAnimationLoop will not fire and changing the loop prop will restart playback.
+     * Supported on: Windows
+     */
+    useNativeLooping?: boolean;
+
+    /**
+     * A callback function which will be called when the animation loops.
+     * Supported on: Windows
+     */
+    onAnimationLoop ?: () => void;
+
+    /**
      * A callback function which will be called when animation is finished. Note that this
      * callback will be called only when `loop` is set to false.
      */
