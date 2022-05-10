@@ -10,7 +10,6 @@ import {
   NativeModules,
   processColor,
 } from 'react-native';
-import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import SafeModule from 'react-native-safe-modules';
 
 const getNativeLottieViewForDesktop = () => {
@@ -158,8 +157,9 @@ class LottieView extends React.PureComponent {
     const { style, source, autoSize, ...rest } = this.props;
 
     const sourceName = typeof source === 'string' ? source : undefined;
-    const sourceJson = (typeof source === 'object' && !source.uri) ? JSON.stringify(source) : undefined;
-    const sourceURL = (typeof source === 'object' && source.uri) ? source.uri : undefined;
+    const sourceJson =
+      typeof source === 'object' && !source.uri ? JSON.stringify(source) : undefined;
+    const sourceURL = typeof source === 'object' && source.uri ? source.uri : undefined;
 
     const aspectRatioStyle = sourceJson ? { aspectRatio: source.w / source.h } : undefined;
 
