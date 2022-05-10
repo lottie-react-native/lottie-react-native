@@ -1,7 +1,7 @@
 ## 5.1.0
 
 - Upgrade lottie-android dependency to 5.1.1
-- Fix ViewProTypes imports
+- Fix ViewPropTypes imports
 - Support for remote animations
 - Support for dynamic text
 - Support changing lottie props for ongoing animations
