@@ -10,7 +10,6 @@ import {
   NativeModules,
   processColor,
 } from 'react-native';
-import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import SafeModule from 'react-native-safe-modules';
 
 const getNativeLottieViewForDesktop = () => {
