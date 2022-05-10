@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Switch,
   Image,
+  Platform,
   Text,
   TouchableOpacity,
 } from 'react-native';
@@ -21,14 +22,23 @@ const pauseIcon = require('./images/pause.png');
 const loopIcon = require('./images/loop.png');
 const inverseIcon = require('./images/inverse.png');
 
-const makeExample = (name, getJson, width) => ({ name, getJson, width });
+const makeExample = (name, getJson, width) => ({ 
+  name, 
+  getSource: Platform.select({ 
+    windows: () => name, // Use codegen resources, which are referenced by name
+    default: getJson
+  }), 
+  width
+});
 const EXAMPLES = [
+  makeExample('9 squares', () => require('./animations/9squares-AlBoardman.json')),
   makeExample('Hamburger Arrow', () => require('./animations/HamburgerArrow.json')),
   makeExample('Hamburger Arrow (200 px)', () => require('./animations/HamburgerArrow.json'), 200),
   makeExample('Line Animation', () => require('./animations/LineAnimation.json')),
   makeExample('Lottie Logo 1', () => require('./animations/LottieLogo1.json')),
   makeExample('Lottie Logo 2', () => require('./animations/LottieLogo2.json')),
   makeExample('Lottie Walkthrough', () => require('./animations/LottieWalkthrough.json')),
+  makeExample('Motion Corpse', () => require('./animations/MotionCorpse-Jrcanest.json')),
   makeExample('Pin Jump', () => require('./animations/PinJump.json')),
   makeExample('Twitter Heart', () => require('./animations/TwitterHeart.json')),
   makeExample('Watermelon', () => require('./animations/Watermelon.json')),
@@ -42,77 +52,112 @@ export default class LottieAnimatedExample extends React.Component {
     duration: 3000,
     isPlaying: true,
     isInverse: false,
+    isPaused: false,
     loop: true,
+    progress: undefined,
+  };
+  anim = undefined;
+
+  isImperativeMode = () => this.state.progress === undefined;
+
+  stopAnimation = () => {
+    if (this.isImperativeMode()) {
+      this.anim.reset();
+    } else {
+      this.state.progress.setValue(0);
+    }
+    this.setState({ isPlaying: false, isPaused: false });
   };
 
-  manageAnimation = shouldPlay => {
-    if (!this.state.progress) {
-      if (shouldPlay) {
-        this.anim.play();
+  onPlayPress = () => {
+    let isPlaying = this.state.isPlaying;
+    let isPaused = this.state.isPaused;
+
+    if (this.isImperativeMode()) {
+      if (isPlaying) {
+        if (isPaused) {
+          this.anim.resume();
+          isPaused = false;
+        } else {
+          this.anim.pause();
+          isPaused = true;
+        }
       } else {
         this.anim.reset();
+        this.anim.play();
+        isPlaying = true;
+        isPaused = false;
       }
+      this.setState({ isPlaying, isPaused });
     } else {
       this.state.progress.setValue(0);
 
-      if (shouldPlay) {
+      if (!isPlaying) {
+        this.setState({ isPlaying: true, isPaused: false });
+
         Animated.timing(this.state.progress, {
           toValue: 1,
           duration: this.state.duration,
           easing: Easing.linear,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }).start(() => {
-          this.setState({ isPlaying: false });
+          this.setState({ isPlaying: false, isPaused: false });
         });
       }
     }
-
-    this.setState({ isPlaying: shouldPlay });
   };
 
-  onPlayPress = () => this.manageAnimation(!this.state.isPlaying);
-  stopAnimation = () => this.manageAnimation(false);
+  onLoopPress = () => {
+    this.stopAnimation();
+    this.setState({ loop: !this.state.loop });
+  };
+
+  onStopPress = () => {
+    this.stopAnimation();
+  };
 
   onInversePress = () => this.setState(state => ({ isInverse: !state.isInverse }));
   onProgressChange = progress => this.state.progress.setValue(progress);
   onDurationChange = duration => this.setState({ duration });
+  onAnimationFinish = () => this.setState({ isPlaying: false, isPaused: false });
+  onExampleSelectionChange = (e, index) => {
+    this.stopAnimation();
+    this.setState(state => ({ example: EXAMPLES[index], isPlaying: this.isImperativeMode() }));
+  };
+  onToggleImperative = i => {
+    this.stopAnimation();
+    this.setState({ progress: !i ? new Animated.Value(0) : undefined });
+  };
 
   setAnim = anim => {
     this.anim = anim;
   };
 
   render() {
-    const { duration, isPlaying, isInverse, progress, loop, example } = this.state;
+    const { duration, isPlaying, isPaused, isInverse, progress, loop, example } = this.state;
+
     return (
       <View style={{ flex: 1 }}>
         <ExamplePicker
           example={example}
           examples={EXAMPLES}
-          onChange={(e, index) => {
-            this.stopAnimation();
-            this.setState({ example: EXAMPLES[index] });
-          }}
+          onChange={this.onExampleSelectionChange}
         />
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <LottieView
             ref={this.setAnim}
             autoPlay={!progress}
             style={[example.width && { width: example.width }, isInverse && styles.lottieViewInvse]}
-            source={example.getJson()}
+            source={example.getSource()}
             progress={progress}
             loop={loop}
+            onAnimationFinish={this.onAnimationFinish}
             enableMergePathsAndroidForKitKatAndAbove
           />
         </View>
         <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
           <View style={styles.controlsRow}>
-            <TouchableOpacity
-              onPress={() => {
-                this.stopAnimation();
-                this.setState(state => ({ loop: !state.loop }));
-              }}
-              disabled={!!progress}
-            >
+            <TouchableOpacity onPress={this.onLoopPress} disabled={!!progress}>
               <Image
                 style={[
                   styles.controlsIcon,
@@ -127,11 +172,22 @@ export default class LottieAnimatedExample extends React.Component {
               <Image
                 style={styles.playButtonIcon}
                 resizeMode="contain"
-                source={isPlaying ? pauseIcon : playIcon}
+                source={isPlaying && !isPaused ? pauseIcon : playIcon}
               />
             </TouchableOpacity>
+            {/* <TouchableOpacity onPress={this.onStopPress} disabled={!isPlaying}>
+              <Image
+                style={styles.controlsIcon}
+                resizeMode="contain"
+                source={stopIcon}
+              />
+            </TouchableOpacity> */}
             <TouchableOpacity onPress={this.onInversePress}>
-              <Image style={styles.controlsIcon} resizeMode="contain" source={inverseIcon} />
+              <Image
+                style={styles.controlsIcon}
+                resizeMode="contain"
+                source={inverseIcon}
+              />
             </TouchableOpacity>
           </View>
           <View
@@ -140,12 +196,7 @@ export default class LottieAnimatedExample extends React.Component {
             <Text>Use Imperative API:</Text>
             <View />
             <Switch
-              onValueChange={i => {
-                this.stopAnimation();
-                this.setState(() => ({
-                  progress: !i ? new Animated.Value(0) : undefined,
-                }));
-              }}
+              onValueChange={this.onToggleImperative}
               value={!progress}
             />
           </View>
@@ -154,8 +205,10 @@ export default class LottieAnimatedExample extends React.Component {
               <Text>Progress:</Text>
             </View>
             <AnimatedSlider
+              style={{height: 30}}
               minimumValue={0}
               maximumValue={1}
+              step={0.001}
               value={progress || 0}
               onValueChange={this.onProgressChange}
               disabled={!progress}
@@ -166,6 +219,7 @@ export default class LottieAnimatedExample extends React.Component {
               <Text>Duration: ({Math.round(duration)}ms)</Text>
             </View>
             <Slider
+              style={{height: 30}}
               step={50}
               minimumValue={50}
               maximumValue={4000}

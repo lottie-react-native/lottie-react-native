@@ -1,0 +1,202 @@
+<Project>
+<!--
+    MSBuild script for automating codegen of Lottie animations and inclusion of the results into an app build.
+
+    Usage:
+        1. Include this targets file in your project:
+
+            <Import Project="path/to/LottieGen.CSharp.targets"
+
+        2. Add an ItemGroup to your project with elements like this:
+
+            <LottieAnimation Include="path/to/myAnimation.json" Name="Id to use in JS" />
+
+        The name field is optional and will default to the filename.
+
+        3. In your native React Native Windows setup code, register the native animation provider:
+
+            PackageProviders().Append(LottieReactNative.ReactPackageProvider(AnimatedVisuals.LottieCodegenSourceProvider()));
+
+        4. Install the LottieGen.MsBuild nuget package into the app project
+
+        5. Ensure you have the following NuGet packages installed into your app project:
+            - Win2D.uwp (if using codegen)
+            - Microsoft.Toolkit.Uwp.UI.Lottie (if using LottieVisualSource for dynamic JSON loading)
+-->
+    <PropertyGroup>
+        <!-- Enable to support codegen of LottieAnimation json files -->
+        <EnableLottieCodegen Condition="'$(EnableLottieCodegen)' == ''">true</EnableLottieCodegen>
+
+        <!-- Enable if you want to use LottieVisualSource for dynamic JSON loading. Disable to remove the dependency. -->        
+        <EnableLottieDynamicSource Condition="'$(EnableLottieDynamicSource)' == ''">true</EnableLottieDynamicSource>
+
+        <!-- Generate properties for colors to enable modification at runtime -->
+        <LottieGenGenerateColorBindings Condition="'$(LottieGenGenerateColorBindings)' == ''"></LottieGenGenerateColorBindings>
+
+        <LottieOutputFolder Condition="'$(LottieOutputFolder)' == ''">$(IntermediateOutputPath)Generated Files\Animations\</LottieOutputFolder>
+        <LottieOutputFolder>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', '$(LottieOutputFolder)'))</LottieOutputFolder>
+        <LottieGenWinUIVersion Condition="'$(LottieGenWinUIVersion)' == ''">2.4</LottieGenWinUIVersion>        
+        <LottieMinimumUapVersion Condition="'$(LottieMinimumUapVersion)' == ''">0</LottieMinimumUapVersion>
+        <LottieTargetUAPVersion Condition="'$(LottieTargetUAPVersion)' == ''">0</LottieTargetUAPVersion>
+        <LottieAnimationNamespace>AnimatedVisuals</LottieAnimationNamespace>
+        <LottieVerbosity Condition="'$(LottieVerbosity)' == ''">normal</LottieVerbosity>
+
+        <_LottieProviderFilePath>$(LottieOutputFolder)LottieCodegenSourceProvider.cs</_LottieProviderFilePath>
+
+        <!--
+            Visual Studio has its own incremental build logic on top of MSBuild's that
+            will skip targets if it thinks inputs haven't changed. This falls over for
+            changes dependent on anything outside of our project. 
+        -->
+        <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <UpToDateCheckInput Include="@(LottieAnimation)" />
+    </ItemGroup>
+    <ItemGroup>  
+        <Compile Include="$(MSBuildThisFileDirectory)\LottieCodegenSourceProvider.cs" />
+    </ItemGroup>
+
+    <!-- 
+        Add metadata to LottieAnimation items. The generated name needs to match what LottieGen outputs.
+    
+        This is a little goofy because we want to use Regex and we can't do that directly with Item Metadata.
+        So instead, we use Target batching (via the %() Outputs attribute) with 1 item per run of the task, and use a Property to run the Regex. -->
+    <Target Name="LottieGen_UpdateMetadata"
+        Outputs="%(LottieAnimation.Identity)">
+
+        <PropertyGroup>
+            <_LottieAnimationIdentity>%(LottieAnimation.Identity)</_LottieAnimationIdentity>
+            <_LottieAnimationGeneratedName>$([System.Text.RegularExpressions.Regex]::Replace(%(LottieAnimation.Filename), "^\d", "_$0" ).Replace("-", "_"))</_LottieAnimationGeneratedName>
+            <_LottieAnimationName>$(_LottieAnimationGeneratedName)</_LottieAnimationName>
+            <_LottieAnimationName Condition="'%(LottieAnimation.Name)' != ''">%(LottieAnimation.Name)</_LottieAnimationName>            
+        </PropertyGroup>
+
+        <ItemGroup>
+            <LottieAnimation Condition="'%(LottieAnimation.Identity)' == '$(_LottieAnimationIdentity)'">
+                <Name>$(_LottieAnimationName)</Name>
+                <GeneratedName>$(_LottieAnimationGeneratedName)</GeneratedName>
+                <GeneratedFileName>$(_LottieAnimationGeneratedName)</GeneratedFileName>
+            </LottieAnimation>
+        </ItemGroup>
+
+        <Message Importance="$(LottieVerbosity)" Text="Processing metadata for %(LottieAnimation.Identity) -> %(LottieAnimation.Name)" />
+    </Target>
+
+    <Target Name="LottieGen_CreateOutputPath">
+        <Error Condition="$([System.IO.Path]::IsPathRooted('$(LottieOutputFolder)')) != 'true'" Text="The output folder for Lottie is not rooted: '$(LottieOutputFolder)'" />
+        <MakeDir Directories="$(LottieOutputFolder)" />
+    </Target>
+
+    <!-- 
+        Create a provider component that maps names to native animation implementations. 
+    
+        We're not using incremental build here because changes to item metadata (like the Name attribute) wouldn't trigger rebuild.
+        Instead, we can use WriteOnlyWhenDifferent to avoid changing the output file if our code is the same.
+    -->
+    <Target Name="LottieGen_CreateProvider" 
+        DependsOnTargets="LottieGen_CreateOutputPath;LottieGen_UpdateMetadata"
+        Outputs="$(_LottieProviderFilePath)">
+        <PropertyGroup>
+            <_UseLottieVisualSource Condition="'$(EnableLottieDynamicSource)' == 'true'">#define LOTTIEVISUALSOURCE</_UseLottieVisualSource>
+            <_LottieProviderContent>
+<![CDATA[
+$(_UseLottieVisualSource)
+#if LOTTIEVISUALSOURCE
+using Microsoft.Toolkit.Uwp.UI.Lottie%3B
+#endif
+using System%3B
+using System.IO%3B
+using System.Runtime.InteropServices.WindowsRuntime%3B
+using System.Threading.Tasks%3B
+using Windows.Foundation%3B
+using Windows.Storage%3B
+
+namespace AnimatedVisuals
+{
+    public partial class LottieCodegenSourceProvider : LottieReactNative.ILottieSourceProvider
+    {
+        #pragma warning disable 1998
+        private async Task<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromName_Task(string name) {
+            @(LottieAnimation->'
+                if(name == "%(Name)") {
+                    return new $(LottieAnimationNamespace).%(GeneratedName)()%3B
+                    }
+                ')
+            return null%3B
+        }
+        #pragma warning restore 1998
+
+        #pragma warning disable 1998
+        private async Task<Microsoft.UI.Xaml.Controls.IAnimatedVisualSource> GetSourceFromJson_Task(string json) {
+#if LOTTIEVISUALSOURCE
+            var lottieStream = CreateStream(json)%3B
+            var lottieSource = new LottieVisualSource()%3B
+            await lottieSource.SetSourceAsync(lottieStream)%3B
+            return lottieSource%3B
+#else
+            return null%3B
+#endif
+        }
+        #pragma warning restore 1998
+    }
+}
+]]>
+            </_LottieProviderContent>
+        </PropertyGroup>
+
+        <Message Importance="$(LottieVerbosity)" Text="Creating Lottie React Native provider" />
+        <WriteLinesToFile
+            File="$(_LottieProviderFilePath)"
+            Lines="$(_LottieProviderContent)"
+            Overwrite="true"
+            WriteOnlyWhenDifferent="true" />
+    </Target>
+
+    <!--
+        Runs LottieGen on JSON files to generate native animations.
+
+        We use Target batching (via %() in Outputs) to run this target for each animation.
+        We specify Inputs and Outputs to support incremental builds. Only changes to the input JSON timestamps will trigger rebuild.
+    -->
+    <Target Name="LottieGen_Build"
+        Condition="'$(EnableLottieCodegen)' == 'true'"
+        DependsOnTargets="LottieGen_CreateOutputPath;LottieGen_UpdateMetadata"
+        Inputs="@(LottieAnimation)"
+        Outputs="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).cs">
+
+        <Message Importance="$(LottieVerbosity)" Text="Generating Lottie animation files" />
+        <Message Importance="$(LottieVerbosity)" Text="%(LottieAnimation.FullPath)" />
+        <Message Importance="$(LottieVerbosity)" Text="$(LottieOutputFolder)" />
+
+        <LottieGen.Task.LottieGen 
+            Language="cs" 
+            InputFile="%(LottieAnimation.FullPath)"
+            OutputFolder="$(LottieOutputFolder)"
+            Namespace="$(LottieAnimationNamespace)"
+            MinimumUapVersion="$(LottieMinimumUapVersion)"
+            TargetUapVersion="$(LottieTargetUapVersion)"
+            AdditionalInterface="LottieReactNative.ILottieMediaSource"
+            StandardOutputImportance="$(LottieVerbosity)"
+            WinUIVersion="$(LottieGenWinUIVersion)"
+            GenerateColorBindings="$(LottieGenGenerateColorBindings)"
+        >
+            <Output TaskParameter="OutputFiles" ItemName="LotteGenFiles" />
+        </LottieGen.Task.LottieGen>
+    </Target>
+
+    <!-- 
+        Add generated files to the build
+    -->
+    <Target Name="LottieGen_IncludeBuiltFiles"
+        Condition="'$(EnableLottieCodegen)' == 'true' OR '$(EnableLottieDynamicSource)' == 'true'"
+        BeforeTargets="BeforeBuild;CoreCompile"
+        DependsOnTargets="LottieGen_Build;LottieGen_CreateProvider">
+        <ItemGroup>
+            <Compile Include="$(LottieOutputFolder)%(LottieAnimation.GeneratedFileName).cs" />        
+
+            <Compile Include="$(_LottieProviderFilePath)" />
+        </ItemGroup>
+    </Target>
+</Project>

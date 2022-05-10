@@ -47,6 +47,7 @@ const defaultProps = {
   autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
   cacheComposition: true,
+  useNativeLooping: false,
   resizeMode: 'contain',
   colorFilters: [],
   textFiltersAndroid: [],
@@ -73,13 +74,10 @@ class LottieView extends React.PureComponent {
   constructor(props) {
     super(props);
     this.viewConfig = viewConfig;
-    this.refRoot = this.refRoot.bind(this);
-    this.onAnimationFinish = this.onAnimationFinish.bind(this);
-    this.onLayout = this.onLayout.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.source.nm !== prevProps.source.nm && this.props.autoPlay) {
+    if (this.props.autoPlay && this.props.source !== prevProps.source && !!this.props.source) {
       this.play();
     }
   }
@@ -134,27 +132,21 @@ class LottieView extends React.PureComponent {
     return findNodeHandle(this.root);
   }
 
-  refRoot(root) {
+  refRoot = (root) => {
     this.root = root;
     if (this.props.autoPlay) {
       this.play();
     }
   }
 
-  onAnimationFinish(evt) {
+  onAnimationFinish = (evt) => {
     if (this.props.onAnimationFinish) {
       this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
     }
   }
 
-  onLayout(evt) {
-    if (this.props.onLayout) {
-      this.props.onLayout(evt);
-    }
-  }
-
   render() {
-    const { style, source, autoSize, ...rest } = this.props;
+    const { style, source, autoSize, autoPlay, ...rest } = this.props;
 
     const sourceName = typeof source === 'string' ? source : undefined;
     const sourceJson =
@@ -193,7 +185,6 @@ class LottieView extends React.PureComponent {
           sourceJson={sourceJson}
           sourceURL={sourceURL}
           onAnimationFinish={this.onAnimationFinish}
-          onLayout={this.onLayout}
         />
       </View>
     );

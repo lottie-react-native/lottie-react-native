@@ -41,3 +41,7 @@ book.json
 .eslintrc
 .eslintignore
 .yarnrc
+
+src/windows/cppwinrt/bin
+src/windows/cppwinrt/obj
+src/windows/cppwinrt/packages
