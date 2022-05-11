@@ -213,11 +213,14 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   @ReactProp(name = "sourceURL")
   public void setSourceURL(LottieAnimationView view, String urlString) {
 
+    final String finalUrlString = urlString;
+    final LottieAnimationView finalView = view;
+
     Thread thread = new Thread(new Runnable() {
         @Override
         public void run() {
             try  {
-              BufferedReader in = new BufferedReader(new InputStreamReader(new URL(urlString).openStream()));
+              BufferedReader in = new BufferedReader(new InputStreamReader(new URL(finalUrlString).openStream()));
               String inputLine;
               String json = "";
 
@@ -226,12 +229,12 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
 
               in.close();
 
-              String js = json;
+              final String js = json;
 
               new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override public void run() {
-                  getOrCreatePropertyManager(view).setAnimationJson(js);
-                  getOrCreatePropertyManager(view).commitChanges();
+                  getOrCreatePropertyManager(finalView).setAnimationJson(js);
+                  getOrCreatePropertyManager(finalView).commitChanges();
                 }
               });
             } catch (Exception e) {
