@@ -1,3 +1,7 @@
+## 5.1.2
+
+- Fix compilation issues on Android
+
 ## 5.1.1
 
 - Remove deprecated-react-native-prop-types import
