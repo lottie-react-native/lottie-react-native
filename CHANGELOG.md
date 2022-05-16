@@ -1,3 +1,7 @@
+## 5.1.3
+
+- Fix Android compilation issue
+
 ## 5.1.2
 
 - Fix compilation issues on Android
