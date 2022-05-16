@@ -229,7 +229,7 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
 
               in.close();
 
-              String js = json;
+              final String js = json;
 
               new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override public void run() {
