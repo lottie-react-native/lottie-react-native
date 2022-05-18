@@ -89,9 +89,6 @@ project.ext.react = [
     
     cliPath: "../../../node_modules/react-native/cli.js",
 
-    // supply additional arguments to the packager
-    extraPackagerArgs: [],
-
     enableHermes: false,  // clean and rebuild if changing
 ]
 
