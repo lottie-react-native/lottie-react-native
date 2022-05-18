@@ -143,20 +143,16 @@ def reactNativeArchitectures() {
 }
 
 android {
-    if (System.properties['os.arch'] == "aarch64") {
-      // For M1 Users we need to use the NDK 24 which added support for aarch64
-      ndkVersion = "24.0.8215888"
-    } else {
-       // Otherwise we default to the side-by-side NDK version from AGP.
-      ndkVersion = "21.4.7075529"
-    }
-
-    compileSdkVersion 31
 
     defaultConfig {
-        applicationId "com.airbnb.android.lottie.rnexample"
-        minSdkVersion 21
+        // For M1 Users, change that value to "24.0.8215888"
+        ndkVersion "21.4.7075529"
+
+        compileSdkVersion 31
         targetSdkVersion 31
+        minSdkVersion 21
+
+        applicationId "com.airbnb.android.lottie.rnexample"
         versionCode 1
         versionName "1.0"
     }
