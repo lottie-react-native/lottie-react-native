@@ -20,30 +20,30 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-project.xcworkspace
 
-# Android/IJ
+# Android/IntelliJ
 #
+build/
 .idea
-*.iml
 .gradle
 local.properties
-example/android/app/src/main/gen/
-src/android/src/main/gen/
+*.iml
+*.hprof
 
 # node.js
 #
 node_modules/
-npm-debug.log
 Pods/
 build/
 lib/
+npm-debug.log
+yarn-error.log
 
 # BUCK
 buck-out/
 \.buckd/
-android/app/libs
 *.keystore
+!debug.keystore
 
 # Gitbook generated files
 _book
@@ -58,5 +58,9 @@ example/windows/**/x64
 example/windows/**/ARM64
 *.user
 
-# NuGet
-packages/
+# Bundle artifact
+*.jsbundle
+
+# Ruby / CocoaPods
+/example/ios/Pods/
+/vendor/bundle/
