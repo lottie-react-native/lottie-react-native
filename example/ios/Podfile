@@ -1,5 +1,5 @@
-require_relative '../../node_modules/react-native/scripts/react_native_pods'
-require_relative '../../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 platform :ios, '11.0'
 install! 'cocoapods', :deterministic_uuids => false
@@ -14,9 +14,6 @@ target 'example' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
-  pod 'lottie-react-native', :path => '../../'
-  pod 'lottie-ios', '~> 3.2.3'
 
   target 'exampleTests' do
     inherit! :complete

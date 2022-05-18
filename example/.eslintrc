@@ -1,0 +1,24 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "prettier", "prettier/standard", "prettier/react"],
+  "plugins": ["prefer-object-spread", "prettier"],
+  "rules": {
+    // Conflicts with prettier
+    // https://github.com/prettier/`prettier`/issues/187
+    "no-mixed-operators": 0,
+    // Not recommended with prettier
+    // https://github.com/prettier/eslint-config-prettier/issues/17
+    "no-confusing-arrow": 0,
+    "prefer-object-spread/prefer-object-spread": 2,
+    "react/prefer-stateless-function": 0,
+    "react/jsx-filename-extension": 0,
+    "react/sort-comp": 0,
+    "react/require-extension": 0,
+    "react/prop-types": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": [2, { "ignore": ["^lottie-react-native$"] }],
+    "no-console": 0,
+    "no-use-before-define": 0,
+    "prettier/prettier": 2
+  }
+}

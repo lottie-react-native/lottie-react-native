@@ -1,0 +1,31 @@
+{
+  "name": "lottie-react-native-example",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "vscpp": "start windows/cppwinrt/Example.sln",
+    "vssharp": "start windows/csharp/Example.sln"
+  },
+  "dependencies": {
+    "react": "17.0.2",
+    "react-native": "0.68.2",
+    "react-native-windows": "0.68.3",
+    "lottie-react-native": "file:..",
+    "lottie-ios": "^3.2.3",
+    "@react-native-community/slider": "^4.2.2",
+    "@react-native-picker/picker": "^2.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.67.0",
+    "react-test-renderer": "17.0.2"
+  }
+}

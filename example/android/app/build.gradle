@@ -78,21 +78,11 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    // the name of the generated asset file containing your JS bundle
-    bundleAssetName: "example.bundle",
-
-    // the entry file for bundle generation
-    entryFile: "example/js/index.js",
-
-    // the root of your project, i.e. where "package.json" lives
-    root: "../../../",
-    
-    cliPath: "../../../node_modules/react-native/cli.js",
-
+    entryFile: "index.js",
     enableHermes: false,  // clean and rebuild if changing
 ]
 
-apply from: "../../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native/react.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -206,7 +196,6 @@ android {
 }
 
 dependencies {
-    implementation project(':lottie-react-native')
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
@@ -228,7 +217,7 @@ dependencies {
     }
 
     if (enableHermes) {
-        def hermesPath = "../../../node_modules/hermes-engine/android/"
+        def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
@@ -243,4 +232,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-apply from: file("../../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
