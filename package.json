@@ -10,7 +10,7 @@
     "watch": "babel src/ --out-dir lib --watch",
     "lint": "eslint ./",
     "ci": "npm run lint",
-    "publish:maven": "./gradlew clean check uploadArchives",
+    "publish:maven": "cd android && ./gradlew clean check uploadArchives",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "npm run docs:prepare && gitbook build",
