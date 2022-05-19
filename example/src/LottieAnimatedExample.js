@@ -1,4 +1,4 @@
-/* eslint-disable global-require */
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   View,
@@ -22,28 +22,46 @@ const pauseIcon = require('./images/pause.png');
 const loopIcon = require('./images/loop.png');
 const inverseIcon = require('./images/inverse.png');
 
-const makeExample = (name, getJson, width) => ({ 
-  name, 
-  getSource: Platform.select({ 
+const makeExample = (name, getJson, width) => ({
+  name,
+  getSource: Platform.select({
     windows: () => name, // Use codegen resources, which are referenced by name
-    default: getJson
-  }), 
-  width
+    default: getJson,
+  }),
+  width,
 });
 const EXAMPLES = [
-  makeExample('9 squares', () => require('./animations/9squares-AlBoardman.json')),
-  makeExample('Hamburger Arrow', () => require('./animations/HamburgerArrow.json')),
-  makeExample('Hamburger Arrow (200 px)', () => require('./animations/HamburgerArrow.json'), 200),
-  makeExample('Line Animation', () => require('./animations/LineAnimation.json')),
+  makeExample('9 squares', () =>
+    require('./animations/9squares-AlBoardman.json'),
+  ),
+  makeExample('Hamburger Arrow', () =>
+    require('./animations/HamburgerArrow.json'),
+  ),
+  makeExample(
+    'Hamburger Arrow (200 px)',
+    () => require('./animations/HamburgerArrow.json'),
+    200,
+  ),
+  makeExample('Line Animation', () =>
+    require('./animations/LineAnimation.json'),
+  ),
   makeExample('Lottie Logo 1', () => require('./animations/LottieLogo1.json')),
   makeExample('Lottie Logo 2', () => require('./animations/LottieLogo2.json')),
-  makeExample('Lottie Walkthrough', () => require('./animations/LottieWalkthrough.json')),
-  makeExample('Motion Corpse', () => require('./animations/MotionCorpse-Jrcanest.json')),
+  makeExample('Lottie Walkthrough', () =>
+    require('./animations/LottieWalkthrough.json'),
+  ),
+  makeExample('Motion Corpse', () =>
+    require('./animations/MotionCorpse-Jrcanest.json'),
+  ),
   makeExample('Pin Jump', () => require('./animations/PinJump.json')),
   makeExample('Twitter Heart', () => require('./animations/TwitterHeart.json')),
   makeExample('Watermelon', () => require('./animations/Watermelon.json')),
-  makeExample('Motion Corpse', () => require('./animations/MotionCorpse-Jrcanest.json')),
-  makeExample('Remote load', () => ({uri: "https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/example/js/animations/Watermelon.json"})),
+  makeExample('Motion Corpse', () =>
+    require('./animations/MotionCorpse-Jrcanest.json'),
+  ),
+  makeExample('Remote load', () => ({
+    uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/example/js/animations/Watermelon.json',
+  })),
 ];
 
 export default class LottieAnimatedExample extends React.Component {
@@ -66,7 +84,7 @@ export default class LottieAnimatedExample extends React.Component {
     } else {
       this.state.progress.setValue(0);
     }
-    this.setState({ isPlaying: false, isPaused: false });
+    this.setState({isPlaying: false, isPaused: false});
   };
 
   onPlayPress = () => {
@@ -88,12 +106,12 @@ export default class LottieAnimatedExample extends React.Component {
         isPlaying = true;
         isPaused = false;
       }
-      this.setState({ isPlaying, isPaused });
+      this.setState({isPlaying, isPaused});
     } else {
       this.state.progress.setValue(0);
 
       if (!isPlaying) {
-        this.setState({ isPlaying: true, isPaused: false });
+        this.setState({isPlaying: true, isPaused: false});
 
         Animated.timing(this.state.progress, {
           toValue: 1,
@@ -101,7 +119,7 @@ export default class LottieAnimatedExample extends React.Component {
           easing: Easing.linear,
           useNativeDriver: false,
         }).start(() => {
-          this.setState({ isPlaying: false, isPaused: false });
+          this.setState({isPlaying: false, isPaused: false});
         });
       }
     }
@@ -109,24 +127,28 @@ export default class LottieAnimatedExample extends React.Component {
 
   onLoopPress = () => {
     this.stopAnimation();
-    this.setState({ loop: !this.state.loop });
+    this.setState({loop: !this.state.loop});
   };
 
   onStopPress = () => {
     this.stopAnimation();
   };
 
-  onInversePress = () => this.setState(state => ({ isInverse: !state.isInverse }));
+  onInversePress = () =>
+    this.setState(state => ({isInverse: !state.isInverse}));
   onProgressChange = progress => this.state.progress?.setValue(progress);
-  onDurationChange = duration => this.setState({ duration });
-  onAnimationFinish = () => this.setState({ isPlaying: false, isPaused: false });
+  onDurationChange = duration => this.setState({duration});
+  onAnimationFinish = () => this.setState({isPlaying: false, isPaused: false});
   onExampleSelectionChange = (e, index) => {
     this.stopAnimation();
-    this.setState(state => ({ example: EXAMPLES[index], isPlaying: this.isImperativeMode() }));
+    this.setState(state => ({
+      example: EXAMPLES[index],
+      isPlaying: this.isImperativeMode(),
+    }));
   };
   onToggleImperative = i => {
     this.stopAnimation();
-    this.setState({ progress: !i ? new Animated.Value(0) : undefined });
+    this.setState({progress: !i ? new Animated.Value(0) : undefined});
   };
 
   setAnim = anim => {
@@ -134,20 +156,24 @@ export default class LottieAnimatedExample extends React.Component {
   };
 
   render() {
-    const { duration, isPlaying, isPaused, isInverse, progress, loop, example } = this.state;
+    const {duration, isPlaying, isPaused, isInverse, progress, loop, example} =
+      this.state;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <ExamplePicker
           example={example}
           examples={EXAMPLES}
           onChange={this.onExampleSelectionChange}
         />
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <LottieView
             ref={this.setAnim}
             autoPlay={!progress}
-            style={[example.width && { width: example.width }, isInverse && styles.lottieViewInvse]}
+            style={[
+              example.width && {width: example.width},
+              isInverse && styles.lottieViewInvse,
+            ]}
             source={example.getSource()}
             progress={progress}
             loop={loop}
@@ -155,7 +181,7 @@ export default class LottieAnimatedExample extends React.Component {
             enableMergePathsAndroidForKitKatAndAbove
           />
         </View>
-        <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
+        <View style={{paddingBottom: 20, paddingHorizontal: 10}}>
           <View style={styles.controlsRow}>
             <TouchableOpacity onPress={this.onLoopPress} disabled={!!progress}>
               <Image
@@ -168,7 +194,9 @@ export default class LottieAnimatedExample extends React.Component {
                 source={loopIcon}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.playButton} onPress={this.onPlayPress}>
+            <TouchableOpacity
+              style={styles.playButton}
+              onPress={this.onPlayPress}>
               <Image
                 style={styles.playButtonIcon}
                 resizeMode="contain"
@@ -191,16 +219,16 @@ export default class LottieAnimatedExample extends React.Component {
             </TouchableOpacity>
           </View>
           <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 10 }}
-          >
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingBottom: 10,
+            }}>
             <Text>Use Imperative API:</Text>
             <View />
-            <Switch
-              onValueChange={this.onToggleImperative}
-              value={!progress}
-            />
+            <Switch onValueChange={this.onToggleImperative} value={!progress} />
           </View>
-          <View style={{ paddingBottom: 10 }}>
+          <View style={{paddingBottom: 10}}>
             <View>
               <Text>Progress:</Text>
             </View>
