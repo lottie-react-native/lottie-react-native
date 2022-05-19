@@ -10,11 +10,11 @@
 		6E31134322B3A73000690A5B /* AnimationViewManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */; platformFilter = ios; };
 		6E31134422B3A73000690A5B /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134122B3A73000690A5B /* ContainerView.swift */; platformFilter = ios; };
 		6E31134522B3A73000690A5B /* LRNAnimationViewManagerObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */; platformFilter = ios; };
-		74E4DD2224F9656D00F271AF /* hexStringToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E4DD2124F9656D00F271AF /* hexStringToColor.swift */; platformFilter = ios; };
 		74E4DD2324F9677E00F271AF /* AnimationViewManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */; };
 		74E4DD2424F9678000F271AF /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134122B3A73000690A5B /* ContainerView.swift */; };
 		74E4DD2524F9678100F271AF /* LRNAnimationViewManagerObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */; };
-		74E4DD2724F9678700F271AF /* hexStringToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E4DD2124F9656D00F271AF /* hexStringToColor.swift */; };
+		FA8409AE28361B7C00F398C7 /* RCTConvert+Lottie.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8409AB28361B7C00F398C7 /* RCTConvert+Lottie.m */; };
+		FA8409AF28361B7C00F398C7 /* PlatformColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8409AD28361B7C00F398C7 /* PlatformColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,8 +35,10 @@
 		6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationViewManagerModule.swift; sourceTree = "<group>"; };
 		6E31134122B3A73000690A5B /* ContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRNAnimationViewManagerObjC.m; sourceTree = "<group>"; };
-		74E4DD2124F9656D00F271AF /* hexStringToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hexStringToColor.swift; sourceTree = "<group>"; };
 		85ABD46724D07DFD0099C9BD /* libLottieReactNativeMacOS.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libLottieReactNativeMacOS.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA8409AB28361B7C00F398C7 /* RCTConvert+Lottie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+Lottie.m"; sourceTree = "<group>"; };
+		FA8409AC28361B7C00F398C7 /* RCTConvert+Lottie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Lottie.h"; sourceTree = "<group>"; };
+		FA8409AD28361B7C00F398C7 /* PlatformColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,11 +80,13 @@
 		11FA5C531C4A1296003AC2EE /* LottieReactNative */ = {
 			isa = PBXGroup;
 			children = (
+				FA8409AD28361B7C00F398C7 /* PlatformColor.swift */,
+				FA8409AC28361B7C00F398C7 /* RCTConvert+Lottie.h */,
+				FA8409AB28361B7C00F398C7 /* RCTConvert+Lottie.m */,
 				6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */,
 				6E31134122B3A73000690A5B /* ContainerView.swift */,
 				6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */,
 				6E31133F22B3A72F00690A5B /* Bridging.h */,
-				74E4DD2124F9656D00F271AF /* hexStringToColor.swift */,
 			);
 			path = LottieReactNative;
 			sourceTree = "<group>";
@@ -185,10 +189,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA8409AE28361B7C00F398C7 /* RCTConvert+Lottie.m in Sources */,
+				FA8409AF28361B7C00F398C7 /* PlatformColor.swift in Sources */,
 				6E31134422B3A73000690A5B /* ContainerView.swift in Sources */,
 				6E31134522B3A73000690A5B /* LRNAnimationViewManagerObjC.m in Sources */,
 				6E31134322B3A73000690A5B /* AnimationViewManagerModule.swift in Sources */,
-				74E4DD2224F9656D00F271AF /* hexStringToColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,7 +204,6 @@
 				74E4DD2324F9677E00F271AF /* AnimationViewManagerModule.swift in Sources */,
 				74E4DD2424F9678000F271AF /* ContainerView.swift in Sources */,
 				74E4DD2524F9678100F271AF /* LRNAnimationViewManagerObjC.m in Sources */,
-				74E4DD2724F9678700F271AF /* hexStringToColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
