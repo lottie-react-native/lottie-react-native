@@ -117,7 +117,7 @@ export default class LottieAnimatedExample extends React.Component {
   };
 
   onInversePress = () => this.setState(state => ({ isInverse: !state.isInverse }));
-  onProgressChange = progress => this.state.progress.setValue(progress);
+  onProgressChange = progress => this.state.progress?.setValue(progress);
   onDurationChange = duration => this.setState({ duration });
   onAnimationFinish = () => this.setState({ isPlaying: false, isPaused: false });
   onExampleSelectionChange = (e, index) => {
