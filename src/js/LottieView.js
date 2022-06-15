@@ -6,13 +6,11 @@ import {
   View,
   Platform,
   StyleSheet,
-  ViewPropTypes,
   requireNativeComponent,
   NativeModules,
   processColor,
 } from 'react-native';
 import SafeModule from 'react-native-safe-modules';
-import PropTypes from 'prop-types';
 
 const getNativeLottieViewForDesktop = () => {
   return requireNativeComponent('LottieAnimationView');
@@ -41,57 +39,6 @@ const LottieViewManager = Platform.select({
   }),
 });
 
-const ViewStyleExceptBorderPropType = (props, propName, componentName, ...rest) => {
-  const flattened = StyleSheet.flatten(props[propName] || {});
-  const usesBorder = Object.keys(flattened).some(key => key.startsWith('border'));
-  if (usesBorder) {
-    return Error(
-      `${componentName} does not allow any border related style properties to be specified. ` +
-        "Border styles for this component will behave differently across platforms. If you'd " +
-        'like to render a border around this component, wrap it with a View.',
-    );
-  }
-  return ViewPropTypes.style(props, propName, componentName, ...rest);
-};
-
-const NotAllowedPropType = (props, propName, componentName) => {
-  const value = props[propName];
-  if (value != null) {
-    return Error(`${componentName} cannot specify '${propName}'.`);
-  }
-  return null;
-};
-
-const propTypes = {
-  ...ViewPropTypes,
-  style: ViewStyleExceptBorderPropType,
-  children: NotAllowedPropType,
-  resizeMode: PropTypes.oneOf(['cover', 'contain', 'center']),
-  progress: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-  speed: PropTypes.number,
-  duration: PropTypes.number,
-  loop: PropTypes.bool,
-  autoPlay: PropTypes.bool,
-  autoSize: PropTypes.bool,
-  enableMergePathsAndroidForKitKatAndAbove: PropTypes.bool,
-  source: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-  onAnimationFinish: PropTypes.func,
-  onLayout: PropTypes.func,
-  cacheComposition: PropTypes.bool,
-  colorFilters: PropTypes.arrayOf(PropTypes.shape({
-    keypath: PropTypes.string,
-    color: PropTypes.string
-  })),
-  textFiltersAndroid: PropTypes.arrayOf(PropTypes.shape({
-    find: PropTypes.string,
-    replace: PropTypes.string
-  })),
-  textFiltersIOS: PropTypes.arrayOf(PropTypes.shape({
-    keypath: PropTypes.string,
-    text: PropTypes.string
-  })),
-};
-
 const defaultProps = {
   progress: 0,
   speed: 1,
@@ -100,6 +47,7 @@ const defaultProps = {
   autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
   cacheComposition: true,
+  useNativeLooping: false,
   resizeMode: 'contain',
   colorFilters: [],
   textFiltersAndroid: [],
@@ -126,13 +74,10 @@ class LottieView extends React.PureComponent {
   constructor(props) {
     super(props);
     this.viewConfig = viewConfig;
-    this.refRoot = this.refRoot.bind(this);
-    this.onAnimationFinish = this.onAnimationFinish.bind(this);
-    this.onLayout = this.onLayout.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.source.nm !== prevProps.source.nm && this.props.autoPlay) {
+    if (this.props.autoPlay && this.props.source !== prevProps.source && !!this.props.source) {
       this.play();
     }
   }
@@ -187,30 +132,26 @@ class LottieView extends React.PureComponent {
     return findNodeHandle(this.root);
   }
 
-  refRoot(root) {
+  refRoot = (root) => {
     this.root = root;
     if (this.props.autoPlay) {
       this.play();
     }
   }
 
-  onAnimationFinish(evt) {
+  onAnimationFinish = (evt) => {
     if (this.props.onAnimationFinish) {
       this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
     }
   }
 
-  onLayout(evt) {
-    if (this.props.onLayout) {
-      this.props.onLayout(evt);
-    }
-  }
-
   render() {
-    const { style, source, autoSize, ...rest } = this.props;
+    const { style, source, autoSize, autoPlay, ...rest } = this.props;
 
     const sourceName = typeof source === 'string' ? source : undefined;
-    const sourceJson = typeof source === 'string' ? undefined : JSON.stringify(source);
+    const sourceJson =
+      typeof source === 'object' && !source.uri ? JSON.stringify(source) : undefined;
+    const sourceURL = typeof source === 'object' && source.uri ? source.uri : undefined;
 
     const aspectRatioStyle = sourceJson ? { aspectRatio: source.w / source.h } : undefined;
 
@@ -242,15 +183,14 @@ class LottieView extends React.PureComponent {
           style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
           sourceName={sourceName}
           sourceJson={sourceJson}
+          sourceURL={sourceURL}
           onAnimationFinish={this.onAnimationFinish}
-          onLayout={this.onLayout}
         />
       </View>
     );
   }
 }
 
-LottieView.propTypes = propTypes;
 LottieView.defaultProps = defaultProps;
 
 module.exports = LottieView;

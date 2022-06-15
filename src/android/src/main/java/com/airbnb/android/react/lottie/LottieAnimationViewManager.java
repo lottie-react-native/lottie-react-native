@@ -24,6 +24,9 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import java.util.Map;
 import java.util.WeakHashMap;
+import java.net.URL;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> {
   private static final String TAG = LottieAnimationViewManager.class.getSimpleName();
@@ -205,6 +208,42 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView> 
   @ReactProp(name = "sourceJson")
   public void setSourceJson(LottieAnimationView view, String json) {
     getOrCreatePropertyManager(view).setAnimationJson(json);
+  }
+
+  @ReactProp(name = "sourceURL")
+  public void setSourceURL(LottieAnimationView view, String urlString) {
+
+    final String finalUrlString = urlString;
+    final LottieAnimationView finalView = view;
+
+    Thread thread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try  {
+              BufferedReader in = new BufferedReader(new InputStreamReader(new URL(finalUrlString).openStream()));
+              String inputLine;
+              String json = "";
+
+              while ((inputLine = in.readLine()) != null)
+                  json += inputLine;
+
+              in.close();
+
+              final String js = json;
+
+              new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override public void run() {
+                  getOrCreatePropertyManager(finalView).setAnimationJson(js);
+                  getOrCreatePropertyManager(finalView).commitChanges();
+                }
+              });
+            } catch (Exception e) {
+              System.out.println("Error loading animation from URL: " + e);
+            }
+        }
+    });
+
+    thread.start();
   }
 
   @ReactProp(name = "cacheComposition")

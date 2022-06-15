@@ -69,6 +69,41 @@ class ContainerView: RCTView {
         }
     }
 
+    @objc func setSourceURL(_ newSourceURLString: String) {
+        var url = URL(string: newSourceURLString)
+        
+        if(url?.scheme == nil) {
+            // interpret raw URL paths as relative to the resource bundle
+            url = URL(fileURLWithPath: newSourceURLString, relativeTo: Bundle.main.resourceURL)
+        }
+    
+        if(url != nil) {
+            DispatchQueue.global(qos: .default).async {
+                do {
+                    let sourceJson = try String(contentsOf: url!)
+                    guard let data = sourceJson.data(using: String.Encoding.utf8),
+                    let animation = try? JSONDecoder().decode(Animation.self, from: data) else {
+                        if (RCT_DEBUG == 1) {
+                            print("Unable to decode the lottie animation object from the fetched URL source")
+                        }
+                        return
+                    }
+
+                    DispatchQueue.main.async {
+                        let starAnimationView = AnimationView()
+                        starAnimationView.animation = animation
+                        self.replaceAnimationView(next: starAnimationView)
+                        self.animationView?.play()
+                    }
+                } catch {
+                    if (RCT_DEBUG == 1) {
+                        print("Unable to load the lottie animation URL")
+                    }
+                }
+            }
+        }
+    }
+
     @objc func setSourceJson(_ newSourceJson: String) {
         sourceJson = newSourceJson
 
@@ -161,16 +196,21 @@ class ContainerView: RCTView {
     }
 
     func applyProperties() {
-        animationView?.currentProgress = progress
-        animationView?.animationSpeed = speed
-        animationView?.loopMode = loop
+        guard let animationView = animationView else { return }
+        let isPlaying = animationView.isAnimationPlaying
+        animationView.currentProgress = progress
+        animationView.animationSpeed = speed
+        animationView.loopMode = loop
         if (colorFilters.count > 0) {
             for filter in colorFilters {
                 let keypath: String = "\(filter.value(forKey: "keypath") as! String).**.Color"
                 let fillKeypath = AnimationKeypath(keypath: keypath)
                 let colorFilterValueProvider = ColorValueProvider((filter.value(forKey: "color") as! PlatformColor).lottieColorValue)
-                animationView?.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
+                animationView.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
             }
+        }
+        if isPlaying {
+           resume()
         }
     }
 }

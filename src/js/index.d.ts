@@ -3,17 +3,18 @@ declare module "lottie-react-native" {
   /**
    * Serialized animation as generated from After Effects
    */
-  interface AnimationObject {
+  export interface AnimationObject {
     v: string;
     fr: number;
     ip: number;
     op: number;
     w: number;
     h: number;
-    nm: string;
-    ddd: number;
+    nm?: string;
+    ddd?: number;
     assets: any[];
     layers: any[];
+    markers?: any[];
   }
 
   type ColorFilter = {
@@ -135,6 +136,19 @@ declare module "lottie-react-native" {
      * A boolean flag to enable merge patching in android.
      */
     enableMergePathsAndroidForKitKatAndAbove?: boolean;
+
+    /**
+     * A boolean flag to enable use of platform-level looping on Windows. This improves loop smoothness, 
+     * but onAnimationLoop will not fire and changing the loop prop will restart playback.
+     * Supported on: Windows
+     */
+    useNativeLooping?: boolean;
+
+    /**
+     * A callback function which will be called when the animation loops.
+     * Supported on: Windows
+     */
+    onAnimationLoop ?: () => void;
 
     /**
      * A callback function which will be called when animation is finished. Note that this
