@@ -17,8 +17,10 @@ class ContainerView: RCTView {
         super.traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 13.0, tvOS 13.0, *) {
             if (self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)) {
-                applyProperties()
-                print("dark mode changed")
+                if (UIApplication.shared.applicationState == .active) {
+                    applyProperties()
+                    print("dark mode changed")
+                }
             }
         }
     }
