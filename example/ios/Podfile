@@ -14,7 +14,7 @@ target 'example' do
   )
 
   pod 'lottie-react-native', :path => '../../'
-  pod 'lottie-ios', '~> 3.2.3'
+  pod 'lottie-ios', '~> 3.4.1'
 
   target 'exampleTests' do
     inherit! :complete
