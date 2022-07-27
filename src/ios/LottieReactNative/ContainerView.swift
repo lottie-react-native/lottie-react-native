@@ -10,6 +10,7 @@ class ContainerView: RCTView {
     private var sourceName: String = ""
     private var colorFilters: [NSDictionary] = []
     private var textFilters: [NSDictionary] = []
+    private var renderMode: RenderingEngineOption = .automatic
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     var animationView: AnimationView?
 
@@ -69,6 +70,42 @@ class ContainerView: RCTView {
         }
     }
 
+    func getLottieConfiguration() -> LottieConfiguration {
+        return LottieConfiguration(
+            // Text Providers is not supported for Core Animation render engine
+            renderingEngine: textFilters.count > 0 ? .mainThread : renderMode
+        )
+    }
+       
+    @objc func setRenderMode(_ newRenderMode: String) {
+        switch newRenderMode {
+        case "SOFTWARE":
+            if (renderMode == .mainThread) {
+                return
+            }
+            renderMode = .mainThread
+        case "HARDWARE":
+            if (renderMode == .coreAnimation) {
+                return
+            }
+            renderMode = .coreAnimation
+        case "AUTOMATIC":
+            fallthrough
+        default:
+            if (renderMode == .automatic) {
+                return
+            }
+            renderMode = .automatic
+        }
+        if (animationView != nil) {
+            let starAnimationView = AnimationView(
+                animation: animationView?.animation,
+                configuration: getLottieConfiguration()
+            )
+            replaceAnimationView(next: starAnimationView)
+        }
+    }
+
     @objc func setSourceURL(_ newSourceURLString: String) {
         var url = URL(string: newSourceURLString)
         
@@ -90,8 +127,10 @@ class ContainerView: RCTView {
                     }
 
                     DispatchQueue.main.async {
-                        let starAnimationView = AnimationView()
-                        starAnimationView.animation = animation
+                        let starAnimationView = AnimationView(
+                            animation: animation,
+                            configuration: self.getLottieConfiguration()
+                        )
                         self.replaceAnimationView(next: starAnimationView)
                         self.animationView?.play()
                     }
@@ -115,8 +154,10 @@ class ContainerView: RCTView {
             return
         }
 
-        let starAnimationView = AnimationView()
-        starAnimationView.animation = animation
+        let starAnimationView = AnimationView(
+            animation: animation,
+            configuration: getLottieConfiguration()
+        )
         replaceAnimationView(next: starAnimationView)
     }
 
@@ -126,7 +167,10 @@ class ContainerView: RCTView {
         }
         sourceName = newSourceName
 
-        let starAnimationView = AnimationView(name: sourceName)
+        let starAnimationView = AnimationView(
+            name: sourceName,
+            configuration: getLottieConfiguration()
+        )
         replaceAnimationView(next: starAnimationView)
     }
 
