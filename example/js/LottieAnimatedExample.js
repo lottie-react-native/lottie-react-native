@@ -14,6 +14,7 @@ import {
 import LottieView from 'lottie-react-native';
 import Slider from '@react-native-community/slider';
 import ExamplePicker from './ExamplePicker';
+import RenderModePicker from './RenderModePicker';
 
 const AnimatedSlider = Animated.createAnimatedComponent(Slider);
 
@@ -55,6 +56,7 @@ export default class LottieAnimatedExample extends React.Component {
     isPaused: false,
     loop: true,
     progress: undefined,
+    renderMode: 'AUTOMATIC',
   };
   anim = undefined;
 
@@ -119,6 +121,7 @@ export default class LottieAnimatedExample extends React.Component {
   onInversePress = () => this.setState(state => ({ isInverse: !state.isInverse }));
   onProgressChange = progress => this.state.progress.setValue(progress);
   onDurationChange = duration => this.setState({ duration });
+  onRenderModeChange = renderMode => this.setState({ renderMode });
   onAnimationFinish = () => this.setState({ isPlaying: false, isPaused: false });
   onExampleSelectionChange = (e, index) => {
     this.stopAnimation();
@@ -134,8 +137,7 @@ export default class LottieAnimatedExample extends React.Component {
   };
 
   render() {
-    const { duration, isPlaying, isPaused, isInverse, progress, loop, example } = this.state;
-
+    const { duration, isPlaying, isPaused, isInverse, progress, loop, example, renderMode } = this.state;
     return (
       <View style={{ flex: 1 }}>
         <ExamplePicker
@@ -153,6 +155,7 @@ export default class LottieAnimatedExample extends React.Component {
             loop={loop}
             onAnimationFinish={this.onAnimationFinish}
             enableMergePathsAndroidForKitKatAndAbove
+            renderMode={renderMode}
           />
         </View>
         <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
@@ -216,6 +219,11 @@ export default class LottieAnimatedExample extends React.Component {
           </View>
           <View>
             <View>
+              <Text>Render Mode:</Text>
+            </View>
+          </View>
+          <View>
+            <View>
               <Text>Duration: ({Math.round(duration)}ms)</Text>
             </View>
             <Slider
@@ -227,6 +235,12 @@ export default class LottieAnimatedExample extends React.Component {
               onValueChange={this.onDurationChange}
               disabled={!progress}
             />
+          </View>
+          <View>
+            <View>
+              <Text>Render Mode: ({renderMode})</Text>
+            </View>
+            <RenderModePicker renderMode={renderMode} onChange={this.onRenderModeChange} />
           </View>
         </View>
       </View>
