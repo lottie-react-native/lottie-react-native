@@ -11,9 +11,9 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.68.2)
   - fmt (6.2.1)
   - glog (0.3.5)
-  - lottie-ios (3.2.3)
+  - lottie-ios (3.4.0)
   - lottie-react-native (5.1.3):
-    - lottie-ios (~> 3.2.3)
+    - lottie-ios (~> 3.4.0)
     - React-Core
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -415,8 +415,8 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 81ce99032d5b586fddd6a38d450f8595f7e04be4
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 476ee3e89abb49e07f822b48323c51c57124b572
-  lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
-  lottie-react-native: 058cb713f9eab4bb06cde9d7efd9c6a43ad8ff4a
+  lottie-ios: 69495122151a378fdc7d1bb4c5930347e37baf1f
+  lottie-react-native: f95a72b84460e0dc0f6341a0da9702111dd11171
   RCT-Folly: 4d8508a426467c48885f1151029bc15fa5d7b3b8
   RCTRequired: 3e917ea5377751094f38145fdece525aa90545a0
   RCTTypeSafety: c43c072a4bd60feb49a9570b0517892b4305c45e
@@ -448,4 +448,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b0ca67f3cbbf53f363fc1849b8f8052ba42f48a5
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2
