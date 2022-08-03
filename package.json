@@ -4,6 +4,7 @@
   "description": "React Native bindings for Lottie",
   "main": "lib/index.js",
   "types": "src/index.d.ts",
+  "react-native": "src/index.js",
   "scripts": {
     "prepare": "npm run build",
     "build": "babel src/ --out-dir lib",
@@ -44,10 +45,6 @@
       "optional": true
     }
   },
-  "dependencies": {
-    "invariant": "^2.2.4",
-    "react-native-safe-modules": "^1.0.3"
-  },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.12.12",
@@ -60,16 +57,21 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-babel-module": "^5.3.1",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prefer-object-spread": "^1.2.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
     "gitbook-cli": "^2.3.2",
-    "metro-react-native-babel-preset": "^0.67.0",
-    "prettier": "^2.6.2",
-    "prettier-eslint": "^15.0.0",
-    "react": "17.0.2",
-    "react-native": "0.68.2",
-    "react-native-windows": "0.68.3"
+    "metro-react-native-babel-preset": "^0.72.0",
+    "prettier": "^2.7.1",
+    "prettier-eslint": "^15.0.1",
+    "react": "18.1.0",
+    "react-native": "0.70.0-rc.2",
+    "react-native-windows": "0.69.4"
+  },
+  "codegenConfig": {
+    "name": "RNLottieAnimationViewSpec",
+    "type": "components",
+    "jsSrcsDir": "./src"
   }
 }

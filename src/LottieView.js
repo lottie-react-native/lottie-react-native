@@ -1,43 +1,25 @@
 import React from 'react';
 import {
-  findNodeHandle,
-  UIManager,
   Animated,
   View,
-  Platform,
   StyleSheet,
   requireNativeComponent,
-  NativeModules,
   processColor,
+  UIManager,
+  findNodeHandle,
 } from 'react-native';
-import SafeModule from 'react-native-safe-modules';
 
-const getNativeLottieViewForDesktop = () => {
-  return requireNativeComponent('LottieAnimationView');
-};
+const isFabricEnabled = require("./index").isFabricEnabled;
 
-const NativeLottieView =
-  Platform.OS === 'macos' || Platform.OS === 'windows'
-    ? getNativeLottieViewForDesktop()
-    : SafeModule.component({ viewName: 'LottieAnimationView', mockComponent: View });
+const NativeLottieView = isFabricEnabled ?
+    require("./LottieAnimationViewNativeComponent").default :
+    requireNativeComponent("LottieAnimationView")
 
 const AnimatedNativeLottieView = Animated.createAnimatedComponent(NativeLottieView);
 
-const LottieViewManager = Platform.select({
-  // react-native-windows doesn't work with SafeModule, it always returns the mock component
-  macos: NativeModules.LottieAnimationView,
-  windows: NativeModules.LottieAnimationView,
-  default: SafeModule.module({
-    moduleName: 'LottieAnimationView',
-    mock: {
-      play: () => {},
-      reset: () => {},
-      pause: () => {},
-      resume: () => {},
-      getConstants: () => {},
-    },
-  }),
-});
+const Commands = isFabricEnabled ?
+    require("./LottieAnimationViewNativeComponent").Commands :
+    undefined
 
 const defaultProps = {
   progress: 0,
@@ -54,27 +36,8 @@ const defaultProps = {
   textFiltersIOS: [],
 };
 
-const viewConfig = {
-  uiViewClassName: 'LottieAnimationView',
-  validAttributes: {
-    progress: true,
-  },
-};
-
-const safeGetViewManagerConfig = moduleName => {
-  if (UIManager.getViewManagerConfig) {
-    // RN >= 0.58
-    return UIManager.getViewManagerConfig(moduleName);
-  }
-  // RN < 0.58
-  return UIManager[moduleName];
-};
-
 class LottieView extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.viewConfig = viewConfig;
-  }
+  _ref: ?React.ElementRef<typeof AnimatedNativeLottieView>;
 
   componentDidUpdate(prevProps) {
     if (this.props.autoPlay && this.props.source !== prevProps.source && !!this.props.source) {
@@ -82,67 +45,64 @@ class LottieView extends React.PureComponent {
     }
   }
 
-  setNativeProps(props) {
-    UIManager.updateView(this.getHandle(), this.viewConfig.uiViewClassName, {
-      progress: props.progress,
-    });
-  }
-
-  play(startFrame = -1, endFrame = -1) {
-    this.runCommand('play', [startFrame, endFrame]);
+  play(startFrame: number = -1, endFrame: number = -1) {
+    if(isFabricEnabled) {
+      if (this._ref != null) {
+        Commands?.play(this._ref, startFrame, endFrame);
+      }
+    } else {
+      console.log(global.nativeFabricUIManager != null)
+      UIManager.dispatchViewManagerCommand(this.getHandle(), 'play', [startFrame, endFrame]);
+    }
   }
 
   reset() {
-    this.runCommand('reset');
+    if(isFabricEnabled) {
+      if (this._ref != null) {
+        Commands?.reset(this._ref);
+      }
+    } else {
+      UIManager.dispatchViewManagerCommand(this.getHandle(), 'reset', []);
+    }
   }
 
   pause() {
-    this.runCommand('pause');
+    if(isFabricEnabled) {
+      if (this._ref != null) {
+        Commands?.pause(this._ref);
+      }
+    } else {
+      UIManager.dispatchViewManagerCommand(this.getHandle(), 'pause', []);
+    }
   }
 
   resume() {
-    this.runCommand('resume');
-  }
-
-  runCommand(name, args = []) {
-    const handle = this.getHandle();
-    if (!handle) {
-      return null;
+    if(isFabricEnabled) {
+      if (this._ref != null) {
+        Commands?.resume(this._ref);
+      }
+    } else {
+      UIManager.dispatchViewManagerCommand(this.getHandle(), 'resume', []);
     }
-
-    return Platform.select({
-      android: () =>
-        UIManager.dispatchViewManagerCommand(
-          handle,
-          safeGetViewManagerConfig('LottieAnimationView').Commands[name],
-          args,
-        ),
-      windows: () =>
-        UIManager.dispatchViewManagerCommand(
-          handle,
-          safeGetViewManagerConfig('LottieAnimationView').Commands[name],
-          args,
-        ),
-      ios: () => LottieViewManager[name](this.getHandle(), ...args),
-      macos: () => LottieViewManager[name](this.getHandle(), ...args),
-    })();
   }
 
-  getHandle() {
-    return findNodeHandle(this.root);
+  onAnimationFinish = (evt: any) => {
+    if (this.props.onAnimationFinish) {
+      this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
+    }
   }
 
-  refRoot = (root) => {
-    this.root = root;
+  // Ref handling for new arch
+  _captureRef = (ref) => {
+    this._ref = ref;
     if (this.props.autoPlay) {
       this.play();
     }
   }
 
-  onAnimationFinish = (evt) => {
-    if (this.props.onAnimationFinish) {
-      this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
-    }
+  // Ref handling for old arch
+  getHandle = () => {
+    return findNodeHandle(this._ref)
   }
 
   render() {
@@ -173,17 +133,29 @@ class LottieView extends React.PureComponent {
         }))
       : undefined;
 
+    /**
+     * To avoid passing complex objects via the fabric arch, I would suggest that we use a simple json array
+     * which we can transform back into an object when consuming it on the android/ios side.
+     */
+    const textFiltersNewArch = Platform.select({ 
+      android: JSON.stringify(this.props.textFiltersAndroid), 
+      ios: JSON.stringify(this.props.textFiltersIOS),
+      default: undefined
+    })
+
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
         <AnimatedNativeLottieView
-          ref={this.refRoot}
+          ref={this._captureRef}
           {...rest}
-          colorFilters={colorFilters}
+          colorFilters={isFabricEnabled ? JSON.stringify(colorFilters) : colorFilters}
           speed={speed}
           style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
           sourceName={sourceName}
           sourceJson={sourceJson}
           sourceURL={sourceURL}
+          textFilters={isFabricEnabled ? textFiltersNewArch : undefined}
+          progress={this.props.progress}
           onAnimationFinish={this.onAnimationFinish}
         />
       </View>

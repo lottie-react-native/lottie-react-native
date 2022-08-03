@@ -26,7 +26,9 @@ coverage
 .vscode
 docs
 example
+fabric-example
 node_modules
+react-native.config.js
 
 .eslintignore
 .eslintrc

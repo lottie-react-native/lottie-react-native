@@ -60,7 +60,3 @@ example/windows/**/ARM64
 
 # Bundle artifact
 *.jsbundle
-
-# Ruby / CocoaPods
-/example/ios/Pods/
-/vendor/bundle/

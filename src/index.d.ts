@@ -1,5 +1,8 @@
 declare module "lottie-react-native" {
   import { Animated, StyleProp, ViewStyle, LayoutChangeEvent } from "react-native";
+
+  export function enableFabricForLottieReactNative(shouldEnableFabric: boolean = true): void
+
   /**
    * Serialized animation as generated from After Effects
    */
@@ -61,6 +64,8 @@ declare module "lottie-react-native" {
     /**
      * The duration of the animation in ms. Takes precedence over speed when set.
      * This only works when source is an actual JS object of an animation.
+     * 
+     * **Note: prop is not yet supported by new arch!**
      */
     duration?: number;
 
@@ -72,25 +77,10 @@ declare module "lottie-react-native" {
     /**
      * Style attributes for the view, as expected in a standard `View`:
      * http://facebook.github.io/react-native/releases/0.39/docs/view.html#style
-     * CAVEAT: border styling is not supported.
+     * 
+     * **CAVEAT: border styling is not supported.**
      */
     style?: StyleProp<ViewStyle>;
-
-    /**
-     * [Android] Relative folder inside of assets containing image files to be animated.
-     * Make sure that the images that bodymovin export are in that folder with their names unchanged (should be img_#).
-     * Refer to https://github.com/airbnb/lottie-android#image-support for more details.
-     * @platform android
-     */
-    imageAssetsFolder?: string;
-
-    /**
-     * [Android]. Uses hardware acceleration to perform the animation. This should only
-     * be used for animations where your width and height are equal to the composition width
-     * and height, e.g. you are not scaling the animation.
-     * @platform android
-     */
-    hardwareAccelerationAndroid?: boolean;
 
     /**
      * Determines how to resize the animated view when the frame doesn't match the raw image
@@ -106,20 +96,6 @@ declare module "lottie-react-native" {
     renderMode?: "AUTOMATIC" | "HARDWARE" | "SOFTWARE";
 
     /**
-     * [Android]. A boolean flag indicating whether or not the animation should caching. Defaults to true.
-     * Refer to LottieAnimationView#setCacheComposition(boolean) for more information.
-     */
-    cacheComposition?: boolean;
-
-    /**
-     * [Android]. Allows to specify kind of cache used for animation. Default value weak.
-     * strong - cached forever
-     * weak   - cached as long it is in active use
-     * none   - not cached
-     */
-    cacheStrategy?: 'strong' | 'weak' | 'none';
-
-    /**
      * A boolean flag indicating whether or not the animation should start automatically when
      * mounted. This only affects the imperative API.
      */
@@ -131,24 +107,6 @@ declare module "lottie-react-native" {
      * JS object of an animation.
      */
     autoSize?: boolean;
-
-    /**
-     * A boolean flag to enable merge patching in android.
-     */
-    enableMergePathsAndroidForKitKatAndAbove?: boolean;
-
-    /**
-     * A boolean flag to enable use of platform-level looping on Windows. This improves loop smoothness, 
-     * but onAnimationLoop will not fire and changing the loop prop will restart playback.
-     * Supported on: Windows
-     */
-    useNativeLooping?: boolean;
-
-    /**
-     * A callback function which will be called when the animation loops.
-     * Supported on: Windows
-     */
-    onAnimationLoop ?: () => void;
 
     /**
      * A callback function which will be called when animation is finished. Note that this
@@ -167,21 +125,91 @@ declare module "lottie-react-native" {
     colorFilters?: Array<ColorFilter>;
 
     /**
-     * [Android]. An array of objects denoting text values to find and replace.
+     * A string to identify the component during testing.
+     */
+    testID?: string;
+
+// Android Props
+
+   /**
+    * A boolean flag to enable merge patching.
+    * 
+    * @platform android
+    */
+    enableMergePathsAndroidForKitKatAndAbove?: boolean;
+
+    /**
+     * A boolean flag indicating whether or not the animation should caching. Defaults to true.
+     * Refer to LottieAnimationView#setCacheComposition(boolean) for more information.
+     * 
+     * @platform android
+     */
+     cacheComposition?: boolean;
+
+    /**
+     * An array of objects denoting text values to find and replace.
+     * 
      * @platform android
      */
     textFiltersAndroid?: Array<TextFilterAndroid>;
 
     /**
-     * [iOS] An array of objects denoting text layers by KeyPath and a new string value.
+     * Relative folder inside of assets containing image files to be animated.
+     * Make sure that the images that bodymovin export are in that folder with their names unchanged (should be img_#).
+     * Refer to https://github.com/airbnb/lottie-android#image-support for more details.
+     * 
+     * @platform android
+     */
+    imageAssetsFolder?: string;
+
+    /**
+     * Uses hardware acceleration to perform the animation. This should only
+     * be used for animations where your width and height are equal to the composition width
+     * and height, e.g. you are not scaling the animation.
+     * 
+     * **Note: prop is not yet supported by new arch!**
+     * 
+     * @platform android
+     */
+    hardwareAccelerationAndroid?: boolean;
+
+    /**
+     * Allows to specify kind of cache used for animation. Default value weak.
+     * strong - cached forever
+     * weak   - cached as long it is in active use
+     * none   - not cached
+     * 
+     * **Note: prop is not yet supported by new arch!**
+     * 
+     * @platform android
+     */
+     cacheStrategy?: 'strong' | 'weak' | 'none';
+
+// iOS Props
+
+    /**
+     * An array of objects denoting text layers by KeyPath and a new string value.
+     * 
      * @platform ios
      */
     textFiltersIOS?: Array<TextFilterIOS>;
 
+// Windows Props
+
     /**
-     * A string to identify the component during testing
+     * A boolean flag to enable use of platform-level looping on Windows. This improves loop smoothness, 
+     * but onAnimationLoop will not fire and changing the loop prop will restart playback.
+     * 
+     * @platform windows
      */
-    testID?: string;
+    useNativeLooping?: boolean;
+
+    /**
+     * A callback function which will be called when the animation loops.
+     * 
+     * @platform windows
+     */
+    onAnimationLoop ?: () => void;
   }
 
   /**
@@ -193,7 +221,7 @@ declare module "lottie-react-native" {
    * Otherwise the compiler will give you issues and won't work.
    */
   class AnimatedLottieView extends React.Component<AnimatedLottieViewProps, {}> {
-    play(startFrame?: number, endFrame?: number): void;
+    play(startFrame: number, endFrame?: number): void;
     reset(): void;
     pause(): void;
     resume(): void;

@@ -1,39 +1,66 @@
 buildscript {
-  repositories {
-    google()
-    mavenCentral()
-  }
+    repositories {
+        google()
+        gradlePluginPortal()
+    }
 
-  dependencies {
-    classpath 'com.android.tools.build:gradle:7.0.4'
-  }
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.2.2")
+    }
+}
+
+def isNewArchitectureEnabled() {
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
 
 def safeExtGet(prop, fallback) {
-  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
 }
 
 apply plugin: 'com.android.library'
 apply from: 'gradle-maven-push.gradle'
+if (isNewArchitectureEnabled()) {
+    apply plugin: 'com.facebook.react'
+}
 
 android {
-  buildToolsVersion safeExtGet('buildToolsVersion', "31.0.0")
-  compileSdk safeExtGet('compileSdkVersion', 31)
-  ndkVersion safeExtGet('ndkVersion', "21.4.7075529")
+    compileSdk safeExtGet('compileSdkVersion', 31)
 
-  defaultConfig {
-    targetSdkVersion safeExtGet('targetSdkVersion', 31)
-    minSdkVersion safeExtGet('minSdkVersion', 21)
-  }
+    defaultConfig {
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 31)
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+    }
+
+    sourceSets {
+        main {
+            if (isNewArchitectureEnabled()) {
+                java.srcDirs += ['src/newarch']
+            } else {
+                java.srcDirs += ['src/oldarch']
+            }
+        }
+    }
 }
 
 repositories {
-  google()
-  mavenCentral()
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url "$projectDir/../node_modules/react-native/android"
+    }
+    mavenCentral()
+    google()
 }
 
 dependencies {
-  //noinspection GradleDynamicVersion
-  implementation "com.facebook.react:react-native:+" // From node_modules
-  implementation "com.airbnb.android:lottie:5.1.1"
+    //noinspection GradleDynamicVersion
+    implementation "com.facebook.react:react-native:+" // From node_modules
+    implementation "com.airbnb.android:lottie:5.2.0"
+}
+
+if (isNewArchitectureEnabled()) {
+    react {
+        jsRootDir = file("../src/")
+        codegenJavaPackageName = "com.airbnb.android.react.lottie"
+    }
 }
