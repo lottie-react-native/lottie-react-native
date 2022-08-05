@@ -22,25 +22,18 @@ coverage
 # node-waf configuration
 .lock-wscript
 
-build/
-node_modules
-.idea
-_book
-example
-rn-cli.config.js
-npm-packages-offline-cache
 .github
-.settings
+.vscode
 docs
-book.json
-.watchmanconfig
-.travis.yml
-.project
-.prettierrc
-.prettierignore
-.eslintrc
+example
+node_modules
+
 .eslintignore
-.yarnrc
+.eslintrc
+.gitignore
+.prettierignore
+.prettierrc
+book.json
 
 src/windows/cppwinrt/bin
 src/windows/cppwinrt/obj
