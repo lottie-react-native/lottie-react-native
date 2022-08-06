@@ -140,7 +140,7 @@ export default class LottieAnimatedExample extends React.Component {
     this.setState(state => ({isInverse: !state.isInverse}));
   onProgressChange = progress => this.state.progress?.setValue(progress);
   onDurationChange = duration => this.setState({duration});
-  onRenderModeChange = renderMode => this.setState({ renderMode });
+  onRenderModeChange = renderMode => this.setState({renderMode});
   onAnimationFinish = () => this.setState({isPlaying: false, isPaused: false});
   onExampleSelectionChange = (e, index) => {
     this.stopAnimation();
@@ -265,12 +265,10 @@ export default class LottieAnimatedExample extends React.Component {
               disabled={!progress}
             />
           </View>
-          <View>
-            <View>
-              <Text>Render Mode: ({renderMode})</Text>
-            </View>
-            <RenderModePicker renderMode={renderMode} onChange={this.onRenderModeChange} />
-          </View>
+          <RenderModePicker
+            renderMode={renderMode}
+            onChange={this.onRenderModeChange}
+          />
         </View>
       </View>
     );

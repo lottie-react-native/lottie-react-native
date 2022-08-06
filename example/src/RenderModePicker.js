@@ -1,8 +1,8 @@
 /* eslint-disable global-require */
-import React from 'react';
-import { Platform } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Platform} from 'react-native';
 import PropTypes from 'prop-types';
-import { Picker } from '@react-native-picker/picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const propTypes = {
   renderMode: PropTypes.string,
@@ -11,44 +11,46 @@ const propTypes = {
 
 const renderModes = [
   {
-    label: 'Automatic',
+    label: 'RenderMode: Automatic',
     value: 'AUTOMATIC',
   },
   {
     label: Platform.select({
-      ios: 'Hardware (Core Animation)',
-      default: 'Hardware',
+      ios: 'RenderMode: Hardware (Core Animation)',
+      default: 'RenderMode: Hardware',
     }),
     value: 'HARDWARE',
   },
   {
     label: Platform.select({
-      ios: 'Software (Main Thread)',
-      default: 'Software',
+      ios: 'RenderMode: Software (Main Thread)',
+      default: 'RenderMode: Software',
     }),
     value: 'SOFTWARE',
   },
 ];
 
-export default class RenderModePicker extends React.Component {
-  render() {
-    return (
-      <Picker
-        selectedValue={this.props.renderMode}
-        onValueChange={this.props.onChange}
-        style={{
-          marginBottom: Platform.select({
-            ios: -30,
-            android: 0,
-          }),
-        }}
-      >
-        {renderModes.map(mode => (
-          <Picker.Item key={mode.value} {...mode} />
-        ))}
-      </Picker>
-    );
-  }
+export default function RenderModePicker(props) {
+  const {renderMode, onChange} = props;
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(renderMode);
+
+  useEffect(() => {
+    if (renderMode === value) {
+      return;
+    }
+    onChange(value);
+  }, [renderMode, value, onChange]);
+  return (
+    <DropDownPicker
+      value={renderMode}
+      open={open}
+      items={renderModes}
+      setValue={setValue}
+      setOpen={setOpen}
+      zIndex={2}
+    />
+  );
 }
 
 RenderModePicker.propTypes = propTypes;
