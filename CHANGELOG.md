@@ -1,3 +1,8 @@
+## 5.1.4
+
+- Support for lottie-ios version 3.4.0
+- Update tvOS deployment target to 11.0
+
 ## 5.1.3
 
 - Fix Android compilation issue
