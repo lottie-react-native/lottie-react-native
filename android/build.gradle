@@ -57,10 +57,3 @@ dependencies {
     implementation "com.facebook.react:react-native:+" // From node_modules
     implementation "com.airbnb.android:lottie:5.2.0"
 }
-
-if (isNewArchitectureEnabled()) {
-    react {
-        jsRootDir = file("../src/")
-        codegenJavaPackageName = "com.airbnb.android.react.lottie"
-    }
-}

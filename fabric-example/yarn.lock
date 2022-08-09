@@ -3622,9 +3622,8 @@ lottie-ios@^3.4.1:
   resolved "https://registry.yarnpkg.com/lottie-ios/-/lottie-ios-3.4.1.tgz#1c264066d1df04644f970cce4c2f82e27086c660"
   integrity sha512-oZh9BcCMicLFeKC0KO5cfJ6Pzb+qfB7qZ4vqh5R+buXcCRZKnFhHkt9TZfd62ZJi2XC3kirXYVYyU7c+jqpo9g==
 
-"lottie-react-native@link:..":
-  version "0.0.0"
-  uid ""
+"lottie-react-native@file:..":
+  version "5.1.3"
 
 lru-cache@^6.0.0:
   version "6.0.0"

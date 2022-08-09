@@ -71,7 +71,10 @@
   },
   "codegenConfig": {
     "name": "RNLottieAnimationViewSpec",
-    "type": "components",
-    "jsSrcsDir": "./src"
+    "type": "all",
+    "jsSrcsDir": "./src",
+    "android": {
+      "javaPackageName": "com.airbnb.android.react.lottie"
+    }
   }
 }

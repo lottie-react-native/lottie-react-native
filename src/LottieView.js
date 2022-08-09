@@ -37,7 +37,6 @@ const defaultProps = {
 };
 
 class LottieView extends React.PureComponent {
-  _ref: ?React.ElementRef<typeof AnimatedNativeLottieView>;
 
   componentDidUpdate(prevProps) {
     if (this.props.autoPlay && this.props.source !== prevProps.source && !!this.props.source) {
@@ -45,7 +44,7 @@ class LottieView extends React.PureComponent {
     }
   }
 
-  play(startFrame: number = -1, endFrame: number = -1) {
+  play(startFrame = -1, endFrame = -1) {
     if(isFabricEnabled) {
       if (this._ref != null) {
         Commands?.play(this._ref, startFrame, endFrame);
@@ -86,7 +85,7 @@ class LottieView extends React.PureComponent {
     }
   }
 
-  onAnimationFinish = (evt: any) => {
+  onAnimationFinish = (evt) => {
     if (this.props.onAnimationFinish) {
       this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
     }
