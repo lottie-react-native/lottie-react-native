@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import type {Int32, Float, Double, BubblingEventHandler, ReadOnlyArray} from 'react-native/Libraries/Types/CodegenTypes';
+import type {Int32, Float, Double, BubblingEventHandler} from 'react-native/Libraries/Types/CodegenTypes';
 import type {ViewProps} from 'react-native/Libraries/Components/View/ViewPropTypes';
 import type {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
@@ -52,5 +52,6 @@ export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
 });
 
 export default (codegenNativeComponent<NativeProps>('LottieAnimationView', {
-    excludedPlatforms: new ReadOnlyArray<'iOS' | 'android'>(['iOS']) //exclude iOS for now until we add proper ios support in the next version
-}): HostComponent<NativeProps>);
+    interfaceOnly: true,
+    excludedPlatforms: ['iOS'], //exclude iOS for now until we add proper ios support in the next version
+}): LottieViewNativeComponentType);
