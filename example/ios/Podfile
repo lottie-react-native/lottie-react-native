@@ -1,8 +1,8 @@
-require_relative '../../node_modules/react-native/scripts/react_native_pods'
-require_relative '../../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 platform :ios, '11.0'
-use_frameworks!
+install! 'cocoapods', :deterministic_uuids => false
 
 target 'example' do
   config = use_native_modules!
@@ -10,11 +10,10 @@ target 'example' do
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => false
+    :hermes_enabled => false,
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
-  pod 'lottie-react-native', :path => '../../'
-  pod 'lottie-ios', '~> 3.2.3'
 
   target 'exampleTests' do
     inherit! :complete

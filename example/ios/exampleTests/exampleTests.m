@@ -13,7 +13,7 @@
 
 @implementation exampleTests
 
-- (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
+- (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
   if (test(view)) {
     return YES;
@@ -34,11 +34,12 @@
 
   __block NSString *redboxError = nil;
 #ifdef DEBUG
-  RCTSetLogFunction(^(RCTLogLevel level, RCTLogSource source, NSString *fileName, NSNumber *lineNumber, NSString *message) {
-    if (level >= RCTLogLevelError) {
-      redboxError = message;
-    }
-  });
+  RCTSetLogFunction(
+      ^(RCTLogLevel level, RCTLogSource source, NSString *fileName, NSNumber *lineNumber, NSString *message) {
+        if (level >= RCTLogLevelError) {
+          redboxError = message;
+        }
+      });
 #endif
 
   while ([date timeIntervalSinceNow] > 0 && !foundElement && !redboxError) {
@@ -60,6 +61,5 @@
   XCTAssertNil(redboxError, @"RedBox error: %@", redboxError);
   XCTAssertTrue(foundElement, @"Couldn't find element with text '%@' in %d seconds", TEXT_TO_LOOK_FOR, TIMEOUT_SECONDS);
 }
-
 
 @end

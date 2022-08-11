@@ -31,7 +31,7 @@ namespace winrt::Example::implementation {
         InstanceSettings().UseWebDebugger(false);
         InstanceSettings().UseFastRefresh(false);
 #else
-        JavaScriptBundleFile(L"example/js/index");
+        JavaScriptBundleFile(L"index");
         InstanceSettings().UseWebDebugger(true);
         InstanceSettings().UseFastRefresh(true);
 #endif
