@@ -93,7 +93,7 @@ class ContainerView: RCTView {
                         let starAnimationView = AnimationView()
                         starAnimationView.animation = animation
                         self.replaceAnimationView(next: starAnimationView)
-                        self.animationView?.play()
+                        self.play()
                     }
                 } catch {
                     if (RCT_DEBUG == 1) {
