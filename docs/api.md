@@ -15,7 +15,7 @@
 |**`useNativeLooping`**| **Only Windows**. When enabled, uses platform-level looping to improve smoothness, but onAnimationLoop will not fire and changing the `loop` prop will reset playback rather than finishing gracefully. | false | Windows |
 |**`onAnimationLoop`**| **Only Windows**. A callback function invoked when the animation loops. | *None* | Windows |
 |**`onAnimationFinish`**| A callback function which will be called when animation is finished. This callback is called with a boolean `isCancelled` argument, indicating if the animation actually completed playing, or if it was cancelled, for instance by calling `play()` or `reset()` while is was still playing. Note that this callback will be called only when `loop` is set to false. |*None*| All |
-|**`renderMode`**| **Only Android**, a String flag to set whether or not to render with `HARDWARE` or `SOFTWARE` acceleration |`AUTOMATIC`| Android |
+|**`renderMode`**| a String flag to set whether or not to render with `HARDWARE` or `SOFTWARE` acceleration |`AUTOMATIC`| iOS, Android |
 |**`cacheComposition`**| **Only Android**, a boolean flag indicating whether or not the animation should do caching. |`true`| Android |
 |**`colorFilters`**| An array of objects denoting layers by KeyPath and a new color filter value (as hex string). |`[]`| All |
 |**`textFiltersAndroid`**| **Only Android**, an array of objects denoting text values to find and replace. |`[]`| Android |

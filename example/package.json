@@ -13,13 +13,14 @@
     "vssharp": "start windows/csharp/Example.sln"
   },
   "dependencies": {
+    "@react-native-community/slider": "^4.2.2",
+    "@react-native-picker/picker": "^2.4.1",
+    "lottie-ios": "^3.4.1",
+    "lottie-react-native": "file:..",
     "react": "17.0.2",
     "react-native": "0.68.2",
-    "react-native-windows": "0.68.3",
-    "lottie-react-native": "file:..",
-    "lottie-ios": "^3.4.1",
-    "@react-native-community/slider": "^4.2.2",
-    "@react-native-picker/picker": "^2.4.1"
+    "react-native-dropdown-picker": "^5.4.2",
+    "react-native-windows": "0.68.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
