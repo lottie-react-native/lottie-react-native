@@ -15,7 +15,6 @@
   "dependencies": {
     "@react-native-community/slider": "^4.2.2",
     "@react-native-picker/picker": "^2.4.1",
-    "lottie-ios": "^3.4.1",
     "lottie-react-native": "file:..",
     "react": "17.0.2",
     "react-native": "0.68.2",
