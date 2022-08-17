@@ -2,9 +2,16 @@
   "name": "lottie-react-native",
   "version": "5.1.4",
   "description": "React Native bindings for Lottie",
-  "main": "lib/index.js",
+  "main": "lib/index",
   "types": "src/index.d.ts",
-  "react-native": "src/index.js",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios"
+  ],
   "scripts": {
     "prepare": "npm run build",
     "build": "babel src/ --out-dir lib",
@@ -18,10 +25,6 @@
     "docs:watch": "npm run docs:prepare && gitbook serve",
     "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git fetch git@github.com:airbnb/lottie-react-native.git gh-pages && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:airbnb/lottie-react-native.git gh-pages --force"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/react-native-community/lottie-react-native.git"
-  },
   "keywords": [
     "lottie",
     "animation",
@@ -29,12 +32,17 @@
     "react-native",
     "keyframe"
   ],
+  "repository": "https://github.com/react-native-community/lottie-react-native",
   "author": "Emilio Rodriguez <emiliorodriguez@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/react-native-community/lottie-react-native/issues"
   },
   "homepage": "https://github.com/airbnb/lottie-react-native#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "peerDependencies": {
     "react": "*",
     "react-native": ">=0.46",
@@ -66,13 +74,13 @@
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
     "react": "18.1.0",
-    "react-native": "0.70.0-rc.2",
+    "react-native": "0.70.0-rc.3",
     "react-native-windows": "0.69.4"
   },
   "codegenConfig": {
     "name": "RNLottieAnimationViewSpec",
-    "type": "all",
-    "jsSrcsDir": "./src",
+    "type": "components",
+    "jsSrcsDir": "src",
     "android": {
       "javaPackageName": "com.airbnb.android.react.lottie"
     }

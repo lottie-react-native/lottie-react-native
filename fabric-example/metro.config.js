@@ -1,11 +1,13 @@
 const path = require('path');
 const exclusionList = require('metro-config/src/defaults/exclusionList');
 const escape = require('escape-string-regexp');
-const pack = require('../package.json');
+const pak = require('../package.json');
 
 const root = path.resolve(__dirname, '..');
 
-const modules = Object.keys(pack.peerDependencies);
+const modules = Object.keys({
+  ...pak.peerDependencies,
+});
 
 module.exports = {
   projectRoot: __dirname,

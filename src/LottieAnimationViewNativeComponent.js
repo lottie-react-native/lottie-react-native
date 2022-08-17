@@ -52,6 +52,5 @@ export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
 });
 
 export default (codegenNativeComponent<NativeProps>('LottieAnimationView', {
-    interfaceOnly: true,
     excludedPlatforms: ['iOS'], //exclude iOS for now until we add proper ios support in the next version
 }): LottieViewNativeComponentType);

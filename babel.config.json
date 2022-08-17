@@ -7,7 +7,7 @@
       "module-resolver",
       {
         "alias": {
-          "lottie-react-native": "./src/js"
+          "lottie-react-native": "./src/"
         },
         "cwd": "babelrc"
       }
