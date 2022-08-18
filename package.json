@@ -62,7 +62,7 @@
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
-    "@react-native-community/slider": "^4.1.10",
+    "@react-native-community/slider": "~4.1.10",
     "@react-native-picker/picker": "^2.1.0",
     "babel-eslint": "^9.0.0",
     "babel-plugin-module-resolver": "^4.0.0",
