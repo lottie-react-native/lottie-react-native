@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "react": "18.1.0",
-    "react-native": "0.70.0-rc.3",
+    "react-native": "0.70.0-rc.4",
     "lottie-react-native": "file:../",
     "lottie-ios": "^3.4.1"
   },
@@ -17,6 +17,6 @@
     "@babel/core": "^7.12.12",
     "@babel/runtime": "^7.17.9",
     "babel-plugin-module-resolver": "^4.0.0",
-    "metro-react-native-babel-preset": "^0.72.0"
+    "metro-react-native-babel-preset": "^0.72.1"
   }
 }

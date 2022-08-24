@@ -8,9 +8,11 @@
   "source": "src/index",
   "files": [
     "src",
-    "lib",
     "android",
-    "ios"
+    "ios",
+    "lottie-react-native.podspec",
+    "!android/build",
+    "!ios/build"
   ],
   "scripts": {
     "prepare": "npm run build",
@@ -70,12 +72,12 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.30.1",
     "gitbook-cli": "^2.3.2",
-    "metro-react-native-babel-preset": "^0.72.0",
+    "metro-react-native-babel-preset": "^0.72.1",
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
     "react": "18.1.0",
-    "react-native": "0.70.0-rc.3",
-    "react-native-windows": "0.69.4"
+    "react-native": "0.70.0-rc.4",
+    "react-native-windows": "0.69.6"
   },
   "codegenConfig": {
     "name": "RNLottieAnimationViewSpec",
