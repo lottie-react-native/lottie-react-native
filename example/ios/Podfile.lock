@@ -12,8 +12,8 @@ PODS:
   - fmt (6.2.1)
   - glog (0.3.5)
   - lottie-ios (3.4.1)
-  - lottie-react-native (5.1.3):
-    - lottie-ios (~> 3.4.0)
+  - lottie-react-native (5.1.4):
+    - lottie-ios (~> 3.4.1)
     - React-Core
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -299,7 +299,6 @@ DEPENDENCIES:
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -335,6 +334,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - fmt
+    - lottie-ios
 
 EXTERNAL SOURCES:
   boost:
@@ -347,8 +347,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/React/FBReactNativeSpec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
-  lottie-ios:
-    :path: "../node_modules/lottie-ios"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
   RCT-Folly:
@@ -416,7 +414,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 476ee3e89abb49e07f822b48323c51c57124b572
   lottie-ios: 016449b5d8be0c3dcbcfa0a9988469999cd04c5d
-  lottie-react-native: f95a72b84460e0dc0f6341a0da9702111dd11171
+  lottie-react-native: da7af021c13d9f1805253245248c492be8fc0924
   RCT-Folly: 4d8508a426467c48885f1151029bc15fa5d7b3b8
   RCTRequired: 3e917ea5377751094f38145fdece525aa90545a0
   RCTTypeSafety: c43c072a4bd60feb49a9570b0517892b4305c45e
