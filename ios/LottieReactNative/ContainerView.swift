@@ -72,8 +72,7 @@ class ContainerView: RCTView {
 
     func getLottieConfiguration() -> LottieConfiguration {
         return LottieConfiguration(
-            // Text Providers is not supported for Core Animation render engine
-            renderingEngine: textFilters.count > 0 ? .mainThread : renderMode
+            renderingEngine: renderMode
         )
     }
        
