@@ -11,9 +11,9 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.68.2)
   - fmt (6.2.1)
   - glog (0.3.5)
-  - lottie-ios (3.4.1)
+  - lottie-ios (3.4.3)
   - lottie-react-native (5.1.4):
-    - lottie-ios (~> 3.4.1)
+    - lottie-ios (~> 3.4.3)
     - React-Core
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -413,8 +413,8 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 81ce99032d5b586fddd6a38d450f8595f7e04be4
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 476ee3e89abb49e07f822b48323c51c57124b572
-  lottie-ios: 016449b5d8be0c3dcbcfa0a9988469999cd04c5d
-  lottie-react-native: da7af021c13d9f1805253245248c492be8fc0924
+  lottie-ios: 9ae750cdc7820fecbd3c2f0cfc493038208fcdc4
+  lottie-react-native: 1adad1c27f4a1f3f377aaeb3eb3f7cba7b23b30f
   RCT-Folly: 4d8508a426467c48885f1151029bc15fa5d7b3b8
   RCTRequired: 3e917ea5377751094f38145fdece525aa90545a0
   RCTTypeSafety: c43c072a4bd60feb49a9570b0517892b4305c45e

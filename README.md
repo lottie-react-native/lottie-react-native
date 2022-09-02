@@ -96,7 +96,7 @@ Depending on which version of React Native your app runs on you might need to in
 | >= 0.60       | 4.0.2 | 3.2.3 
 | >= 0.63       | 4.0.3 | 3.2.3 
 | >= 0.64       | 4.1.3 | 3.2.3 
-| >= 0.66       | latest | 3.4.1 
+| >= 0.66       | latest | 3.4.3 
 
 ## Usage
 
