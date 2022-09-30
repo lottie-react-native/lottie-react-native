@@ -1,0 +1,22 @@
+{
+  "name": "fabric-example",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android --active-arch-only",
+    "ios": "cd ios && pod install && cd .. && react-native run-ios",
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "lottie-ios": "^3.4.3",
+    "lottie-react-native": "*",
+    "react": "18.1.0",
+    "react-native": "0.70.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/runtime": "^7.19.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "metro-react-native-babel-preset": "^0.72.3"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "lottie-react-native-example",
+  "name": "paper-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,20 +13,20 @@
     "vssharp": "start windows/csharp/Example.sln"
   },
   "dependencies": {
+    "@react-native-community/slider": "^4.3.1",
+    "@react-native-picker/picker": "^2.4.6",
+    "lottie-ios": "^3.4.3",
+    "lottie-react-native": "*",
     "react": "18.1.0",
-    "react-native": "0.70.0-rc.4",
-    "react-native-windows": "0.69.4",
-    "lottie-react-native": "link:../",
-    "@react-native-community/slider": "^4.2.4",
-    "@react-native-picker/picker": "^2.4.3",
     "react-native-dropdown-picker": "^5.4.2",
+    "react-native": "0.70.1",
+    "react-native-windows": "0.70.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.12",
-    "@babel/runtime": "^7.17.9",
+    "@babel/core": "^7.19.3",
+    "@babel/runtime": "^7.19.0",
     "@react-native-community/eslint-config": "3.0.0",
     "eslint": "^7.32.0",
-    "metro-react-native-babel-preset": "^0.72.1",
-    "react-test-renderer": "18.1.0"
+    "metro-react-native-babel-preset": "^0.72.3"
   }
 }
