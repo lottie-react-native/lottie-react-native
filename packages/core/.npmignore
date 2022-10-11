@@ -22,20 +22,13 @@ coverage
 # node-waf configuration
 .lock-wscript
 
-.github
-.vscode
-docs
-example
-fabric-example
 node_modules
-react-native.config.js
 
 .eslintignore
 .eslintrc
 .gitignore
 .prettierignore
 .prettierrc
-book.json
 
 src/windows/cppwinrt/bin
 src/windows/cppwinrt/obj

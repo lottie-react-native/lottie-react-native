@@ -1,7 +1,7 @@
-declare module "lottie-react-native" {
-  import { Animated, StyleProp, ViewStyle, LayoutChangeEvent } from "react-native";
+declare module 'lottie-react-native' {
+  import { Animated, StyleProp, ViewStyle, LayoutChangeEvent } from 'react-native';
 
-  export function enableFabricForLottieReactNative(shouldEnableFabric: boolean = true): void
+  export function enableFabricForLottieReactNative(shouldEnableFabric: boolean = true): void;
 
   /**
    * Serialized animation as generated from After Effects
@@ -64,7 +64,7 @@ declare module "lottie-react-native" {
     /**
      * The duration of the animation in ms. Takes precedence over speed when set.
      * This only works when source is an actual JS object of an animation.
-     * 
+     *
      * **Note: prop is not yet supported by new arch!**
      */
     duration?: number;
@@ -77,7 +77,7 @@ declare module "lottie-react-native" {
     /**
      * Style attributes for the view, as expected in a standard `View`:
      * http://facebook.github.io/react-native/releases/0.39/docs/view.html#style
-     * 
+     *
      * **CAVEAT: border styling is not supported.**
      */
     style?: StyleProp<ViewStyle>;
@@ -87,13 +87,13 @@ declare module "lottie-react-native" {
      * dimensions.
      * Refer to https://facebook.github.io/react-native/docs/image.html#resizemode
      */
-    resizeMode?: "cover" | "contain" | "center";
+    resizeMode?: 'cover' | 'contain' | 'center';
 
     /**
      * Determines how Lottie should render
      * Refer to LottieAnimationView#setRenderMode(RenderMode) for more information.
      */
-    renderMode?: "AUTOMATIC" | "HARDWARE" | "SOFTWARE";
+    renderMode?: 'AUTOMATIC' | 'HARDWARE' | 'SOFTWARE';
 
     /**
      * A boolean flag indicating whether or not the animation should start automatically when
@@ -129,26 +129,34 @@ declare module "lottie-react-native" {
      */
     testID?: string;
 
-// Android Props
+    // Android Props
 
-   /**
-    * A boolean flag to enable merge patching.
-    * 
-    * @platform android
-    */
+    /**
+     * A boolean flag to enable merge patching.
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     * @platform android
+     */
     enableMergePathsAndroidForKitKatAndAbove?: boolean;
 
     /**
      * A boolean flag indicating whether or not the animation should caching. Defaults to true.
      * Refer to LottieAnimationView#setCacheComposition(boolean) for more information.
-     * 
+     *
      * @platform android
      */
-     cacheComposition?: boolean;
+    cacheComposition?: boolean;
 
     /**
      * An array of objects denoting text values to find and replace.
-     * 
+     *
      * @platform android
      */
     textFiltersAndroid?: Array<TextFilterAndroid>;
@@ -157,7 +165,7 @@ declare module "lottie-react-native" {
      * Relative folder inside of assets containing image files to be animated.
      * Make sure that the images that bodymovin export are in that folder with their names unchanged (should be img_#).
      * Refer to https://github.com/airbnb/lottie-android#image-support for more details.
-     * 
+     *
      * @platform android
      */
     imageAssetsFolder?: string;
@@ -166,9 +174,9 @@ declare module "lottie-react-native" {
      * Uses hardware acceleration to perform the animation. This should only
      * be used for animations where your width and height are equal to the composition width
      * and height, e.g. you are not scaling the animation.
-     * 
+     *
      * **Note: prop is not yet supported by new arch!**
-     * 
+     *
      * @platform android
      */
     hardwareAccelerationAndroid?: boolean;
@@ -178,38 +186,38 @@ declare module "lottie-react-native" {
      * strong - cached forever
      * weak   - cached as long it is in active use
      * none   - not cached
-     * 
+     *
      * **Note: prop is not yet supported by new arch!**
-     * 
+     *
      * @platform android
      */
-     cacheStrategy?: 'strong' | 'weak' | 'none';
+    cacheStrategy?: 'strong' | 'weak' | 'none';
 
-// iOS Props
+    // iOS Props
 
     /**
      * An array of objects denoting text layers by KeyPath and a new string value.
-     * 
+     *
      * @platform ios
      */
     textFiltersIOS?: Array<TextFilterIOS>;
 
-// Windows Props
+    // Windows Props
 
     /**
-     * A boolean flag to enable use of platform-level looping on Windows. This improves loop smoothness, 
+     * A boolean flag to enable use of platform-level looping on Windows. This improves loop smoothness,
      * but onAnimationLoop will not fire and changing the loop prop will restart playback.
-     * 
+     *
      * @platform windows
      */
     useNativeLooping?: boolean;
 
     /**
      * A callback function which will be called when the animation loops.
-     * 
+     *
      * @platform windows
      */
-    onAnimationLoop ?: () => void;
+    onAnimationLoop?: () => void;
   }
 
   /**

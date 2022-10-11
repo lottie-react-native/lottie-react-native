@@ -1,58 +1,37 @@
 import React from 'react';
-import { Animated, View, StyleSheet, processColor, UIManager, findNodeHandle } from 'react-native';
+import { View, StyleSheet, processColor } from 'react-native';
 
-const isFabricEnabled = require('./index').isFabricEnabled;
 const NativeLottieView = require('./LottieAnimationViewNativeComponent').default;
-const AnimatedNativeLottieView = Animated.createAnimatedComponent(NativeLottieView);
+const Commands = require('./LottieAnimationViewNativeComponent').Commands;
 
-const Commands = isFabricEnabled
-  ? require('./LottieAnimationViewNativeComponent').Commands
-  : undefined;
-
-class LottieView extends React.PureComponent {
+export default class LottieView extends React.PureComponent {
   componentDidUpdate(prevProps) {
-    /* if (this.props.autoPlay && this.props.source !== prevProps.source && !!this.props.source) {
+    if (this.props.autoPlay && this.props.source !== prevProps.source && !!this.props.source) {
       this.play();
-    } */
+    }
   }
 
   play(startFrame = -1, endFrame = -1) {
-    if (isFabricEnabled) {
-      if (this._ref != null) {
-        Commands?.play(this._ref, startFrame, endFrame);
-      }
-    } else {
-      UIManager.dispatchViewManagerCommand(this.getHandle(), 'play', [startFrame, endFrame]);
+    if (this._ref != null) {
+      Commands?.play(this._ref, startFrame, endFrame);
     }
   }
 
   reset() {
-    if (isFabricEnabled) {
-      if (this._ref != null) {
-        Commands?.reset(this._ref);
-      }
-    } else {
-      UIManager.dispatchViewManagerCommand(this.getHandle(), 'reset', []);
+    if (this._ref != null) {
+      Commands?.reset(this._ref);
     }
   }
 
   pause() {
-    if (isFabricEnabled) {
-      if (this._ref != null) {
-        Commands?.pause(this._ref);
-      }
-    } else {
-      UIManager.dispatchViewManagerCommand(this.getHandle(), 'pause', []);
+    if (this._ref != null) {
+      Commands?.pause(this._ref);
     }
   }
 
   resume() {
-    if (isFabricEnabled) {
-      if (this._ref != null) {
-        Commands?.resume(this._ref);
-      }
-    } else {
-      UIManager.dispatchViewManagerCommand(this.getHandle(), 'resume', []);
+    if (this._ref != null) {
+      Commands?.resume(this._ref);
     }
   }
 
@@ -62,17 +41,11 @@ class LottieView extends React.PureComponent {
     }
   };
 
-  // Ref handling for new arch
   _captureRef = (ref) => {
     this._ref = ref;
     if (this.props.autoPlay) {
       this.play();
     }
-  };
-
-  // Ref handling for old arch
-  getHandle = () => {
-    return findNodeHandle(this._ref);
   };
 
   render() {
@@ -107,7 +80,7 @@ class LottieView extends React.PureComponent {
      * To avoid passing complex objects via the fabric arch, I would suggest that we use a simple json array
      * which we can transform back into an object when consuming it on the android/ios side.
      */
-    const textFiltersNewArch = Platform.select({
+    const textFilters = Platform.select({
       android: JSON.stringify(this.props.textFiltersAndroid),
       ios: JSON.stringify(this.props.textFiltersIOS),
       default: undefined,
@@ -115,16 +88,16 @@ class LottieView extends React.PureComponent {
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
-        <AnimatedNativeLottieView
+        <NativeLottieView
           ref={this._captureRef}
           {...rest}
-          colorFilters={isFabricEnabled ? JSON.stringify(colorFilters) : colorFilters}
+          colorFilters={JSON.stringify(colorFilters)}
           speed={speed}
           style={[aspectRatioStyle, sizeStyle || { width: '100%', height: '100%' }, style]}
           sourceName={sourceName}
           sourceJson={sourceJson}
           sourceURL={sourceURL}
-          textFilters={isFabricEnabled ? textFiltersNewArch : undefined}
+          textFilters={textFilters}
           progress={this.props.progress}
           onAnimationFinish={this.onAnimationFinish}
         />
@@ -147,5 +120,3 @@ LottieView.defaultProps = {
   textFiltersAndroid: [],
   textFiltersIOS: [],
 };
-
-export default LottieView;

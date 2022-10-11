@@ -1,0 +1,73 @@
+{
+  "name": "lottie-react-native",
+  "version": "6.0.0-alpha.01",
+  "description": "React Native bindings for Lottie",
+  "main": "dist/index",
+  "types": "src/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "dist",
+    "src",
+    "android",
+    "ios",
+    "lottie-react-native.podspec",
+    "!android/build",
+    "!ios/build"
+  ],
+  "scripts": {
+    "build": "babel src/ --out-dir dist",
+    "watch": "babel src/ --out-dir dist --watch"
+  },
+  "dependencies": {
+    "react": "18.1.0",
+    "react-native": "0.70.2",
+    "react-native-windows": "0.70.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/runtime": "^7.19.4",
+    "flow-bin": "0.182.0",
+    "flow-typed": "^3.8.0",
+    "metro-react-native-babel-preset": "^0.72.3",
+    "prettier": "^2.7.1"
+  },
+  "peerDependencies": {
+    "lottie-ios": "^3.5.0",
+    "react": "*",
+    "react-native": ">=0.46",
+    "react-native-windows": ">=0.63.x"
+  },
+  "peerDependenciesMeta": {
+    "react-native-windows": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "lottie",
+    "animation",
+    "react",
+    "react-native",
+    "keyframe"
+  ],
+  "repository": "https://github.com/react-native-community/lottie-react-native",
+  "author": "Emilio Rodriguez <emiliorodriguez@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/react-native-community/lottie-react-native/issues"
+  },
+  "homepage": "https://github.com/airbnb/lottie-react-native#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "codegenConfig": {
+    "name": "RNLottieAnimationViewSpec",
+    "type": "components",
+    "jsSrcsDir": "src",
+    "android": {
+      "javaPackageName": "com.airbnb.android.react.lottie"
+    }
+  }
+}

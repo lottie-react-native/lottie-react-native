@@ -7,7 +7,7 @@
 
 const path = require('path');
 
-const watchFolders = [path.resolve(__dirname + '/../../lib')];
+const watchFolders = [path.resolve(__dirname + '/../../packages/core')];
 
 module.exports = {
   transformer: {
