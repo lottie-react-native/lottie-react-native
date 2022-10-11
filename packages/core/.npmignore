@@ -24,11 +24,15 @@ coverage
 
 node_modules
 
+android/build
+ios/build
+
 .eslintignore
 .eslintrc
 .gitignore
 .prettierignore
 .prettierrc
+.tsconfig.json
 
 src/windows/cppwinrt/bin
 src/windows/cppwinrt/obj

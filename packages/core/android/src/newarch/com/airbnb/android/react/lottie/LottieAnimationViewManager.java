@@ -3,7 +3,6 @@ package com.airbnb.android.react.lottie;
 import androidx.annotation.NonNull;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;

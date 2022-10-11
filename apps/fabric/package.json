@@ -1,6 +1,6 @@
 {
   "name": "fabric-example",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android --active-arch-only",
@@ -16,7 +16,8 @@
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/runtime": "^7.19.4",
-    "babel-plugin-module-resolver": "^4.1.0",
-    "metro-react-native-babel-preset": "^0.72.3"
+    "@types/react-native": "^0.70.4",
+    "metro-react-native-babel-preset": "^0.72.3",
+    "typescript": "^4.8.4"
   }
 }
