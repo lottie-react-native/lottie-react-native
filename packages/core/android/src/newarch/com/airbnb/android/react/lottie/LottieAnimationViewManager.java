@@ -1,8 +1,10 @@
 package com.airbnb.android.react.lottie;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
@@ -128,15 +130,18 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView>
     }
 
     @Override
-    public void setColorFilters(LottieAnimationView view, String colorFilters) {
-        //LottieAnimationViewManagerImpl.setColorFilters(view, colorFilters, propManagersMap);
-        //TODO use GSON to transform new filters to usable object
+    public void setColorFilters(LottieAnimationView view, @Nullable ReadableArray colorFilters) {
+        LottieAnimationViewManagerImpl.setColorFilters(view, colorFilters, propManagersMap);
     }
 
     @Override
-    public void setTextFilters(LottieAnimationView view, String textFilters) {
-        //LottieAnimationViewManagerImpl.setColorFilters(view, colorFilters, propManagersMap);
-        //TODO use GSON to transform new filters to usable object
+    public void setTextFiltersAndroid(LottieAnimationView view, @Nullable ReadableArray textFilters) {
+        LottieAnimationViewManagerImpl.setTextFilters(view, textFilters, propManagersMap);
+    }
+
+    @Override
+    public void setTextFiltersIOS(LottieAnimationView view, @Nullable ReadableArray value) {
+        //ignore - do nothing here
     }
 
     @Override

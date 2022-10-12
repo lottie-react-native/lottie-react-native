@@ -42,7 +42,7 @@ export interface AnimatedLottieViewProps {
    * animation, obtained (for example) with something like
    * `require('../path/to/animation.json')`
    */
-  source: string | AnimationObject;
+  source: string | AnimationObject | { uri: string };
 
   /**
    * A number between 0 and 1, or an `Animated` number between 0 and 1. This number

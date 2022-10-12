@@ -1,40 +1,67 @@
 buildscript {
+    def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['lottiereactnative_kotlinVersion']
+
     repositories {
         google()
         gradlePluginPortal()
+        mavenCentral()
     }
 
     dependencies {
         classpath("com.android.tools.build:gradle:7.2.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
 
+def getExtOrDefault(name, defaultValue) {
+    rootProject.ext.has(name) ? rootProject.ext.get(name) : defaultValue
+}
+
 def isNewArchitectureEnabled() {
+    // To opt-in for the New Architecture, you can either:
+    // - Set `newArchEnabled` to true inside the `gradle.properties` file
+    // - Invoke gradle with `-newArchEnabled=true`
+    // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
 
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
-
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
 if (isNewArchitectureEnabled()) {
     apply plugin: 'com.facebook.react'
 }
 
 android {
-    compileSdk safeExtGet('compileSdkVersion', 31)
+    compileSdk getExtOrDefault('compileSdkVersion', 31)
+
+    // Used to override the NDK path/version on internal CI or by allowing
+    // users to customize the NDK path/version from their root project (e.g. for M1 support)
+    if (rootProject.hasProperty("ndkPath")) {
+        ndkPath rootProject.ext.ndkPath
+    }
+    if (rootProject.hasProperty("ndkVersion")) {
+        ndkVersion rootProject.ext.ndkVersion
+    }
 
     defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 21)
-        targetSdkVersion safeExtGet('targetSdkVersion', 31)
+        minSdkVersion getExtOrDefault('minSdkVersion', 21)
+        targetSdkVersion getExtOrDefault('targetSdkVersion', 31)
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+
+        ndk {
+            abiFilters(*reactNativeArchitectures())
+        }
+    }
+
+    packagingOptions {
+        exclude "**/libreact_render*.so"
     }
 
     sourceSets {
         main {
             if (isNewArchitectureEnabled()) {
-                java.srcDirs += ['src/newarch']
+                java.srcDirs += ['src/newarch', "${project.buildDir}/generated/source/codegen/java"]
             } else {
                 java.srcDirs += ['src/oldarch']
             }
@@ -42,17 +69,31 @@ android {
     }
 }
 
+def reactNativeArchitectures() {
+    def value = project.getProperties().get("reactNativeArchitectures")
+    return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
+}
+
 repositories {
+    google()
     maven {
         // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
         url "$projectDir/../node_modules/react-native/android"
     }
     mavenCentral()
-    google()
 }
 
+def kotlin_version = getExtOrDefault('kotlinVersion', project.properties['lottiereactnative_kotlinVersion'])
+
 dependencies {
-    //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+" // From node_modules
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    if (isNewArchitectureEnabled()) {
+        implementation project(":ReactAndroid")
+    } else {
+        //noinspection GradleDynamicVersion
+        implementation 'com.facebook.react:react-native:+' // From node_modules
+    }
+
     implementation "com.airbnb.android:lottie:5.2.0"
 }

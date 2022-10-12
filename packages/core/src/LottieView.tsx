@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  processColor,
-  Platform,
-  NativeSyntheticEvent,
-} from 'react-native';
+import { View, StyleSheet, NativeSyntheticEvent } from 'react-native';
 
 import type {
   AnimatedLottieViewProps,
@@ -99,14 +93,23 @@ export class AnimatedLottieView extends React.PureComponent<
   }
 
   render(): React.ReactNode {
-    const { style, source, autoSize, autoPlay, ...rest } = this.props;
+    const {
+      style,
+      source,
+      autoSize,
+      textFiltersAndroid,
+      textFiltersIOS,
+      colorFilters,
+      ...rest
+    } = this.props;
 
-    /**
-     * TODO: Add back source uri support
-     */
     const sourceName = typeof source === 'string' ? source : undefined;
     const sourceJson =
       typeof source === 'object' ? JSON.stringify(source) : undefined;
+    const sourceURL =
+      typeof source === 'object' && (source as any).uri
+        ? ((source as any).uri as string)
+        : undefined;
 
     const aspectRatioStyle = sourceJson
       ? {
@@ -136,27 +139,19 @@ export class AnimatedLottieView extends React.PureComponent<
           )
         : this.props.speed;
 
-    /**
-     * TODO: Refactor usage of the below two props
-     */
-    const colorFilters = Array.isArray(this.props.colorFilters)
+    /*     const colorFilters = Array.isArray(this.props.colorFilters)
       ? this.props.colorFilters.map(({ keypath, color }) => ({
           keypath,
-          color: processColor(color),
+          color: processColor(color) as number,
         }))
-      : undefined;
-    const textFilters = Platform.select({
-      android: JSON.stringify(this.props.textFiltersAndroid),
-      ios: JSON.stringify(this.props.textFiltersIOS),
-      default: undefined,
-    });
+      : undefined; */
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
         <NativeLottieAnimationView
           ref={this._captureRef}
           {...rest}
-          colorFilters={JSON.stringify(colorFilters)}
+          //colorFilters={colorFilters}
           speed={speed}
           style={[
             aspectRatioStyle,
@@ -165,7 +160,7 @@ export class AnimatedLottieView extends React.PureComponent<
           ]}
           sourceName={sourceName}
           sourceJson={sourceJson}
-          textFilters={textFilters}
+          sourceURL={sourceURL}
           progress={this.props.progress}
           onAnimationFinish={this._onAnimationFinish}
         />

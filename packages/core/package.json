@@ -79,7 +79,7 @@
     "android": {
       "javaPackageName": "com.airbnb.android.react.lottie"
     },
-    "name": "RNLottieAnimationViewSpec",
+    "name": "lottiereactnative",
     "type": "components",
     "jsSrcsDir": "./src/specs"
   }

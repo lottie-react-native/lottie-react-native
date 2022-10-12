@@ -12,6 +12,22 @@ type OnAnimationFinishEvent = Readonly<{
   isCancelled: boolean;
 }>;
 
+// The following types need more work to actually work with the new arch
+/* type ColorFilter = Readonly<{
+  keypath: string;
+  color: Int32;
+}>;
+
+type TextFilterAndroid = Readonly<{
+  find: string;
+  replace: string;
+}>;
+
+type TextFilterIOS = Readonly<{
+  keypath: string;
+  text: string;
+}>; */
+
 export interface NativeProps extends ViewProps {
   resizeMode?: string;
   renderMode?: string;
@@ -24,8 +40,9 @@ export interface NativeProps extends ViewProps {
   loop?: boolean;
   enableMergePathsAndroidForKitKatAndAbove?: boolean;
   cacheComposition?: boolean;
-  colorFilters?: string;
-  textFilters?: string;
+  colorFilters?: ReadonlyArray<string>;
+  textFiltersAndroid?: ReadonlyArray<string>;
+  textFiltersIOS?: ReadonlyArray<string>;
   onAnimationFinish?: BubblingEventHandler<
     OnAnimationFinishEvent,
     'onAnimationFinish'
@@ -49,6 +66,6 @@ export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['play', 'reset', 'pause', 'resume'],
 });
 
-export default codegenNativeComponent<NativeProps>('LottieAnimationView', {
-  excludedPlatforms: ['iOS'],
-}) as HostComponent<NativeProps>;
+export default codegenNativeComponent<NativeProps>(
+  'LottieAnimationView',
+) as HostComponent<NativeProps>;
