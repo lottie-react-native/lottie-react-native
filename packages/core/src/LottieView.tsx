@@ -1,10 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, NativeSyntheticEvent, Animated } from 'react-native';
 
-import type {
-  AnimatedLottieViewProps,
-  AnimationObject,
-} from './LottieView.types';
+import type { AnimatedLottieViewProps } from './LottieView.types';
 
 import NativeLottieAnimationView, {
   Commands,
@@ -49,7 +46,7 @@ export class AnimatedLottieView extends React.PureComponent<
     this.reset = this.reset.bind(this);
     this.pause = this.pause.bind(this);
     this.resume = this.resume.bind(this);
-    this._onAnimationFinish = this._onAnimationFinish.bind(this);
+    this.onAnimationFinish = this.onAnimationFinish.bind(this);
     this._captureRef = this._captureRef.bind(this);
   }
 
@@ -63,37 +60,27 @@ export class AnimatedLottieView extends React.PureComponent<
     }
   }
 
-  public play(startFrame?: number, endFrame?: number): void {
-    if (this._lottieAnimationViewRef) {
-      Commands.play(
-        this._lottieAnimationViewRef,
-        startFrame ?? -1,
-        endFrame ?? -1,
-      );
-    }
+  play(startFrame?: number, endFrame?: number): void {
+    Commands.play(
+      this._lottieAnimationViewRef,
+      startFrame ?? -1,
+      endFrame ?? -1,
+    );
   }
 
-  public reset() {
-    if (this._lottieAnimationViewRef) {
-      Commands.reset(this._lottieAnimationViewRef);
-    }
+  reset() {
+    Commands.reset(this._lottieAnimationViewRef);
   }
 
-  public pause() {
-    if (this._lottieAnimationViewRef) {
-      Commands.pause(this._lottieAnimationViewRef);
-    }
+  pause() {
+    Commands.pause(this._lottieAnimationViewRef);
   }
 
-  public resume() {
-    if (this._lottieAnimationViewRef) {
-      Commands.resume(this._lottieAnimationViewRef);
-    }
+  resume() {
+    Commands.resume(this._lottieAnimationViewRef);
   }
 
-  _onAnimationFinish = (
-    evt: NativeSyntheticEvent<{ isCancelled: boolean }>,
-  ) => {
+  onAnimationFinish = (evt: NativeSyntheticEvent<{ isCancelled: boolean }>) => {
     if (this.props.onAnimationFinish) {
       this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
     }
@@ -111,6 +98,8 @@ export class AnimatedLottieView extends React.PureComponent<
       style,
       source,
       autoSize,
+      autoPlay,
+      duration,
       textFiltersAndroid,
       textFiltersIOS,
       colorFilters,
@@ -119,17 +108,16 @@ export class AnimatedLottieView extends React.PureComponent<
 
     const sourceName = typeof source === 'string' ? source : undefined;
     const sourceJson =
-      typeof source === 'object' ? JSON.stringify(source) : undefined;
+      typeof source === 'object' && !(source as any).uri
+        ? JSON.stringify(source)
+        : undefined;
     const sourceURL =
       typeof source === 'object' && (source as any).uri
-        ? ((source as any).uri as string)
+        ? (source as any).uri
         : undefined;
 
     const aspectRatioStyle = sourceJson
-      ? {
-          aspectRatio:
-            (source as AnimationObject).w / (source as AnimationObject).h,
-        }
+      ? { aspectRatio: (source as any).w / (source as any).h }
       : undefined;
 
     const styleObject = StyleSheet.flatten(style);
@@ -140,25 +128,23 @@ export class AnimatedLottieView extends React.PureComponent<
     ) {
       sizeStyle =
         autoSize && sourceJson
-          ? { width: (source as AnimationObject).w }
+          ? { width: (source as any).w }
           : StyleSheet.absoluteFill;
     }
 
     const speed =
-      this.props.duration && sourceJson && (source as AnimationObject).fr
+      duration && sourceJson && (source as any).fr
         ? Math.round(
-            (((source as AnimationObject).op / (source as AnimationObject).fr) *
-              1000) /
-              this.props.duration,
+            (((source as any).op / (source as any).fr) * 1000) / duration,
           )
         : this.props.speed;
 
-    /*     const colorFilters = Array.isArray(this.props.colorFilters)
-      ? this.props.colorFilters.map(({ keypath, color }) => ({
-          keypath,
-          color: processColor(color) as number,
-        }))
-      : undefined; */
+    // const colorFilters = Array.isArray(this.props.colorFilters)
+    //   ? this.props.colorFilters.map(({ keypath, color }) => ({
+    //       keypath,
+    //       color: processColor(color),
+    //     }))
+    //   : undefined;
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
@@ -175,8 +161,7 @@ export class AnimatedLottieView extends React.PureComponent<
           sourceName={sourceName}
           sourceJson={sourceJson}
           sourceURL={sourceURL}
-          progress={this.props.progress}
-          onAnimationFinish={this._onAnimationFinish}
+          onAnimationFinish={this.onAnimationFinish}
         />
       </View>
     );

@@ -13,7 +13,6 @@
     "lib",
     "android",
     "ios",
-    "common",
     "*.podspec",
     "react-native.config.js"
   ],

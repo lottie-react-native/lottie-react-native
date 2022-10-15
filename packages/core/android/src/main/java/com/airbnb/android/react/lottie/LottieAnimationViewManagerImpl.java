@@ -101,7 +101,6 @@ final class LottieAnimationViewManagerImpl {
     }
 
     static void play(LottieAnimationView view, int startFrame, int endFrame) {
-        Log.e(LottieAnimationViewManagerImpl.class.getName(), "TESTING play");
         new Handler(Looper.getMainLooper()).post(() -> {
             if (startFrame != -1 && endFrame != -1) {
                 if (startFrame > endFrame) {
@@ -117,7 +116,6 @@ final class LottieAnimationViewManagerImpl {
                 }
             }
             if (ViewCompat.isAttachedToWindow(view)) {
-                Log.e(LottieAnimationViewManagerImpl.class.getName(), "TESTING playAnimation");
                 view.setProgress(0f);
                 view.playAnimation();
             } else {
@@ -164,7 +162,7 @@ final class LottieAnimationViewManagerImpl {
         });
     }
 
-    static void setSourceName(LottieAnimationView view, String name, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
+    static void setSourceName(LottieAnimationView view, String name, LottieAnimationViewPropertyManager viewManager) {
         // To match the behaviour on iOS we expect the source name to be
         // extensionless. This means "myAnimation" corresponds to a file
         // named `myAnimation.json` in `main/assets`. To maintain backwards
@@ -173,20 +171,17 @@ final class LottieAnimationViewManagerImpl {
         if (!name.contains(".")) {
             name = name + ".json";
         }
-        getOrCreatePropertyManager(view, propManagersMap).setAnimationName(name);
+        viewManager.setAnimationName(name);
     }
 
-    static void setSourceJson(LottieAnimationView view, String json, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).setAnimationJson(json);
+    static void setSourceJson(LottieAnimationView view, String json, LottieAnimationViewPropertyManager propManagersMap) {
+        propManagersMap.setAnimationJson(json);
     }
 
-    static void setSourceURL(LottieAnimationView view, String urlString, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        final String finalUrlString = urlString;
-        final LottieAnimationView finalView = view;
-
+    static void setSourceURL(LottieAnimationView view, String urlString, LottieAnimationViewPropertyManager propManagersMap) {
         Thread thread = new Thread(() -> {
             try {
-                BufferedReader in = new BufferedReader(new InputStreamReader(new URL(finalUrlString).openStream()));
+                BufferedReader in = new BufferedReader(new InputStreamReader(new URL(urlString).openStream()));
                 String inputLine;
                 StringBuilder json = new StringBuilder();
 
@@ -198,8 +193,8 @@ final class LottieAnimationViewManagerImpl {
                 final String js = json.toString();
 
                 new Handler(Looper.getMainLooper()).post(() -> {
-                    getOrCreatePropertyManager(finalView, propManagersMap).setAnimationJson(js);
-                    getOrCreatePropertyManager(finalView, propManagersMap).commitChanges();
+                    propManagersMap.setAnimationJson(js);
+                    propManagersMap.commitChanges();
                 });
             } catch (Exception e) {
                 Log.e(LottieAnimationViewManagerImpl.class.getName(), "Error loading animation from URL: " + e);
@@ -213,7 +208,7 @@ final class LottieAnimationViewManagerImpl {
         view.setCacheComposition(cacheComposition);
     }
 
-    static void setResizeMode(LottieAnimationView view, String resizeMode, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
+    static void setResizeMode(LottieAnimationView view, String resizeMode, LottieAnimationViewPropertyManager viewManager) {
         ImageView.ScaleType mode = null;
         if ("cover".equals(resizeMode)) {
             mode = ImageView.ScaleType.CENTER_CROP;
@@ -222,10 +217,10 @@ final class LottieAnimationViewManagerImpl {
         } else if ("center".equals(resizeMode)) {
             mode = ImageView.ScaleType.CENTER;
         }
-        getOrCreatePropertyManager(view, propManagersMap).setScaleType(mode);
+        viewManager.setScaleType(mode);
     }
 
-    static void setRenderMode(LottieAnimationView view, String renderMode, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
+    static void setRenderMode(LottieAnimationView view, String renderMode, LottieAnimationViewPropertyManager viewManager) {
         RenderMode mode = null;
         if ("AUTOMATIC".equals(renderMode)) {
             mode = RenderMode.AUTOMATIC;
@@ -234,48 +229,34 @@ final class LottieAnimationViewManagerImpl {
         } else if ("SOFTWARE".equals(renderMode)) {
             mode = RenderMode.SOFTWARE;
         }
-        getOrCreatePropertyManager(view, propManagersMap).setRenderMode(mode);
+        viewManager.setRenderMode(mode);
     }
 
-    static void setProgress(LottieAnimationView view, float progress, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).setProgress(progress);
+    static void setProgress(LottieAnimationView view, float progress, LottieAnimationViewPropertyManager viewManager) {
+        viewManager.setProgress(progress);
     }
 
-    static void setSpeed(LottieAnimationView view, double speed, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).setSpeed((float) speed);
+    static void setSpeed(LottieAnimationView view, double speed, LottieAnimationViewPropertyManager viewManager) {
+        viewManager.setSpeed((float) speed);
     }
 
-    static void setLoop(LottieAnimationView view, boolean loop, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).setLoop(loop);
+    static void setLoop(LottieAnimationView view, boolean loop, LottieAnimationViewPropertyManager viewManager) {
+        viewManager.setLoop(loop);
     }
 
-    static void setEnableMergePaths(LottieAnimationView view, boolean enableMergePaths, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).setEnableMergePaths(enableMergePaths);
+    static void setEnableMergePaths(LottieAnimationView view, boolean enableMergePaths, LottieAnimationViewPropertyManager viewManager) {
+        viewManager.setEnableMergePaths(enableMergePaths);
     }
 
-    static void onAfterUpdateTransaction(LottieAnimationView view, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).commitChanges();
+    static void setImageAssetsFolder(LottieAnimationView view, String imageAssetsFolder, LottieAnimationViewPropertyManager viewManager) {
+        viewManager.setImageAssetsFolder(imageAssetsFolder);
     }
 
-    static void setImageAssetsFolder(LottieAnimationView view, String imageAssetsFolder, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).setImageAssetsFolder(imageAssetsFolder);
+    static void setColorFilters(LottieAnimationView view, ReadableArray colorFilters, LottieAnimationViewPropertyManager viewManager) {
+        viewManager.setColorFilters(colorFilters);
     }
 
-    static void setColorFilters(LottieAnimationView view, ReadableArray colorFilters, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).setColorFilters(colorFilters);
-    }
-
-    static void setTextFilters(LottieAnimationView view, ReadableArray textFilters, Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        getOrCreatePropertyManager(view, propManagersMap).setTextFilters(textFilters);
-    }
-
-    static LottieAnimationViewPropertyManager getOrCreatePropertyManager(LottieAnimationView view,
-                                                                         Map<LottieAnimationView, LottieAnimationViewPropertyManager> propManagersMap) {
-        LottieAnimationViewPropertyManager result = propManagersMap.get(view);
-        if (result == null) {
-            result = new LottieAnimationViewPropertyManager(view);
-            propManagersMap.put(view, result);
-        }
-        return result;
+    static void setTextFilters(LottieAnimationView view, ReadableArray textFilters, LottieAnimationViewPropertyManager viewManager) {
+        viewManager.setTextFilters(textFilters);
     }
 }

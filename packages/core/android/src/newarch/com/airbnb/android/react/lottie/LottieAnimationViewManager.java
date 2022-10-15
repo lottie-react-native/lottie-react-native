@@ -9,6 +9,7 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewManagerDelegate;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.viewmanagers.LottieAnimationViewManagerDelegate;
 import com.facebook.react.viewmanagers.LottieAnimationViewManagerInterface;
 
@@ -25,6 +26,15 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView>
 
     public LottieAnimationViewManager() {
         delegate = new LottieAnimationViewManagerDelegate<>(this);
+    }
+
+    private LottieAnimationViewPropertyManager getOrCreatePropertyManager(LottieAnimationView view) {
+        LottieAnimationViewPropertyManager result = propManagersMap.get(view);
+        if (result == null) {
+            result = new LottieAnimationViewPropertyManager(view);
+            propManagersMap.put(view, result);
+        }
+        return result;
     }
 
     @Override
@@ -55,23 +65,14 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView>
     }
 
     @Override
-    public void setSourceName(LottieAnimationView view, String name) {
-        LottieAnimationViewManagerImpl.setSourceName(view, name, propManagersMap);
+    protected void onAfterUpdateTransaction(@NonNull LottieAnimationView view) {
+        super.onAfterUpdateTransaction(view);
+        getOrCreatePropertyManager(view).commitChanges();
     }
 
     @Override
-    public void setSourceJson(LottieAnimationView view, String json) {
-        LottieAnimationViewManagerImpl.setSourceJson(view, json, propManagersMap);
-    }
-
-    @Override
-    public void setSourceURL(LottieAnimationView view, String urlString) {
-        LottieAnimationViewManagerImpl.setSourceURL(view, urlString, propManagersMap);
-    }
-
-    @Override
-    public void setCacheComposition(LottieAnimationView view, boolean cacheComposition) {
-        LottieAnimationViewManagerImpl.setCacheComposition(view, cacheComposition);
+    public void receiveCommand(@NonNull LottieAnimationView root, String commandId, ReadableArray args) {
+        delegate.receiveCommand(root, commandId, args);
     }
 
     @Override
@@ -95,63 +96,86 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView>
     }
 
     @Override
+    @ReactProp(name = "sourceName")
+    public void setSourceName(LottieAnimationView view, String name) {
+        LottieAnimationViewManagerImpl.setSourceName(view, name, getOrCreatePropertyManager(view));
+    }
+
+    @Override
+    @ReactProp(name = "sourceJson")
+    public void setSourceJson(LottieAnimationView view, String json) {
+        LottieAnimationViewManagerImpl.setSourceJson(view, json, getOrCreatePropertyManager(view));
+    }
+
+    @Override
+    @ReactProp(name = "sourceURL")
+    public void setSourceURL(LottieAnimationView view, String urlString) {
+        LottieAnimationViewManagerImpl.setSourceURL(view, urlString, getOrCreatePropertyManager(view));
+    }
+
+    @Override
+    @ReactProp(name = "cacheComposition")
+    public void setCacheComposition(LottieAnimationView view, boolean cacheComposition) {
+        LottieAnimationViewManagerImpl.setCacheComposition(view, cacheComposition);
+    }
+
+    @Override
+    @ReactProp(name = "resizeMode")
     public void setResizeMode(LottieAnimationView view, String resizeMode) {
-        LottieAnimationViewManagerImpl.setResizeMode(view, resizeMode, propManagersMap);
+        LottieAnimationViewManagerImpl.setResizeMode(view, resizeMode, getOrCreatePropertyManager(view));
     }
 
     @Override
+    @ReactProp(name = "renderMode")
     public void setRenderMode(LottieAnimationView view, String renderMode) {
-        LottieAnimationViewManagerImpl.setRenderMode(view, renderMode, propManagersMap);
+        LottieAnimationViewManagerImpl.setRenderMode(view, renderMode, getOrCreatePropertyManager(view));
     }
 
     @Override
+    @ReactProp(name = "progress")
     public void setProgress(LottieAnimationView view, float progress) {
-        LottieAnimationViewManagerImpl.setProgress(view, progress, propManagersMap);
+        LottieAnimationViewManagerImpl.setProgress(view, progress, getOrCreatePropertyManager(view));
     }
 
     @Override
+    @ReactProp(name = "speed")
     public void setSpeed(LottieAnimationView view, double speed) {
-        LottieAnimationViewManagerImpl.setSpeed(view, speed, propManagersMap);
+        LottieAnimationViewManagerImpl.setSpeed(view, speed, getOrCreatePropertyManager(view));
     }
 
     @Override
+    @ReactProp(name = "loop")
     public void setLoop(LottieAnimationView view, boolean loop) {
-        LottieAnimationViewManagerImpl.setLoop(view, loop, propManagersMap);
+        LottieAnimationViewManagerImpl.setLoop(view, loop, getOrCreatePropertyManager(view));
     }
 
     @Override
+    @ReactProp(name = "imageAssetsFolder")
     public void setImageAssetsFolder(LottieAnimationView view, String imageAssetsFolder) {
-        LottieAnimationViewManagerImpl.setImageAssetsFolder(view, imageAssetsFolder, propManagersMap);
+        LottieAnimationViewManagerImpl.setImageAssetsFolder(view, imageAssetsFolder, getOrCreatePropertyManager(view));
     }
 
     @Override
+    @ReactProp(name = "enableMergePathsAndroidForKitKatAndAbove")
     public void setEnableMergePathsAndroidForKitKatAndAbove(LottieAnimationView view, boolean enableMergePaths) {
-        LottieAnimationViewManagerImpl.setEnableMergePaths(view, enableMergePaths, propManagersMap);
+        LottieAnimationViewManagerImpl.setEnableMergePaths(view, enableMergePaths, getOrCreatePropertyManager(view));
     }
 
     @Override
+    @ReactProp(name = "colorFilters")
     public void setColorFilters(LottieAnimationView view, @Nullable ReadableArray colorFilters) {
-        LottieAnimationViewManagerImpl.setColorFilters(view, colorFilters, propManagersMap);
+        LottieAnimationViewManagerImpl.setColorFilters(view, colorFilters, getOrCreatePropertyManager(view));
     }
 
     @Override
+    @ReactProp(name = "textFiltersAndroid")
     public void setTextFiltersAndroid(LottieAnimationView view, @Nullable ReadableArray textFilters) {
-        LottieAnimationViewManagerImpl.setTextFilters(view, textFilters, propManagersMap);
+        LottieAnimationViewManagerImpl.setTextFilters(view, textFilters, getOrCreatePropertyManager(view));
     }
 
+    // this props is not available on Android, however we must override the setter
     @Override
     public void setTextFiltersIOS(LottieAnimationView view, @Nullable ReadableArray value) {
         //ignore - do nothing here
-    }
-
-    @Override
-    protected void onAfterUpdateTransaction(@NonNull LottieAnimationView view) {
-        super.onAfterUpdateTransaction(view);
-        LottieAnimationViewManagerImpl.onAfterUpdateTransaction(view, propManagersMap);
-    }
-
-    @Override
-    public void receiveCommand(@NonNull LottieAnimationView root, String commandId, ReadableArray args) {
-        delegate.receiveCommand(root, commandId, args);
     }
 }

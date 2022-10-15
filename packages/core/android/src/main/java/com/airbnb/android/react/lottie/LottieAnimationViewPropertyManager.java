@@ -7,23 +7,21 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.airbnb.lottie.LottieProperty;
 import com.airbnb.lottie.RenderMode;
-import com.airbnb.lottie.SimpleColorFilter;
 import com.airbnb.lottie.TextDelegate;
+import com.airbnb.lottie.SimpleColorFilter;
 import com.airbnb.lottie.model.KeyPath;
 import com.airbnb.lottie.value.LottieValueCallback;
-import com.facebook.react.bridge.ColorPropConverter;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
-
+import com.facebook.react.bridge.ColorPropConverter;
 import java.lang.ref.WeakReference;
 import java.util.regex.Pattern;
-
 /**
  * Class responsible for applying the properties to the LottieView.
  * The way react-native works makes it impossible to predict in which order properties will be set,
  * also some of the properties of the LottieView needs to be set simultaneously.
- * <p>
+ *
  * To solve this, instance of this class accumulates all changes to the view and applies them at
  * the end of react transaction, so it could control how changes are applied.
  */
@@ -103,7 +101,7 @@ public class LottieAnimationViewPropertyManager {
      * Updates the view with changed fields.
      * Majority of the properties here are independent so they are has to be reset to null
      * as soon as view is updated with the value.
-     * <p>
+     *
      * The only exception from this rule is the group of the properties for the animation.
      * For now this is animationName and cacheStrategy. These two properties are should be set
      * simultaneously if the dirty flag is set.
@@ -171,7 +169,7 @@ public class LottieAnimationViewPropertyManager {
         }
 
         if (colorFilters != null && colorFilters.size() > 0) {
-            for (int i = 0; i < colorFilters.size(); i++) {
+            for (int i = 0 ; i < colorFilters.size() ; i++) {
                 ReadableMap current = colorFilters.getMap(i);
                 int color;
                 if (current.getType("color") == ReadableType.Map) {
@@ -181,9 +179,9 @@ public class LottieAnimationViewPropertyManager {
                 }
                 String path = current.getString("keypath");
                 ColorFilter colorFilter = new SimpleColorFilter(color);
-                String pathWithGlobstar = path + ".**";
+                String pathWithGlobstar = path +".**";
                 String[] keys = pathWithGlobstar.split(Pattern.quote("."));
-                KeyPath keyPath = new KeyPath(keys);
+                KeyPath keyPath = new  KeyPath(keys);
                 LottieValueCallback<ColorFilter> callback = new LottieValueCallback<>(colorFilter);
                 view.addValueCallback(keyPath, LottieProperty.COLOR_FILTER, callback);
             }
