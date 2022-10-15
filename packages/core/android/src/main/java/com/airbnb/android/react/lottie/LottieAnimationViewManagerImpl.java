@@ -101,6 +101,7 @@ final class LottieAnimationViewManagerImpl {
     }
 
     static void play(LottieAnimationView view, int startFrame, int endFrame) {
+        Log.e(LottieAnimationViewManagerImpl.class.getName(), "TESTING play");
         new Handler(Looper.getMainLooper()).post(() -> {
             if (startFrame != -1 && endFrame != -1) {
                 if (startFrame > endFrame) {
@@ -116,6 +117,7 @@ final class LottieAnimationViewManagerImpl {
                 }
             }
             if (ViewCompat.isAttachedToWindow(view)) {
+                Log.e(LottieAnimationViewManagerImpl.class.getName(), "TESTING playAnimation");
                 view.setProgress(0f);
                 view.playAnimation();
             } else {

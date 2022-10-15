@@ -1,13 +1,17 @@
 import React from 'react';
-import AnimatedLottieView from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
+import {View} from 'react-native';
 
 const App = () => {
   return (
-    <AnimatedLottieView
-      autoPlay={true}
-      source={require('./9squares-AlBoardman.json')}
-      loop={true}
-    />
+    <View>
+      <LottieView
+        source={require('./LottieLogo1.json')}
+        autoPlay
+        loop
+        enableMergePathsAndroidForKitKatAndAbove
+      />
+    </View>
   );
 };
 

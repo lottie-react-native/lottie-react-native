@@ -149,4 +149,9 @@ class LottieAnimationViewManager extends SimpleViewManager<LottieAnimationView>
         super.onAfterUpdateTransaction(view);
         LottieAnimationViewManagerImpl.onAfterUpdateTransaction(view, propManagersMap);
     }
+
+    @Override
+    public void receiveCommand(@NonNull LottieAnimationView root, String commandId, ReadableArray args) {
+        delegate.receiveCommand(root, commandId, args);
+    }
 }

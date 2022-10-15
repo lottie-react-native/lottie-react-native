@@ -4,29 +4,15 @@ import type {
   Double,
   Float,
 } from 'react-native/Libraries/Types/CodegenTypes';
-import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
+import codegenNativeComponent, {
+  NativeComponentType,
+} from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
-import type { ViewProps, HostComponent } from 'react-native';
+import type { ViewProps } from 'react-native';
 
 type OnAnimationFinishEvent = Readonly<{
   isCancelled: boolean;
 }>;
-
-// The following types need more work to actually work with the new arch
-/* type ColorFilter = Readonly<{
-  keypath: string;
-  color: Int32;
-}>;
-
-type TextFilterAndroid = Readonly<{
-  find: string;
-  replace: string;
-}>;
-
-type TextFilterIOS = Readonly<{
-  keypath: string;
-  text: string;
-}>; */
 
 export interface NativeProps extends ViewProps {
   resizeMode?: string;
@@ -49,7 +35,7 @@ export interface NativeProps extends ViewProps {
   >;
 }
 
-type LottieViewNativeComponentType = HostComponent<NativeProps>;
+type LottieViewNativeComponentType = NativeComponentType<NativeProps>;
 
 interface NativeCommands {
   play: (
@@ -66,6 +52,4 @@ export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['play', 'reset', 'pause', 'resume'],
 });
 
-export default codegenNativeComponent<NativeProps>(
-  'LottieAnimationView',
-) as HostComponent<NativeProps>;
+export default codegenNativeComponent<NativeProps>('LottieAnimationView');

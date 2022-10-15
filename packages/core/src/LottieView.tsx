@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, NativeSyntheticEvent } from 'react-native';
+import { View, StyleSheet, NativeSyntheticEvent, Animated } from 'react-native';
 
 import type {
   AnimatedLottieViewProps,
@@ -9,6 +9,10 @@ import type {
 import NativeLottieAnimationView, {
   Commands,
 } from './specs/LottieAnimationViewNativeComponent';
+
+const AnimatedNativeLottieView = Animated.createAnimatedComponent(
+  NativeLottieAnimationView,
+);
 
 const defaultProps: AnimatedLottieViewProps = {
   source: undefined,
@@ -39,6 +43,16 @@ export class AnimatedLottieView extends React.PureComponent<
     | React.ElementRef<typeof NativeLottieAnimationView>
     | undefined;
 
+  constructor(props: AnimatedLottieViewProps) {
+    super(props);
+    this.play = this.play.bind(this);
+    this.reset = this.reset.bind(this);
+    this.pause = this.pause.bind(this);
+    this.resume = this.resume.bind(this);
+    this._onAnimationFinish = this._onAnimationFinish.bind(this);
+    this._captureRef = this._captureRef.bind(this);
+  }
+
   componentDidUpdate(prevProps: AnimatedLottieViewProps) {
     if (
       this.props.autoPlay === true &&
@@ -51,7 +65,7 @@ export class AnimatedLottieView extends React.PureComponent<
 
   public play(startFrame?: number, endFrame?: number): void {
     if (this._lottieAnimationViewRef) {
-      Commands?.play(
+      Commands.play(
         this._lottieAnimationViewRef,
         startFrame ?? -1,
         endFrame ?? -1,
@@ -61,19 +75,19 @@ export class AnimatedLottieView extends React.PureComponent<
 
   public reset() {
     if (this._lottieAnimationViewRef) {
-      Commands?.reset(this._lottieAnimationViewRef);
+      Commands.reset(this._lottieAnimationViewRef);
     }
   }
 
   public pause() {
     if (this._lottieAnimationViewRef) {
-      Commands?.pause(this._lottieAnimationViewRef);
+      Commands.pause(this._lottieAnimationViewRef);
     }
   }
 
   public resume() {
     if (this._lottieAnimationViewRef) {
-      Commands?.resume(this._lottieAnimationViewRef);
+      Commands.resume(this._lottieAnimationViewRef);
     }
   }
 
@@ -148,7 +162,7 @@ export class AnimatedLottieView extends React.PureComponent<
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
-        <NativeLottieAnimationView
+        <AnimatedNativeLottieView
           ref={this._captureRef}
           {...rest}
           //colorFilters={colorFilters}
