@@ -1,7 +1,8 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "DEPRECATION")
 
 package com.airbnb.android.react.lottie
 
+import android.animation.Animator
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.pause
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.play
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.reset
@@ -20,10 +21,12 @@ import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSourceU
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSpeed
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setTextFilters
 import com.airbnb.lottie.LottieAnimationView
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
+import com.facebook.react.uimanager.events.RCTEventEmitter
 import java.util.*
 
 class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
@@ -39,6 +42,21 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
         return result
     }
 
+    private fun sendOnAnimationFinishEvent(view: LottieAnimationView, isCancelled: Boolean) {
+        val event = Arguments.createMap()
+        event.putBoolean("isCancelled", isCancelled)
+
+        val screenContext = view.context
+        if (screenContext is ThemedReactContext) {
+            screenContext.getJSModule(RCTEventEmitter::class.java)
+                ?.receiveEvent(
+                    view.id,
+                    "animationFinish",
+                    event
+                )
+        }
+    }
+
     override fun getExportedViewConstants(): Map<String, Any> {
         return LottieAnimationViewManagerImpl.exportedViewConstants
     }
@@ -48,7 +66,25 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     }
 
     public override fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
-        return LottieAnimationViewManagerImpl.createViewInstance(context)
+        val view = LottieAnimationViewManagerImpl.createViewInstance(context)
+        view.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+                //do nothing
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                sendOnAnimationFinishEvent(view, false)
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+                sendOnAnimationFinishEvent(view, true)
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+                //do nothing
+            }
+        })
+        return view
     }
 
     override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Any> {

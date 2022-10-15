@@ -1,7 +1,5 @@
 package com.airbnb.android.react.lottie
 
-import android.animation.Animator
-import android.animation.Animator.AnimatorListener
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -10,11 +8,9 @@ import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.RenderMode
-import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.ThemedReactContext
-import com.facebook.react.uimanager.events.RCTModernEventEmitter
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -31,41 +27,8 @@ internal object LottieAnimationViewManagerImpl {
 
     @JvmStatic
     fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
-        val view = LottieAnimationView(context)
-        view.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        view.addAnimatorListener(object : AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
-                //do nothing
-            }
-
-            override fun onAnimationEnd(animation: Animator) {
-                sendOnAnimationFinishEvent(view, false)
-            }
-
-            override fun onAnimationCancel(animation: Animator) {
-                sendOnAnimationFinishEvent(view, true)
-            }
-
-            override fun onAnimationRepeat(animation: Animator) {
-                //do nothing
-            }
-        })
-        return view
-    }
-
-    fun sendOnAnimationFinishEvent(view: LottieAnimationView, isCancelled: Boolean) {
-        val event = Arguments.createMap()
-        event.putBoolean("isCancelled", isCancelled)
-
-        val screenContext = view.context
-        if (screenContext is ThemedReactContext) {
-            screenContext.getJSModule(RCTModernEventEmitter::class.java)
-                ?.receiveEvent(
-                    screenContext.surfaceId,
-                    view.id,
-                    "animationFinish",
-                    event
-                )
+        return LottieAnimationView(context).apply {
+            scaleType = ImageView.ScaleType.CENTER_INSIDE
         }
     }
 
