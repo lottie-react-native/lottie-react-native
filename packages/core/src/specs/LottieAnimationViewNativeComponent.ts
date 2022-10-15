@@ -10,7 +10,7 @@ import codegenNativeComponent, {
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 import type { ViewProps } from 'react-native';
 
-type OnAnimationFinishEvent = Readonly<{
+export type OnAnimationFinishEvent = Readonly<{
   isCancelled: boolean;
 }>;
 
@@ -25,6 +25,7 @@ export interface NativeProps extends ViewProps {
   speed?: Double;
   loop?: boolean;
   enableMergePathsAndroidForKitKatAndAbove?: boolean;
+  hardwareAccelerationAndroid?: boolean;
   cacheComposition?: boolean;
   colorFilters?: ReadonlyArray<string>;
   textFiltersAndroid?: ReadonlyArray<string>;

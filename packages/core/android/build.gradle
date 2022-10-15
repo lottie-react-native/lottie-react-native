@@ -60,7 +60,7 @@ android {
 
     sourceSets {
         main {
-            if (isNewArchitectureEnabled()) {
+            if (isNewArchitectureEnabled() || project.properties['lottiereactnative_newArch'] == "true") {
                 java.srcDirs += ['src/newarch', "${project.buildDir}/generated/source/codegen/java"]
             } else {
                 java.srcDirs += ['src/oldarch']

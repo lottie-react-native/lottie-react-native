@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, NativeSyntheticEvent, Animated } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  NativeSyntheticEvent,
+  Animated,
+  processColor,
+} from 'react-native';
 
 import type { AnimatedLottieViewProps } from './LottieView.types';
 
@@ -102,7 +108,6 @@ export class AnimatedLottieView extends React.PureComponent<
       duration,
       textFiltersAndroid,
       textFiltersIOS,
-      colorFilters,
       ...rest
     } = this.props;
 
@@ -139,19 +144,31 @@ export class AnimatedLottieView extends React.PureComponent<
           )
         : this.props.speed;
 
-    // const colorFilters = Array.isArray(this.props.colorFilters)
-    //   ? this.props.colorFilters.map(({ keypath, color }) => ({
-    //       keypath,
-    //       color: processColor(color),
-    //     }))
-    //   : undefined;
+    const colorFilters = Array.isArray(this.props.colorFilters)
+      ? this.props.colorFilters.map(({ keypath, color }) =>
+          JSON.stringify({
+            keypath,
+            color: processColor(color),
+          }),
+        )
+      : undefined;
+
+    const convertedTextFiltersAndroid = textFiltersAndroid.map((element) =>
+      JSON.stringify(element),
+    );
+
+    const convertedTextFiltersIOS = textFiltersIOS.map((element) =>
+      JSON.stringify(element),
+    );
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
         <AnimatedNativeLottieView
           ref={this._captureRef}
           {...rest}
-          //colorFilters={colorFilters}
+          colorFilters={colorFilters}
+          textFiltersAndroid={convertedTextFiltersAndroid}
+          textFiltersIOS={convertedTextFiltersIOS}
           speed={speed}
           style={[
             aspectRatioStyle,

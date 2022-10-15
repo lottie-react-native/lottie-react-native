@@ -61,8 +61,6 @@ export interface AnimatedLottieViewProps {
   /**
    * The duration of the animation in ms. Takes precedence over speed when set.
    * This only works when source is an actual JS object of an animation.
-   *
-   * **Note: prop is not yet supported by new arch!**
    */
   duration?: number;
 
@@ -82,6 +80,7 @@ export interface AnimatedLottieViewProps {
   /**
    * Determines how to resize the animated view when the frame doesn't match the raw image
    * dimensions.
+   *
    * Refer to https://facebook.github.io/react-native/docs/image.html#resizemode
    */
   resizeMode?: 'cover' | 'contain' | 'center';
@@ -163,23 +162,9 @@ export interface AnimatedLottieViewProps {
    * be used for animations where your width and height are equal to the composition width
    * and height, e.g. you are not scaling the animation.
    *
-   * **Note: prop is not yet supported by new arch!**
-   *
    * @platform android
    */
   hardwareAccelerationAndroid?: boolean;
-
-  /**
-   * Allows to specify kind of cache used for animation. Default value weak.
-   * strong - cached forever
-   * weak   - cached as long it is in active use
-   * none   - not cached
-   *
-   * **Note: prop is not yet supported by new arch!**
-   *
-   * @platform android
-   */
-  cacheStrategy?: 'strong' | 'weak' | 'none';
 
   // iOS Props
 
