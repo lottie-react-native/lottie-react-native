@@ -12,7 +12,7 @@ class ContainerView: RCTView {
     private var textFilters: [NSDictionary] = []
     private var renderMode: RenderingEngineOption = .automatic
     @objc var onAnimationFinish: RCTBubblingEventBlock?
-    var animationView: AnimationView?
+    var animationView: LottieAnimationView?
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -63,7 +63,7 @@ class ContainerView: RCTView {
                 filters[key] = value;
             }
             
-            let starAnimationView = AnimationView()
+            let starAnimationView = LottieAnimationView()
             starAnimationView.textProvider = DictionaryTextProvider(filters)
             starAnimationView.animation = animationView?.animation
             replaceAnimationView(next: starAnimationView)
@@ -72,8 +72,7 @@ class ContainerView: RCTView {
 
     func getLottieConfiguration() -> LottieConfiguration {
         return LottieConfiguration(
-            // Text Providers is not supported for Core Animation render engine
-            renderingEngine: textFilters.count > 0 ? .mainThread : renderMode
+            renderingEngine: renderMode
         )
     }
        
@@ -98,7 +97,7 @@ class ContainerView: RCTView {
             renderMode = .automatic
         }
         if (animationView != nil) {
-            let starAnimationView = AnimationView(
+            let starAnimationView = LottieAnimationView(
                 animation: animationView?.animation,
                 configuration: getLottieConfiguration()
             )
@@ -119,7 +118,7 @@ class ContainerView: RCTView {
                 do {
                     let sourceJson = try String(contentsOf: url!)
                     guard let data = sourceJson.data(using: String.Encoding.utf8),
-                    let animation = try? JSONDecoder().decode(Animation.self, from: data) else {
+                    let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
                         if (RCT_DEBUG == 1) {
                             print("Unable to decode the lottie animation object from the fetched URL source")
                         }
@@ -127,7 +126,7 @@ class ContainerView: RCTView {
                     }
 
                     DispatchQueue.main.async {
-                        let starAnimationView = AnimationView(
+                        let starAnimationView = LottieAnimationView(
                             animation: animation,
                             configuration: self.getLottieConfiguration()
                         )
@@ -147,14 +146,14 @@ class ContainerView: RCTView {
         sourceJson = newSourceJson
 
         guard let data = sourceJson.data(using: String.Encoding.utf8),
-        let animation = try? JSONDecoder().decode(Animation.self, from: data) else {
+        let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
             if (RCT_DEBUG == 1) {
                 print("Unable to create the lottie animation object from the JSON source")
             }
             return
         }
 
-        let starAnimationView = AnimationView(
+        let starAnimationView = LottieAnimationView(
             animation: animation,
             configuration: getLottieConfiguration()
         )
@@ -167,7 +166,7 @@ class ContainerView: RCTView {
         }
         sourceName = newSourceName
 
-        let starAnimationView = AnimationView(
+        let starAnimationView = LottieAnimationView(
             name: sourceName,
             configuration: getLottieConfiguration()
         )
@@ -228,7 +227,7 @@ class ContainerView: RCTView {
 
     // MARK: Private
 
-    func replaceAnimationView(next: AnimationView) {
+    func replaceAnimationView(next: LottieAnimationView) {
         animationView?.removeFromSuperview()
 
         let contentMode = animationView?.contentMode ?? .scaleAspectFit

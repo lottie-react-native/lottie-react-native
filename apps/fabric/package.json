@@ -4,11 +4,10 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --active-arch-only",
-    "ios": "cd ios && pod install && cd .. && react-native run-ios",
+    "ios": "cd ios && RCT_NEW_ARCH_ENABLED=1 pod install && cd .. && react-native run-ios",
     "start": "react-native start"
   },
   "dependencies": {
-    "lottie-ios": "^3.5.0",
     "lottie-react-native": "workspace:*",
     "react": "18.1.0",
     "react-native": "0.70.3"

@@ -311,7 +311,7 @@ PODS:
     - React-jsi (= 0.70.3)
     - React-logger (= 0.70.3)
     - React-perflogger (= 0.70.3)
-  - RNCPicker (2.4.7):
+  - RNCPicker (2.4.8):
     - React-Core
   - Yoga (1.14.0)
 
@@ -323,7 +323,6 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - hermes-engine (from `../node_modules/react-native/sdks/hermes/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
-  - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -361,6 +360,7 @@ SPEC REPOS:
   trunk:
     - fmt
     - libevent
+    - lottie-ios
 
 EXTERNAL SOURCES:
   boost:
@@ -375,8 +375,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes/hermes-engine.podspec"
-  lottie-ios:
-    :path: "../node_modules/lottie-ios"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
   RCT-Folly:
@@ -479,7 +477,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: b9a58ffdd18446f43d493a4b0ecd603ee86be847
   React-runtimeexecutor: e9b1f9310158a1e265bcdfdfd8c62d6174b947a2
   ReactCommon: 01064177e66d652192c661de899b1076da962fd9
-  RNCPicker: 35b5d45693bb46c0e5514116081509e15a64a145
+  RNCPicker: 0bf8ef8f7800524f32d2bb2a8bcadd53eda0ecd1
   Yoga: 2ed968a4f060a92834227c036279f2736de0fce3
 
 PODFILE CHECKSUM: 0ea53acb716184aca905e5f8d22796a05bc08695
