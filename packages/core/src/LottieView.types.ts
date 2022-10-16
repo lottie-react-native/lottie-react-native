@@ -1,4 +1,9 @@
-import type { StyleProp, ViewStyle, LayoutChangeEvent } from 'react-native';
+import type {
+  StyleProp,
+  ViewStyle,
+  LayoutChangeEvent,
+  Animated,
+} from 'react-native';
 
 /**
  * Serialized animation as generated from After Effects
@@ -50,7 +55,7 @@ export interface AnimatedLottieViewProps {
    * animation will correspondingly update to the frame at that progress value. This
    * prop is not required if you are using the imperative API.
    */
-  progress?: number;
+  progress?: number | Animated.Value | Animated.AnimatedInterpolation<number>;
 
   /**
    * The speed the animation will progress. This only affects the imperative API. The
