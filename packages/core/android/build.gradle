@@ -58,6 +58,31 @@ android {
         exclude "**/libreact_render*.so"
     }
 
+    packagingOptions {
+        excludes = [
+            "META-INF",
+            "META-INF/**",
+            "**/libc++_shared.so",
+            "**/libfabricjni.so",
+            "**/libfbjni.so",
+            "**/libjsi.so",
+            "**/libfolly_json.so",
+            "**/libfolly_runtime.so",
+            "**/libglog.so",
+            "**/libreact_codegen_rncore.so",
+            "**/libreact_debug.so",
+            "**/libreact_nativemodule_core.so",
+            "**/libreact_render_componentregistry.so",
+            "**/libreact_render_core.so",
+            "**/libreact_render_debug.so",
+            "**/libreact_render_graphics.so",
+            "**/librrc_view.so",
+            "**/libruntimeexecutor.so",
+            "**/libturbomodulejsijni.so",
+            "**/libyoga.so",
+        ]
+    }
+
     sourceSets {
         main {
             if (isNewArchitectureEnabled()) {
