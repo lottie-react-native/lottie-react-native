@@ -70,6 +70,11 @@ declare module "lottie-react-native" {
     loop?: boolean;
 
     /**
+     * A number flag indicating whether or not the animation should repeat for a given number of times.
+     */
+     count?: number;
+
+    /**
      * Style attributes for the view, as expected in a standard `View`:
      * http://facebook.github.io/react-native/releases/0.39/docs/view.html#style
      * CAVEAT: border styling is not supported.

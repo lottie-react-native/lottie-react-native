@@ -4,6 +4,7 @@ import Foundation
 class ContainerView: RCTView {
     private var speed: CGFloat = 0.0
     private var progress: CGFloat = 0.0
+    private var count: CGFloat = 0.0
     private var loop: LottieLoopMode = .playOnce
     private var sourceJson: String = ""
     private var resizeMode: String = ""
@@ -48,7 +49,12 @@ class ContainerView: RCTView {
     }
 
     @objc func setLoop(_ isLooping: Bool) {
-        loop = isLooping ? .loop : .playOnce
+        loop = count != -1 ? (isLooping ? .loop : .playOnce) : .repeat(Float(count))
+        animationView?.loopMode = loop
+    }
+    
+    @objc func setCount(_ count: CGFloat) {
+        loop = count != -1 ? (isLooping ? .loop : .playOnce) : .repeat(Float(count))
         animationView?.loopMode = loop
     }
     
