@@ -49,12 +49,12 @@ class ContainerView: RCTView {
     }
 
     @objc func setLoop(_ isLooping: Bool) {
-        loop = count != -1 ? (isLooping ? .loop : .playOnce) : .repeat(Float(count))
+        loop = count == -1 ? (isLooping ? .loop : .playOnce) : .repeat(Float(count))
         animationView?.loopMode = loop
     }
     
     @objc func setCount(_ count: CGFloat) {
-        loop = count != -1 ? (isLooping ? .loop : .playOnce) : .repeat(Float(count))
+        loop = count == -1 ? (isLooping ? .loop : .playOnce) : .repeat(Float(count))
         animationView?.loopMode = loop
     }
     
