@@ -51,11 +51,13 @@ class ContainerView: RCTView {
     @objc func setLoop(_ isLooping: Bool) {
         loop = .repeat(Float(3))
         animationView?.loopMode = loop
+        applyProperties()
     }
     
     @objc func setCount(_ count: CGFloat) {
         loop = .repeat(Float(3))
         animationView?.loopMode = loop
+        applyProperties()
     }
     
     @objc func setTextFiltersIOS(_ newTextFilters: [NSDictionary]) {
