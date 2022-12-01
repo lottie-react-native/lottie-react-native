@@ -1,0 +1,83 @@
+{
+  "name": "lottie-react-native",
+  "version": "6.0.0-rc.1",
+  "description": "React Native bindings for Lottie",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "react-native": "src/index.tsx",
+  "types": "lib/typescript/index.d.ts",
+  "source": "src/index.tsx",
+  "sideEffects": false,
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "*.podspec",
+    "react-native.config.js"
+  ],
+  "author": "Emilio Rodriguez <emiliorodriguez@gmail.com>",
+  "homepage": "https://github.com/airbnb/lottie-react-native#readme",
+  "license": "Apache-2.0",
+  "keywords": [
+    "lottie",
+    "animation",
+    "react",
+    "react-native",
+    "keyframe"
+  ],
+  "repository": "https://github.com/react-native-community/lottie-react-native",
+  "bugs": {
+    "url": "https://github.com/react-native-community/lottie-react-native/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "bob build"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": ">=0.46",
+    "react-native-windows": ">=0.63.x"
+  },
+  "peerDependenciesMeta": {
+    "react-native-windows": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^3.1.0",
+    "@types/react": "^18.0.21",
+    "@types/react-native": "^0.70.4",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "metro-react-native-babel-preset": "^0.72.3",
+    "prettier": "^2.7.1",
+    "react": "18.1.0",
+    "react-native": "0.70.3",
+    "react-native-builder-bob": "^0.19.1",
+    "react-native-windows": "0.70.3",
+    "typescript": "^4.8.4"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  },
+  "codegenConfig": {
+    "android": {
+      "javaPackageName": "com.airbnb.android.react.lottie"
+    },
+    "name": "lottiereactnative",
+    "type": "components",
+    "jsSrcsDir": "./src/specs"
+  }
+}

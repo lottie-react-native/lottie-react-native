@@ -1,66 +1,19 @@
-# OSX
-#
+# These are some examples of commonly ignored file patterns.
+# You should customize this list as applicable to your project.
+# Learn more about .gitignore:
+#     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
+
 .DS_Store
 
-# Xcode
-#
-build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata
-*.xccheckout
-*.moved-aside
-DerivedData
-*.hmap
-*.ipa
-*.xcuserstate
-
-# Android/IntelliJ
-#
-build/
-.idea
-.gradle
-local.properties
-*.iml
-*.hprof
-
-# node.js
-#
+# Node artifact files
 node_modules/
-Pods/
-build/
-lib/
-npm-debug.log
-yarn-error.log
+dist/
 
-# BUCK
-buck-out/
-\.buckd/
-*.keystore
-!debug.keystore
-
-# Gitbook generated files
-_book
-
-# Visual Studio
-.vs/
-Generated Files/
-bin/
-obj/
-Bundle/
-example/windows/**/x64
-example/windows/**/ARM64
-*.user
-
-# Bundle artifact
-*.jsbundle
-
-# Ruby / CocoaPods
-/example/ios/Pods/
-/vendor/bundle/
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

@@ -1,0 +1,449 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6E31134322B3A73000690A5B /* AnimationViewManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */; platformFilter = ios; };
+		6E31134422B3A73000690A5B /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134122B3A73000690A5B /* ContainerView.swift */; platformFilter = ios; };
+		6E31134522B3A73000690A5B /* LRNAnimationViewManagerObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */; platformFilter = ios; };
+		74E4DD2324F9677E00F271AF /* AnimationViewManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */; };
+		74E4DD2424F9678000F271AF /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134122B3A73000690A5B /* ContainerView.swift */; };
+		74E4DD2524F9678100F271AF /* LRNAnimationViewManagerObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */; };
+		FA8409AE28361B7C00F398C7 /* RCTConvert+Lottie.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8409AB28361B7C00F398C7 /* RCTConvert+Lottie.m */; };
+		FA8409AF28361B7C00F398C7 /* PlatformColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8409AD28361B7C00F398C7 /* PlatformColor.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		11FA5C4F1C4A1296003AC2EE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLottieReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E31133F22B3A72F00690A5B /* Bridging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging.h; sourceTree = "<group>"; };
+		6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationViewManagerModule.swift; sourceTree = "<group>"; };
+		6E31134122B3A73000690A5B /* ContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRNAnimationViewManagerObjC.m; sourceTree = "<group>"; };
+		85ABD46724D07DFD0099C9BD /* libLottieReactNativeMacOS.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libLottieReactNativeMacOS.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA8409AB28361B7C00F398C7 /* RCTConvert+Lottie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+Lottie.m"; sourceTree = "<group>"; };
+		FA8409AC28361B7C00F398C7 /* RCTConvert+Lottie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Lottie.h"; sourceTree = "<group>"; };
+		FA8409AD28361B7C00F398C7 /* PlatformColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformColor.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		11FA5C4E1C4A1296003AC2EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85ABD46524D07DFD0099C9BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		11FA5C481C4A1296003AC2EE = {
+			isa = PBXGroup;
+			children = (
+				11FA5C531C4A1296003AC2EE /* LottieReactNative */,
+				11FA5C521C4A1296003AC2EE /* Products */,
+				8435B7FF1E38377000CD1749 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		11FA5C521C4A1296003AC2EE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */,
+				85ABD46724D07DFD0099C9BD /* libLottieReactNativeMacOS.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		11FA5C531C4A1296003AC2EE /* LottieReactNative */ = {
+			isa = PBXGroup;
+			children = (
+				FA8409AD28361B7C00F398C7 /* PlatformColor.swift */,
+				FA8409AC28361B7C00F398C7 /* RCTConvert+Lottie.h */,
+				FA8409AB28361B7C00F398C7 /* RCTConvert+Lottie.m */,
+				6E31134022B3A73000690A5B /* AnimationViewManagerModule.swift */,
+				6E31134122B3A73000690A5B /* ContainerView.swift */,
+				6E31134222B3A73000690A5B /* LRNAnimationViewManagerObjC.m */,
+				6E31133F22B3A72F00690A5B /* Bridging.h */,
+			);
+			path = LottieReactNative;
+			sourceTree = "<group>";
+		};
+		8435B7FF1E38377000CD1749 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		85ABD46324D07DFD0099C9BD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		11FA5C501C4A1296003AC2EE /* LottieReactNative */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11FA5C5A1C4A1296003AC2EE /* Build configuration list for PBXNativeTarget "LottieReactNative" */;
+			buildPhases = (
+				11FA5C4D1C4A1296003AC2EE /* Sources */,
+				11FA5C4E1C4A1296003AC2EE /* Frameworks */,
+				11FA5C4F1C4A1296003AC2EE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LottieReactNative;
+			productName = LottieReactNative;
+			productReference = 11FA5C511C4A1296003AC2EE /* libLottieReactNative.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		85ABD46624D07DFD0099C9BD /* LottieReactNativeMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85ABD46F24D07DFD0099C9BD /* Build configuration list for PBXNativeTarget "LottieReactNativeMacOS" */;
+			buildPhases = (
+				85ABD46324D07DFD0099C9BD /* Headers */,
+				85ABD46424D07DFD0099C9BD /* Sources */,
+				85ABD46524D07DFD0099C9BD /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LottieReactNativeMacOS;
+			productName = LottieReactNativeMacOS;
+			productReference = 85ABD46724D07DFD0099C9BD /* libLottieReactNativeMacOS.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		11FA5C491C4A1296003AC2EE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Airbnb;
+				TargetAttributes = {
+					11FA5C501C4A1296003AC2EE = {
+						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 1020;
+					};
+					85ABD46624D07DFD0099C9BD = {
+						CreatedOnToolsVersion = 11.6;
+						LastSwiftMigration = 1160;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 11FA5C4C1C4A1296003AC2EE /* Build configuration list for PBXProject "LottieReactNative" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 11FA5C481C4A1296003AC2EE;
+			productRefGroup = 11FA5C521C4A1296003AC2EE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				11FA5C501C4A1296003AC2EE /* LottieReactNative */,
+				85ABD46624D07DFD0099C9BD /* LottieReactNativeMacOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		11FA5C4D1C4A1296003AC2EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA8409AE28361B7C00F398C7 /* RCTConvert+Lottie.m in Sources */,
+				FA8409AF28361B7C00F398C7 /* PlatformColor.swift in Sources */,
+				6E31134422B3A73000690A5B /* ContainerView.swift in Sources */,
+				6E31134522B3A73000690A5B /* LRNAnimationViewManagerObjC.m in Sources */,
+				6E31134322B3A73000690A5B /* AnimationViewManagerModule.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85ABD46424D07DFD0099C9BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74E4DD2324F9677E00F271AF /* AnimationViewManagerModule.swift in Sources */,
+				74E4DD2424F9678000F271AF /* ContainerView.swift in Sources */,
+				74E4DD2524F9678100F271AF /* LRNAnimationViewManagerObjC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		11FA5C581C4A1296003AC2EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		11FA5C591C4A1296003AC2EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		11FA5C5B1C4A1296003AC2EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = LottieReactNative/Bridging.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		11FA5C5C1C4A1296003AC2EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = LottieReactNative/Bridging.h;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		85ABD46D24D07DFD0099C9BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = LottieReactNative/Bridging.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		85ABD46E24D07DFD0099C9BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = LottieReactNative/Bridging.h;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		11FA5C4C1C4A1296003AC2EE /* Build configuration list for PBXProject "LottieReactNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11FA5C581C4A1296003AC2EE /* Debug */,
+				11FA5C591C4A1296003AC2EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11FA5C5A1C4A1296003AC2EE /* Build configuration list for PBXNativeTarget "LottieReactNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11FA5C5B1C4A1296003AC2EE /* Debug */,
+				11FA5C5C1C4A1296003AC2EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85ABD46F24D07DFD0099C9BD /* Build configuration list for PBXNativeTarget "LottieReactNativeMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85ABD46D24D07DFD0099C9BD /* Debug */,
+				85ABD46E24D07DFD0099C9BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 11FA5C491C4A1296003AC2EE /* Project object */;
+}
