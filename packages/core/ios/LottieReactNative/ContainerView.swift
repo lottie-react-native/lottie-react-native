@@ -1,6 +1,7 @@
 import Lottie
 import Foundation
 
+@objc(LottieContainerView)
 class ContainerView: RCTView {
     private var speed: CGFloat = 0.0
     private var progress: CGFloat = 0.0
@@ -13,7 +14,7 @@ class ContainerView: RCTView {
     private var renderMode: RenderingEngineOption = .automatic
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     var animationView: LottieAnimationView?
-
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 13.0, tvOS 13.0, *) {
@@ -190,6 +191,13 @@ class ContainerView: RCTView {
         applyProperties()
     }
 
+    // There is no Nullable CGFloat in Objective-C, so this function uses a Nullable NSNumber and converts it later
+    @objc(playFromFrame:toFrame:)
+    func objcCompatiblePlay(fromFrame: NSNumber? = nil, toFrame: AnimationFrameTime) {
+        let convertedFromFrame = fromFrame != nil ? CGFloat(truncating: fromFrame!) : nil;
+        play(fromFrame: convertedFromFrame, toFrame: toFrame);
+    }
+    
     func play(fromFrame: AnimationFrameTime? = nil, toFrame: AnimationFrameTime) {
         let callback: LottieCompletionBlock = { animationFinished in
             if let onFinish = self.onAnimationFinish {
@@ -201,7 +209,7 @@ class ContainerView: RCTView {
         animationView?.play(fromFrame: fromFrame, toFrame: toFrame, loopMode: self.loop, completion: callback);
     }
 
-    func play() {
+    @objc func play() {
         let callback: LottieCompletionBlock = { animationFinished in
             if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
@@ -212,16 +220,16 @@ class ContainerView: RCTView {
         animationView?.play(completion: callback)
     }
 
-    func reset() {
+    @objc func reset() {
         animationView?.currentProgress = 0;
         animationView?.pause()
     }
 
-    func pause() {
+    @objc func pause() {
         animationView?.pause()
     }
 
-    func resume() {
+    @objc func resume() {
         play()
     }
 
@@ -234,7 +242,9 @@ class ContainerView: RCTView {
         animationView = next
         addSubview(next)
         animationView?.contentMode = contentMode
-        animationView?.reactSetFrame(frame)
+        print("self frame \(frame)")
+        animationView?.reactSetFrame(UIScreen.main.bounds)
+        print(UIScreen.main.bounds)
         applyProperties()
     }
 

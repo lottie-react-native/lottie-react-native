@@ -29,14 +29,15 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig    = {
     "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\"",
     "CLANG_CXX_LANGUAGE_STANDARD" => "c++17",
+    "DEFINES_MODULE" => "YES",
   }
 
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
-    s.subspec "fabric" do |ss|
-      ss.dependency "React-RCTFabric"
-      ss.dependency "React-Codegen"
-      ss.source_files       = "ios/Fabric/**/*.{h,m,mm,swift}"
-      ss.exclude_files      = "ios/**/*.{swift}"
-    end
+    s.dependency "React-RCTFabric"
+    s.dependency "React-Codegen"
+    # s.subspec "fabric" do |ss|
+    #   ss.source_files       = "ios/Fabric/**/*.{h,m,mm,swift}"
+    #   ss.exclude_files      = "ios/**/*.{swift}"
+    # end
   end
 end
