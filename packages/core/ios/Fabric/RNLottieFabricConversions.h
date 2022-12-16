@@ -13,4 +13,17 @@ inline NSArray<NSDictionary *> *convertColorFilters(std::vector<facebook::react:
     }
     return filters;
 }
+
+inline NSArray<NSDictionary *> *convertTextFilters(std::vector<facebook::react::LottieAnimationViewTextFiltersIOSStruct> textFilterStructArr)
+{
+    NSMutableArray *filters = [NSMutableArray arrayWithCapacity:textFilterStructArr.size()];
+
+    for (auto textFilter : textFilterStructArr) {
+        [filters addObject:@{
+          @"text": RCTNSStringFromString(textFilter.text),
+          @"keypath": RCTNSStringFromString(textFilter.keypath),
+        }];
+    }
+    return filters;
+}
 #endif

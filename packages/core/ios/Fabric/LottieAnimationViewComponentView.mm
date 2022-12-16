@@ -71,15 +71,13 @@ using namespace facebook::react;
         [_view setSpeed:newLottieProps.speed];
     }
     
-//    if(oldLottieProps.colorFilters != newLottieProps.colorFilters) {
-////        [_view setColorFilters:convertColorFilters(newLottieProps.colorFilters)];
-//    }
+    if(oldLottieProps.colorFilters != newLottieProps.colorFilters) {
+        [_view setColorFilters:convertColorFilters(newLottieProps.colorFilters)];
+    }
     
-//    if(oldLottieProps.textFiltersIOS != newLottieProps.textFiltersIOS) {
-//        std::vector<std::string> vector = newLottieProps.textFiltersIOS;
-//        NSArray * convertedTextFiltersIOS = [NSArray arrayWithObjects:vector[0] count:vector.size()];
-//        [_view setTextFiltersIOS:newLottieProps.textFiltersIOS];
-//    }
+    if(oldLottieProps.textFiltersIOS != newLottieProps.textFiltersIOS) {
+        [_view setTextFiltersIOS:convertTextFilters(newLottieProps.textFiltersIOS)];
+    }
     
     if(oldLottieProps.renderMode != newLottieProps.renderMode) {
         [_view setRenderMode:RCTNSStringFromString(newLottieProps.renderMode)];

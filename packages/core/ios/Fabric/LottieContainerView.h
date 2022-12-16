@@ -3,6 +3,8 @@
 @class NSString;
 @class NSCoder;
 
+#import <React/RCTView.h>
+
 @interface LottieContainerView : RCTView
 - (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (void)setSpeed:(CGFloat)newSpeed;

@@ -20,7 +20,6 @@ PODS:
     - RCTRequired
     - RCTTypeSafety
     - React-Codegen
-    - React-Core
     - React-RCTFabric
     - ReactCommon/turbomodule/core
   - RCT-Folly (2021.07.22.00):
@@ -787,7 +786,7 @@ SPEC CHECKSUMS:
   hermes-engine: bb344d89a0d14c2c91ad357480a79698bb80e186
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
-  lottie-react-native: 560d1809d5f483b22385fb1e4550adb06518f028
+  lottie-react-native: 2c0a420b4f9ef28fceb6b050fb95fad0720ddfd1
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: 5cf7e7d2f12699724b59f90350257a422eaa9492
   RCTTypeSafety: 3f3ead9673d1ab8bb1aea85b0894ab3220f8f06e

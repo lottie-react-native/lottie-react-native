@@ -19,6 +19,11 @@ type ColorFilterStruct = Readonly<{
   color: ColorValue;
 }>;
 
+type TextFilterStruct = Readonly<{
+  keypath: string;
+  text: string;
+}>;
+
 export interface NativeProps extends ViewProps {
   resizeMode?: string;
   renderMode?: string;
@@ -36,7 +41,7 @@ export interface NativeProps extends ViewProps {
   // dummy that solves codegen issue when there's a ReadonlyArray<Object> without another Object prop
   dummy?: Readonly<{ dummy: boolean }>;
   textFiltersAndroid?: ReadonlyArray<string>;
-  textFiltersIOS?: ReadonlyArray<string>;
+  textFiltersIOS?: ReadonlyArray<TextFilterStruct>;
   onAnimationFinish?: BubblingEventHandler<
     OnAnimationFinishEvent,
     'onAnimationFinish'

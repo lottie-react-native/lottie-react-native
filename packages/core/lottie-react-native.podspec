@@ -19,12 +19,8 @@ Pod::Spec.new do |s|
 
   s.source                  = { :git => "https://github.com/lottie-react-native/lottie-react-native.git", :tag => "v#{s.version}" }
   s.source_files            = "ios/**/*.{h,m,mm,swift}"
-  s.exclude_files           = "ios/Fabric"
 
-  s.dependency 'React-Core'
   s.dependency 'lottie-ios', '~> 3.5.0'
-
-  # s.compiler_flags  = folly_compiler_flags
 
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
     s.compiler_flags = folly_compiler_flags + " -DRCT_NEW_ARCH_ENABLED=1"
@@ -41,10 +37,8 @@ Pod::Spec.new do |s|
     s.dependency "RCTRequired"
     s.dependency "RCTTypeSafety"
     s.dependency "ReactCommon/turbomodule/core"
-
-    # s.subspec "fabric" do |ss|
-    #   ss.source_files       = "ios/Fabric/**/*.{h,m,mm,swift}"
-    #   ss.exclude_files      = "ios/**/*.{swift}"
-    # end
+  else
+    s.dependency 'React-Core'
+    s.exclude_files = "ios/Fabric"
   end
 end
