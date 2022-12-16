@@ -8,10 +8,15 @@ import codegenNativeComponent, {
   NativeComponentType,
 } from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
-import type { ViewProps } from 'react-native';
+import type { ColorValue, ViewProps } from 'react-native';
 
 export type OnAnimationFinishEvent = Readonly<{
   isCancelled: boolean;
+}>;
+
+type ColorFilterStruct = Readonly<{
+  keypath: string;
+  color: ColorValue;
 }>;
 
 export interface NativeProps extends ViewProps {
@@ -27,7 +32,9 @@ export interface NativeProps extends ViewProps {
   enableMergePathsAndroidForKitKatAndAbove?: boolean;
   hardwareAccelerationAndroid?: boolean;
   cacheComposition?: boolean;
-  colorFilters?: ReadonlyArray<string>;
+  colorFilters?: ReadonlyArray<ColorFilterStruct>;
+  // dummy that solves codegen issue when there's a ReadonlyArray<Object> without another Object prop
+  dummy?: Readonly<{ dummy: boolean }>;
   textFiltersAndroid?: ReadonlyArray<string>;
   textFiltersIOS?: ReadonlyArray<string>;
   onAnimationFinish?: BubblingEventHandler<

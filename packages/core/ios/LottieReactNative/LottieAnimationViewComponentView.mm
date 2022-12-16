@@ -44,19 +44,19 @@ using namespace facebook::react;
     const auto &newLottieProps = *std::static_pointer_cast<const LottieAnimationViewProps>(props);
     
     if(oldLottieProps.resizeMode != newLottieProps.resizeMode) {
-        [_view setResizeMode:cStrToNSString(newLottieProps.resizeMode)];
+        [_view setResizeMode:RCTNSStringFromString(newLottieProps.resizeMode)];
     }
     
     if(oldLottieProps.sourceJson != newLottieProps.sourceJson) {
-        [_view setSourceJson:cStrToNSString(newLottieProps.sourceJson)];
+        [_view setSourceJson:RCTNSStringFromString(newLottieProps.sourceJson)];
     }
     
     if(oldLottieProps.sourceName != newLottieProps.sourceName) {
-        [_view setSourceName:cStrToNSString(newLottieProps.sourceName)];
+        [_view setSourceName:RCTNSStringFromString(newLottieProps.sourceName)];
     }
     
     if(oldLottieProps.sourceURL != newLottieProps.sourceURL) {
-        [_view setSourceURL:cStrToNSString(newLottieProps.sourceURL)];
+        [_view setSourceURL:RCTNSStringFromString(newLottieProps.sourceURL)];
     }
     
     if(oldLottieProps.progress != newLottieProps.progress) {
@@ -71,19 +71,18 @@ using namespace facebook::react;
         [_view setSpeed:newLottieProps.speed];
     }
     
-    if(oldLottieProps.colorFilters != newLottieProps.colorFilters) {
-        
-//        [_view setColorFilters:newLottieProps.colorFilters];
-    }
+//    if(oldLottieProps.colorFilters != newLottieProps.colorFilters) {
+////        [_view setColorFilters:convertColorFilters(newLottieProps.colorFilters)];
+//    }
     
-    if(oldLottieProps.textFiltersIOS != newLottieProps.textFiltersIOS) {
+//    if(oldLottieProps.textFiltersIOS != newLottieProps.textFiltersIOS) {
 //        std::vector<std::string> vector = newLottieProps.textFiltersIOS;
 //        NSArray * convertedTextFiltersIOS = [NSArray arrayWithObjects:vector[0] count:vector.size()];
 //        [_view setTextFiltersIOS:newLottieProps.textFiltersIOS];
-    }
+//    }
     
     if(oldLottieProps.renderMode != newLottieProps.renderMode) {
-        [_view setRenderMode:cStrToNSString(newLottieProps.renderMode)];
+        [_view setRenderMode:RCTNSStringFromString(newLottieProps.renderMode)];
     }
     
     [super updateProps:props oldProps:oldProps];
