@@ -1,6 +1,10 @@
 import Lottie
 import Foundation
 
+@objc protocol LottieContainerViewDelegate {
+    func onAnimationFinish(isCancelled: Bool);
+}
+
 @objc(LottieContainerView)
 class ContainerView: RCTView {
     private var speed: CGFloat = 0.0
@@ -12,6 +16,8 @@ class ContainerView: RCTView {
     private var colorFilters: [NSDictionary] = []
     private var textFilters: [NSDictionary] = []
     private var renderMode: RenderingEngineOption = .automatic
+    @objc weak var delegate: LottieContainerViewDelegate? = nil
+
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     var animationView: LottieAnimationView?
     
@@ -203,6 +209,7 @@ class ContainerView: RCTView {
             if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
+            self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
         }
 
         animationView?.backgroundBehavior = .pauseAndRestore
@@ -214,6 +221,7 @@ class ContainerView: RCTView {
             if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
+            self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
         }
 
         animationView?.backgroundBehavior = .pauseAndRestore

@@ -26,6 +26,8 @@ using namespace facebook::react;
         _props = defaultProps;
         
         _view = [LottieContainerView new];
+        _view.delegate = self;
+        
         self.contentView = _view;
     }
     
@@ -115,6 +117,19 @@ using namespace facebook::react;
 - (void) resume
 {
     [_view resume];
+}
+
+- (void)onAnimationFinishWithIsCancelled:(bool)isCancelled
+{
+    if(!_eventEmitter) {
+        return;
+    }
+    
+    LottieAnimationViewEventEmitter::OnAnimationFinish event = {
+        .isCancelled = isCancelled
+    };
+    
+    std::dynamic_pointer_cast<const LottieAnimationViewEventEmitter>(_eventEmitter)->onAnimationFinish(event);
 }
 
 @end

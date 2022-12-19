@@ -5,7 +5,12 @@
 
 #import <React/RCTView.h>
 
+@protocol LottieContainerViewDelegate
+- (void)onAnimationFinishWithIsCancelled:(BOOL)isCancelled;
+@end
+
 @interface LottieContainerView : RCTView
+@property (nonatomic, weak) id <LottieContainerViewDelegate> _Nullable delegate;
 - (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (void)setSpeed:(CGFloat)newSpeed;
 - (void)setProgress:(CGFloat)newProgress;

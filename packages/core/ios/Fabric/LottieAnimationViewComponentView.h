@@ -1,10 +1,11 @@
 #ifdef __cplusplus
 #import <React/RCTViewComponentView.h>
 #import <react/renderer/components/lottiereactnative/Props.h>
+#import "LottieContainerView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LottieAnimationViewComponentView : RCTViewComponentView
+@interface LottieAnimationViewComponentView : RCTViewComponentView <LottieContainerViewDelegate>
 @end
 
 namespace facebook {
