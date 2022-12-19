@@ -12,11 +12,11 @@ namespace react {
 // In order to compare these structs we need to add the == operator for each
 bool operator==(const LottieAnimationViewColorFiltersStruct& a, const LottieAnimationViewColorFiltersStruct& b)
 {
-    return b.keypath == a.keypath && b.color == b.color;
+    return b.keypath == a.keypath && b.color == a.color;
 }
 bool operator==(const LottieAnimationViewTextFiltersIOSStruct& a, const LottieAnimationViewTextFiltersIOSStruct& b)
 {
-    return b.keypath == a.keypath && b.text == b.text;
+    return b.keypath == a.keypath && b.text == a.text;
 }
 }
 }

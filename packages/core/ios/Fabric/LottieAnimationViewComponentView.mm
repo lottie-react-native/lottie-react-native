@@ -74,7 +74,7 @@ using namespace facebook::react;
     if(oldLottieProps.colorFilters != newLottieProps.colorFilters) {
         [_view setColorFilters:convertColorFilters(newLottieProps.colorFilters)];
     }
-    
+
     if(oldLottieProps.textFiltersIOS != newLottieProps.textFiltersIOS) {
         [_view setTextFiltersIOS:convertTextFilters(newLottieProps.textFiltersIOS)];
     }
