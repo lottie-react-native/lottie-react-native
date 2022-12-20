@@ -21,7 +21,6 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
-import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.RCTModernEventEmitter
@@ -54,7 +53,6 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>(),
         event.putBoolean("isCancelled", isCancelled)
 
         val screenContext = view.context
-
         if (screenContext is ThemedReactContext) {
             screenContext.getJSModule(RCTModernEventEmitter::class.java)
                 ?.receiveEvent(
