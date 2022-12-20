@@ -4,18 +4,12 @@ import AnimatedLottieView from 'lottie-react-native';
 const App = () => {
   return (
     <AnimatedLottieView
-      source={require('./Check.json')}
+      source={require('./LottieLogo1.json')}
       autoPlay
-      loop={false}
+      loop
       onAnimationFinish={() => {
-        console.log('Animation finished.');
+        console.log('finished');
       }}
-      colorFilters={[
-        {
-          keypath: 'Circle',
-          color: '#FF0000',
-        },
-      ]}
       enableMergePathsAndroidForKitKatAndAbove
     />
   );

@@ -241,8 +241,14 @@ class ContainerView: RCTView {
         play()
     }
 
+    // reset the animationView frame whenever the view's frame changes
+    override var frame: CGRect {
+        didSet {
+            animationView?.reactSetFrame(frame)
+        }
+    }
+    
     // MARK: Private
-
     func replaceAnimationView(next: LottieAnimationView) {
         animationView?.removeFromSuperview()
 
@@ -250,9 +256,7 @@ class ContainerView: RCTView {
         animationView = next
         addSubview(next)
         animationView?.contentMode = contentMode
-        print("self frame \(frame)")
-        animationView?.reactSetFrame(UIScreen.main.bounds)
-        print(UIScreen.main.bounds)
+        animationView?.reactSetFrame(frame)
         applyProperties()
     }
 
