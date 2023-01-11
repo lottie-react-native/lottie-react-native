@@ -5,16 +5,18 @@
   "scripts": {
     "android": "react-native run-android --active-arch-only",
     "ios": "cd ios && RCT_NEW_ARCH_ENABLED=1 pod install && cd .. && react-native run-ios",
-    "start": "react-native start"
+    "start": "react-native start",
+    "upgrade": "react-native upgrade"
   },
   "dependencies": {
     "lottie-react-native": "workspace:*",
-    "react": "18.1.0",
-    "react-native": "0.70.3"
+    "react": "18.2.0",
+    "react-native": "0.71.0-rc.6"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/runtime": "^7.19.4",
+    "@tsconfig/react-native": "^2.0.3",
     "@types/react-native": "^0.70.4",
     "metro-react-native-babel-preset": "^0.72.3",
     "typescript": "^4.8.4"
