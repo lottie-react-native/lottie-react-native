@@ -44,6 +44,7 @@ export interface NativeProps extends ViewProps {
   cacheComposition?: boolean;
   colorFilters?: ReadonlyArray<ColorFilterStruct>;
   // dummy that solves codegen issue when there's a ReadonlyArray<Object> without another Object prop
+  // https://github.com/reactwg/react-native-new-architecture/discussions/104
   dummy?: Readonly<{ dummy: boolean }>;
   textFiltersAndroid?: ReadonlyArray<TextFilterAndroidStruct>;
   textFiltersIOS?: ReadonlyArray<TextFilterIOSStruct>;

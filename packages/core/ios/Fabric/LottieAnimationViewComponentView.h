@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 namespace facebook {
 namespace react {
 // In order to compare these structs we need to add the == operator for each
+// TODO: https://github.com/reactwg/react-native-new-architecture/discussions/91#discussioncomment-4426469
 bool operator==(const LottieAnimationViewColorFiltersStruct& a, const LottieAnimationViewColorFiltersStruct& b)
 {
     return b.keypath == a.keypath && b.color == a.color;
