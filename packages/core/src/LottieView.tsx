@@ -93,6 +93,10 @@ export class AnimatedLottieView extends React.PureComponent<
   };
 
   _captureRef(ref: React.ElementRef<typeof NativeLottieAnimationView>) {
+    if (ref === null) {
+      return;
+    }
+
     this._lottieAnimationViewRef = ref;
     if (this.props.autoPlay === true) {
       this.play();
