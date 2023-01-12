@@ -5687,7 +5687,7 @@ __metadata:
     lottie-react-native: "workspace:*"
     metro-react-native-babel-preset: ^0.72.3
     react: 18.2.0
-    react-native: 0.71.0-rc.6
+    react-native: 0.71.0
     typescript: ^4.8.4
   languageName: unknown
   linkType: soft
@@ -10838,8 +10838,8 @@ __metadata:
     eslint: ^8.25.0
     lottie-react-native: "workspace:*"
     metro-react-native-babel-preset: ^0.72.3
-    react: 18.1.0
-    react-native: 0.70.3
+    react: 18.2.0
+    react-native: 0.71.0
     react-native-dropdown-picker: ^5.4.2
     react-native-windows: 0.70.3
   languageName: unknown
@@ -11566,9 +11566,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:0.71.0-rc.6":
-  version: 0.71.0-rc.6
-  resolution: "react-native@npm:0.71.0-rc.6"
+"react-native@npm:0.71.0":
+  version: 0.71.0
+  resolution: "react-native@npm:0.71.0"
   dependencies:
     "@jest/create-cache-key-function": ^29.2.1
     "@react-native-community/cli": 10.0.0
@@ -11608,7 +11608,7 @@ __metadata:
     react: 18.2.0
   bin:
     react-native: cli.js
-  checksum: e2dcd542da8c890ef3d602c00ed152edaeb3d58958129ac4b1f3883c45b4dbd4db8d5641bf27e3e841d3488c9d29bbace5ac9bf55f77637d4f5da699f923cbd4
+  checksum: c3a08dd0640d36be2da2a2ede1bce75161dd543f6f25824c8dcdd9314434f4567154bfbbc9239179a57098c1cf8303cea0c73699d856939b4333c684d5055940
   languageName: node
   linkType: hard
 
