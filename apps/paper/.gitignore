@@ -38,12 +38,6 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-# BUCK
-buck-out/
-\.buckd/
-*.keystore
-!debug.keystore
-
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the

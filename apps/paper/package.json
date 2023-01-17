@@ -16,10 +16,10 @@
     "@react-native-community/slider": "^4.3.2",
     "@react-native-picker/picker": "^2.4.8",
     "lottie-react-native": "workspace:*",
-    "react": "18.1.0",
-    "react-native": "0.70.3",
+    "react": "18.2.0",
+    "react-native": "0.71.0",
     "react-native-dropdown-picker": "^5.4.2",
-    "react-native-windows": "0.70.3"
+    "react-native-windows": "0.70.10"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
