@@ -93,6 +93,10 @@ export class AnimatedLottieView extends React.PureComponent<
   };
 
   _captureRef(ref: React.ElementRef<typeof NativeLottieAnimationView>) {
+    if (ref === null) {
+      return;
+    }
+
     this._lottieAnimationViewRef = ref;
     if (this.props.autoPlay === true) {
       this.play();
@@ -144,22 +148,10 @@ export class AnimatedLottieView extends React.PureComponent<
           )
         : this.props.speed;
 
-    const colorFilters = Array.isArray(this.props.colorFilters)
-      ? this.props.colorFilters.map(({ keypath, color }) =>
-          JSON.stringify({
-            keypath,
-            color: processColor(color),
-          }),
-        )
-      : undefined;
-
-    const convertedTextFiltersAndroid = textFiltersAndroid.map((element) =>
-      JSON.stringify(element),
-    );
-
-    const convertedTextFiltersIOS = textFiltersIOS.map((element) =>
-      JSON.stringify(element),
-    );
+    const colorFilters = this.props.colorFilters?.map((colorFilter) => ({
+      ...colorFilter,
+      color: processColor(colorFilter.color),
+    }));
 
     return (
       <View style={[aspectRatioStyle, sizeStyle, style]}>
@@ -167,8 +159,8 @@ export class AnimatedLottieView extends React.PureComponent<
           ref={this._captureRef}
           {...rest}
           colorFilters={colorFilters}
-          textFiltersAndroid={convertedTextFiltersAndroid}
-          textFiltersIOS={convertedTextFiltersIOS}
+          textFiltersAndroid={textFiltersAndroid}
+          textFiltersIOS={textFiltersIOS}
           speed={speed}
           style={[
             aspectRatioStyle,

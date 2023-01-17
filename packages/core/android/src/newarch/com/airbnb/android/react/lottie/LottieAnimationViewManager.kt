@@ -17,6 +17,7 @@ import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setTextFil
 import com.airbnb.lottie.LottieAnimationView
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
@@ -208,6 +209,11 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>(),
 
     // this props is not available on Android, however we must override the setter
     override fun setTextFiltersIOS(view: LottieAnimationView?, value: ReadableArray?) {
+        //ignore - do nothing here
+    }
+
+    // Only here to solve an iOS issue with codegen. Check dummy prop in LottieAnimationViewNativeComponent.ts
+    override fun setDummy(view: LottieAnimationView, value: ReadableMap?) {
         //ignore - do nothing here
     }
 }

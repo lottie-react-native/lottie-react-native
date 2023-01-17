@@ -8,10 +8,25 @@ import codegenNativeComponent, {
   NativeComponentType,
 } from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
-import type { ViewProps } from 'react-native';
+import type { ProcessedColorValue, ViewProps } from 'react-native';
 
 export type OnAnimationFinishEvent = Readonly<{
   isCancelled: boolean;
+}>;
+
+type ColorFilterStruct = Readonly<{
+  keypath: string;
+  color: ProcessedColorValue;
+}>;
+
+type TextFilterIOSStruct = Readonly<{
+  keypath: string;
+  text: string;
+}>;
+
+type TextFilterAndroidStruct = Readonly<{
+  find: string;
+  replace: string;
 }>;
 
 export interface NativeProps extends ViewProps {
@@ -27,9 +42,12 @@ export interface NativeProps extends ViewProps {
   enableMergePathsAndroidForKitKatAndAbove?: boolean;
   hardwareAccelerationAndroid?: boolean;
   cacheComposition?: boolean;
-  colorFilters?: ReadonlyArray<string>;
-  textFiltersAndroid?: ReadonlyArray<string>;
-  textFiltersIOS?: ReadonlyArray<string>;
+  colorFilters?: ReadonlyArray<ColorFilterStruct>;
+  // dummy that solves codegen issue when there's a ReadonlyArray<Object> without another Object prop
+  // https://github.com/reactwg/react-native-new-architecture/discussions/104
+  dummy?: Readonly<{ dummy: boolean }>;
+  textFiltersAndroid?: ReadonlyArray<TextFilterAndroidStruct>;
+  textFiltersIOS?: ReadonlyArray<TextFilterIOSStruct>;
   onAnimationFinish?: BubblingEventHandler<
     OnAnimationFinishEvent,
     'onAnimationFinish'
