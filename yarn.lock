@@ -2515,36 +2515,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-windows/cli@npm:0.70.2":
-  version: 0.70.2
-  resolution: "@react-native-windows/cli@npm:0.70.2"
-  dependencies:
-    "@react-native-windows/fs": 0.70.0
-    "@react-native-windows/package-utils": 0.70.0
-    "@react-native-windows/telemetry": 0.70.1
-    "@typescript-eslint/eslint-plugin": ^5.20.0
-    "@typescript-eslint/parser": ^5.20.0
-    "@xmldom/xmldom": ^0.7.7
-    chalk: ^4.1.0
-    cli-spinners: ^2.2.0
-    envinfo: ^7.5.0
-    find-up: ^4.1.0
-    glob: ^7.1.1
-    lodash: ^4.17.15
-    mustache: ^4.0.1
-    ora: ^3.4.0
-    prompts: ^2.4.1
-    semver: ^7.3.2
-    shelljs: ^0.8.4
-    username: ^5.1.0
-    uuid: ^3.3.2
-    xml-formatter: ^2.4.0
-    xml-parser: ^1.2.1
-    xpath: ^0.0.27
-  checksum: d33d1675e3cc75ef81d4fc60fbbd529a9feaa414e03927133a459180fc7579adc8b770d3e511c9f0ca6f7ff534cbf47b310dfe82590572c4c55c6f1df31389ff
-  languageName: node
-  linkType: hard
-
 "@react-native-windows/find-repo-root@npm:0.70.0":
   version: 0.70.0
   resolution: "@react-native-windows/find-repo-root@npm:0.70.0"
@@ -2597,24 +2567,6 @@ __metadata:
     os-locale: ^5.0.0
     xpath: ^0.0.27
   checksum: 7bca56982cadb4c28fc81512412b6301c4782c55bff2ce33b869dcfac6383bd04ee5e55b92b5e9b6cdee0204f5f90acf0db5105d1ecea48bc170e12acf172932
-  languageName: node
-  linkType: hard
-
-"@react-native-windows/telemetry@npm:0.70.1":
-  version: 0.70.1
-  resolution: "@react-native-windows/telemetry@npm:0.70.1"
-  dependencies:
-    "@react-native-windows/fs": 0.70.0
-    "@typescript-eslint/eslint-plugin": ^5.20.0
-    "@typescript-eslint/parser": ^5.20.0
-    "@xmldom/xmldom": ^0.7.7
-    applicationinsights: ^2.3.1
-    ci-info: ^3.2.0
-    envinfo: ^7.8.1
-    lodash: ^4.17.21
-    os-locale: ^5.0.0
-    xpath: ^0.0.27
-  checksum: 67e68c5e55e54bb006d8962e22a8e2e9780b7fbfb35ddc9428e7c3d6b6fae85c150b09f2a569241f8a545cc2ec716c8f6846a1b04a2ef226dfb108d56a3ed117
   languageName: node
   linkType: hard
 
@@ -3000,13 +2952,6 @@ __metadata:
   version: 0.7.5
   resolution: "@xmldom/xmldom@npm:0.7.5"
   checksum: 8d7ec35c1ef6183b4f621df08e01d7e61f244fb964a4719025e65fe6ac06fac418919be64fb40fe5908e69158ef728f2d936daa082db326fe04603012b5f2a84
-  languageName: node
-  linkType: hard
-
-"@xmldom/xmldom@npm:^0.7.7":
-  version: 0.7.9
-  resolution: "@xmldom/xmldom@npm:0.7.9"
-  checksum: 66e37b7800132f891b885b2eceeeebc53f60b69789da10276f1584256b963d79a28c7ae2071bc53a9cd842d9b03554c761b2701fe8036d6052f26bcd0ae8f2bb
   languageName: node
   linkType: hard
 
@@ -10885,7 +10830,6 @@ __metadata:
     react: 18.2.0
     react-native: 0.71.0
     react-native-dropdown-picker: ^5.4.2
-    react-native-windows: 0.70.10
   languageName: unknown
   linkType: soft
 
@@ -11516,53 +11460,6 @@ __metadata:
   version: 0.71.12
   resolution: "react-native-gradle-plugin@npm:0.71.12"
   checksum: be45a84ed9b66f7bbdd5cba55ad16de370996476892a9ddb9ed14459b0c52276bcd1c0bfedbce0263d58c7b83db61c94dc1e358f07d743c499473ae6d1f899bb
-  languageName: node
-  linkType: hard
-
-"react-native-windows@npm:0.70.10":
-  version: 0.70.10
-  resolution: "react-native-windows@npm:0.70.10"
-  dependencies:
-    "@babel/runtime": ^7.0.0
-    "@jest/create-cache-key-function": ^27.0.1
-    "@react-native-community/cli": ^9.0.0
-    "@react-native-community/cli-platform-android": ^9.0.0
-    "@react-native-community/cli-platform-ios": ^9.0.0
-    "@react-native-windows/cli": 0.70.2
-    "@react-native-windows/virtualized-list": 0.70.0
-    "@react-native/assets": 1.0.0
-    "@react-native/normalize-color": 2.0.0
-    "@react-native/polyfills": 2.0.0
-    abort-controller: ^3.0.0
-    anser: ^1.4.9
-    base64-js: ^1.1.2
-    event-target-shim: ^5.0.1
-    invariant: ^2.2.4
-    jsc-android: ^250230.2.1
-    memoize-one: ^5.0.0
-    metro-react-native-babel-transformer: 0.72.1
-    metro-runtime: 0.72.1
-    metro-source-map: 0.72.1
-    mkdirp: ^0.5.1
-    nullthrows: ^1.1.1
-    pretty-format: ^26.5.2
-    promise: ^8.0.3
-    react-devtools-core: 4.24.0
-    react-native-codegen: ^0.70.4
-    react-native-gradle-plugin: ^0.70.2
-    react-refresh: ^0.4.0
-    react-shallow-renderer: ^16.15.0
-    regenerator-runtime: ^0.13.2
-    scheduler: ^0.22.0
-    source-map-support: ^0.5.19
-    stacktrace-parser: ^0.1.3
-    use-sync-external-store: ^1.0.0
-    whatwg-fetch: ^3.0.0
-    ws: ^6.1.4
-  peerDependencies:
-    react: 18.1.0
-    react-native: ^0.70.0
-  checksum: cdab0841aaa16d59325d614c70ab0a76b78fbd3ad512ed4017499aa7e1f8db056b087fea19c5bb3e7d59bd3b28dda4ab6dc4db08e2a490b35e642573020d3fdf
   languageName: node
   linkType: hard
 
