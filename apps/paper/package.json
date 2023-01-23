@@ -18,7 +18,8 @@
     "lottie-react-native": "workspace:*",
     "react": "18.2.0",
     "react-native": "0.71.0",
-    "react-native-dropdown-picker": "^5.4.2"
+    "react-native-dropdown-picker": "^5.4.2",
+    "react-native-windows": "0.71.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

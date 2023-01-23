@@ -2515,6 +2515,59 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-windows/cli@npm:0.71.0":
+  version: 0.71.0
+  resolution: "@react-native-windows/cli@npm:0.71.0"
+  dependencies:
+    "@react-native-windows/codegen": 0.71.0
+    "@react-native-windows/fs": 0.71.0
+    "@react-native-windows/package-utils": 0.71.0
+    "@react-native-windows/telemetry": 0.71.0
+    "@typescript-eslint/eslint-plugin": ^5.30.5
+    "@typescript-eslint/parser": ^5.30.5
+    "@xmldom/xmldom": ^0.7.7
+    chalk: ^4.1.0
+    cli-spinners: ^2.2.0
+    envinfo: ^7.5.0
+    find-up: ^4.1.0
+    glob: ^7.1.1
+    lodash: ^4.17.15
+    mustache: ^4.0.1
+    ora: ^3.4.0
+    prompts: ^2.4.1
+    semver: ^7.3.2
+    shelljs: ^0.8.4
+    username: ^5.1.0
+    uuid: ^3.3.2
+    xml-formatter: ^2.4.0
+    xml-parser: ^1.2.1
+    xpath: ^0.0.27
+  peerDependencies:
+    react-native: "*"
+  checksum: 723a137616e0e9aeb5073939e517bdecd99cc053f4ceed968a0e986f01c64f4dc1d9a0f482588fc4c39d9ee136a35b91117a095f677c148af4183ebb7466914d
+  languageName: node
+  linkType: hard
+
+"@react-native-windows/codegen@npm:0.71.0":
+  version: 0.71.0
+  resolution: "@react-native-windows/codegen@npm:0.71.0"
+  dependencies:
+    "@react-native-windows/fs": 0.71.0
+    "@typescript-eslint/eslint-plugin": ^5.30.5
+    "@typescript-eslint/parser": ^5.30.5
+    chalk: ^4.1.0
+    globby: ^11.0.4
+    mustache: ^4.0.1
+    source-map-support: ^0.5.19
+    yargs: ^16.2.0
+  peerDependencies:
+    react-native: "*"
+  bin:
+    react-native-windows-codegen: bin.js
+  checksum: 0212232c5c1cf286ea7231003b12b17d50595f76952d1ef8b653006633fa7063f6e2b60a8045f4f5350e04a1df9871ebda3fb5cdb2700403a8de3acab2718ddc
+  languageName: node
+  linkType: hard
+
 "@react-native-windows/find-repo-root@npm:0.70.0":
   version: 0.70.0
   resolution: "@react-native-windows/find-repo-root@npm:0.70.0"
@@ -2524,6 +2577,18 @@ __metadata:
     "@typescript-eslint/parser": ^5.20.0
     find-up: ^4.1.0
   checksum: 57264b99d52df7e00b74da3917d5ba67686b542dc008a84b3d4fa4c9d921a9cfa1e1e3096f21988df41b144942c872c5bfaf28c8aa3458827b639e6f17e62eba
+  languageName: node
+  linkType: hard
+
+"@react-native-windows/find-repo-root@npm:0.71.0":
+  version: 0.71.0
+  resolution: "@react-native-windows/find-repo-root@npm:0.71.0"
+  dependencies:
+    "@react-native-windows/fs": 0.71.0
+    "@typescript-eslint/eslint-plugin": ^5.30.5
+    "@typescript-eslint/parser": ^5.30.5
+    find-up: ^4.1.0
+  checksum: ed0ba77d97f57fcb856173972412751c1418653e01cb24c6468bf289916640fdb3e9991f1694a9f542160ecc56c82f88ebbe7c8aef2dd8134697ee4088b496cf
   languageName: node
   linkType: hard
 
@@ -2538,6 +2603,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-windows/fs@npm:0.71.0":
+  version: 0.71.0
+  resolution: "@react-native-windows/fs@npm:0.71.0"
+  dependencies:
+    "@typescript-eslint/eslint-plugin": ^5.30.5
+    "@typescript-eslint/parser": ^5.30.5
+    graceful-fs: ^4.2.8
+  checksum: 08083ed952fda25557a4e2f82bb78024f369c5cd1f777a264fabd94e5854177472cda955c5489df5292fd559596a1f8df5784c6c1ede07a27340cd5dc4fe1297
+  languageName: node
+  linkType: hard
+
 "@react-native-windows/package-utils@npm:0.70.0":
   version: 0.70.0
   resolution: "@react-native-windows/package-utils@npm:0.70.0"
@@ -2549,6 +2625,20 @@ __metadata:
     get-monorepo-packages: ^1.2.0
     lodash: ^4.17.15
   checksum: b730561261b65edc0cccd87140c9f3d2df9f5cf5dab702ed912f3e08070a2bc5c6fc1e1a8ccdaeb5721c5f146142935878efed52a6a000fe14b7bfc525042bec
+  languageName: node
+  linkType: hard
+
+"@react-native-windows/package-utils@npm:0.71.0":
+  version: 0.71.0
+  resolution: "@react-native-windows/package-utils@npm:0.71.0"
+  dependencies:
+    "@react-native-windows/find-repo-root": 0.71.0
+    "@react-native-windows/fs": 0.71.0
+    "@typescript-eslint/eslint-plugin": ^5.30.5
+    "@typescript-eslint/parser": ^5.30.5
+    get-monorepo-packages: ^1.2.0
+    lodash: ^4.17.15
+  checksum: 7dc4e431d30b7926b311ce30dd9543c0b833c21a922f376d426f238be4d4e3b2f532850f2d5f50405bedb9c02dd13abdf81efb263bf2df4a10f1e2dab05f83f5
   languageName: node
   linkType: hard
 
@@ -2567,6 +2657,24 @@ __metadata:
     os-locale: ^5.0.0
     xpath: ^0.0.27
   checksum: 7bca56982cadb4c28fc81512412b6301c4782c55bff2ce33b869dcfac6383bd04ee5e55b92b5e9b6cdee0204f5f90acf0db5105d1ecea48bc170e12acf172932
+  languageName: node
+  linkType: hard
+
+"@react-native-windows/telemetry@npm:0.71.0":
+  version: 0.71.0
+  resolution: "@react-native-windows/telemetry@npm:0.71.0"
+  dependencies:
+    "@react-native-windows/fs": 0.71.0
+    "@typescript-eslint/eslint-plugin": ^5.30.5
+    "@typescript-eslint/parser": ^5.30.5
+    "@xmldom/xmldom": ^0.7.7
+    applicationinsights: ^2.3.1
+    ci-info: ^3.2.0
+    envinfo: ^7.8.1
+    lodash: ^4.17.21
+    os-locale: ^5.0.0
+    xpath: ^0.0.27
+  checksum: fa5fb6948ac21df16590fd73ab4715b2826bfb41659eb966baf944689051e34be6a9d738f0f660e7845b7193de832f4e3294334e445cdd5c09459a2f684871bb
   languageName: node
   linkType: hard
 
@@ -2952,6 +3060,13 @@ __metadata:
   version: 0.7.5
   resolution: "@xmldom/xmldom@npm:0.7.5"
   checksum: 8d7ec35c1ef6183b4f621df08e01d7e61f244fb964a4719025e65fe6ac06fac418919be64fb40fe5908e69158ef728f2d936daa082db326fe04603012b5f2a84
+  languageName: node
+  linkType: hard
+
+"@xmldom/xmldom@npm:^0.7.7":
+  version: 0.7.9
+  resolution: "@xmldom/xmldom@npm:0.7.9"
+  checksum: 66e37b7800132f891b885b2eceeeebc53f60b69789da10276f1584256b963d79a28c7ae2071bc53a9cd842d9b03554c761b2701fe8036d6052f26bcd0ae8f2bb
   languageName: node
   linkType: hard
 
@@ -4251,6 +4366,17 @@ __metadata:
     strip-ansi: ^6.0.0
     wrap-ansi: ^6.2.0
   checksum: 4fcfd26d292c9f00238117f39fc797608292ae36bac2168cfee4c85923817d0607fe21b3329a8621e01aedf512c99b7eaa60e363a671ffd378df6649fb48ae42
+  languageName: node
+  linkType: hard
+
+"cliui@npm:^7.0.2":
+  version: 7.0.4
+  resolution: "cliui@npm:7.0.4"
+  dependencies:
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.0
+    wrap-ansi: ^7.0.0
+  checksum: ce2e8f578a4813806788ac399b9e866297740eecd4ad1823c27fd344d78b22c5f8597d548adbcc46f0573e43e21e751f39446c5a5e804a12aace402b7a315d7f
   languageName: node
   linkType: hard
 
@@ -6453,7 +6579,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^11.0.1, globby@npm:^11.1.0":
+"globby@npm:^11.0.1, globby@npm:^11.0.4, globby@npm:^11.1.0":
   version: 11.1.0
   resolution: "globby@npm:11.1.0"
   dependencies:
@@ -10830,6 +10956,7 @@ __metadata:
     react: 18.2.0
     react-native: 0.71.0
     react-native-dropdown-picker: ^5.4.2
+    react-native-windows: 0.71.0
   languageName: unknown
   linkType: soft
 
@@ -11507,6 +11634,54 @@ __metadata:
     react: 18.1.0
     react-native: ^0.70.0
   checksum: 6da655441ef1598a02fe363c8c10772e65c5e7373616e893670f10efc0047c93c66660a6c48dfcd8667470e49e1d83d94c7f4b02b673fc805b0aa4c67d2e49da
+  languageName: node
+  linkType: hard
+
+"react-native-windows@npm:0.71.0":
+  version: 0.71.0
+  resolution: "react-native-windows@npm:0.71.0"
+  dependencies:
+    "@babel/runtime": ^7.0.0
+    "@jest/create-cache-key-function": ^29.2.1
+    "@react-native-community/cli": 10.0.0
+    "@react-native-community/cli-platform-android": 10.0.0
+    "@react-native-community/cli-platform-ios": 10.0.0
+    "@react-native-windows/cli": 0.71.0
+    "@react-native/assets": 1.0.0
+    "@react-native/normalize-color": 2.1.0
+    "@react-native/polyfills": 2.0.0
+    abort-controller: ^3.0.0
+    anser: ^1.4.9
+    base64-js: ^1.1.2
+    deprecated-react-native-prop-types: ^3.0.1
+    event-target-shim: ^5.0.1
+    invariant: ^2.2.4
+    jest-environment-node: ^29.2.1
+    jsc-android: ^250230.2.1
+    memoize-one: ^5.0.0
+    metro-react-native-babel-transformer: 0.73.5
+    metro-runtime: 0.73.5
+    metro-source-map: 0.73.5
+    mkdirp: ^0.5.1
+    nullthrows: ^1.1.1
+    pretty-format: ^26.5.2
+    promise: ^8.3.0
+    react-devtools-core: ^4.26.1
+    react-native-codegen: ^0.71.3
+    react-native-gradle-plugin: ^0.71.12
+    react-refresh: ^0.4.0
+    react-shallow-renderer: ^16.15.0
+    regenerator-runtime: ^0.13.2
+    scheduler: ^0.23.0
+    source-map-support: ^0.5.19
+    stacktrace-parser: ^0.1.3
+    use-sync-external-store: ^1.0.0
+    whatwg-fetch: ^3.0.0
+    ws: ^6.2.2
+  peerDependencies:
+    react: 18.2.0
+    react-native: 0.71.0
+  checksum: 671188db52e4b3f98ed534e49848ef278e2ae8fc77fe02f73e0af3cd0e6ffd0281d6a6022c5497364056cd460be5660285711797f4b06895dd5660ed4b6794f8
   languageName: node
   linkType: hard
 
@@ -14246,6 +14421,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"yargs-parser@npm:^20.2.2":
+  version: 20.2.9
+  resolution: "yargs-parser@npm:20.2.9"
+  checksum: 8bb69015f2b0ff9e17b2c8e6bfe224ab463dd00ca211eece72a4cd8a906224d2703fb8a326d36fdd0e68701e201b2a60ed7cf81ce0fd9b3799f9fe7745977ae3
+  languageName: node
+  linkType: hard
+
 "yargs-parser@npm:^21.0.0":
   version: 21.1.1
   resolution: "yargs-parser@npm:21.1.1"
@@ -14269,6 +14451,21 @@ __metadata:
     y18n: ^4.0.0
     yargs-parser: ^18.1.2
   checksum: 40b974f508d8aed28598087720e086ecd32a5fd3e945e95ea4457da04ee9bdb8bdd17fd91acff36dc5b7f0595a735929c514c40c402416bbb87c03f6fb782373
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^16.2.0":
+  version: 16.2.0
+  resolution: "yargs@npm:16.2.0"
+  dependencies:
+    cliui: ^7.0.2
+    escalade: ^3.1.1
+    get-caller-file: ^2.0.5
+    require-directory: ^2.1.1
+    string-width: ^4.2.0
+    y18n: ^5.0.5
+    yargs-parser: ^20.2.2
+  checksum: b14afbb51e3251a204d81937c86a7e9d4bdbf9a2bcee38226c900d00f522969ab675703bee2a6f99f8e20103f608382936034e64d921b74df82b63c07c5e8f59
   languageName: node
   linkType: hard
 
