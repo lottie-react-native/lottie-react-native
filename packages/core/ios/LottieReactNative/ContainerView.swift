@@ -25,7 +25,7 @@ class ContainerView: RCTView {
         super.traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 13.0, tvOS 13.0, *) {
             if (self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)) {
-                applyProperties()
+                applyColorProperties()
                 print("dark mode changed")
             }
         }
@@ -194,7 +194,7 @@ class ContainerView: RCTView {
 
     @objc func setColorFilters(_ newColorFilters: [NSDictionary]) {
         colorFilters = newColorFilters
-        applyProperties()
+        applyColorProperties()
     }
 
     // There is no Nullable CGFloat in Objective-C, so this function uses a Nullable NSNumber and converts it later
@@ -210,9 +210,11 @@ class ContainerView: RCTView {
                 onFinish(["isCancelled": !animationFinished])
             }
             self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
+            if (animationFinished) {
+                self.animationView?.currentProgress = 1;
+            }
         }
 
-        animationView?.backgroundBehavior = .pauseAndRestore
         animationView?.play(fromFrame: fromFrame, toFrame: toFrame, loopMode: self.loop, completion: callback);
     }
 
@@ -221,10 +223,12 @@ class ContainerView: RCTView {
             if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
+            if (animationFinished) {
+                self.animationView?.currentProgress = 1;
+            }
             self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
         }
 
-        animationView?.backgroundBehavior = .pauseAndRestore
         animationView?.play(completion: callback)
     }
 
@@ -257,15 +261,15 @@ class ContainerView: RCTView {
         addSubview(next)
         animationView?.contentMode = contentMode
         animationView?.reactSetFrame(frame)
-        applyProperties()
+        animationView?.backgroundBehavior = .pauseAndRestore
+        animationView?.animationSpeed = speed
+        animationView?.loopMode = loop
+        applyColorProperties()
     }
-
-    func applyProperties() {
+    
+    func applyColorProperties() {
         guard let animationView = animationView else { return }
-        let isPlaying = animationView.isAnimationPlaying
-        animationView.currentProgress = progress
-        animationView.animationSpeed = speed
-        animationView.loopMode = loop
+
         if (colorFilters.count > 0) {
             for filter in colorFilters {
                 let keypath: String = "\(filter.value(forKey: "keypath") as! String).**.Color"
@@ -273,9 +277,6 @@ class ContainerView: RCTView {
                 let colorFilterValueProvider = ColorValueProvider((filter.value(forKey: "color") as! PlatformColor).lottieColorValue)
                 animationView.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
             }
-        }
-        if isPlaying {
-           resume()
         }
     }
 }
