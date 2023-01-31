@@ -34,7 +34,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "bob build"
+    "build": "bob build",
+    "release": "release-it"
   },
   "peerDependencies": {
     "react": "*",
@@ -61,6 +62,7 @@
     "react-native": "0.70.3",
     "react-native-builder-bob": "^0.19.1",
     "react-native-windows": "0.70.3",
+    "release-it": "^15.6.0",
     "typescript": "^4.8.4"
   },
   "react-native-builder-bob": {
