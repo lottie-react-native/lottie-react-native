@@ -111,7 +111,7 @@ import Lottie from 'lottie-react-native';
 
 export default function Animation() {
   return (
-    <Lottie source={require('./animation.json')} autoPlay loop />
+    <Lottie source={require('../path/to/animation.json')} autoPlay loop />
   );
 }
 ```
@@ -144,7 +144,7 @@ export default function AnimationWithImperativeApi() {
 Lottie's animation progress can be controlled with an `Animated` value:
 
 ```jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
 import Lottie from 'lottie-react-native';
 
