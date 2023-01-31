@@ -204,32 +204,25 @@ class ContainerView: RCTView {
         play(fromFrame: convertedFromFrame, toFrame: toFrame);
     }
     
-    func play(fromFrame: AnimationFrameTime? = nil, toFrame: AnimationFrameTime) {
-        let callback: LottieCompletionBlock = { animationFinished in
+    func getCompletionCallback() -> LottieCompletionBlock {
+        return { animationFinished in
             if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
             self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
             if (animationFinished) {
+                // Force the animation to stay on the last frame when the animation ends
                 self.animationView?.currentProgress = 1;
             }
-        }
-
-        animationView?.play(fromFrame: fromFrame, toFrame: toFrame, loopMode: self.loop, completion: callback);
+        };
+    }
+    
+    func play(fromFrame: AnimationFrameTime? = nil, toFrame: AnimationFrameTime) {
+        animationView?.play(fromFrame: fromFrame, toFrame: toFrame, loopMode: self.loop, completion: getCompletionCallback());
     }
 
     @objc func play() {
-        let callback: LottieCompletionBlock = { animationFinished in
-            if let onFinish = self.onAnimationFinish {
-                onFinish(["isCancelled": !animationFinished])
-            }
-            if (animationFinished) {
-                self.animationView?.currentProgress = 1;
-            }
-            self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
-        }
-
-        animationView?.play(completion: callback)
+        animationView?.play(completion: getCompletionCallback())
     }
 
     @objc func reset() {
