@@ -34,7 +34,8 @@
     "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
-    "build": "bob build"
+    "build": "bob build",
+    "release": "release-it"
   },
   "peerDependencies": {
     "react": "*",
@@ -48,6 +49,7 @@
   },
   "devDependencies": {
     "@react-native-community/eslint-config": "^3.1.0",
+    "@release-it/conventional-changelog": "^5.1.1",
     "@types/react": "^18.0.21",
     "@types/react-native": "^0.70.4",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
@@ -61,6 +63,7 @@
     "react-native": "0.70.3",
     "react-native-builder-bob": "^0.19.1",
     "react-native-windows": "0.70.3",
+    "release-it": "^15.6.0",
     "typescript": "^4.8.4"
   },
   "react-native-builder-bob": {
@@ -79,5 +82,23 @@
     "name": "lottiereactnative",
     "type": "components",
     "jsSrcsDir": "./src/specs"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "../../CHANGELOG.md"
+      }
+    }
   }
 }
