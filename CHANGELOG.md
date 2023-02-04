@@ -1,3 +1,7 @@
+## 5.1.5
+
+- Fix versioning issue
+
 ## 5.1.4
 
 - Support for lottie-ios version 3.4.0
