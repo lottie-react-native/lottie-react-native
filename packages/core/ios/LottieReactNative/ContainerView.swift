@@ -266,7 +266,7 @@ class ContainerView: RCTView {
         animationView?.loopMode = loop
         applyColorProperties()
         
-        if (self.autoPlay) {
+        if (self.autoPlay && animationView?.isAnimationPlaying == false) {
             self.play()
         }
     }
