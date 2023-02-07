@@ -17,13 +17,7 @@ const App = () => {
   const [source, setSource] = React.useState<'local' | 'remote'>('local');
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical: 32,
-      }}>
+    <View style={styles.container}>
       <AnimatedLottieView
         source={source === 'remote' ? remoteSource : localSource}
         autoPlay={true}
@@ -49,6 +43,12 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 32,
+  },
   button: {backgroundColor: color.primary, marginTop: 24, padding: 24},
   text: {color: 'white'},
   lottie: {width: 400, height: 400},
