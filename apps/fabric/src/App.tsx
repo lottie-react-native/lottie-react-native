@@ -15,13 +15,14 @@ const localSource = require('./animations/LottieLogo1.json');
 
 const App = () => {
   const [source, setSource] = React.useState<'local' | 'remote'>('local');
+  const [isLoop, setLoop] = React.useState(false);
 
   return (
     <View style={styles.container}>
       <AnimatedLottieView
         source={source === 'remote' ? remoteSource : localSource}
         autoPlay={true}
-        loop={false}
+        loop={isLoop}
         style={styles.lottie}
         colorFilters={source === 'local' ? localColorFilter : undefined}
         enableMergePathsAndroidForKitKatAndAbove
@@ -29,15 +30,24 @@ const App = () => {
           console.log('finished');
         }}
       />
-      <TouchableOpacity
-        onPress={() => {
-          setSource(source === 'local' ? 'remote' : 'local');
-        }}
-        style={styles.button}>
-        <Text style={styles.text}>
-          {source === 'local' ? 'Local animation' : 'Remote animation'}
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.controlsContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(source === 'local' ? 'remote' : 'local');
+          }}
+          style={styles.button}>
+          <Text style={styles.text}>
+            {source === 'local' ? 'Local animation' : 'Remote animation'}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setLoop(p => !p);
+          }}
+          style={styles.button}>
+          <Text style={styles.text}>{isLoop ? 'Loop on' : 'Loop off'}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -49,7 +59,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 32,
   },
-  button: {backgroundColor: color.primary, marginTop: 24, padding: 24},
+  controlsContainer: {flexDirection: 'row', marginTop: 24, columnGap: 12},
+  button: {
+    backgroundColor: color.primary,
+    paddingHorizontal: 24,
+    paddingVertical: 16,
+  },
   text: {color: 'white'},
   lottie: {width: 400, height: 400},
 });
