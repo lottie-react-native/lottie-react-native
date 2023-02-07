@@ -16,6 +16,7 @@
 - (void)setProgress:(CGFloat)newProgress;
 - (void)reactSetFrame:(CGRect)frame;
 - (void)setLoop:(BOOL)isLooping;
+- (void)setAutoPlay:(BOOL)isAutoPlay;
 - (void)setTextFiltersIOS:(NSArray<NSDictionary *> * _Nonnull)newTextFilters;
 - (void)setRenderMode:(NSString * _Nonnull)newRenderMode;
 - (void)setSourceURL:(NSString * _Nonnull)newSourceURLString;

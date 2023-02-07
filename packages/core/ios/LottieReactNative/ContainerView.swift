@@ -9,6 +9,7 @@ import Foundation
 class ContainerView: RCTView {
     private var speed: CGFloat = 0.0
     private var progress: CGFloat = 0.0
+    private var autoPlay: Bool = false
     private var loop: LottieLoopMode = .playOnce
     private var sourceJson: String = ""
     private var resizeMode: String = ""
@@ -59,6 +60,13 @@ class ContainerView: RCTView {
         animationView?.loopMode = loop
     }
     
+    @objc func setAutoPlay(_ autoPlay: Bool) {
+        self.autoPlay = autoPlay
+        if(autoPlay && animationView?.isAnimationPlaying == false) {
+            self.play()
+        }
+    }
+    
     @objc func setTextFiltersIOS(_ newTextFilters: [NSDictionary]) {
         textFilters = newTextFilters
         
@@ -70,10 +78,10 @@ class ContainerView: RCTView {
                 filters[key] = value;
             }
             
-            let starAnimationView = LottieAnimationView()
-            starAnimationView.textProvider = DictionaryTextProvider(filters)
-            starAnimationView.animation = animationView?.animation
-            replaceAnimationView(next: starAnimationView)
+            let nextAnimationView = LottieAnimationView()
+            nextAnimationView.textProvider = DictionaryTextProvider(filters)
+            nextAnimationView.animation = animationView?.animation
+            replaceAnimationView(next: nextAnimationView)
         }
     }
 
@@ -104,11 +112,11 @@ class ContainerView: RCTView {
             renderMode = .automatic
         }
         if (animationView != nil) {
-            let starAnimationView = LottieAnimationView(
+            let nextAnimationView = LottieAnimationView(
                 animation: animationView?.animation,
                 configuration: getLottieConfiguration()
             )
-            replaceAnimationView(next: starAnimationView)
+            replaceAnimationView(next: nextAnimationView)
         }
     }
 
@@ -133,12 +141,11 @@ class ContainerView: RCTView {
                     }
 
                     DispatchQueue.main.async {
-                        let starAnimationView = LottieAnimationView(
+                        let nextAnimationView = LottieAnimationView(
                             animation: animation,
                             configuration: self.getLottieConfiguration()
                         )
-                        self.replaceAnimationView(next: starAnimationView)
-                        self.animationView?.play()
+                        self.replaceAnimationView(next: nextAnimationView)
                     }
                 } catch {
                     if (RCT_DEBUG == 1) {
@@ -160,11 +167,11 @@ class ContainerView: RCTView {
             return
         }
 
-        let starAnimationView = LottieAnimationView(
+        let nextAnimationView = LottieAnimationView(
             animation: animation,
             configuration: getLottieConfiguration()
         )
-        replaceAnimationView(next: starAnimationView)
+        replaceAnimationView(next: nextAnimationView)
     }
 
     @objc func setSourceName(_ newSourceName: String) {
@@ -173,11 +180,11 @@ class ContainerView: RCTView {
         }
         sourceName = newSourceName
 
-        let starAnimationView = LottieAnimationView(
+        let nextAnimationView = LottieAnimationView(
             name: sourceName,
             configuration: getLottieConfiguration()
         )
-        replaceAnimationView(next: starAnimationView)
+        replaceAnimationView(next: nextAnimationView)
     }
 
     @objc func setResizeMode(_ resizeMode: String) {
@@ -258,6 +265,10 @@ class ContainerView: RCTView {
         animationView?.animationSpeed = speed
         animationView?.loopMode = loop
         applyColorProperties()
+        
+        if (self.autoPlay) {
+            self.play()
+        }
     }
     
     func applyColorProperties() {

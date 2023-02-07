@@ -61,7 +61,7 @@ const EXAMPLES = [
     require('./animations/MotionCorpse-Jrcanest.json'),
   ),
   makeExample('Remote load', () => ({
-    uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/example/js/animations/Watermelon.json',
+    uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/apps/paper/src/animations/Watermelon.json',
   })),
 ];
 
@@ -159,8 +159,16 @@ export default class LottieAnimatedExample extends React.Component {
   };
 
   render() {
-    const {duration, isPlaying, isPaused, isInverse, progress, loop, example, renderMode} =
-      this.state;
+    const {
+      duration,
+      isPlaying,
+      isPaused,
+      isInverse,
+      progress,
+      loop,
+      example,
+      renderMode,
+    } = this.state;
 
     return (
       <View style={{flex: 1}}>

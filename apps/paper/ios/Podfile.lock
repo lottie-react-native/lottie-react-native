@@ -301,7 +301,7 @@ PODS:
   - React-jsinspector (0.71.0)
   - React-logger (0.71.0):
     - glog
-  - react-native-slider (4.3.2):
+  - react-native-slider (4.4.0):
     - React-Core
   - React-perflogger (0.71.0)
   - React-RCTActionSheet (0.71.0):
@@ -570,7 +570,7 @@ SPEC CHECKSUMS:
   hermes-engine: ca3834c67d1729953a2645b89a59f38c47e94ab3
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
-  lottie-react-native: 8acede38abe26c803d5328f144669475ff15321b
+  lottie-react-native: 6bcc2ddf085c2d092948978b57de2c7d6a138a0c
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: dea3e4163184ea57c50288c15c32c1529265c58f
@@ -586,7 +586,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 060dd495f1e2af3d87216f7ca8a94c55ec885b4f
   React-jsinspector: 5061fcbec93fd672183dfb39cc2f65e55a0835db
   React-logger: a6c0b3a807a8e81f6d7fea2e72660766f55daa50
-  react-native-slider: e540525ea731783850802b7af457d8551edb0711
+  react-native-slider: d2938a12c4e439a227c70eec65d119136eb4aeb5
   React-perflogger: e5fc4149e9bbb972b8520277f3b23141faa47a36
   React-RCTActionSheet: 991de88216bf03ab9bb1d213d73c62ecbe64ade7
   React-RCTAnimation: b74e3d1bf5280891a573e447b487fa1db0713b5b
