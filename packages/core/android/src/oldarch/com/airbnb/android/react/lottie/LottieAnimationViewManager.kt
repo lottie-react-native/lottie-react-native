@@ -26,11 +26,12 @@ import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.bridge.ReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.RCTEventEmitter
 import java.util.*
 
-class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
+class LottieAnimationViewManager(val reactContext: ReactContext): SimpleViewManager<LottieAnimationView>() {
     private val propManagersMap =
             WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
 
