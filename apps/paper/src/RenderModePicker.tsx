@@ -1,13 +1,12 @@
-/* eslint-disable global-require */
 import React, {useEffect, useState} from 'react';
 import {Platform} from 'react-native';
-import PropTypes from 'prop-types';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {AnimatedLottieViewProps} from 'lottie-react-native/lib/typescript/LottieView.types';
 
-const propTypes = {
-  renderMode: PropTypes.string,
-  onChange: PropTypes.func,
-};
+interface Props {
+  renderMode: AnimatedLottieViewProps['renderMode'];
+  onChange: (renderMode: AnimatedLottieViewProps['renderMode']) => void;
+}
 
 const renderModes = [
   {
@@ -30,7 +29,7 @@ const renderModes = [
   },
 ];
 
-export default function RenderModePicker(props) {
+export default function RenderModePicker(props: Props) {
   const {renderMode, onChange} = props;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(renderMode);
@@ -41,9 +40,10 @@ export default function RenderModePicker(props) {
     }
     onChange(value);
   }, [renderMode, value, onChange]);
+
   return (
     <DropDownPicker
-      value={renderMode}
+      value={renderMode as string}
       open={open}
       items={renderModes}
       setValue={setValue}
@@ -52,5 +52,3 @@ export default function RenderModePicker(props) {
     />
   );
 }
-
-RenderModePicker.propTypes = propTypes;

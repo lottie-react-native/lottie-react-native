@@ -14,7 +14,7 @@ const remoteSource = {
 const localSource = require('./animations/LottieLogo1.json');
 
 const App = () => {
-  const [source, setSource] = React.useState<'local' | 'remote'>('local');
+  const [source, setSource] = React.useState<'local' | 'remote'>('remote');
   const [isLoop, setLoop] = React.useState(false);
 
   return (
