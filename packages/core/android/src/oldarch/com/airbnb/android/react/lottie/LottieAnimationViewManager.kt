@@ -7,6 +7,7 @@ import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.pause
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.play
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.reset
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.resume
+import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setAutoPlay
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setColorFilters
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setEnableMergePaths
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setHardwareAcceleration
@@ -31,9 +32,11 @@ import java.util.*
 
 class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     private val propManagersMap =
-        WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
+            WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
 
-    private fun getOrCreatePropertyManager(view: LottieAnimationView): LottieAnimationViewPropertyManager {
+    private fun getOrCreatePropertyManager(
+            view: LottieAnimationView
+    ): LottieAnimationViewPropertyManager {
         var result = propManagersMap[view]
         if (result == null) {
             result = LottieAnimationViewPropertyManager(view)
@@ -48,12 +51,9 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
 
         val screenContext = view.context
         if (screenContext is ThemedReactContext) {
-            screenContext.getJSModule(RCTEventEmitter::class.java)
-                ?.receiveEvent(
-                    view.id,
-                    "animationFinish",
-                    event
-                )
+            screenContext
+                    .getJSModule(RCTEventEmitter::class.java)
+                    ?.receiveEvent(view.id, "animationFinish", event)
         }
     }
 
@@ -67,23 +67,25 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
 
     public override fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
         val view = LottieAnimationViewManagerImpl.createViewInstance(context)
-        view.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator) {
-                //do nothing
-            }
+        view.addAnimatorListener(
+                object : Animator.AnimatorListener {
+                    override fun onAnimationStart(animation: Animator) {
+                        // do nothing
+                    }
 
-            override fun onAnimationEnd(animation: Animator) {
-                sendOnAnimationFinishEvent(view, false)
-            }
+                    override fun onAnimationEnd(animation: Animator) {
+                        sendOnAnimationFinishEvent(view, false)
+                    }
 
-            override fun onAnimationCancel(animation: Animator) {
-                sendOnAnimationFinishEvent(view, true)
-            }
+                    override fun onAnimationCancel(animation: Animator) {
+                        sendOnAnimationFinishEvent(view, true)
+                    }
 
-            override fun onAnimationRepeat(animation: Animator) {
-                //do nothing
-            }
-        })
+                    override fun onAnimationRepeat(animation: Animator) {
+                        // do nothing
+                    }
+                }
+        )
         return view
     }
 
@@ -92,9 +94,9 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     }
 
     override fun receiveCommand(
-        view: LottieAnimationView,
-        commandName: String,
-        args: ReadableArray?
+            view: LottieAnimationView,
+            commandName: String,
+            args: ReadableArray?
     ) {
         when (commandName) {
             "play" -> play(view, args?.getInt(0) ?: -1, args?.getInt(1) ?: -1)
@@ -102,7 +104,7 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
             "pause" -> pause(view)
             "resume" -> resume(view)
             else -> {
-                //do nothing
+                // do nothing
             }
         }
     }
@@ -139,8 +141,8 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
 
     @ReactProp(name = "hardwareAccelerationAndroid")
     fun setHardwareAccelerationAndroid(
-        view: LottieAnimationView,
-        hardwareAccelerationAndroid: Boolean?
+            view: LottieAnimationView,
+            hardwareAccelerationAndroid: Boolean?
     ) {
         setHardwareAcceleration(hardwareAccelerationAndroid!!, getOrCreatePropertyManager(view))
     }
@@ -158,6 +160,11 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     @ReactProp(name = "loop")
     fun setLoop(view: LottieAnimationView, loop: Boolean) {
         setLoop(loop, getOrCreatePropertyManager(view))
+    }
+
+    @ReactProp(name = "autoPlay")
+    fun setAutoPlay(view: LottieAnimationView, autoPlay: Boolean) {
+        setAutoPlay(autoPlay, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "imageAssetsFolder")

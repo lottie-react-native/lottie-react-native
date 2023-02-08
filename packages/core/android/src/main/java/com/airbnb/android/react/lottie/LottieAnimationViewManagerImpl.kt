@@ -2,6 +2,7 @@ package com.airbnb.android.react.lottie
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
 import android.widget.ImageView
@@ -11,6 +12,8 @@ import com.airbnb.lottie.RenderMode
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.util.RNLog
+import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -18,6 +21,7 @@ import kotlin.concurrent.thread
 
 internal object LottieAnimationViewManagerImpl {
     const val REACT_CLASS = "LottieAnimationView"
+    val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     @JvmStatic
     val exportedViewConstants: Map<String, Any>
@@ -135,12 +139,19 @@ internal object LottieAnimationViewManagerImpl {
         urlString: String?,
         propManagersMap: LottieAnimationViewPropertyManager
     ) {
-        thread {
-            BufferedReader(InputStreamReader(URL(urlString).openStream())).useLines {
-                Handler(Looper.getMainLooper()).post {
-                    propManagersMap.animationJson = it.toString()
-                    propManagersMap.commitChanges()
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val jsonString = withContext(Dispatchers.IO) {
+                    URL(urlString).openStream().use {
+                        BufferedReader(InputStreamReader(it)).useLines { lines ->
+                            lines.joinToString("\n")
+                        }
+                    }
                 }
+                propManagersMap.animationJson = jsonString
+                propManagersMap.commitChanges()
+            } catch (e: Exception) {
+                RNLog.l("Error while loading animation from URL")
             }
         }
     }
@@ -158,7 +169,7 @@ internal object LottieAnimationViewManagerImpl {
         var mode: ImageView.ScaleType? = null
         when (resizeMode) {
             "cover" -> {
-                mode = ImageView.ScaleType.CENTER_CROP
+                mode = ImageView.ScaleType.FIT_XY
             }
             "contain" -> {
                 mode = ImageView.ScaleType.CENTER_INSIDE
@@ -224,6 +235,14 @@ internal object LottieAnimationViewManagerImpl {
         viewManager: LottieAnimationViewPropertyManager
     ) {
         viewManager.loop = loop
+    }
+
+    @JvmStatic
+    fun setAutoPlay(
+        autoPlay: Boolean,
+        viewManager: LottieAnimationViewPropertyManager
+    ) {
+        viewManager.autoPlay = autoPlay
     }
 
     @JvmStatic
