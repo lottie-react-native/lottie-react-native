@@ -1,6 +1,7 @@
 package com.airbnb.android.react.lottie
 
 import android.animation.Animator
+import android.util.Log
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setColorFilters
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setEnableMergePaths
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setHardwareAcceleration
@@ -14,22 +15,28 @@ import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSourceN
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSourceURL
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSpeed
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setTextFilters
+import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setAutoPlay
 import com.airbnb.lottie.LottieAnimationView
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.ReactContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
+import com.facebook.react.uimanager.events.Event
+import com.facebook.react.uimanager.events.RCTEventEmitter
 import com.facebook.react.uimanager.events.RCTModernEventEmitter
 import com.facebook.react.viewmanagers.LottieAnimationViewManagerDelegate
 import com.facebook.react.viewmanagers.LottieAnimationViewManagerInterface
 import java.util.*
 
 @ReactModule(name = LottieAnimationViewManagerImpl.REACT_CLASS)
-class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>(),
+class LottieAnimationViewManager(val reactContext: ReactContext) :
+    SimpleViewManager<LottieAnimationView>(),
     LottieAnimationViewManagerInterface<LottieAnimationView> {
     private val propManagersMap =
         WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
@@ -52,16 +59,16 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>(),
         val event = Arguments.createMap()
         event.putBoolean("isCancelled", isCancelled)
 
-        val screenContext = view.context
-        if (screenContext is ThemedReactContext) {
-            screenContext.getJSModule(RCTModernEventEmitter::class.java)
-                ?.receiveEvent(
-                    screenContext.surfaceId,
-                    view.id,
-                    "animationFinish",
-                    event
-                )
-        }
+        val screenContext = view.context as ThemedReactContext
+
+        Log.d("Lottie", "view surface id ${screenContext.surfaceId} - view id ${view.id}")
+        reactContext.getJSModule(RCTModernEventEmitter::class.java)
+            ?.receiveEvent(
+                screenContext.surfaceId,
+                view.id,
+                "animationFinish",
+                event
+            )
     }
 
     override fun getDelegate(): ViewManagerDelegate<LottieAnimationView> {
@@ -84,11 +91,13 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>(),
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                sendOnAnimationFinishEvent(view, false)
+//                TODO: fix crash
+//                sendOnAnimationFinishEvent(view, false)
             }
 
             override fun onAnimationCancel(animation: Animator) {
-                sendOnAnimationFinishEvent(view, true)
+//                TODO: fix crash
+//                sendOnAnimationFinishEvent(view, true)
             }
 
             override fun onAnimationRepeat(animation: Animator) {
@@ -174,6 +183,11 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>(),
     @ReactProp(name = "loop")
     override fun setLoop(view: LottieAnimationView, loop: Boolean) {
         setLoop(loop, getOrCreatePropertyManager(view))
+    }
+
+    @ReactProp(name = "autoPlay")
+    override fun setAutoPlay(view: LottieAnimationView, autoPlay: Boolean) {
+        setAutoPlay(autoPlay, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "imageAssetsFolder")

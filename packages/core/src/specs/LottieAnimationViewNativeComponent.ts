@@ -39,6 +39,7 @@ export interface NativeProps extends ViewProps {
   progress?: Float;
   speed?: Double;
   loop?: boolean;
+  autoPlay?: boolean;
   enableMergePathsAndroidForKitKatAndAbove?: boolean;
   hardwareAccelerationAndroid?: boolean;
   cacheComposition?: boolean;

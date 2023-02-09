@@ -56,16 +56,6 @@ export class AnimatedLottieView extends React.PureComponent<
     this._captureRef = this._captureRef.bind(this);
   }
 
-  componentDidUpdate(prevProps: AnimatedLottieViewProps) {
-    if (
-      this.props.autoPlay === true &&
-      this.props.source !== prevProps.source &&
-      !!this.props.source
-    ) {
-      this.play();
-    }
-  }
-
   play(startFrame?: number, endFrame?: number): void {
     Commands.play(
       this._lottieAnimationViewRef,
@@ -171,6 +161,7 @@ export class AnimatedLottieView extends React.PureComponent<
           sourceJson={sourceJson}
           sourceURL={sourceURL}
           onAnimationFinish={this.onAnimationFinish}
+          autoPlay={autoPlay}
         />
       </View>
     );

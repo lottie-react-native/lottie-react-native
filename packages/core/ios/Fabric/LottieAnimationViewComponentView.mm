@@ -85,6 +85,10 @@ using namespace facebook::react;
         [_view setRenderMode:RCTNSStringFromString(newLottieProps.renderMode)];
     }
     
+    if(oldLottieProps.autoPlay != newLottieProps.autoPlay) {
+        [_view setAutoPlay:newLottieProps.autoPlay];
+    }
+    
     [super updateProps:props oldProps:oldProps];
 }
 
