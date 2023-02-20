@@ -11,13 +11,21 @@ For the first time, designers can create **and ship** beautiful animations witho
 
 ### iOS and Android
 
-Install `lottie-react-native` (latest):
+- Install `lottie-react-native` (latest):
 
 ```
 yarn add lottie-react-native
 ```
 
-For `lottie-react-native` <= 5.1.4 you also need to install `lottie-ios@3.4.1` package:
+- To test out the new architecture support, you can install the `lottie-react-native` package from the `next` channel with the following command:
+
+```
+yarn add lottie-react-native@next
+```
+
+Please note that the `next` version may not be completely stable, so you may encounter some bugs while using it.
+
+- For `lottie-react-native` <= 5.1.4 you also need to install `lottie-ios@3.4.1` package:
 ```
 yarn add lottie-ios@3.4.1
 ```
@@ -30,8 +38,11 @@ pod install
 ```
 
 ### Windows (React Native >= 0.63)
-Install the `lottie-react-native` npm package.
 
+<details>
+<summary>Install the `lottie-react-native` npm package. (Click to expand)</summary>
+<br>
+    
 Add the following to the end of your project file. For C# apps, this should come after any `Microsoft.Windows.UI.Xaml.CSharp.targets` includes. For C++ apps, it should come after any `Microsoft.Cpp.targets` includes.
 ```xml
 <PropertyGroup Label="LottieReactNativeProps">
@@ -85,7 +96,7 @@ Codegen animations are supported by adding LottieAnimation items to your project
 ```
 
 Codegen is available to both C# and C++ applications. Dynamic loading of JSON strings at runtime is currently only supported in C# applications.
-
+    </details>
 
 ## Versioning
 
