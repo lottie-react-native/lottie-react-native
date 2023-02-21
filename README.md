@@ -25,7 +25,7 @@ yarn add lottie-react-native@next
 
 Please note that the `next` version may not be completely stable, so you may encounter some bugs while using it.
 
-- For `lottie-react-native` <= 5.1.4 you also need to install `lottie-ios@3.4.1` package:
+- For `lottie-react-native` <= 5.1.5 you also need to install `lottie-ios@3.4.1` package:
 ```
 yarn add lottie-ios@3.4.1
 ```
@@ -108,7 +108,7 @@ Depending on which version of React Native your app runs on you might need to in
 | >= 0.60       | 4.0.2 | 3.2.3 
 | >= 0.63       | 4.0.3 | 3.2.3 
 | >= 0.64       | 4.1.3 | 3.2.3 
-| >= 0.66       | > 4.1.3 and <= 5.1.4 | 3.4.1 
+| >= 0.66       | > 4.1.3 and <= 5.1.5 | 3.4.1 
 
 ## Usage
 
