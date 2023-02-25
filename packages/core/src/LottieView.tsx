@@ -5,6 +5,7 @@ import {
   NativeSyntheticEvent,
   Animated,
   processColor,
+  ViewProps,
 } from 'react-native';
 
 import type { AnimatedLottieViewProps } from './LottieView.types';
@@ -17,7 +18,9 @@ const AnimatedNativeLottieView = Animated.createAnimatedComponent(
   NativeLottieAnimationView,
 );
 
-const defaultProps: AnimatedLottieViewProps = {
+type Props = AnimatedLottieViewProps & { containerProps?: ViewProps };
+
+const defaultProps: Props = {
   source: undefined,
   progress: 0,
   speed: 1,
@@ -36,17 +39,14 @@ const defaultProps: AnimatedLottieViewProps = {
 /**
  * View hosting the lottie animation.
  */
-export class AnimatedLottieView extends React.PureComponent<
-  AnimatedLottieViewProps,
-  {}
-> {
+export class AnimatedLottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
 
   _lottieAnimationViewRef:
     | React.ElementRef<typeof NativeLottieAnimationView>
     | undefined;
 
-  constructor(props: AnimatedLottieViewProps) {
+  constructor(props: Props) {
     super(props);
     this.play = this.play.bind(this);
     this.reset = this.reset.bind(this);
@@ -143,8 +143,10 @@ export class AnimatedLottieView extends React.PureComponent<
       color: processColor(colorFilter.color),
     }));
 
+    const defaultStyles = [aspectRatioStyle, sizeStyle];
+
     return (
-      <View style={[aspectRatioStyle, sizeStyle, style]}>
+      <View {...this.props.containerProps} style={[...defaultStyles, style]}>
         <AnimatedNativeLottieView
           ref={this._captureRef}
           {...rest}
@@ -152,11 +154,7 @@ export class AnimatedLottieView extends React.PureComponent<
           textFiltersAndroid={textFiltersAndroid}
           textFiltersIOS={textFiltersIOS}
           speed={speed}
-          style={[
-            aspectRatioStyle,
-            sizeStyle || { width: '100%', height: '100%' },
-            style,
-          ]}
+          style={StyleSheet.absoluteFill}
           sourceName={sourceName}
           sourceJson={sourceJson}
           sourceURL={sourceURL}

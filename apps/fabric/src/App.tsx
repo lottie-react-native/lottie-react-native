@@ -24,6 +24,7 @@ const App = () => {
         autoPlay={true}
         loop={isLoop}
         style={styles.lottie}
+        resizeMode={'contain'}
         colorFilters={source === 'local' ? localColorFilter : undefined}
         enableMergePathsAndroidForKitKatAndAbove
         onAnimationFinish={() => {
