@@ -8,7 +8,6 @@ import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.RenderMode
-import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.ThemedReactContext
@@ -37,9 +36,6 @@ internal object LottieAnimationViewManagerImpl {
 
     @JvmStatic
     fun sendOnAnimationFinishEvent(view: LottieAnimationView, isCancelled: Boolean) {
-        val event = Arguments.createMap()
-        event.putBoolean("isCancelled", isCancelled)
-
         val screenContext = view.context as ThemedReactContext
         val eventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(screenContext, view.id)
         eventDispatcher?.dispatchEvent(
