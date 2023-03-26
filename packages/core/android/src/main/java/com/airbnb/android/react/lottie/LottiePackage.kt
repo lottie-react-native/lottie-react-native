@@ -13,6 +13,6 @@ class LottiePackage : ReactPackage {
     }
 
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-        return listOf(LottieAnimationViewManager(reactContext))
+        return listOf(LottieAnimationViewManager())
     }
 }
