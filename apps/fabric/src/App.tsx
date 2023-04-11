@@ -25,7 +25,7 @@ const App = () => {
         loop={isLoop}
         style={styles.lottie}
         resizeMode={'contain'}
-        colorFilters={source === 'local' ? localColorFilter : undefined}
+        colorFilters={colorFilter}
         enableMergePathsAndroidForKitKatAndAbove
         onAnimationFinish={() => {
           console.log('finished');
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   lottie: {width: 400, height: 400},
 });
 
-const localColorFilter = [
+const colorFilter = [
   {
     keypath: 'BG',
     color: color.primary,

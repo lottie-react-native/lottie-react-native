@@ -135,6 +135,7 @@ internal object LottieAnimationViewManagerImpl {
             resultSourceName = "$resultSourceName.json"
         }
         viewManager.animationName = resultSourceName
+        viewManager.commitChanges()
     }
 
     @JvmStatic
@@ -143,6 +144,7 @@ internal object LottieAnimationViewManagerImpl {
         propManagersMap: LottieAnimationViewPropertyManager
     ) {
         propManagersMap.animationJson = json
+        propManagersMap.commitChanges()
     }
 
     @JvmStatic
