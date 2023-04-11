@@ -20,7 +20,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <AnimatedLottieView
-        key={source}
+        key={source + isLoop}
         source={source === 'remote' ? remoteSource : localSource}
         autoPlay={true}
         loop={isLoop}
