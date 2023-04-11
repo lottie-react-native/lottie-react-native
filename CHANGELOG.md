@@ -1,3 +1,16 @@
+# [6.0.0-rc.3](https://github.com/react-native-community/lottie-react-native/compare/v6.0.0-rc.1...v6.0.0-rc.3) (2023-03-26)
+
+### Bug Fixes
+
+- add missing condition ([bd44aff](https://github.com/react-native-community/lottie-react-native/commit/bd44aff93a8e5f992d1414ca9d839b850605eadf))
+- old arch impl ([65ec453](https://github.com/react-native-community/lottie-react-native/commit/65ec453afa1663fcb564a21931af7f27531c106b))
+- refactor event dispatch logic on android to fix fabric crash ([#1000](https://github.com/react-native-community/lottie-react-native/issues/1000)) ([ebb8006](https://github.com/react-native-community/lottie-react-native/commit/ebb8006da0385e44bb33817d44909376143a1695))
+
+### Features
+
+- implement native auto play for android ([63f71aa](https://github.com/react-native-community/lottie-react-native/commit/63f71aacbc007d8e2a9a1216ef2072023dc63fce))
+- implement native auto play for ios ([84e6668](https://github.com/react-native-community/lottie-react-native/commit/84e666838075ffb3264a15c823f454cd63d1ab8f))
+
 ## 5.1.4
 
 - Support for lottie-ios version 3.4.0

@@ -2,7 +2,6 @@ package com.airbnb.android.react.lottie
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.view.View.OnAttachStateChangeListener
 import android.widget.ImageView
@@ -12,16 +11,15 @@ import com.airbnb.lottie.RenderMode
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.util.RNLog
 import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
-import kotlin.concurrent.thread
 
 internal object LottieAnimationViewManagerImpl {
     const val REACT_CLASS = "LottieAnimationView"
-    val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     @JvmStatic
     val exportedViewConstants: Map<String, Any>
@@ -37,10 +35,23 @@ internal object LottieAnimationViewManagerImpl {
     }
 
     @JvmStatic
-    fun getExportedCustomBubblingEventTypeConstants(): MutableMap<String, Any> {
+    fun sendOnAnimationFinishEvent(view: LottieAnimationView, isCancelled: Boolean) {
+        val screenContext = view.context as ThemedReactContext
+        val eventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(screenContext, view.id)
+        eventDispatcher?.dispatchEvent(
+            OnAnimationFinishEvent(
+                screenContext.surfaceId,
+                view.id,
+                isCancelled
+            )
+        )
+    }
+
+    @JvmStatic
+    fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
         return MapBuilder.of(
-            "animationFinish",
-            MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onAnimationFinish"))
+            OnAnimationFinishEvent.EVENT_NAME,
+            MapBuilder.of("registrationName", "onAnimationFinish"),
         )
     }
 

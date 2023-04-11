@@ -1,5 +1,3 @@
-@file:Suppress("unused", "DEPRECATION")
-
 package com.airbnb.android.react.lottie
 
 import android.animation.Animator
@@ -22,21 +20,18 @@ import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSourceU
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSpeed
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setTextFilters
 import com.airbnb.lottie.LottieAnimationView
-import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
-import com.facebook.react.bridge.ReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
-import com.facebook.react.uimanager.events.RCTEventEmitter
 import java.util.*
 
-class LottieAnimationViewManager(val reactContext: ReactContext): SimpleViewManager<LottieAnimationView>() {
+class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     private val propManagersMap =
-            WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
+        WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
 
     private fun getOrCreatePropertyManager(
-            view: LottieAnimationView
+        view: LottieAnimationView
     ): LottieAnimationViewPropertyManager {
         var result = propManagersMap[view]
         if (result == null) {
@@ -44,18 +39,6 @@ class LottieAnimationViewManager(val reactContext: ReactContext): SimpleViewMana
             propManagersMap[view] = result
         }
         return result
-    }
-
-    private fun sendOnAnimationFinishEvent(view: LottieAnimationView, isCancelled: Boolean) {
-        val event = Arguments.createMap()
-        event.putBoolean("isCancelled", isCancelled)
-
-        val screenContext = view.context
-        if (screenContext is ThemedReactContext) {
-            screenContext
-                    .getJSModule(RCTEventEmitter::class.java)
-                    ?.receiveEvent(view.id, "animationFinish", event)
-        }
     }
 
     override fun getExportedViewConstants(): Map<String, Any> {
@@ -69,35 +52,35 @@ class LottieAnimationViewManager(val reactContext: ReactContext): SimpleViewMana
     public override fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
         val view = LottieAnimationViewManagerImpl.createViewInstance(context)
         view.addAnimatorListener(
-                object : Animator.AnimatorListener {
-                    override fun onAnimationStart(animation: Animator) {
-                        // do nothing
-                    }
-
-                    override fun onAnimationEnd(animation: Animator) {
-                        sendOnAnimationFinishEvent(view, false)
-                    }
-
-                    override fun onAnimationCancel(animation: Animator) {
-                        sendOnAnimationFinishEvent(view, true)
-                    }
-
-                    override fun onAnimationRepeat(animation: Animator) {
-                        // do nothing
-                    }
+            object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {
+                    // do nothing
                 }
+
+                override fun onAnimationEnd(animation: Animator) {
+                    LottieAnimationViewManagerImpl.sendOnAnimationFinishEvent(view, false)
+                }
+
+                override fun onAnimationCancel(animation: Animator) {
+                    LottieAnimationViewManagerImpl.sendOnAnimationFinishEvent(view, true)
+                }
+
+                override fun onAnimationRepeat(animation: Animator) {
+                    // do nothing
+                }
+            }
         )
         return view
     }
 
-    override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Any> {
-        return LottieAnimationViewManagerImpl.getExportedCustomBubblingEventTypeConstants()
+    override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
+        return LottieAnimationViewManagerImpl.getExportedCustomDirectEventTypeConstants()
     }
 
     override fun receiveCommand(
-            view: LottieAnimationView,
-            commandName: String,
-            args: ReadableArray?
+        view: LottieAnimationView,
+        commandName: String,
+        args: ReadableArray?
     ) {
         when (commandName) {
             "play" -> play(view, args?.getInt(0) ?: -1, args?.getInt(1) ?: -1)
@@ -142,8 +125,8 @@ class LottieAnimationViewManager(val reactContext: ReactContext): SimpleViewMana
 
     @ReactProp(name = "hardwareAccelerationAndroid")
     fun setHardwareAccelerationAndroid(
-            view: LottieAnimationView,
-            hardwareAccelerationAndroid: Boolean?
+        view: LottieAnimationView,
+        hardwareAccelerationAndroid: Boolean?
     ) {
         setHardwareAcceleration(hardwareAccelerationAndroid!!, getOrCreatePropertyManager(view))
     }
