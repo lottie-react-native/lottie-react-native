@@ -55,7 +55,7 @@ export interface AnimatedLottieViewProps {
    * animation will correspondingly update to the frame at that progress value. This
    * prop is not required if you are using the imperative API.
    */
-  progress?: number | Animated.Value | Animated.AnimatedInterpolation<number>;
+  progress?: number;
 
   /**
    * The speed the animation will progress. This only affects the imperative API. The

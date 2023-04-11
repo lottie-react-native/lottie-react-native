@@ -180,13 +180,13 @@ internal object LottieAnimationViewManagerImpl {
         var mode: ImageView.ScaleType? = null
         when (resizeMode) {
             "cover" -> {
-                mode = ImageView.ScaleType.FIT_XY
+                mode = ImageView.ScaleType.CENTER_CROP
             }
             "contain" -> {
-                mode = ImageView.ScaleType.CENTER_INSIDE
+                mode = ImageView.ScaleType.FIT_CENTER
             }
             "center" -> {
-                mode = ImageView.ScaleType.CENTER
+                mode = ImageView.ScaleType.CENTER_INSIDE
             }
         }
         viewManager.scaleType = mode

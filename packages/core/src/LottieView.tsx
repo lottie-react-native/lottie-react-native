@@ -1,22 +1,11 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  NativeSyntheticEvent,
-  Animated,
-  processColor,
-  ViewProps,
-} from 'react-native';
+import { NativeSyntheticEvent, ViewProps, processColor } from 'react-native';
 
 import type { AnimatedLottieViewProps } from './LottieView.types';
 
 import NativeLottieAnimationView, {
   Commands,
 } from './specs/LottieAnimationViewNativeComponent';
-
-const AnimatedNativeLottieView = Animated.createAnimatedComponent(
-  NativeLottieAnimationView,
-);
 
 type Props = AnimatedLottieViewProps & { containerProps?: ViewProps };
 
@@ -102,6 +91,7 @@ export class AnimatedLottieView extends React.PureComponent<Props, {}> {
       duration,
       textFiltersAndroid,
       textFiltersIOS,
+      resizeMode,
       ...rest
     } = this.props;
 
@@ -115,22 +105,6 @@ export class AnimatedLottieView extends React.PureComponent<Props, {}> {
         ? (source as any).uri
         : undefined;
 
-    const aspectRatioStyle = sourceJson
-      ? { aspectRatio: (source as any).w / (source as any).h }
-      : undefined;
-
-    const styleObject = StyleSheet.flatten(style);
-    let sizeStyle;
-    if (
-      !styleObject ||
-      (styleObject.width === undefined && styleObject.height === undefined)
-    ) {
-      sizeStyle =
-        autoSize && sourceJson
-          ? { width: (source as any).w }
-          : StyleSheet.absoluteFill;
-    }
-
     const speed =
       duration && sourceJson && (source as any).fr
         ? Math.round(
@@ -143,25 +117,22 @@ export class AnimatedLottieView extends React.PureComponent<Props, {}> {
       color: processColor(colorFilter.color),
     }));
 
-    const defaultStyles = [aspectRatioStyle, sizeStyle];
-
     return (
-      <View {...this.props.containerProps} style={[...defaultStyles, style]}>
-        <AnimatedNativeLottieView
-          ref={this._captureRef}
-          {...rest}
-          colorFilters={colorFilters}
-          textFiltersAndroid={textFiltersAndroid}
-          textFiltersIOS={textFiltersIOS}
-          speed={speed}
-          style={StyleSheet.absoluteFill}
-          sourceName={sourceName}
-          sourceJson={sourceJson}
-          sourceURL={sourceURL}
-          onAnimationFinish={this.onAnimationFinish}
-          autoPlay={autoPlay}
-        />
-      </View>
+      <NativeLottieAnimationView
+        ref={this._captureRef}
+        {...rest}
+        colorFilters={colorFilters}
+        textFiltersAndroid={textFiltersAndroid}
+        textFiltersIOS={textFiltersIOS}
+        speed={speed}
+        style={style}
+        sourceName={sourceName}
+        sourceJson={sourceJson}
+        sourceURL={sourceURL}
+        onAnimationFinish={this.onAnimationFinish}
+        autoPlay={autoPlay}
+        resizeMode={resizeMode}
+      />
     );
   }
 }
