@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import AnimatedLottieView from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
 
 const color = {
   primary: '#1652f0',
@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <AnimatedLottieView
+      <LottieView
         key={source + isLoop}
         source={source === 'remote' ? remoteSource : localSource}
         autoPlay={true}
