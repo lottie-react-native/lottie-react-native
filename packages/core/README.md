@@ -1,4 +1,5 @@
 # Lottie React Native
+
 [![npm Version](https://img.shields.io/npm/v/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![License](https://img.shields.io/npm/l/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native)
 
 Lottie component for React Native ([iOS](https://github.com/airbnb/lottie-ios), [Android](https://github.com/airbnb/lottie-android), and [Windows](https://github.com/CommunityToolkit/Lottie-Windows))
@@ -16,20 +17,6 @@ For the first time, designers can create **and ship** beautiful animations witho
 ```
 yarn add lottie-react-native
 ```
-
-- To test out the new architecture support, you can install the `lottie-react-native` package from the `next` channel with the following command:
-
-```
-yarn add lottie-react-native@next
-```
-
-Please note that the `next` version may not be completely stable, so you may encounter some bugs while using it.
-
-- For `lottie-react-native` <= 5.1.4 you also need to install `lottie-ios@3.4.1` package:
-```
-yarn add lottie-ios@3.4.1
-```
-More versioning information: [Here](#versioning)
 
 Go to your ios folder and run:
 
@@ -56,6 +43,7 @@ Add the following to the end of your project file. For C# apps, this should come
 Add the LottieReactNative.vcxproj file to your Visual Studio solution to ensure it takes part in the build.
 
 For C# apps, you'll need to install the following packages through NuGet:
+
 - LottieGen.MsBuild
 - Microsoft.UI.Xaml
 - Win2D.uwp
@@ -63,16 +51,19 @@ For C# apps, you'll need to install the following packages through NuGet:
   - This package is used for loading JSON dynamically. If you only need codegen animation, you can set `<EnableLottieDynamicSource>false</EnableLottieDynamicSource>` in your project file and omit this reference.
 
 For C++ apps, you'll need these NuGet packages:
+
 - LottieGen.MsBuild
 - Microsoft.UI.Xaml
 
 WinUI 2.6 (Microsoft.UI.Xaml 2.6.0) is required by default. Overriding this requires creating a Directory.Build.props file in your project root with a `<WinUIVersion>` property.
 
 In your application code where you set up your React Native Windows PackageProviders list, add the LottieReactNative provider:
+
 ```csharp
 // C#
 PackageProviders.Add(new LottieReactNative.ReactPackageProvider(new AnimatedVisuals.LottieCodegenSourceProvider()));
 ```
+
 ```cpp
 // C++
 #include <winrt/LottieReactNative.h>
@@ -84,31 +75,22 @@ PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::
 ```
 
 Codegen animations are supported by adding LottieAnimation items to your project file. These will be compiled into your application and available at runtime by name. For example:
+
 ```xml
 <!-- .vcxproj or .csproj -->
 <ItemGroup>
     <LottieAnimation Include="Assets/Animations/MyAnimation.json" Name="MyAnimation" />
 </ItemGroup>
 ```
+
 ```js
 // js
-<LottieView source={"MyAnimation"} />
+<LottieView source={'MyAnimation'} />
 ```
 
 Codegen is available to both C# and C++ applications. Dynamic loading of JSON strings at runtime is currently only supported in C# applications.
-    </details>
 
-## Versioning
-
-Depending on which version of React Native your app runs on you might need to install a specific version of lottie-react-native. Here's the compatibility list:
-
-| App built in React Native version                | Requires lottie-react-native version                                                                                                                                                                                                                                                                      | Requires lottie-ios version                                                                                                              |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| >= 0.59       | 3.0.2 | 3.0.3 
-| >= 0.60       | 4.0.2 | 3.2.3 
-| >= 0.63       | 4.0.3 | 3.2.3 
-| >= 0.64       | 4.1.3 | 3.2.3 
-| >= 0.66       | > 4.1.3 and <= 5.1.4 | 3.4.1 
+</details>
 
 ## Usage
 
@@ -121,30 +103,28 @@ import React from 'react';
 import Lottie from 'lottie-react-native';
 
 export default function Animation() {
-  return (
-    <Lottie source={require('../path/to/animation.json')} autoPlay loop />
-  );
+  return <Lottie source={require('../path/to/animation.json')} autoPlay loop />;
 }
 ```
 
 Additionally, there is an imperative API which is sometimes simpler.
 
-```jsx
+```tsx
 import React, { useEffect, useRef } from 'react';
-import Lottie from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
 
 export default function AnimationWithImperativeApi() {
-  const animationRef = useRef<Lottie>(null)
-  
+  const animationRef = useRef<LottieView>(null);
+
   useEffect(() => {
-    animationRef.current?.play()
+    animationRef.current?.play();
 
     // Or set a specific startFrame and endFrame with:
     animationRef.current?.play(30, 120);
-  }, [])
+  }, []);
 
   return (
-    <Lottie
+    <LottieView
       ref={animationRef}
       source={require('../path/to/animation.json')}
     />
@@ -152,27 +132,29 @@ export default function AnimationWithImperativeApi() {
 }
 ```
 
-Lottie's animation progress can be controlled with an `Animated` value:
+Lottie's animation view can be controlled by either React Native Animated or Reanimated API.
 
-```jsx
-import React, { useEffect, useRef } from 'react';
+```tsx
+import React, { useEffect, useRef, Animated } from 'react';
 import { Animated, Easing } from 'react-native';
-import Lottie from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
+
+const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
 
 export default function ControllingAnimationProgress() {
-  const animationProgress = useRef(new Animated.Value(0))
+  const animationProgress = useRef(new Animated.Value(0));
 
   useEffect(() => {
     Animated.timing(animationProgress.current, {
       toValue: 1,
       duration: 5000,
       easing: Easing.linear,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start();
-  }, [])
+  }, []);
 
   return (
-     <Lottie
+    <AnimatedLottieView
       source={require('../path/to/animation.json')}
       progress={animationProgress.current}
     />
@@ -181,6 +163,8 @@ export default function ControllingAnimationProgress() {
 ```
 
 Changing color of layers:
+
+NOTE: This feature may not work properly on Android. We will try fix it soon.
 
 ```jsx
 import React from 'react';
@@ -211,46 +195,19 @@ export default function ChangingColorOfLayers() {
 
 You can find the full list of props and methods available in our [API document](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md). These are the most common ones:
 
-
-| Prop               | Description                                                                                                                                                                                                                                                                     | Default                                                                                                             |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| **`source`**       | **Mandatory** - The source of animation. Can be referenced as a local asset by a string, or remotely with an object with a `uri` property, or it can be an actual JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')`. | _None_                                                                                                              |
-| **`style`**        | Style attributes for the view, as expected in a standard [`View`](https://facebook.github.io/react-native/docs/layout-props.html).                                                                                                                                              | The `aspectRatio` exported by Bodymovin will be set. Also the `width` if you haven't provided a `width` or `height` |
-| **`loop`**         | A boolean flag indicating whether or not the animation should loop.                                                                                                                                                                                                             | `true`                                                                                                              |
-| **`autoPlay`**     | A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.                                                                                                                                           | `false`                                                                                                             |
-| **`colorFilters`** | An array of objects denoting layers by KeyPath and a new color filter value (as hex string).                                                                                                                                                                                    | `[]`                                                                                                                |
+| Prop               | Description                                                                                                                                                                                                                                                                     | Default                                                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **`source`**       | **Mandatory** - The source of animation. Can be referenced as a local asset by a string, or remotely with an object with a `uri` property, or it can be an actual JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')`. | _None_                                                                                                                          |
+| **`style`**        | Style attributes for the view, as expected in a standard [`View`](https://facebook.github.io/react-native/docs/layout-props.html).                                                                                                                                              | You need to set it manually. Refer to this [pull request](https://github.com/lottie-react-native/lottie-react-native/pull/992). |
+| **`loop`**         | A boolean flag indicating whether or not the animation should loop.                                                                                                                                                                                                             | `true`                                                                                                                          |
+| **`autoPlay`**     | A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.                                                                                                                                           | `false`                                                                                                                         |
+| **`colorFilters`** | An array of objects denoting layers by KeyPath and a new color filter value (as hex string).                                                                                                                                                                                    | `[]`                                                                                                                            |
 
 [More...](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md)
 
 ## Troubleshooting
 
 Not all After Effects features are supported by Lottie. If you notice there are some layers or animations missing check [this list](https://github.com/airbnb/lottie/blob/master/supported-features.md) to ensure they are supported.
-
-### iOS specific problems
-
-If you have issues linking your **iOS** project check out this [StackOverflow thread](https://stackoverflow.com/questions/52536380/why-linker-link-static-libraries-with-errors-ios) on how to fix it.
-
-### Android specific problems
-
-If your app crashes on **Android**, means auto linking didn't work. You will need to make the following changes:
-
-`android/app/src/main/java/\<AppName\>/MainApplication.java`
-
-- add `import com.airbnb.android.react.lottie.LottiePackage;` on the imports section
-- add `packages.add(new LottiePackage());` in `List<ReactPackage> getPackages()`;
-
-`android/app/build.gradle`
-
-add `implementation project(':lottie-react-native')` in the `dependencies` block
-
-`android/settings.gradle`
-
-add:
-
-```
-include ':lottie-react-native'
-project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
-```
 
 ## More
 
