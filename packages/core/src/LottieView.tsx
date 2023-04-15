@@ -15,7 +15,6 @@ const defaultProps: Props = {
   speed: 1,
   loop: true,
   autoPlay: false,
-  autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
   cacheComposition: true,
   useNativeLooping: false,
@@ -86,7 +85,6 @@ export class AnimatedLottieView extends React.PureComponent<Props, {}> {
     const {
       style,
       source,
-      autoSize,
       autoPlay,
       duration,
       textFiltersAndroid,
