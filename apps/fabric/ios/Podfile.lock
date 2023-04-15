@@ -78,7 +78,7 @@ PODS:
   - hermes-engine/Pre-built (0.71.0)
   - libevent (2.1.12)
   - lottie-ios (3.5.0)
-  - lottie-react-native (6.0.0-rc.1):
+  - lottie-react-native (6.0.0-rc.3):
     - lottie-ios (~> 3.5.0)
     - RCT-Folly
     - RCTRequired
@@ -913,7 +913,7 @@ SPEC CHECKSUMS:
   hermes-engine: f6e715aa6c8bd38de6c13bc85e07b0a337edaa89
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
-  lottie-react-native: 2c0a420b4f9ef28fceb6b050fb95fad0720ddfd1
+  lottie-react-native: 1b79f33d48fd1aba6155fb7693649f7d6f32d6f9
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: dea3e4163184ea57c50288c15c32c1529265c58f

@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  NativeSyntheticEvent,
-  Animated,
-  processColor,
-} from 'react-native';
+import { NativeSyntheticEvent, ViewProps, processColor } from 'react-native';
 
 import type { AnimatedLottieViewProps } from './LottieView.types';
 
@@ -13,11 +7,9 @@ import NativeLottieAnimationView, {
   Commands,
 } from './specs/LottieAnimationViewNativeComponent';
 
-const AnimatedNativeLottieView = Animated.createAnimatedComponent(
-  NativeLottieAnimationView,
-);
+type Props = AnimatedLottieViewProps & { containerProps?: ViewProps };
 
-const defaultProps: AnimatedLottieViewProps = {
+const defaultProps: Props = {
   source: undefined,
   progress: 0,
   speed: 1,
@@ -36,17 +28,14 @@ const defaultProps: AnimatedLottieViewProps = {
 /**
  * View hosting the lottie animation.
  */
-export class AnimatedLottieView extends React.PureComponent<
-  AnimatedLottieViewProps,
-  {}
-> {
+export class AnimatedLottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
 
   _lottieAnimationViewRef:
     | React.ElementRef<typeof NativeLottieAnimationView>
     | undefined;
 
-  constructor(props: AnimatedLottieViewProps) {
+  constructor(props: Props) {
     super(props);
     this.play = this.play.bind(this);
     this.reset = this.reset.bind(this);
@@ -102,6 +91,7 @@ export class AnimatedLottieView extends React.PureComponent<
       duration,
       textFiltersAndroid,
       textFiltersIOS,
+      resizeMode,
       ...rest
     } = this.props;
 
@@ -114,22 +104,6 @@ export class AnimatedLottieView extends React.PureComponent<
       typeof source === 'object' && (source as any).uri
         ? (source as any).uri
         : undefined;
-
-    const aspectRatioStyle = sourceJson
-      ? { aspectRatio: (source as any).w / (source as any).h }
-      : undefined;
-
-    const styleObject = StyleSheet.flatten(style);
-    let sizeStyle;
-    if (
-      !styleObject ||
-      (styleObject.width === undefined && styleObject.height === undefined)
-    ) {
-      sizeStyle =
-        autoSize && sourceJson
-          ? { width: (source as any).w }
-          : StyleSheet.absoluteFill;
-    }
 
     const speed =
       duration && sourceJson && (source as any).fr
@@ -144,26 +118,21 @@ export class AnimatedLottieView extends React.PureComponent<
     }));
 
     return (
-      <View style={[aspectRatioStyle, sizeStyle, style]}>
-        <AnimatedNativeLottieView
-          ref={this._captureRef}
-          {...rest}
-          colorFilters={colorFilters}
-          textFiltersAndroid={textFiltersAndroid}
-          textFiltersIOS={textFiltersIOS}
-          speed={speed}
-          style={[
-            aspectRatioStyle,
-            sizeStyle || { width: '100%', height: '100%' },
-            style,
-          ]}
-          sourceName={sourceName}
-          sourceJson={sourceJson}
-          sourceURL={sourceURL}
-          onAnimationFinish={this.onAnimationFinish}
-          autoPlay={autoPlay}
-        />
-      </View>
+      <NativeLottieAnimationView
+        ref={this._captureRef}
+        {...rest}
+        colorFilters={colorFilters}
+        textFiltersAndroid={textFiltersAndroid}
+        textFiltersIOS={textFiltersIOS}
+        speed={speed}
+        style={style}
+        sourceName={sourceName}
+        sourceJson={sourceJson}
+        sourceURL={sourceURL}
+        onAnimationFinish={this.onAnimationFinish}
+        autoPlay={autoPlay}
+        resizeMode={resizeMode}
+      />
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import AnimatedLottieView from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
 
 const color = {
   primary: '#1652f0',
@@ -19,12 +19,14 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <AnimatedLottieView
+      <LottieView
+        key={source + isLoop}
         source={source === 'remote' ? remoteSource : localSource}
         autoPlay={true}
         loop={isLoop}
         style={styles.lottie}
-        colorFilters={source === 'local' ? localColorFilter : undefined}
+        resizeMode={'contain'}
+        colorFilters={colorFilter}
         enableMergePathsAndroidForKitKatAndAbove
         onAnimationFinish={() => {
           console.log('finished');
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
   lottie: {width: 400, height: 400},
 });
 
-const localColorFilter = [
+const colorFilter = [
   {
     keypath: 'BG',
     color: color.primary,

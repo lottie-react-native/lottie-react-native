@@ -13,10 +13,8 @@ export const EXAMPLES = [
   makeExample('Hamburger Arrow', () =>
     require('./animations/HamburgerArrow.json'),
   ),
-  makeExample(
-    'Hamburger Arrow (200 px)',
-    () => require('./animations/HamburgerArrow.json'),
-    200,
+  makeExample('Hamburger Arrow (200 px)', () =>
+    require('./animations/HamburgerArrow.json'),
   ),
   makeExample('Line Animation', () =>
     require('./animations/LineAnimation.json'),
@@ -74,7 +72,7 @@ export const styles = StyleSheet.create({
   lottieView: {
     flex: 1,
   },
-  lottieViewInvse: {
+  lottieViewInverse: {
     backgroundColor: 'black',
   },
 });

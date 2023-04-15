@@ -22,7 +22,7 @@ import {
   styles,
 } from './constants';
 
-const AnimatedSlider = Animated.createAnimatedComponent(Slider);
+const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
 
 const LottieAnimatedExample = () => {
   const [example, setExample] = useState(EXAMPLES[0]);
@@ -83,16 +83,20 @@ const LottieAnimatedExample = () => {
         onChange={setExample}
       />
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <LottieView
+        <AnimatedLottieView
           ref={anim}
           autoPlay={isImperative ? false : isPlaying}
-          style={[{width: example.width}, isInverse && styles.lottieViewInvse]}
+          style={[
+            isInverse ? styles.lottieViewInverse : {},
+            {width: '100%', height: '100%'},
+          ]}
           source={example.getSource()}
           progress={isImperative ? progress : undefined}
           loop={isImperative ? false : loop}
           onAnimationFinish={onAnimationFinish}
           enableMergePathsAndroidForKitKatAndAbove
           renderMode={renderMode}
+          resizeMode={'cover'}
         />
       </View>
       <View style={{paddingBottom: 20, paddingHorizontal: 10}}>
