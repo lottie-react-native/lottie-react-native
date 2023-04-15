@@ -1,15 +1,33 @@
-# [6.0.0-rc.3](https://github.com/react-native-community/lottie-react-native/compare/v6.0.0-rc.1...v6.0.0-rc.3) (2023-03-26)
+# Changelog
+
+## 6.0.0
+
+### Features
+
+- Fabric support for iOS ([#955](https://github.com/lottie-react-native/lottie-react-native/pull/955))
+- Fabric support for Android ([#910](https://github.com/lottie-react-native/lottie-react-native/pull/910))
+- upgrade android-lottie to 6.0.0 ([#993](https://github.com/lottie-react-native/lottie-react-native/pull/993))
+- implement native auto play for android ([63f71aa](https://github.com/react-native-community/lottie-react-native/commit/63f71aacbc007d8e2a9a1216ef2072023dc63fce))
+- implement native auto play for ios ([84e6668](https://github.com/react-native-community/lottie-react-native/commit/84e666838075ffb3264a15c823f454cd63d1ab8f))
+- fix different ios related issues ([3f7e3e](https://github.com/lottie-react-native/lottie-react-native/commit/3f7e3e6aebf24daa052c9552ab96489c1fa4a547))
 
 ### Bug Fixes
 
 - add missing condition ([bd44aff](https://github.com/react-native-community/lottie-react-native/commit/bd44aff93a8e5f992d1414ca9d839b850605eadf))
 - old arch impl ([65ec453](https://github.com/react-native-community/lottie-react-native/commit/65ec453afa1663fcb564a21931af7f27531c106b))
-- refactor event dispatch logic on android to fix fabric crash ([#1000](https://github.com/react-native-community/lottie-react-native/issues/1000)) ([ebb8006](https://github.com/react-native-community/lottie-react-native/commit/ebb8006da0385e44bb33817d44909376143a1695))
+- **android**: refactor event dispatch logic on android to fix fabric crash ([#1000](https://github.com/react-native-community/lottie-react-native/issues/1000)) ([ebb8006](https://github.com/react-native-community/lottie-react-native/commit/ebb8006da0385e44bb33817d44909376143a1695))
+- **iOS**: reset to first frame on app resume bug ([#980](https://github.com/lottie-react-native/lottie-react-native/pull/980))
 
-### Features
+### Internal Changes
 
-- implement native auto play for android ([63f71aa](https://github.com/react-native-community/lottie-react-native/commit/63f71aacbc007d8e2a9a1216ef2072023dc63fce))
-- implement native auto play for ios ([84e6668](https://github.com/react-native-community/lottie-react-native/commit/84e666838075ffb3264a15c823f454cd63d1ab8f))
+- Move project to monorepo [077429](https://github.com/lottie-react-native/lottie-react-native/commit/077429f164502b955063a2eaeb4321ba4ec5d95d)
+- Update examples to typescript ([300e63](https://github.com/lottie-react-native/lottie-react-native/commit/300e633f0261942e5ead8fa4335dd09afb583dd9))
+
+### BREAKING CHANGES
+
+- BREAKING CHANGE: cleanup lottie component and remove default styles ([#992](https://github.com/lottie-react-native/lottie-react-native/pull/992))
+
+Full changelog can be found [here](https://github.com/react-native-community/lottie-react-native/compare/v5.1.5...v6.0.0).
 
 ## 5.1.4
 
