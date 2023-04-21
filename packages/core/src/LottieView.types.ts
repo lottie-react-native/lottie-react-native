@@ -1,9 +1,4 @@
-import type {
-  StyleProp,
-  ViewStyle,
-  LayoutChangeEvent,
-  Animated,
-} from 'react-native';
+import type { StyleProp, ViewStyle, LayoutChangeEvent } from 'react-native';
 
 /**
  * Serialized animation as generated from After Effects
