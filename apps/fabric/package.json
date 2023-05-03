@@ -11,14 +11,15 @@
   "dependencies": {
     "lottie-react-native": "workspace:*",
     "react": "18.2.0",
-    "react-native": "0.71.0"
+    "react-native": "0.71.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.3",
-    "@babel/runtime": "^7.19.4",
+    "@babel/core": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "@react-native-community/eslint-config": "^3.2.0",
     "@tsconfig/react-native": "^2.0.3",
     "@types/react-native": "^0.70.4",
-    "metro-react-native-babel-preset": "^0.72.3",
+    "metro-react-native-babel-preset": "^0.73.9",
     "typescript": "^4.8.4"
   }
 }
