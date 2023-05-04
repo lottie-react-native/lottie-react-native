@@ -5,6 +5,10 @@ import Foundation
     func onAnimationFinish(isCancelled: Bool);
 }
 
+/* There are Two Views being implemented here:
+ 1- The RCTView for React Native that has all of the normal props, and
+ 2- a LottieAnimationView that is a child of the RCTView and is bound to the same coordinates, just on top of it
+ */
 @objc(LottieContainerView)
 class ContainerView: RCTView {
     private var speed: CGFloat = 0.0
@@ -48,11 +52,6 @@ class ContainerView: RCTView {
     @objc func setProgress(_ newProgress: CGFloat) {
         progress = newProgress
         animationView?.currentProgress = progress
-    }
-
-    override func reactSetFrame(_ frame: CGRect) {
-        super.reactSetFrame(frame)
-        animationView?.reactSetFrame(frame)
     }
 
     @objc func setLoop(_ isLooping: Bool) {
@@ -245,10 +244,10 @@ class ContainerView: RCTView {
         play()
     }
 
-    // reset the animationView frame whenever the view's frame changes
-    override var frame: CGRect {
+    // The animation view is a child of the RCTView, so if the bounds ever change, add those changes to the animation view as well
+    override var bounds: CGRect {
         didSet {
-            animationView?.reactSetFrame(frame)
+            animationView?.reactSetFrame(self.bounds)
         }
     }
     
@@ -260,7 +259,7 @@ class ContainerView: RCTView {
         animationView = next
         addSubview(next)
         animationView?.contentMode = contentMode
-        animationView?.reactSetFrame(frame)
+        animationView?.reactSetFrame(self.bounds)
         animationView?.backgroundBehavior = .pauseAndRestore
         animationView?.animationSpeed = speed
         animationView?.loopMode = loop
