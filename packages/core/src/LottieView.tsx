@@ -78,7 +78,9 @@ export class AnimatedLottieView extends React.PureComponent<Props, {}> {
 
     this._lottieAnimationViewRef = ref;
     if (this.props.autoPlay === true) {
-      this.play();
+      setTimeout(() => {
+        this.play();
+      });
     }
   }
 
