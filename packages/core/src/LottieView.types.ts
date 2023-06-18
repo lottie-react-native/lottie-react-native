@@ -2,7 +2,6 @@ import type {
   StyleProp,
   ViewStyle,
   LayoutChangeEvent,
-  Animated,
 } from 'react-native';
 
 /**
