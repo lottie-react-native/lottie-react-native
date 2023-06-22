@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.source                  = { :git => "https://github.com/lottie-react-native/lottie-react-native.git", :tag => "v#{s.version}" }
   s.source_files            = "ios/**/*.{h,m,mm,swift}"
 
-  s.dependency 'lottie-ios', '~> 3.5.0'
+  s.dependency 'lottie-ios', '~> 4.2.0'
 
   if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
     s.compiler_flags = folly_compiler_flags + " -DRCT_NEW_ARCH_ENABLED=1"
