@@ -21,7 +21,8 @@
     "gitbook-cli": "^2.3.2"
   },
   "resolutions": {
-    "react": "18.1.0"
+    "@types/react": "^18.2.12",
+    "@types/react-native": "^0.70.14"
   },
   "workspaces": [
     "./apps/*",
