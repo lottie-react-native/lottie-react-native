@@ -26,6 +26,7 @@ class ContainerView: RCTView {
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     var animationView: LottieAnimationView?
     
+    #if !(os(OSX))
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 13.0, tvOS 13.0, *) {
@@ -34,6 +35,7 @@ class ContainerView: RCTView {
             }
         }
     }
+    #endif
 
     @objc func setSpeed(_ newSpeed: CGFloat) {
         speed = newSpeed
