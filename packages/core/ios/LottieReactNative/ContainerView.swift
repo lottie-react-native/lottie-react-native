@@ -251,6 +251,12 @@ class ContainerView: RCTView {
             animationView?.reactSetFrame(self.bounds)
         }
     }
+
+    override var frame: CGRect {
+        didSet {
+            animationView?.reactSetFrame(self.bounds)
+        }
+    }
     
     // MARK: Private
     func replaceAnimationView(next: LottieAnimationView) {
