@@ -1,4 +1,5 @@
 # Lottie React Native
+
 [![npm Version](https://img.shields.io/npm/v/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![License](https://img.shields.io/npm/l/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native)
 
 Lottie component for React Native ([iOS](https://github.com/airbnb/lottie-ios), [Android](https://github.com/airbnb/lottie-android), and [Windows](https://github.com/CommunityToolkit/Lottie-Windows))
@@ -25,10 +26,12 @@ yarn add lottie-react-native@next
 
 Please note that the `next` version may not be completely stable, so you may encounter some bugs while using it.
 
-- For `lottie-react-native` <= 5.1.4 you also need to install `lottie-ios@3.4.1` package:
+- For `lottie-react-native` <= 5.1.6 you also need to install `lottie-ios@3.4.4` package:
+
 ```
-yarn add lottie-ios@3.4.1
+yarn add lottie-ios@3.4.4
 ```
+
 More versioning information: [Here](#versioning)
 
 Go to your ios folder and run:
@@ -42,8 +45,9 @@ pod install
 <details>
 <summary>Install the `lottie-react-native` npm package. (Click to expand)</summary>
 <br>
-    
+
 Add the following to the end of your project file. For C# apps, this should come after any `Microsoft.Windows.UI.Xaml.CSharp.targets` includes. For C++ apps, it should come after any `Microsoft.Cpp.targets` includes.
+
 ```xml
 <PropertyGroup Label="LottieReactNativeProps">
     <LottieReactNativeDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\lottie-react-native\package.json'))\node_modules\lottie-react-native</LottieReactNativeDir>
@@ -56,6 +60,7 @@ Add the following to the end of your project file. For C# apps, this should come
 Add the LottieReactNative.vcxproj file to your Visual Studio solution to ensure it takes part in the build.
 
 For C# apps, you'll need to install the following packages through NuGet:
+
 - LottieGen.MsBuild
 - Microsoft.UI.Xaml
 - Win2D.uwp
@@ -63,16 +68,19 @@ For C# apps, you'll need to install the following packages through NuGet:
   - This package is used for loading JSON dynamically. If you only need codegen animation, you can set `<EnableLottieDynamicSource>false</EnableLottieDynamicSource>` in your project file and omit this reference.
 
 For C++ apps, you'll need these NuGet packages:
+
 - LottieGen.MsBuild
 - Microsoft.UI.Xaml
 
 WinUI 2.6 (Microsoft.UI.Xaml 2.6.0) is required by default. Overriding this requires creating a Directory.Build.props file in your project root with a `<WinUIVersion>` property.
 
 In your application code where you set up your React Native Windows PackageProviders list, add the LottieReactNative provider:
+
 ```csharp
 // C#
 PackageProviders.Add(new LottieReactNative.ReactPackageProvider(new AnimatedVisuals.LottieCodegenSourceProvider()));
 ```
+
 ```cpp
 // C++
 #include <winrt/LottieReactNative.h>
@@ -84,12 +92,14 @@ PackageProviders().Append(winrt::LottieReactNative::ReactPackageProvider(winrt::
 ```
 
 Codegen animations are supported by adding LottieAnimation items to your project file. These will be compiled into your application and available at runtime by name. For example:
+
 ```xml
 <!-- .vcxproj or .csproj -->
 <ItemGroup>
     <LottieAnimation Include="Assets/Animations/MyAnimation.json" Name="MyAnimation" />
 </ItemGroup>
 ```
+
 ```js
 // js
 <LottieView source={"MyAnimation"} />
@@ -104,11 +114,11 @@ Depending on which version of React Native your app runs on you might need to in
 
 | App built in React Native version                | Requires lottie-react-native version                                                                                                                                                                                                                                                                      | Requires lottie-ios version                                                                                                              |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| >= 0.59       | 3.0.2 | 3.0.3 
-| >= 0.60       | 4.0.2 | 3.2.3 
-| >= 0.63       | 4.0.3 | 3.2.3 
-| >= 0.64       | 4.1.3 | 3.2.3 
-| >= 0.66       | > 4.1.3 and <= 5.1.4 | 3.4.1 
+| >= 0.59       | 3.0.2 | 3.0.3
+| >= 0.60       | 4.0.2 | 3.2.3
+| >= 0.63       | 4.0.3 | 3.2.3
+| >= 0.64       | 4.1.3 | 3.2.3
+| >= 0.66       | > 4.1.3 and <= 5.1.6 | 3.4.4
 
 ## Usage
 
@@ -210,7 +220,6 @@ export default function ChangingColorOfLayers() {
 ## API
 
 You can find the full list of props and methods available in our [API document](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md). These are the most common ones:
-
 
 | Prop               | Description                                                                                                                                                                                                                                                                     | Default                                                                                                             |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
