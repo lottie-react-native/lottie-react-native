@@ -119,3 +119,13 @@ dependencies {
 
     implementation "com.airbnb.android:lottie:6.0.0"
 }
+
+if (isNewArchitectureEnabled()) {
+  // rncli & react-native-gradle-plugin use codegenConfig in package.json since react-native@0.70
+  // Use react{} for compatibility with react-native@0.68/0.69
+  react {
+    jsRootDir = file("../src/specs")
+    libraryName = 'lottiereactnative'
+    codegenJavaPackageName = "com.airbnb.android.react.lottie"
+  }
+}
