@@ -24,7 +24,7 @@ class ContainerView: RCTView {
     @objc weak var delegate: LottieContainerViewDelegate? = nil
 
     @objc var onAnimationFinish: RCTBubblingEventBlock?
-    var animationView: LottieAnimationView?
+    weak var animationView: LottieAnimationView?
     
     #if !(os(OSX))
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -212,7 +212,11 @@ class ContainerView: RCTView {
     }
     
     func getCompletionCallback() -> LottieCompletionBlock {
-        return { animationFinished in
+        return { [weak self] animationFinished in
+            guard let self = self else {
+                return
+            }
+            
             if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
