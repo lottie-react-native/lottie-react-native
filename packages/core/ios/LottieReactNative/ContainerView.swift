@@ -127,30 +127,32 @@ class ContainerView: RCTView {
             // interpret raw URL paths as relative to the resource bundle
             url = URL(fileURLWithPath: newSourceURLString, relativeTo: Bundle.main.resourceURL)
         }
-    
-        if(url != nil) {
-            DispatchQueue.global(qos: .default).async {
-                do {
-                    let sourceJson = try String(contentsOf: url!)
-                    guard let data = sourceJson.data(using: String.Encoding.utf8),
-                    let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
-                        if (RCT_DEBUG == 1) {
-                            print("Unable to decode the lottie animation object from the fetched URL source")
-                        }
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        let nextAnimationView = LottieAnimationView(
-                            animation: animation,
-                            configuration: self.getLottieConfiguration()
-                        )
-                        self.replaceAnimationView(next: nextAnimationView)
-                    }
-                } catch {
+        
+        guard let url else {
+            return
+        }
+        
+        DispatchQueue.global(qos: .default).async {
+            do {
+                let sourceJson = try String(contentsOf: url)
+                guard let data = sourceJson.data(using: String.Encoding.utf8),
+                let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
                     if (RCT_DEBUG == 1) {
-                        print("Unable to load the lottie animation URL")
+                        print("Unable to decode the lottie animation object from the fetched URL source")
                     }
+                    return
+                }
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    let nextAnimationView = LottieAnimationView(
+                        animation: animation,
+                        configuration: self.getLottieConfiguration()
+                    )
+                    self.replaceAnimationView(next: nextAnimationView)
+                }
+            } catch {
+                if (RCT_DEBUG == 1) {
+                    print("Unable to load the lottie animation URL")
                 }
             }
         }
@@ -212,7 +214,8 @@ class ContainerView: RCTView {
     }
     
     func getCompletionCallback() -> LottieCompletionBlock {
-        return { animationFinished in
+        return { [weak self] animationFinished in
+            guard let self else { return }
             if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
