@@ -22,7 +22,6 @@ class ContainerView: RCTView {
     private var textFilters: [NSDictionary] = []
     private var renderMode: RenderingEngineOption = .automatic
     @objc weak var delegate: LottieContainerViewDelegate? = nil
-    
     var animationView: LottieAnimationView?
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     @objc var completionCallback: LottieCompletionBlock {
@@ -140,7 +139,6 @@ class ContainerView: RCTView {
             // interpret raw URL paths as relative to the resource bundle
             url = URL(fileURLWithPath: newSourceURLString, relativeTo: Bundle.main.resourceURL)
         }
-        
         guard let url else {
             return
         }
