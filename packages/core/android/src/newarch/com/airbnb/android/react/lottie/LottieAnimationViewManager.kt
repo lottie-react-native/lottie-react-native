@@ -26,12 +26,21 @@ import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.LottieAnimationViewManagerDelegate
 import com.facebook.react.viewmanagers.LottieAnimationViewManagerInterface
+import com.facebook.soloader.SoLoader
 import java.util.*
 
 @ReactModule(name = LottieAnimationViewManagerImpl.REACT_CLASS)
 class LottieAnimationViewManager :
     SimpleViewManager<LottieAnimationView>(),
     LottieAnimationViewManagerInterface<LottieAnimationView> {
+    companion object {
+        init {
+            if (BuildConfig.CODEGEN_MODULE_REGISTRATION != null) {
+                SoLoader.loadLibrary(BuildConfig.CODEGEN_MODULE_REGISTRATION)
+            }
+        }
+    }
+
     private val propManagersMap =
         WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
     private val delegate: ViewManagerDelegate<LottieAnimationView>

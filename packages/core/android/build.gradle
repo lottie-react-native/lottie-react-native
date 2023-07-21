@@ -32,6 +32,27 @@ if (isNewArchitectureEnabled()) {
     apply plugin: 'com.facebook.react'
 }
 
+import groovy.json.JsonSlurper
+
+// https://github.com/callstack/react-native-builder-bob/discussions/359
+def registrationCompat = {
+  def reactNativeManifest = file("$projectDir/../../react-native/package.json")
+  def reactNativeVersion = new JsonSlurper().parseText(reactNativeManifest.text).version as String
+  // Fabric was introduced at react-native@0.68, full CMake support were introduced at react-native@0.71
+  // Use Android.mk for compatibility with react-native@0.68/0.69
+  reactNativeVersion.matches('(0.68.*|0.69.*)')
+}()
+
+def codegenViewLibraryName = "lottiereactnative"
+def codegenViewModuleName = {
+  // Autolink for Fabric uses codegenConfig.name in package.json since react-native@0.70
+  // Use codegenViewLibraryName for compatibility with react-native@0.68/0.69
+  def libraryManifestJson = new JsonSlurper().parseText(file("$projectDir/../package.json").text)
+  registrationCompat ? codegenViewLibraryName : libraryManifestJson.codegenConfig.name
+}()
+
+def appProject = rootProject.allprojects.find { it.plugins.hasPlugin('com.android.application') }
+
 android {
     def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
     // Check AGP version for backward compatibility reasons
@@ -57,6 +78,36 @@ android {
 
         ndk {
             abiFilters(*reactNativeArchitectures())
+        }
+
+        buildConfigField "String", "CODEGEN_MODULE_REGISTRATION", (isNewArchitectureEnabled() && registrationCompat ? "\"${codegenViewModuleName}_registration\"" : "null")
+
+        if (isNewArchitectureEnabled() && registrationCompat) {
+            def reactAndroidProject = project(':ReactAndroid')
+            externalNativeBuild {
+                ndkBuild {
+                    arguments "APP_PLATFORM=android-21",
+                                "APP_STL=c++_shared",
+                                "NDK_TOOLCHAIN_VERSION=clang",
+                                "GENERATED_SRC_DIR=$buildDir/generated/source", // for react_codegen_* in this library's codegen/jni
+                                "PROJECT_BUILD_DIR=${appProject.buildDir}", // for REACT_NDK_EXPORT_DIR in ReactAndroid's Android-prebuilt.mk
+                                "REACT_ANDROID_DIR=${reactAndroidProject.projectDir}",
+                                "REACT_ANDROID_BUILD_DIR=${reactAndroidProject.buildDir}",
+                                "CODEGEN_MODULE_NAME=$codegenViewModuleName"
+                    cFlags "-Wall", "-Werror", "-fexceptions", "-frtti", "-DWITH_INSPECTOR=1"
+                    cppFlags "-std=c++17"
+                    targets "${codegenViewModuleName}_registration"
+                }
+            }
+        }
+    }
+
+    if (isNewArchitectureEnabled() && registrationCompat) {
+        // We configure the NDK build only if you decide to opt-in for the New Architecture.
+        externalNativeBuild {
+            ndkBuild {
+                path "Android.mk"
+            }
         }
     }
 
@@ -130,7 +181,26 @@ if (isNewArchitectureEnabled()) {
   // Use react{} for compatibility with react-native@0.68/0.69
   react {
     jsRootDir = file("../src/specs")
-    libraryName = 'lottiereactnative'
+    libraryName = codegenViewLibraryName
     codegenJavaPackageName = "com.airbnb.android.react.lottie"
+  }
+
+  afterEvaluate {
+    preDebugBuild.dependsOn appProject.tasks['preDebugBuild']
+    preReleaseBuild.dependsOn appProject.tasks['preReleaseBuild']
+
+    // Due to a bug inside AGP, we have to explicitly set a dependency
+    // between configureNdkBuild* tasks and the preBuild tasks.
+    // This can be removed once this is solved: https://issuetracker.google.com/issues/207403732
+    tasks.findByName('configureNdkBuildDebug')?.dependsOn preDebugBuild
+    tasks.findByName('configureNdkBuildRelease')?.dependsOn preReleaseBuild
+    reactNativeArchitectures().each { architecture ->
+      tasks.findByName("configureNdkBuildDebug[${architecture}]")?.configure {
+        dependsOn("preDebugBuild")
+      }
+      tasks.findByName("configureNdkBuildRelease[${architecture}]")?.configure {
+        dependsOn("preReleaseBuild")
+      }
+    }
   }
 }
