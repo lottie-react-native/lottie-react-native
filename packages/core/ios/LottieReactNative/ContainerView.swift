@@ -22,9 +22,22 @@ class ContainerView: RCTView {
     private var textFilters: [NSDictionary] = []
     private var renderMode: RenderingEngineOption = .automatic
     @objc weak var delegate: LottieContainerViewDelegate? = nil
-
-    @objc var onAnimationFinish: RCTBubblingEventBlock?
+    
     var animationView: LottieAnimationView?
+    @objc var onAnimationFinish: RCTBubblingEventBlock?
+    @objc var completionCallback: LottieCompletionBlock {
+        return { [weak self] animationFinished in
+            guard let self else { return }
+            if let onFinish = self.onAnimationFinish {
+                onFinish(["isCancelled": !animationFinished])
+            }
+            self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
+            if (animationFinished) {
+                // Force the animation to stay on the last frame when the animation ends
+                self.animationView?.currentProgress = 1;
+            }
+        };
+    }
     
     #if !(os(OSX))
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -213,26 +226,12 @@ class ContainerView: RCTView {
         play(fromFrame: convertedFromFrame, toFrame: toFrame);
     }
     
-    func getCompletionCallback() -> LottieCompletionBlock {
-        return { [weak self] animationFinished in
-            guard let self else { return }
-            if let onFinish = self.onAnimationFinish {
-                onFinish(["isCancelled": !animationFinished])
-            }
-            self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
-            if (animationFinished) {
-                // Force the animation to stay on the last frame when the animation ends
-                self.animationView?.currentProgress = 1;
-            }
-        };
-    }
-    
     func play(fromFrame: AnimationFrameTime? = nil, toFrame: AnimationFrameTime) {
-        animationView?.play(fromFrame: fromFrame, toFrame: toFrame, loopMode: self.loop, completion: getCompletionCallback());
+        animationView?.play(fromFrame: fromFrame, toFrame: toFrame, loopMode: self.loop, completion: completionCallback);
     }
 
     @objc func play() {
-        animationView?.play(completion: getCompletionCallback())
+        animationView?.play(completion: completionCallback)
     }
 
     @objc func reset() {
