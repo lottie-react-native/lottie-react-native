@@ -140,7 +140,9 @@ class ContainerView: RCTView {
                         return
                     }
 
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let self = self else { return }
+                        
                         let nextAnimationView = LottieAnimationView(
                             animation: animation,
                             configuration: self.getLottieConfiguration()
@@ -213,9 +215,7 @@ class ContainerView: RCTView {
     
     func getCompletionCallback() -> LottieCompletionBlock {
         return { [weak self] animationFinished in
-            guard let self = self else {
-                return
-            }
+            guard let self = self else { return }
             
             if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
