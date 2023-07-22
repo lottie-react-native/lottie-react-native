@@ -12,8 +12,10 @@ interface Props {
 export const ExamplePicker = ({example, examples, onChange}: Props) => {
   return (
     <Picker
-      selectedValue={example}
-      onValueChange={onChange}
+      selectedValue={example.name}
+      onValueChange={(value: string) => {
+        onChange(examples.find(ex => ex.name === value)!);
+      }}
       style={{
         marginBottom: Platform.select({
           ios: -30,
@@ -21,7 +23,7 @@ export const ExamplePicker = ({example, examples, onChange}: Props) => {
         }),
       }}>
       {examples.map(ex => (
-        <Picker.Item key={ex.name} label={ex.name} value={ex} />
+        <Picker.Item key={ex.name} label={ex.name} value={ex.name} />
       ))}
     </Picker>
   );
