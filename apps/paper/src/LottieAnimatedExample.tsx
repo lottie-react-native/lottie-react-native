@@ -55,13 +55,13 @@ const LottieAnimatedExample = () => {
   const onToggleImperative = () => setImperative(p => !p);
 
   const startImperative = () => {
+    progress.setValue(0);
     Animated.timing(progress, {
       toValue: 1,
       duration,
       useNativeDriver: true,
     }).start(() => {
       setIsPlaying(false);
-      progress.setValue(0);
     });
   };
 
@@ -74,6 +74,10 @@ const LottieAnimatedExample = () => {
       setIsPlaying(true);
     }
   }, [isImperative]);
+
+  if (!example) {
+    return null;
+  }
 
   return (
     <View style={{flex: 1}}>
@@ -90,7 +94,7 @@ const LottieAnimatedExample = () => {
             isInverse ? styles.lottieViewInverse : {},
             {width: '100%', height: '100%'},
           ]}
-          source={example.getSource()}
+          source={example?.getSource()}
           progress={isImperative ? progress : undefined}
           loop={isImperative ? false : loop}
           onAnimationFinish={onAnimationFinish}
