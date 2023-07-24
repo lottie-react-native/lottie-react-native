@@ -12,11 +12,6 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerHelper
-import com.facebook.react.util.RNLog
-import kotlinx.coroutines.*
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.URL
 
 internal object LottieAnimationViewManagerImpl {
     const val REACT_CLASS = "LottieAnimationView"
@@ -141,32 +136,19 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setSourceJson(
         json: String?,
-        propManagersMap: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager
     ) {
-        propManagersMap.animationJson = json
-        propManagersMap.commitChanges()
+        viewManager.animationJson = json
+        viewManager.commitChanges()
     }
 
     @JvmStatic
     fun setSourceURL(
         urlString: String?,
-        propManagersMap: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager
     ) {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val jsonString = withContext(Dispatchers.IO) {
-                    URL(urlString).openStream().use {
-                        BufferedReader(InputStreamReader(it)).useLines { lines ->
-                            lines.joinToString("\n")
-                        }
-                    }
-                }
-                propManagersMap.animationJson = jsonString
-                propManagersMap.commitChanges()
-            } catch (e: Exception) {
-                RNLog.l("Error while loading animation from URL")
-            }
-        }
+        viewManager.animationURL = urlString
+        viewManager.commitChanges()
     }
 
     @JvmStatic
