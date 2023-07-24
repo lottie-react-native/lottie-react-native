@@ -22,7 +22,8 @@
 - **iOS**: Frames being calculated incorrectly ([#1019](https://github.com/lottie-react-native/lottie-react-native/pull/1019))
 - **macOS**: react native macos build ([#1031](https://github.com/lottie-react-native/lottie-react-native/pull/1031))
 - **iOS**: Memory leak on deallocation ([#1055](https://github.com/lottie-react-native/lottie-react-native/pull/1055))
-- Update lottie-ios to 4.2.0 + fix build error ([#1036](https://github.com/lottie-react-native/lottie-react-native/pull/1036))
+- **iOS**: Update lottie-ios to 4.2.0 + fix build error ([#1036](https://github.com/lottie-react-native/lottie-react-native/pull/1036))
+- **iOS**: prevent jumping to end frame ([#1061](https://github.com/lottie-react-native/lottie-react-native/pull/1061))
 - Fabric build on 0.68/0.69 ([#1054](https://github.com/lottie-react-native/lottie-react-native/pull/1054))
 - Fix different ios related issues ([3f7e3e](https://github.com/lottie-react-native/lottie-react-native/commit/3f7e3e6aebf24daa052c9552ab96489c1fa4a547))
 

@@ -10,6 +10,12 @@ For the first time, designers can create **and ship** beautiful animations witho
 
 ## Installing
 
+## Breaking Changes in v6!
+
+We've made some significant updates in version 6 that may impact your current setup. To get all the details about these changes, check out the [changelog](/CHANGELOG.md).
+
+Stay informed to ensure a seamless transition to the latest version. Thank you!
+
 ### iOS and Android
 
 - Install `lottie-react-native` (latest):
