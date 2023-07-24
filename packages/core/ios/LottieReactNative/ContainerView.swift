@@ -31,10 +31,6 @@ class ContainerView: RCTView {
                 onFinish(["isCancelled": !animationFinished])
             }
             self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
-            if (animationFinished) {
-                // Force the animation to stay on the last frame when the animation ends
-                self.animationView?.currentProgress = 1;
-            }
         };
     }
     
