@@ -49,6 +49,10 @@
 
 Full changelog can be found [here](https://github.com/react-native-community/lottie-react-native/compare/v5.1.5...v6.0.0).
 
+### Known issues:
+
+- Initial render with json source is not always working as expected on iOS when new architecture is turned on (https://github.com/lottie-react-native/lottie-react-native/issues/1043)
+
 ## 5.1.4
 
 - Support for lottie-ios version 3.4.0
