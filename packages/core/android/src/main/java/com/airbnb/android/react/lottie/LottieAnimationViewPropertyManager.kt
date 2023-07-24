@@ -46,6 +46,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     var renderMode: RenderMode? = null
     var layerType: Int? = null
     var animationJson: String? = null
+    var animationURL: String? = null
     var progress: Float? = null
     var loop: Boolean? = null
     var autoPlay: Boolean? = null
@@ -84,6 +85,11 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
             animationJson = null
         }
 
+        animationURL?.let {
+            view.setAnimationFromUrl(it, it.hashCode().toString())
+            animationURL = null
+        }
+
         if (animationNameDirty) {
             view.setAnimation(animationName)
             animationNameDirty = false
@@ -103,7 +109,6 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
             if (it && !view.isAnimating) {
                 view.playAnimation()
             }
-            autoPlay = null
         }
 
         speed?.let {

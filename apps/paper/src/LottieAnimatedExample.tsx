@@ -100,7 +100,7 @@ const LottieAnimatedExample = () => {
           onAnimationFinish={onAnimationFinish}
           enableMergePathsAndroidForKitKatAndAbove
           renderMode={renderMode}
-          resizeMode={'cover'}
+          resizeMode={'contain'}
         />
       </View>
       <View style={{paddingBottom: 20, paddingHorizontal: 10}}>
