@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Platform} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {AnimatedLottieViewProps} from 'lottie-react-native/lib/typescript/LottieView.types';
+import {LottieViewProps} from 'lottie-react-native/lib/typescript/LottieView.types';
 
 interface Props {
-  renderMode: AnimatedLottieViewProps['renderMode'];
-  onChange: (renderMode: AnimatedLottieViewProps['renderMode']) => void;
+  renderMode: LottieViewProps['renderMode'];
+  onChange: (renderMode: LottieViewProps['renderMode']) => void;
 }
 
 const renderModes = [

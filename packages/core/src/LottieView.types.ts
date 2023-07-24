@@ -1,8 +1,4 @@
-import type {
-  StyleProp,
-  ViewStyle,
-  LayoutChangeEvent,
-} from 'react-native';
+import type { StyleProp, ViewStyle, LayoutChangeEvent } from 'react-native';
 
 /**
  * Serialized animation as generated from After Effects
@@ -37,9 +33,9 @@ type TextFilterAndroid = {
 };
 
 /**
- * Properties of the AnimatedLottieView component
+ * Properties of the LottieView component
  */
-export interface AnimatedLottieViewProps {
+export interface LottieViewProps {
   /**
    * The source of animation. Can be referenced as a local asset by a string, or remotely
    * with an object with a `uri` property, or it can be an actual JS object of an
@@ -100,13 +96,6 @@ export interface AnimatedLottieViewProps {
    * mounted. This only affects the imperative API.
    */
   autoPlay?: boolean;
-
-  /**
-   * A boolean flag indicating whether or not the animation should size itself automatically
-   * according to the width in the animation's JSON. This only works when source is an actual
-   * JS object of an animation.
-   */
-  autoSize?: boolean;
 
   /**
    * A callback function which will be called when animation is finished. Note that this

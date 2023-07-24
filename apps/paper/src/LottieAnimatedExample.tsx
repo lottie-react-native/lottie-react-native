@@ -1,6 +1,6 @@
 import Slider from '@react-native-community/slider';
 import LottieView from 'lottie-react-native';
-import {AnimatedLottieViewProps} from 'lottie-react-native/lib/typescript/LottieView.types';
+import {LottieViewProps} from 'lottie-react-native/lib/typescript/LottieView.types';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Animated,
@@ -31,11 +31,11 @@ const LottieAnimatedExample = () => {
   const [isInverse, setIsInverse] = useState(false);
   const [loop, setLoop] = useState(true);
   const [renderMode, setRenderMode] =
-    useState<AnimatedLottieViewProps['renderMode']>('AUTOMATIC');
+    useState<LottieViewProps['renderMode']>('AUTOMATIC');
   const [isImperative, setImperative] = useState(false);
   const anim = useRef<LottieView>(null);
 
-  const [progress] = useState(new Animated.Value(0));
+  const progress = useRef(new Animated.Value(0)).current;
 
   const onAnimationFinish = () => {
     console.log('Animation finished');

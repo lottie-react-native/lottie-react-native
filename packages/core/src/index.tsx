@@ -1,2 +1,2 @@
-import { AnimatedLottieView } from './LottieView';
-export default AnimatedLottieView;
+import { LottieView } from './LottieView';
+export default LottieView;

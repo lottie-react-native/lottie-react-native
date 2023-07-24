@@ -1,13 +1,13 @@
 import React from 'react';
 import { NativeSyntheticEvent, ViewProps, processColor } from 'react-native';
 
-import type { AnimatedLottieViewProps } from './LottieView.types';
+import type { LottieViewProps } from './LottieView.types';
 
 import NativeLottieAnimationView, {
   Commands,
 } from './specs/LottieAnimationViewNativeComponent';
 
-type Props = AnimatedLottieViewProps & { containerProps?: ViewProps };
+type Props = LottieViewProps & { containerProps?: ViewProps };
 
 const defaultProps: Props = {
   source: undefined,
@@ -15,7 +15,6 @@ const defaultProps: Props = {
   speed: 1,
   loop: true,
   autoPlay: false,
-  autoSize: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
   cacheComposition: true,
   useNativeLooping: false,
@@ -28,7 +27,7 @@ const defaultProps: Props = {
 /**
  * View hosting the lottie animation.
  */
-export class AnimatedLottieView extends React.PureComponent<Props, {}> {
+export class LottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
 
   _lottieAnimationViewRef:
@@ -86,7 +85,6 @@ export class AnimatedLottieView extends React.PureComponent<Props, {}> {
     const {
       style,
       source,
-      autoSize,
       autoPlay,
       duration,
       textFiltersAndroid,
