@@ -94,16 +94,16 @@ Codegen is available to both C# and C++ applications. Dynamic loading of JSON st
 
 ## Usage
 
-(If you are using TypeScript, please read [this first](/docs/typescript.md))
-
 Lottie can be used in a declarative way:
 
 ```jsx
 import React from "react";
-import Lottie from "lottie-react-native";
+import LottieView from "lottie-react-native";
 
 export default function Animation() {
-  return <Lottie source={require("../path/to/animation.json")} autoPlay loop />;
+  return (
+    <LottieView source={require("../path/to/animation.json")} autoPlay loop />
+  );
 }
 ```
 
@@ -168,11 +168,11 @@ NOTE: This feature may not work properly on Android. We will try fix it soon.
 
 ```jsx
 import React from "react";
-import Lottie from "lottie-react-native";
+import LottieView from "lottie-react-native";
 
 export default function ChangingColorOfLayers() {
   return (
-    <Lottie
+    <LottieView
       source={require("../path/to/animation.json")}
       colorFilters={[
         {
