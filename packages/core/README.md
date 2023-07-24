@@ -10,6 +10,12 @@ For the first time, designers can create **and ship** beautiful animations witho
 
 ## Installing
 
+## Breaking Changes in v6!
+
+We've made some significant updates in version 6 that may impact your current setup. To get all the details about these changes, check out the [changelog](/CHANGELOG.md).
+
+Stay informed to ensure a seamless transition to the latest version. Thank you!
+
 ### iOS and Android
 
 - Install `lottie-react-native` (latest):
@@ -94,16 +100,16 @@ Codegen is available to both C# and C++ applications. Dynamic loading of JSON st
 
 ## Usage
 
-(If you are using TypeScript, please read [this first](/docs/typescript.md))
-
 Lottie can be used in a declarative way:
 
 ```jsx
 import React from 'react';
-import Lottie from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
 
 export default function Animation() {
-  return <Lottie source={require('../path/to/animation.json')} autoPlay loop />;
+  return (
+    <LottieView source={require('../path/to/animation.json')} autoPlay loop />
+  );
 }
 ```
 
@@ -168,11 +174,11 @@ NOTE: This feature may not work properly on Android. We will try fix it soon.
 
 ```jsx
 import React from 'react';
-import Lottie from 'lottie-react-native';
+import LottieView from 'lottie-react-native';
 
 export default function ChangingColorOfLayers() {
   return (
-    <Lottie
+    <LottieView
       source={require('../path/to/animation.json')}
       colorFilters={[
         {
