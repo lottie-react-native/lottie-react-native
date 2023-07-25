@@ -117,11 +117,13 @@ class ContainerView: RCTView {
             }
             renderMode = .automatic
         }
+        
         if (animationView != nil) {
             let nextAnimationView = LottieAnimationView(
                 animation: animationView?.animation,
                 configuration: lottieConfiguration
             )
+            
             replaceAnimationView(next: nextAnimationView)
         }
     }
@@ -156,6 +158,7 @@ class ContainerView: RCTView {
             animation: animation,
             configuration: lottieConfiguration
         )
+        
         replaceAnimationView(next: nextAnimationView)
     }
     
@@ -169,6 +172,7 @@ class ContainerView: RCTView {
             name: sourceName,
             configuration: lottieConfiguration
         )
+        
         replaceAnimationView(next: nextAnimationView)
     }
     
@@ -225,7 +229,7 @@ class ContainerView: RCTView {
     }
     
     // MARK: Private
-    func  replaceAnimationView(next: LottieAnimationView) {
+    func replaceAnimationView(next: LottieAnimationView) {
         super.removeReactSubview(animationView)
         
         let contentMode = animationView?.contentMode ?? .scaleAspectFit
@@ -243,8 +247,6 @@ class ContainerView: RCTView {
         applyColorProperties()
         playIfNeeded()
     }
-    
-    
     
     func applyColorProperties() {
         guard let animationView = animationView else { return }
