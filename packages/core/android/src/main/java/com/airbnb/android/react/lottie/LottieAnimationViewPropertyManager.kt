@@ -12,6 +12,7 @@ import com.airbnb.lottie.model.KeyPath
 import com.airbnb.lottie.value.LottieValueCallback
 import com.facebook.react.bridge.ColorPropConverter
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.ReadableType
 import java.lang.ref.WeakReference
 import java.util.regex.Pattern
@@ -138,30 +139,36 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
             enableMergePaths = null
         }
 
-        colorFilters?.let {
-            if (it.size() > 0) {
-                for (i in 0 until it.size()) {
-                    val current = it.getMap(i)
-
-                    val color: Int =
-                            if (current.getType("color") == ReadableType.Map) {
-                                ColorPropConverter.getColor(current.getMap("color"), view.context)
-                            } else {
-                                current.getInt("color")
-                            }
-
-                    val path = current.getString("keypath")
-                    val pathWithGlobStar = "$path.**"
-
-                    val colorFilter: ColorFilter = SimpleColorFilter(color)
-                    val callback = LottieValueCallback(colorFilter)
-
-                    val keys = pathWithGlobStar.split(Pattern.quote(".")).toTypedArray()
-                    val keyPath = KeyPath(*keys)
-
-                    view.addValueCallback(keyPath, LottieProperty.COLOR_FILTER, callback)
+        colorFilters?.let { colorFilters ->
+            if (colorFilters.size() > 0) {
+                for (i in 0 until colorFilters.size()) {
+                    val current = colorFilters.getMap(i)
+                    parseColorFilter(current, view)
                 }
             }
         }
+    }
+
+    private fun parseColorFilter(
+        colorFilter: ReadableMap,
+        view: LottieAnimationView
+    ) {
+        val color: Int = if (colorFilter.getType("color") == ReadableType.Map) {
+            ColorPropConverter.getColor(colorFilter.getMap("color"), view.context)
+        } else {
+            colorFilter.getInt("color")
+        }
+
+        val path = colorFilter.getString("keypath")
+        val pathGlob = "$path.**"
+        val keys = pathGlob.split(Pattern.quote(".").toRegex())
+            .dropLastWhile { it.isEmpty() }
+            .toTypedArray()
+        val keyPath = KeyPath(*keys)
+
+        val filter: ColorFilter = SimpleColorFilter(color)
+        val colorFilterCallback = LottieValueCallback(filter)
+
+        view.addValueCallback(keyPath, LottieProperty.COLOR_FILTER, colorFilterCallback)
     }
 }
