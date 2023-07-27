@@ -136,6 +136,19 @@ using namespace facebook::react;
     std::dynamic_pointer_cast<const LottieAnimationViewEventEmitter>(_eventEmitter)->onAnimationFinish(event);
 }
 
+- (void)onAnimationFailureWithError:(NSString*)error
+{
+    if(!_eventEmitter) {
+        return;
+    }
+    
+    LottieAnimationViewEventEmitter::OnAnimationFailure event = {
+        .error = std::string([error UTF8String])
+    };
+    
+    std::dynamic_pointer_cast<const LottieAnimationViewEventEmitter>(_eventEmitter)->onAnimationFailure(event);
+}
+
 @end
 
 Class<RCTComponentViewProtocol> LottieAnimationViewCls(void)

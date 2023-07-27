@@ -31,7 +31,7 @@ const LottieAnimatedExample = () => {
   const [isInverse, setIsInverse] = useState(false);
   const [loop, setLoop] = useState(true);
   const [renderMode, setRenderMode] =
-    useState<LottieViewProps['renderMode']>('AUTOMATIC');
+    useState<LottieViewProps['renderMode']>('HARDWARE');
   const [isImperative, setImperative] = useState(false);
   const anim = useRef<LottieView>(null);
 
@@ -39,6 +39,10 @@ const LottieAnimatedExample = () => {
 
   const onAnimationFinish = () => {
     console.log('Animation finished');
+  };
+
+  const onAnimationFailure = (message: string) => {
+    console.log('Animation failure ', message);
   };
 
   const onPlayPress = () => {
@@ -97,6 +101,8 @@ const LottieAnimatedExample = () => {
           source={example?.getSource()}
           progress={isImperative ? progress : undefined}
           loop={isImperative ? false : loop}
+          hardwareAccelerationAndroid={true}
+          onAnimationFailure={onAnimationFailure}
           onAnimationFinish={onAnimationFinish}
           enableMergePathsAndroidForKitKatAndAbove
           renderMode={renderMode}

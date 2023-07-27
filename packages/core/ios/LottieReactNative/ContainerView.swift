@@ -3,6 +3,7 @@ import Foundation
 
 @objc protocol LottieContainerViewDelegate {
     func onAnimationFinish(isCancelled: Bool);
+    func onAnimationFailure(error: String);
 }
 
 /* There are Two Views being implemented here:
@@ -24,6 +25,8 @@ class ContainerView: RCTView {
     @objc weak var delegate: LottieContainerViewDelegate? = nil
     var animationView: LottieAnimationView?
     @objc var onAnimationFinish: RCTBubblingEventBlock?
+    @objc var onAnimationFailure: RCTBubblingEventBlock?
+    
     @objc var completionCallback: LottieCompletionBlock {
         return { [weak self] animationFinished in
             guard let self else { return }
@@ -34,12 +37,24 @@ class ContainerView: RCTView {
         };
     }
     
+    @objc var failureCallback: (_ error: String) -> Void {
+        return { [weak self] error in
+            guard let self else { return }
+            if let onFinish = self.onAnimationFailure {
+                onFinish(["error": error])
+            }
+            self.delegate?.onAnimationFailure(error: error)
+        };
+    }
+    
 #if !(os(OSX))
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 13.0, tvOS 13.0, *) {
             if (self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection)) {
-                applyColorProperties()
+                if(!colorFilters.isEmpty) {
+                    applyColorProperties()
+                }
             }
         }
     }
@@ -47,7 +62,7 @@ class ContainerView: RCTView {
     
     @objc func setSpeed(_ newSpeed: CGFloat) {
         speed = newSpeed
-        
+                
         if (newSpeed != 0.0) {
             animationView?.animationSpeed = newSpeed
             if (!(animationView?.isAnimationPlaying ?? true)) {
@@ -146,11 +161,13 @@ class ContainerView: RCTView {
     @objc func setSourceJson(_ newSourceJson: String) {
         sourceJson = newSourceJson
         
+        if(newSourceJson.isEmpty) {
+            return
+        }
+        
         guard let data = sourceJson.data(using: String.Encoding.utf8),
               let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
-            if (RCT_DEBUG == 1) {
-                print("Unable to create the lottie animation object from the JSON source")
-            }
+            failureCallback("Unable to create the lottie animation object from the JSON source")
             return
         }
         
@@ -272,16 +289,12 @@ class ContainerView: RCTView {
             guard let self = self else { return }
             
             if let error = error {
-                if RCT_DEBUG == 1 {
-                    print("Unable to fetch the Lottie animation from the URL: \(error)")
-                }
+                failureCallback("Unable to fetch the Lottie animation from the URL: \(error.localizedDescription)")
                 return
             }
             
             guard let data = data else {
-                if RCT_DEBUG == 1 {
-                    print("No data received for the Lottie animation from the URL.")
-                }
+                failureCallback("No data received for the Lottie animation from the URL.")
                 return
             }
             
@@ -298,9 +311,7 @@ class ContainerView: RCTView {
                     self.replaceAnimationView(next: nextAnimationView)
                 }
             } catch {
-                if RCT_DEBUG == 1 {
-                    print("Unable to decode the Lottie animation object from the fetched URL source: \(error)")
-                }
+                failureCallback("Unable to decode the Lottie animation object from the fetched URL source: \(error.localizedDescription)")
             }
         }.resume()
     }

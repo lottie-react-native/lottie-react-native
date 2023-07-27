@@ -62,6 +62,9 @@ class LottieAnimationViewManager :
 
     public override fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
         val view = LottieAnimationViewManagerImpl.createViewInstance(context)
+         view.setFailureListener {
+            LottieAnimationViewManagerImpl.sendAnimationFailureEvent(view, it)
+        }
         view.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
                 //do nothing
