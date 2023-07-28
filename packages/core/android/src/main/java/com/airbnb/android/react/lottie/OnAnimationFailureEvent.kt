@@ -6,7 +6,7 @@ import com.facebook.react.uimanager.events.Event
 
 class OnAnimationFailureEvent
 constructor(surfaceId: Int, viewId: Int, private val error: Throwable) :
-    Event<OnAnimationFinishEvent>(surfaceId, viewId) {
+    Event<OnAnimationFailureEvent>(surfaceId, viewId) {
 
     override fun getEventName(): String {
         return EVENT_NAME
