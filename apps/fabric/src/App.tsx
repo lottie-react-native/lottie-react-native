@@ -29,7 +29,10 @@ const App = () => {
         colorFilters={colorFilter}
         enableMergePathsAndroidForKitKatAndAbove
         onAnimationFinish={() => {
-          console.log('finished');
+          console.log('Finished');
+        }}
+        onAnimationFailure={e => {
+          console.log('Error ', {e});
         }}
       />
       <View style={styles.controlsContainer}>

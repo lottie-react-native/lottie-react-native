@@ -24,7 +24,7 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
-import java.util.*
+import java.util.WeakHashMap
 
 class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     private val propManagersMap =
@@ -51,6 +51,9 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
 
     public override fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
         val view = LottieAnimationViewManagerImpl.createViewInstance(context)
+        view.setFailureListener {
+            LottieAnimationViewManagerImpl.sendAnimationFailureEvent(view, it)
+        }
         view.addAnimatorListener(
             object : Animator.AnimatorListener {
                 override fun onAnimationStart(animation: Animator) {

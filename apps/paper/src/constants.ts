@@ -10,6 +10,7 @@ export const EXAMPLES = [
   makeExample('9 squares', () =>
     require('./animations/9squares-AlBoardman.json'),
   ),
+  makeExample('Hero', () => require('./animations/hero.json')),
   makeExample('Hamburger Arrow', () =>
     require('./animations/HamburgerArrow.json'),
   ),
@@ -35,6 +36,9 @@ export const EXAMPLES = [
   ),
   makeExample('Remote load', () => ({
     uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/apps/paper/src/animations/Watermelon.json',
+  })),
+  makeExample('Invalid URL', () => ({
+    uri: 'https://***invalid-url***/lottie-react-native/lottie-react-native/master/apps/paper/src/animations/Watermelon.json',
   })),
 ];
 

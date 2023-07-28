@@ -100,8 +100,15 @@ export interface LottieViewProps {
   /**
    * A callback function which will be called when animation is finished. Note that this
    * callback will be called only when `loop` is set to false.
+   * @platform ios, android
    */
   onAnimationFinish?: (isCancelled: boolean) => void;
+
+  /**
+   * A callback function which will be called when animation is failed to load.
+   * @platform ios, android
+   */
+  onAnimationFailure?: (error: string) => void;
 
   /**
    * A callback function which will be called when the view has been laid out.
