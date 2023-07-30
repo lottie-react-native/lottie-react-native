@@ -1,6 +1,5 @@
 import Slider from '@react-native-community/slider';
-import LottieView from 'lottie-react-native';
-import {LottieViewProps} from 'lottie-react-native/lib/typescript/LottieView.types';
+import LottieView, {LottieViewProps} from 'lottie-react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Animated,
