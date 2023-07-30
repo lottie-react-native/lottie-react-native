@@ -53,6 +53,16 @@ using namespace facebook::react;
         [_view setSourceJson:RCTNSStringFromString(newLottieProps.sourceJson)];
     }
     
+    if(oldLottieProps.sourceDotLottie.uri != newLottieProps.sourceDotLottie.uri) {
+        NSString *uriString = [NSString stringWithUTF8String:newLottieProps.sourceDotLottie.uri.c_str()];
+        
+        NSDictionary *convertedDict =  @{
+            @"uri": uriString
+        };
+        
+        [_view setSourceDotLottie:convertedDict];
+    }
+    
     if(oldLottieProps.sourceName != newLottieProps.sourceName) {
         [_view setSourceName:RCTNSStringFromString(newLottieProps.sourceName)];
     }
@@ -76,7 +86,7 @@ using namespace facebook::react;
     if(oldLottieProps.colorFilters != newLottieProps.colorFilters) {
         [_view setColorFilters:convertColorFilters(newLottieProps.colorFilters)];
     }
-
+    
     if(oldLottieProps.textFiltersIOS != newLottieProps.textFiltersIOS) {
         [_view setTextFiltersIOS:convertTextFilters(newLottieProps.textFiltersIOS)];
     }

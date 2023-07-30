@@ -62,7 +62,7 @@ class ContainerView: RCTView {
     
     @objc func setSpeed(_ newSpeed: CGFloat) {
         speed = newSpeed
-                
+        
         if (newSpeed != 0.0) {
             animationView?.animationSpeed = newSpeed
             if (!(animationView?.isAnimationPlaying ?? true)) {
@@ -264,6 +264,8 @@ class ContainerView: RCTView {
         applyColorProperties()
         playIfNeeded()
     }
+    
+    
     
     func applyColorProperties() {
         guard let animationView = animationView else { return }

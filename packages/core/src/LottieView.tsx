@@ -1,5 +1,10 @@
 import React from 'react';
-import { NativeSyntheticEvent, ViewProps, processColor } from 'react-native';
+import {
+  Image,
+  NativeSyntheticEvent,
+  ViewProps,
+  processColor,
+} from 'react-native';
 
 import type { LottieViewProps } from './LottieView.types';
 
@@ -11,6 +16,7 @@ type Props = LottieViewProps & { containerProps?: ViewProps };
 
 const defaultProps: Props = {
   source: undefined,
+  sourceDotLottie: undefined,
   progress: 0,
   speed: 1,
   loop: true,
@@ -24,9 +30,6 @@ const defaultProps: Props = {
   textFiltersIOS: [],
 };
 
-/**
- * View hosting the lottie animation.
- */
 export class LottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
 
@@ -92,6 +95,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
       textFiltersAndroid,
       textFiltersIOS,
       resizeMode,
+      sourceDotLottie,
       ...rest
     } = this.props;
 
@@ -117,6 +121,8 @@ export class LottieView extends React.PureComponent<Props, {}> {
       color: processColor(colorFilter.color),
     }));
 
+    const resolvedDotLottie = Image.resolveAssetSource(sourceDotLottie);
+
     return (
       <NativeLottieAnimationView
         ref={this._captureRef}
@@ -129,6 +135,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
         sourceName={sourceName}
         sourceJson={sourceJson}
         sourceURL={sourceURL}
+        sourceDotLottie={resolvedDotLottie}
         onAnimationFinish={this.onAnimationFinish}
         onAnimationFailure={this.onAnimationFailure}
         autoPlay={autoPlay}

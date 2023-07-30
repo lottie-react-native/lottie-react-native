@@ -136,7 +136,7 @@ Full changelog can be found [here](https://github.com/react-native-community/lot
 
 - Add auto embed fastlane
 - Updated Android Building environment
-- Add testID prop to AnimatedLottieView typescript definition
+- Add testID prop to LottieView typescript definition
 - Added Pause & Resume commands. Also added `onLayout` prop.
 - Fix iOS speed not changing dynamically
 - Improved documentation

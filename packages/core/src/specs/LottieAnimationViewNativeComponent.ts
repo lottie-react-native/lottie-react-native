@@ -39,6 +39,9 @@ export interface NativeProps extends ViewProps {
   sourceName?: string;
   sourceJson?: string;
   sourceURL?: string;
+  sourceDotLottie?: Readonly<{
+    uri: string;
+  }>;
   imageAssetsFolder?: string;
   progress?: Float;
   speed?: Double;
