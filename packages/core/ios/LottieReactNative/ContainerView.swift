@@ -143,6 +143,20 @@ class ContainerView: RCTView {
         }
     }
     
+    @objc func setSourceDotLottieURI(_ uri: String) {
+        guard let url = URL(string: uri) else {
+            return
+        }
+        
+        _ = LottieAnimationView(
+            dotLottieUrl: url,
+            configuration: lottieConfiguration,
+            completion: { [weak self] view, error in
+                self?.replaceAnimationView(next: view)
+            }
+        )
+    }
+    
     @objc func setSourceURL(_ newSourceURLString: String) {
         var url = URL(string: newSourceURLString)
         
@@ -160,7 +174,7 @@ class ContainerView: RCTView {
     
     @objc func setSourceJson(_ newSourceJson: String) {
         sourceJson = newSourceJson
-        
+                
         if(newSourceJson.isEmpty) {
             return
         }

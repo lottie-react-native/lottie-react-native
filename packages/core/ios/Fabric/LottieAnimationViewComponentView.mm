@@ -50,17 +50,11 @@ using namespace facebook::react;
     }
     
     if(oldLottieProps.sourceJson != newLottieProps.sourceJson) {
-        [_view setSourceJson:RCTNSStringFromString(newLottieProps.sourceJson)];
+        [_view setSourceJson:RCTNSStringFromString(newLottieProps.sourceJson.c_str())];
     }
     
-    if(oldLottieProps.sourceDotLottie.uri != newLottieProps.sourceDotLottie.uri) {
-        NSString *uriString = [NSString stringWithUTF8String:newLottieProps.sourceDotLottie.uri.c_str()];
-        
-        NSDictionary *convertedDict =  @{
-            @"uri": uriString
-        };
-        
-        [_view setSourceDotLottie:convertedDict];
+    if(oldLottieProps.sourceDotLottieURI != newLottieProps.sourceDotLottieURI) {
+        [_view setSourceDotLottieURI:RCTNSStringFromString(newLottieProps.sourceDotLottieURI)];
     }
     
     if(oldLottieProps.sourceName != newLottieProps.sourceName) {

@@ -10,11 +10,14 @@ export const EXAMPLES = [
   makeExample('9 squares', () =>
     require('./animations/9squares-AlBoardman.json'),
   ),
-  makeExample('Hero', () => require('./animations/hero.json')),
-  makeExample('Hamburger Arrow', () =>
-    require('./animations/HamburgerArrow.json'),
+  makeExample('[Dot Lottie] Dark/Light Mode Switch', () =>
+    require('./animations/animation_lkekfrcl.lottie'),
   ),
-  makeExample('Hamburger Arrow (200 px)', () =>
+  makeExample('[Dot Lottie Remote] Walking to Work', () => ({
+    uri: 'https://github.com/matinzd/matinzd/raw/main/animation_lkpzxqpk.lottie',
+  })),
+  makeExample('[Perf test] Hero', () => require('./animations/hero.json')),
+  makeExample('Hamburger Arrow', () =>
     require('./animations/HamburgerArrow.json'),
   ),
   makeExample('Line Animation', () =>

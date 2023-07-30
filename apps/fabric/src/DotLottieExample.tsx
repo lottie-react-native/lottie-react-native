@@ -10,12 +10,15 @@ const remoteLottie = {
 export const DotLottieExample = () => {
   return (
     <LottieView
-      sourceDotLottie={dotLottie}
-      // source={jsonLottie}
+      // source={dotLottie}
+      source={jsonLottie}
       // source={remoteLottie}
       autoPlay={true}
       style={[{width: '100%', height: '100%', backgroundColor: 'grey'}]}
       loop={true}
+      onAnimationFailure={error => {
+        console.log({error});
+      }}
       renderMode={'AUTOMATIC'}
       resizeMode={'contain'}
     />

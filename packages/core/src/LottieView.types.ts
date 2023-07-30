@@ -49,6 +49,9 @@ export interface LottieViewProps {
    */
   source: string | AnimationObject | { uri: string };
 
+  /**
+   * Dot lottie file source. This is an alternative to the `source` prop.
+   */
   sourceDotLottie?: ImageRequireSource;
 
   /**

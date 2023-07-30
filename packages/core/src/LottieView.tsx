@@ -86,6 +86,40 @@ export class LottieView extends React.PureComponent<Props, {}> {
     }
   }
 
+  _parsePossibleSources():
+    | {
+        sourceURL?: string;
+        sourceJson?: string;
+        sourceName?: string;
+        sourceDotLottieURI?: string;
+      }
+    | undefined {
+    const { source } = this.props;
+
+    if (typeof source === 'string') {
+      return { sourceName: source };
+    }
+
+    if (typeof source === 'object' && !(source as any).uri) {
+      return { sourceJson: JSON.stringify(source) };
+    }
+
+    if (typeof source === 'object' && (source as any).uri) {
+      // uri contains .lottie extension return sourceDotLottieURI
+      if ((source as any).uri.includes('.lottie')) {
+        return { sourceDotLottieURI: (source as any).uri };
+      }
+
+      return { sourceURL: (source as any).uri };
+    }
+
+    if (typeof source === 'number') {
+      return { sourceDotLottieURI: Image.resolveAssetSource(source).uri };
+    }
+
+    return undefined;
+  }
+
   render(): React.ReactNode {
     const {
       style,
@@ -99,18 +133,10 @@ export class LottieView extends React.PureComponent<Props, {}> {
       ...rest
     } = this.props;
 
-    const sourceName = typeof source === 'string' ? source : undefined;
-    const sourceJson =
-      typeof source === 'object' && !(source as any).uri
-        ? JSON.stringify(source)
-        : undefined;
-    const sourceURL =
-      typeof source === 'object' && (source as any).uri
-        ? (source as any).uri
-        : undefined;
+    const sources = this._parsePossibleSources();
 
     const speed =
-      duration && sourceJson && (source as any).fr
+      duration && sources.sourceJson && (source as any).fr
         ? Math.round(
             (((source as any).op / (source as any).fr) * 1000) / duration,
           )
@@ -121,8 +147,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
       color: processColor(colorFilter.color),
     }));
 
-    const resolvedDotLottie = Image.resolveAssetSource(sourceDotLottie);
-
     return (
       <NativeLottieAnimationView
         ref={this._captureRef}
@@ -132,14 +156,11 @@ export class LottieView extends React.PureComponent<Props, {}> {
         textFiltersIOS={textFiltersIOS}
         speed={speed}
         style={style}
-        sourceName={sourceName}
-        sourceJson={sourceJson}
-        sourceURL={sourceURL}
-        sourceDotLottie={resolvedDotLottie}
         onAnimationFinish={this.onAnimationFinish}
         onAnimationFailure={this.onAnimationFailure}
         autoPlay={autoPlay}
         resizeMode={resizeMode}
+        {...sources}
       />
     );
   }

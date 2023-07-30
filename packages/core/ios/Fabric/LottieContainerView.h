@@ -23,7 +23,7 @@
 - (void)setSourceURL:(NSString * _Nonnull)newSourceURLString;
 - (void)setSourceJson:(NSString * _Nonnull)newSourceJson;
 - (void)setSourceName:(NSString * _Nonnull)newSourceName;
-- (void)setSourceDotLottie:(NSDictionary * _Nonnull)source;
+- (void)setSourceDotLottieURI:(NSString * _Nonnull)uri;
 - (void)setResizeMode:(NSString * _Nonnull)resizeMode;
 - (void)setColorFilters:(NSArray<NSDictionary *> * _Nonnull)newColorFilters;
 - (void)play;
