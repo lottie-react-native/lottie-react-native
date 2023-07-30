@@ -57,14 +57,8 @@ using namespace facebook::react;
         [_view setSourceDotLottieURI:RCTNSStringFromString(newLottieProps.sourceDotLottieURI)];
     }
     
-    if(oldLottieProps.sourceDotLottie.uri != newLottieProps.sourceDotLottie.uri) {
-        NSString *uriString = [NSString stringWithUTF8String:newLottieProps.sourceDotLottie.uri.c_str()];
-        
-        NSDictionary *convertedDict =  @{
-            @"uri": uriString
-        };
-        
-        [_view setSourceDotLottie:convertedDict];
+    if(oldLottieProps.sourceDotLottieURI != newLottieProps.sourceDotLottieURI) {
+        [_view setSourceDotLottieURI:RCTNSStringFromString(newLottieProps.sourceDotLottieURI)];
     }
     
     if(oldLottieProps.sourceName != newLottieProps.sourceName) {

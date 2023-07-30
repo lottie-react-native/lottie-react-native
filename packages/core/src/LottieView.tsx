@@ -147,8 +147,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
       color: processColor(colorFilter.color),
     }));
 
-    const resolvedDotLottie = Image.resolveAssetSource(sourceDotLottie);
-
     return (
       <NativeLottieAnimationView
         ref={this._captureRef}
