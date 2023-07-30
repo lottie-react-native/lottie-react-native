@@ -1,3 +1,3 @@
 import { LottieView } from './LottieView';
-export * from './LottieView.types.ts'
+export * from './LottieView.types'
 export default LottieView;
