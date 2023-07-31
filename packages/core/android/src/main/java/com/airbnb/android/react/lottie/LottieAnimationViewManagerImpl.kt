@@ -286,4 +286,13 @@ internal object LottieAnimationViewManagerImpl {
     ) {
         viewManager.textFilters = textFilters
     }
+
+    @JvmStatic
+    fun setSourceDotLottieURI(
+        uri: String?,
+        viewManager: LottieAnimationViewPropertyManager
+    ) {
+        viewManager.sourceDotLottie = uri
+        viewManager.commitChanges()
+    }
 }
