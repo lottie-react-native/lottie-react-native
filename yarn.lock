@@ -7260,6 +7260,7 @@ __metadata:
     "@react-native/eslint-config": ^0.72.2
     "@react-native/metro-config": ^0.72.9
     "@tsconfig/react-native": ^3.0.0
+    "@types/react": ^18.2.15
     lottie-react-native: "workspace:*"
     metro-react-native-babel-preset: 0.76.7
     react: 18.2.0

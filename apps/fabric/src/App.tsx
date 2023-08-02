@@ -11,17 +11,19 @@ const remoteSource = {
   uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/apps/paper/src/animations/Watermelon.json',
 };
 
+const dotLottie = require('./animations/animation_lkekfrcl.lottie');
+
 const localSource = require('./animations/LottieLogo1.json');
 
 const App = () => {
-  const [source, setSource] = React.useState<'local' | 'remote'>('remote');
+  const [source, setSource] = React.useState(localSource);
   const [isLoop, setLoop] = React.useState(false);
 
   return (
     <View style={styles.container}>
       <LottieView
         key={source + isLoop}
-        source={source === 'remote' ? remoteSource : localSource}
+        source={source}
         autoPlay={true}
         loop={isLoop}
         style={styles.lottie}
@@ -38,12 +40,24 @@ const App = () => {
       <View style={styles.controlsContainer}>
         <TouchableOpacity
           onPress={() => {
-            setSource(source === 'local' ? 'remote' : 'local');
+            setSource(localSource);
           }}
           style={styles.button}>
-          <Text style={styles.text}>
-            {source === 'local' ? 'Local animation' : 'Remote animation'}
-          </Text>
+          <Text style={styles.text}>{'Local animation'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(remoteSource);
+          }}
+          style={styles.button}>
+          <Text style={styles.text}>{'Remote animation'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(dotLottie);
+          }}
+          style={styles.button}>
+          <Text style={styles.text}>{'DotLottie animation'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -64,13 +78,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 32,
   },
-  controlsContainer: {flexDirection: 'row', marginTop: 24, columnGap: 12},
+  controlsContainer: {marginTop: 24, gap: 12},
   button: {
     backgroundColor: color.primary,
     paddingHorizontal: 24,
     paddingVertical: 16,
   },
-  text: {color: 'white'},
+  text: {color: 'white', textAlign: 'center'},
   lottie: {width: 400, height: 400},
 });
 

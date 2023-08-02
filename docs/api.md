@@ -29,6 +29,30 @@
 | **`pause`**  | Pauses the animation.                                                                                                                                              |
 | **`resume`** | Resumes the paused animation.                                                                                                                                      |
 
+## If you want to use `.lottie` files
+
+You need to modify your `metro.config.js` file accordingly by adding `lottie` extension to the `assetExts` array:
+
+```js
+const { getDefaultConfig, mergeConfig } = require("@react-native/metro-config");
+
+const defaultConfig = getDefaultConfig(__dirname);
+
+/**
+ * Metro configuration
+ * https://facebook.github.io/metro/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {
+  resolver: {
+    assetExts: [...defaultConfig.resolver.assetExts, "lottie"],
+  },
+};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+```
+
 ## Using animations with assets
 
 When creating animations using AfterEffects and bodymovin, the exported json may have some assets to rely on, specified like this:
