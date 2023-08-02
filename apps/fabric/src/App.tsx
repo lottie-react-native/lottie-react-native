@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 16,
   },
-  text: {color: 'white'},
+  text: {color: 'white', textAlign: 'center'},
   lottie: {width: 400, height: 400},
 });
 
