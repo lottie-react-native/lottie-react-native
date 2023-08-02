@@ -133,6 +133,7 @@ class LottieAnimationViewManager :
     override fun setSourceURL(view: LottieAnimationView, urlString: String?) {
         setSourceURL(urlString, getOrCreatePropertyManager(view))
     }
+    
     @ReactProp(name = "sourceDotLottieURI")
     override fun setSourceDotLottieURI(view: LottieAnimationView, urlString: String?) {
         setSourceDotLottieURI(urlString, getOrCreatePropertyManager(view))
