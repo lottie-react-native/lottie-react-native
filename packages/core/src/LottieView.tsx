@@ -16,7 +16,6 @@ type Props = LottieViewProps & { containerProps?: ViewProps };
 
 const defaultProps: Props = {
   source: undefined,
-  sourceDotLottie: undefined,
   progress: 0,
   speed: 1,
   loop: true,
@@ -129,7 +128,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
       textFiltersAndroid,
       textFiltersIOS,
       resizeMode,
-      sourceDotLottie,
       ...rest
     } = this.props;
 

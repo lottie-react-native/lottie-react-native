@@ -1,9 +1,4 @@
-import type {
-  StyleProp,
-  ViewStyle,
-  LayoutChangeEvent,
-  ImageRequireSource,
-} from 'react-native';
+import type { StyleProp, ViewStyle, LayoutChangeEvent } from 'react-native';
 
 /**
  * Serialized animation as generated from After Effects
@@ -48,11 +43,6 @@ export interface LottieViewProps {
    * `require('../path/to/animation.json')`
    */
   source: string | AnimationObject | { uri: string };
-
-  /**
-   * Dot lottie file source. This is an alternative to the `source` prop.
-   */
-  sourceDotLottie?: ImageRequireSource;
 
   /**
    * A number between 0 and 1, or an `Animated` number between 0 and 1. This number
