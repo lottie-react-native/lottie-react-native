@@ -32,7 +32,7 @@ const defaultProps: Props = {
 export class LottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
 
-  _lottieAnimationViewRef:
+  private _lottieAnimationViewRef:
     | React.ElementRef<typeof NativeLottieAnimationView>
     | undefined;
 
@@ -43,7 +43,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
     this.pause = this.pause.bind(this);
     this.resume = this.resume.bind(this);
     this.onAnimationFinish = this.onAnimationFinish.bind(this);
-    this._captureRef = this._captureRef.bind(this);
+    this.captureRef = this.captureRef.bind(this);
   }
 
   play(startFrame?: number, endFrame?: number): void {
@@ -66,15 +66,19 @@ export class LottieView extends React.PureComponent<Props, {}> {
     Commands.resume(this._lottieAnimationViewRef);
   }
 
-  onAnimationFinish = (evt: NativeSyntheticEvent<{ isCancelled: boolean }>) => {
+  private onAnimationFinish = (
+    evt: NativeSyntheticEvent<{ isCancelled: boolean }>,
+  ) => {
     this.props.onAnimationFinish?.(evt.nativeEvent.isCancelled);
   };
 
-  onAnimationFailure = (evt: NativeSyntheticEvent<{ error: string }>) => {
+  private onAnimationFailure = (
+    evt: NativeSyntheticEvent<{ error: string }>,
+  ) => {
     this.props.onAnimationFailure?.(evt.nativeEvent.error);
   };
 
-  _captureRef(ref: React.ElementRef<typeof NativeLottieAnimationView>) {
+  private captureRef(ref: React.ElementRef<typeof NativeLottieAnimationView>) {
     if (ref === null) {
       return;
     }
@@ -85,7 +89,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
     }
   }
 
-  _parsePossibleSources():
+  private parsePossibleSources():
     | {
         sourceURL?: string;
         sourceJson?: string;
@@ -131,7 +135,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
       ...rest
     } = this.props;
 
-    const sources = this._parsePossibleSources();
+    const sources = this.parsePossibleSources();
 
     const speed =
       duration && sources.sourceJson && (source as any).fr
@@ -147,7 +151,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
 
     return (
       <NativeLottieAnimationView
-        ref={this._captureRef}
+        ref={this.captureRef}
         {...rest}
         colorFilters={colorFilters}
         textFiltersAndroid={textFiltersAndroid}
