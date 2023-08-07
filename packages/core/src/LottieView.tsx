@@ -32,7 +32,7 @@ const defaultProps: Props = {
 export class LottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
 
-  private _lottieAnimationViewRef:
+  private lottieAnimationViewRef:
     | React.ElementRef<typeof NativeLottieAnimationView>
     | undefined;
 
@@ -48,22 +48,22 @@ export class LottieView extends React.PureComponent<Props, {}> {
 
   play(startFrame?: number, endFrame?: number): void {
     Commands.play(
-      this._lottieAnimationViewRef,
+      this.lottieAnimationViewRef,
       startFrame ?? -1,
       endFrame ?? -1,
     );
   }
 
   reset() {
-    Commands.reset(this._lottieAnimationViewRef);
+    Commands.reset(this.lottieAnimationViewRef);
   }
 
   pause() {
-    Commands.pause(this._lottieAnimationViewRef);
+    Commands.pause(this.lottieAnimationViewRef);
   }
 
   resume() {
-    Commands.resume(this._lottieAnimationViewRef);
+    Commands.resume(this.lottieAnimationViewRef);
   }
 
   private onAnimationFinish = (
@@ -83,7 +83,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
       return;
     }
 
-    this._lottieAnimationViewRef = ref;
+    this.lottieAnimationViewRef = ref;
     if (this.props.autoPlay === true) {
       this.play();
     }
