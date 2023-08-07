@@ -29,7 +29,7 @@ class ContainerView: RCTView {
     
     @objc var completionCallback: LottieCompletionBlock {
         return { [weak self] animationFinished in
-            guard let self else { return }
+            guard let self = self else { return }
             
             if let onFinish = onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
@@ -41,7 +41,7 @@ class ContainerView: RCTView {
     
     @objc var failureCallback: (_ error: String) -> Void {
         return { [weak self] error in
-            guard let self else { return }
+            guard let self = self else { return }
             
             if let onFinish = onAnimationFailure {
                 onFinish(["error": error])
@@ -160,7 +160,7 @@ class ContainerView: RCTView {
             dotLottieUrl: url,
             configuration: lottieConfiguration,
             completion: { [weak self] view, error in
-                guard let self else { return }
+                guard let self = self else { return }
                 
                 if let error {
                     failureCallback(error.localizedDescription)
@@ -184,7 +184,7 @@ class ContainerView: RCTView {
             url = URL(fileURLWithPath: newSourceURLString, relativeTo: Bundle.main.resourceURL)
         }
         
-        guard let url else {
+        guard let url = url else {
             return
         }
         
@@ -325,7 +325,7 @@ class ContainerView: RCTView {
     }
     
     private func checkReactSourceString(_ sourceStr: String?) -> Bool {
-        guard let sourceStr else {
+        guard let sourceStr = sourceStr else {
             return false
         }
         
@@ -334,7 +334,7 @@ class ContainerView: RCTView {
     
     private func fetchRemoteAnimation(from url: URL) {
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            guard let self else { return }
+            guard let self = self else { return }
 
             if let error = error {
                 failureCallback("Unable to fetch the Lottie animation from the URL: \(error.localizedDescription)")
