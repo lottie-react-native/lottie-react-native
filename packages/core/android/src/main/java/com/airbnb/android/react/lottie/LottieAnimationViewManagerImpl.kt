@@ -167,6 +167,15 @@ internal object LottieAnimationViewManagerImpl {
     }
 
     @JvmStatic
+    fun setSourceDotLottieURI(
+        uri: String?,
+        viewManager: LottieAnimationViewPropertyManager
+    ) {
+        viewManager.sourceDotLottie = uri
+        viewManager.commitChanges()
+    }
+
+    @JvmStatic
     fun setCacheComposition(view: LottieAnimationView, cacheComposition: Boolean) {
         view.setCacheComposition(cacheComposition)
     }
@@ -181,9 +190,11 @@ internal object LottieAnimationViewManagerImpl {
             "cover" -> {
                 mode = ImageView.ScaleType.CENTER_CROP
             }
+
             "contain" -> {
                 mode = ImageView.ScaleType.FIT_CENTER
             }
+
             "center" -> {
                 mode = ImageView.ScaleType.CENTER_INSIDE
             }
@@ -201,9 +212,11 @@ internal object LottieAnimationViewManagerImpl {
             "AUTOMATIC" -> {
                 mode = RenderMode.AUTOMATIC
             }
+
             "HARDWARE" -> {
                 mode = RenderMode.HARDWARE
             }
+
             "SOFTWARE" -> {
                 mode = RenderMode.SOFTWARE
             }

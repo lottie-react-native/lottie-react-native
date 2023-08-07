@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.airbnb.android.lottie.rnexample"
+    namespace "com.airbnb.android.lottie.rnexamplefabric"
     defaultConfig {
-        applicationId "com.airbnb.android.lottie.rnexample"
+        applicationId "com.airbnb.android.lottie.rnexamplefabric"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

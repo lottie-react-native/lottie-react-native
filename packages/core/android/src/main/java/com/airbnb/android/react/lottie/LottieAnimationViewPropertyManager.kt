@@ -50,6 +50,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     var layerType: Int? = null
     var animationJson: String? = null
     var animationURL: String? = null
+    var sourceDotLottie: String? = null
     var progress: Float? = null
     var loop: Boolean? = null
     var autoPlay: Boolean? = null
@@ -91,6 +92,11 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         animationURL?.let {
             view.setAnimationFromUrl(it, it.hashCode().toString())
             animationURL = null
+        }
+
+        sourceDotLottie?.let {
+            view.setAnimationFromUrl(it, it.hashCode().toString())
+            sourceDotLottie = null
         }
 
         if (animationNameDirty) {

@@ -1,4 +1,4 @@
-package com.airbnb.android.lottie.rnexample;
+package com.airbnb.android.lottie.rnexamplefabric;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
