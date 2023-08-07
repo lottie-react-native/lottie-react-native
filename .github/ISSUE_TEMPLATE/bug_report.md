@@ -18,6 +18,14 @@ about: Create a report to help us improve
 
 **Actual behavior:** [What actually happened]
 
+### Minimal reproduction
+
+<!-- A link to a minimal reproduction of the issue -->
+
+### React Native Environment
+
+<!-- Share if the project is initiated with Expo (Go, Prebuilt or Custom Dev Client) or Bare. -->
+
 ### Versions
 
 You can get this information from executing `npm version`.
