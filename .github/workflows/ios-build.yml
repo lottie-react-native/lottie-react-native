@@ -1,9 +1,6 @@
 name: Build iOS Paper Example
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
     branches:
       - master
