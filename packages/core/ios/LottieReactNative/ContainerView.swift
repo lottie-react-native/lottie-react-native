@@ -163,11 +163,10 @@ class ContainerView: RCTView {
                 guard let self = self else { return }
 
                 if let error {
-                    failureCallback(error.localizedDescription)
+                    self.failureCallback(error.localizedDescription)
                     return
                 }
-
-                replaceAnimationView(next: view)
+                self.replaceAnimationView(next: view)
             }
         )
     }
@@ -350,7 +349,7 @@ class ContainerView: RCTView {
 
                     let nextAnimationView = LottieAnimationView(
                         animation: animation,
-                        configuration: lottieConfiguration
+                        configuration: self.lottieConfiguration
                     )
 
                     self.replaceAnimationView(next: nextAnimationView)
