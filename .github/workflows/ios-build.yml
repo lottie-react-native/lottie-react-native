@@ -8,6 +8,7 @@ on:
 # Only run on the latest workflow run
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-example:
