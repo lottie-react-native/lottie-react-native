@@ -31,11 +31,11 @@ class ContainerView: RCTView {
         return { [weak self] animationFinished in
             guard let self = self else { return }
             
-            if let onFinish = onAnimationFinish {
+            if let onFinish = self.onAnimationFinish {
                 onFinish(["isCancelled": !animationFinished])
             }
             
-            delegate?.onAnimationFinish(isCancelled: !animationFinished);
+            self.delegate?.onAnimationFinish(isCancelled: !animationFinished);
         };
     }
     
@@ -43,11 +43,11 @@ class ContainerView: RCTView {
         return { [weak self] error in
             guard let self = self else { return }
             
-            if let onFinish = onAnimationFailure {
+            if let onFinish = self.onAnimationFailure {
                 onFinish(["error": error])
             }
             
-            delegate?.onAnimationFailure(error: error)
+            self.delegate?.onAnimationFailure(error: error)
         };
     }
     
@@ -184,9 +184,7 @@ class ContainerView: RCTView {
             url = URL(fileURLWithPath: newSourceURLString, relativeTo: Bundle.main.resourceURL)
         }
         
-        guard let url = url else {
-            return
-        }
+        guard let url = url else { return }
         
         self.fetchRemoteAnimation(from: url)
     }
@@ -337,12 +335,12 @@ class ContainerView: RCTView {
             guard let self = self else { return }
 
             if let error = error {
-                failureCallback("Unable to fetch the Lottie animation from the URL: \(error.localizedDescription)")
+                self.failureCallback("Unable to fetch the Lottie animation from the URL: \(error.localizedDescription)")
                 return
             }
             
             guard let data = data else {
-                failureCallback("No data received for the Lottie animation from the URL.")
+                self.failureCallback("No data received for the Lottie animation from the URL.")
                 return
             }
             
@@ -357,10 +355,10 @@ class ContainerView: RCTView {
                         configuration: lottieConfiguration
                     )
                     
-                    replaceAnimationView(next: nextAnimationView)
+                    self.replaceAnimationView(next: nextAnimationView)
                 }
             } catch {
-                failureCallback("Unable to decode the Lottie animation object from the fetched URL source: \(error.localizedDescription)")
+                self.failureCallback("Unable to decode the Lottie animation object from the fetched URL source: \(error.localizedDescription)")
             }
         }.resume()
     }

@@ -8,6 +8,7 @@
 # Node artifact files
 node_modules/
 dist/
+.idea
 
 # Yarn
 .pnp.*
