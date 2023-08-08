@@ -56,6 +56,19 @@ codebase, however you can always check to see if the source code is compliant by
 npm run lint
 ```
 
+For linting the native iOS package, we are using [Swift lint](https://github.com/realm/SwiftLint). You need to install it on your machine using the following command:
+
+```bash
+brew install swiftlint
+```
+
+And then you can run it by calling it from JS using:
+
+```bash
+yarn lint:ios
+```
+
+Or let it work on its own, as it is part of the build phases for the iOS project
 
 ### Building Docs
 
