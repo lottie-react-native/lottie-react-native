@@ -31,13 +31,10 @@ jobs:
         run: corepack enable
 
       - name: Install CocoaPods
-        run: |
-          sudo gem install cocoapods
+        run: sudo gem install cocoapods
 
       - name: Install Dependencies
-        run: |
-          yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Build Paper iOS Example
-        run: |
-          yarn paper:ios
+        run: yarn paper:ios
