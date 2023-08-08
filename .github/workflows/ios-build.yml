@@ -1,6 +1,4 @@
-name: iOS Build
-
-# iOS matrix build on XCode 13.3 up to latest
+name: Build iOS Paper Example
 
 on:
   push:
@@ -10,8 +8,12 @@ on:
     branches:
       - master
 
+# Only run on the latest workflow run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
-  build-and-test:
+  build-example:
     runs-on: macos-12
 
     strategy:
@@ -26,7 +28,7 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
 
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
