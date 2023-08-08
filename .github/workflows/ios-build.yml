@@ -12,13 +12,19 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: macos-latest
+    runs-on: macos-12
 
     strategy:
       matrix:
-        xcode-version: [13.3, latest]
+        xcode-version: [13.3.1, 14.2]
 
     steps:
+      - name: List all available XCode versions
+        run: ls -n /Applications/ | grep Xcode*
+
+      - name: Switch XCode Version
+        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
