@@ -1,0 +1,43 @@
+name: iOS Build
+
+# iOS matrix build on XCode 13.3 up to latest
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        xcode-version: [13.3, latest]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install CocoaPods
+        run: |
+          sudo gem install cocoapods
+
+      - name: Install Dependencies
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Build Paper iOS Example
+        run: |
+          yarn paper:ios
