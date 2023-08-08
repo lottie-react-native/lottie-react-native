@@ -1,0 +1,54 @@
+name: Build iOS Paper Example
+
+on:
+  pull_request:
+    branches:
+      - master
+
+# Only run on the latest workflow run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-example:
+    runs-on: macos-12
+
+    strategy:
+      matrix:
+        xcode-version: [13.3.1, 14.2]
+
+    steps:
+      - name: List all available XCode versions
+        run: ls -n /Applications/ | grep Xcode*
+
+      - name: Switch XCode Version
+        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
+
+      - name: Cache cocoapods
+        uses: actions/cache@v3
+        with:
+          path: apps/paper/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Build Paper iOS Example
+        run: yarn paper:ios
