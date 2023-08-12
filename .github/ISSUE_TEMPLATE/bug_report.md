@@ -24,8 +24,8 @@ about: Create a report to help us improve
 
 ### React Native Environment
 
-<!-- Share if the project is initiated with Expo (Go, Prebuilt or Custom Dev Client) or Bare. -->
+<!-- Share if the project is initiated with Expo (Go, Prebuilt or Custom Dev Client) or Bare. You can also execute `npx react-native info` to and paste the results here -->
 
-### Versions
+### Lottie Version
 
-You can get this information from executing `npm version`.
+<!-- You can get this information from executing `npx react-native info`. -->
