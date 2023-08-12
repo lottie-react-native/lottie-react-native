@@ -161,8 +161,7 @@ class ContainerView: RCTView {
             configuration: lottieConfiguration,
             completion: { [weak self] view, error in
                 guard let self = self else { return }
-
-                if let error {
+                if let error = error {
                     self.failureCallback(error.localizedDescription)
                     return
                 }
