@@ -1,0 +1,6 @@
+disabled_rules:
+  - line_length
+  - identifier_name
+  - force_cast
+  - no_fallthrough_only
+  - type_body_length
