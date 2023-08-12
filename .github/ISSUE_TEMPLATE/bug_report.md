@@ -28,4 +28,4 @@ about: Create a report to help us improve
 
 ### Lottie Version
 
-<!-- You can get this information from executing `npx react-native info`. -->
+Version: x.x.x
