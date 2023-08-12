@@ -1,6 +1,5 @@
 disabled_rules:
   - line_length
   - identifier_name
-  - no_fallthrough_only
   - type_body_length
 reporter: "xcode"

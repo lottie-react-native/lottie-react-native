@@ -128,8 +128,6 @@ class ContainerView: RCTView {
                 return
             }
             renderMode = .coreAnimation
-        case "AUTOMATIC":
-            fallthrough
         default:
             if renderMode == .automatic {
                 return
