@@ -98,8 +98,8 @@ class ContainerView: RCTView {
         if textFilters.count > 0 {
             var filters = [String: String]()
             for filter in textFilters {
-                let key = filter.value(forKey: "keypath") as! String
-                let value = filter.value(forKey: "text") as! String
+                guard let key = filter.value(forKey: "keypath") as? String,
+                      let value = filter.value(forKey: "text") as? String else { break }
                 filters[key] = value
             }
 
@@ -304,9 +304,11 @@ class ContainerView: RCTView {
 
         if colorFilters.count > 0 {
             for filter in colorFilters {
-                let keypath: String = "\(filter.value(forKey: "keypath") as! String).**.Color"
+                guard let key = filter.value(forKey: "keypath") as? String,
+                      let platformColor = filter.value(forKey: "color") as? PlatformColor else { break }
+                let keypath: String = "\(key).**.Color"
                 let fillKeypath = AnimationKeypath(keypath: keypath)
-                let colorFilterValueProvider = ColorValueProvider((filter.value(forKey: "color") as! PlatformColor).lottieColorValue)
+                let colorFilterValueProvider = ColorValueProvider(platformColor.lottieColorValue)
                 animationView.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
             }
         }
