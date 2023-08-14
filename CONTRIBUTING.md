@@ -3,7 +3,6 @@
 Contributions are welcome and are greatly appreciated! Every little bit helps, and credit will
 always be given.
 
-
 ## Setting up your environment
 
 After forking to your own github org, do the following steps to get started:
@@ -65,7 +64,7 @@ brew install swiftlint
 And then you can run it by calling it from JS using:
 
 ```bash
-yarn lint:ios
+yarn lint:swift
 ```
 
 Or let it work on its own, as it is part of the build phases for the iOS project
@@ -81,7 +80,6 @@ npm run docs:watch
 After this, you can open up your browser to the specified port (usually http://localhost:4000 )
 
 The browser will automatically refresh when there are changes to any of the source files.
-
 
 ## Pull Request Guidelines
 

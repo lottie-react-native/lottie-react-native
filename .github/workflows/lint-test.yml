@@ -1,0 +1,39 @@
+name: Setup & Lint Package
+
+on:
+  pull_request:
+    branches:
+      - master
+
+# Only run on the latest workflow run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup-and-lint-package:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Build project
+        run: yarn setup
+
+      - name: SwiftLint
+        run: yarn lint:swift
