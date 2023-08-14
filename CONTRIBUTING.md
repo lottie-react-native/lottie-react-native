@@ -3,7 +3,6 @@
 Contributions are welcome and are greatly appreciated! Every little bit helps, and credit will
 always be given.
 
-
 ## Setting up your environment
 
 After forking to your own github org, do the following steps to get started:
@@ -56,6 +55,19 @@ codebase, however you can always check to see if the source code is compliant by
 npm run lint
 ```
 
+For linting the native iOS package, we are using [Swift lint](https://github.com/realm/SwiftLint). You need to install it on your machine using the following command:
+
+```bash
+brew install swiftlint
+```
+
+And then you can run it by calling it from JS using:
+
+```bash
+yarn lint:swift
+```
+
+Or let it work on its own, as it is part of the build phases for the iOS project
 
 ### Building Docs
 
@@ -68,7 +80,6 @@ npm run docs:watch
 After this, you can open up your browser to the specified port (usually http://localhost:4000 )
 
 The browser will automatically refresh when there are changes to any of the source files.
-
 
 ## Pull Request Guidelines
 

@@ -35,7 +35,9 @@
   },
   "scripts": {
     "build": "bob build",
-    "release": "release-it"
+    "release": "release-it",
+    "lint:swift": "swiftlint ios",
+    "lint-fix:swift": "swiftlint --fix ios"
   },
   "peerDependencies": {
     "react": "*",
