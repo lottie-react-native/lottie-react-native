@@ -197,6 +197,51 @@ export default function ChangingColorOfLayers() {
 }
 ```
 
+## If you want to use `.lottie` files
+
+You need to modify your `metro.config.js` file accordingly by adding `lottie` extension to the `assetExts` array:
+
+```js
+const { getDefaultConfig, mergeConfig } = require("@react-native/metro-config");
+
+const defaultConfig = getDefaultConfig(__dirname);
+
+/**
+ * Metro configuration
+ * https://facebook.github.io/metro/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {
+  resolver: {
+    assetExts: [...defaultConfig.resolver.assetExts, "lottie"],
+  },
+};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+```
+
+## Setup jest for dotLottie files
+
+Create a file in the following path `__mocks__/lottieMock.js` and add the following code:
+
+```js
+module.exports = "lottie-test-file-stub";
+```
+
+Then add the following to your `jest.config.js` file:
+
+```js
+module.exports = {
+  ...
+  moduleNameMapper: {
+    ...,
+    '\\.(lottie)$': '<rootDir>/jest/__mocks__/lottieMock.js',
+  },
+  ...
+}
+```
+
 ## API
 
 You can find the full list of props and methods available in our [API document](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md). These are the most common ones:
