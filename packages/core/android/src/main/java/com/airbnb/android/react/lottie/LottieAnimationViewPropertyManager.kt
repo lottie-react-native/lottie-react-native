@@ -96,7 +96,9 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         }
 
         sourceDotLottie?.let { assetName ->
-            if(BuildConfig.DEBUG) {
+            val scheme = runCatching { Uri.parse(assetName).scheme }.getOrNull()
+
+            if (scheme != null) {
                 view.setAnimationFromUrl(assetName)
                 sourceDotLottie = null
                 return
