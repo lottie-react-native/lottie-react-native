@@ -116,6 +116,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
 
             view.setAnimation(resourceId)
             animationNameDirty = false
+            sourceDotLottie = null
         }
 
         if (animationNameDirty) {
