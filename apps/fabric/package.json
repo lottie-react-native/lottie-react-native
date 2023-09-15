@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --active-arch-only",
-    "ios": "cd ios && RCT_NEW_ARCH_ENABLED=1 pod install && cd .. && react-native run-ios",
+    "ios": "bundle install && RCT_NEW_ARCH_ENABLED=1 pod install --project-directory=ios && react-native run-ios",
     "start": "react-native start",
     "upgrade": "react-native upgrade"
   },

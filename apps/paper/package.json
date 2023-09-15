@@ -5,7 +5,7 @@
   "scripts": {
     "reset": "watchman watch-del-all; rm -rf /tmp/metro-bundler-cache-*; rm -rf ./android/build; rm -rf ./android/.gradle; rm -rf ./android/app/build; rm -rf ~/Library/Developer/Xcode/DerivedData; rm -rf /tmp/haste-map-react-native-packager-*; rm -rf ./ios/build; jest --clearCache; cd ios; pod install --repo-update; cd ..; npx jetify; cd android; ./gradlew clean; cd ..;",
     "android": "react-native run-android",
-    "ios": "cd ios && pod install && cd .. && react-native run-ios",
+    "ios": "bundle install && pod install --project-directory=ios && react-native run-ios",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
