@@ -7,9 +7,11 @@
   },
   "scripts": {
     "setup": "yarn workspace lottie-react-native build",
-    "fabric:android": "yarn workspace fabric-example android",
+    "fabric:start:android": "yarn workspace fabric-example android",
+    "fabric:build:android": "yarn workspace fabric-example build:android",
     "fabric:ios": "yarn workspace fabric-example ios",
-    "paper:android": "yarn workspace paper-example android",
+    "paper:start:android": "yarn workspace paper-example android",
+    "paper:build:android": "yarn workspace paper-example build:android",
     "paper:ios": "yarn workspace paper-example ios",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
     "docs:clean": "rimraf _book",
