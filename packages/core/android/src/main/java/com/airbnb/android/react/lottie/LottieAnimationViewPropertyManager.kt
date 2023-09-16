@@ -1,6 +1,7 @@
 package com.airbnb.android.react.lottie
 
 import android.graphics.ColorFilter
+import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
