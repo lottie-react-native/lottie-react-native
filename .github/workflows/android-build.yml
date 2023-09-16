@@ -51,4 +51,4 @@ jobs:
 
       - name: Build Paper Android Example
         run: |
-          yarn paper:android
+          yarn paper:build:android

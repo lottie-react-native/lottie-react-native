@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --active-arch-only",
+    "build:android": "cd android && ./gradlew assembleDebug --no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a",
     "ios": "bundle install && RCT_NEW_ARCH_ENABLED=1 pod install --project-directory=ios && react-native run-ios",
     "start": "react-native start",
     "upgrade": "react-native upgrade"
