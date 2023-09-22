@@ -102,5 +102,9 @@
         "infile": "../../CHANGELOG.md"
       }
     }
+  },
+  "dependencies": {
+    "@dotlottie/react-player": "^1.4.6",
+    "@lottiefiles/react-lottie-player": "^3.5.3"
   }
 }

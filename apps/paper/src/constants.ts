@@ -34,9 +34,6 @@ export const EXAMPLES = [
   makeExample('Pin Jump', () => require('./animations/PinJump.json')),
   makeExample('Twitter Heart', () => require('./animations/TwitterHeart.json')),
   makeExample('Watermelon', () => require('./animations/Watermelon.json')),
-  makeExample('Motion Corpse', () =>
-    require('./animations/MotionCorpse-Jrcanest.json'),
-  ),
   makeExample('Remote load', () => ({
     uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/apps/paper/src/animations/Watermelon.json',
   })),

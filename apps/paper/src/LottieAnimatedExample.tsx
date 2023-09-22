@@ -2,9 +2,11 @@ import Slider from '@react-native-community/slider';
 import LottieView, {LottieViewProps} from 'lottie-react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Alert,
   Animated,
   Button,
   Image,
+  Platform,
   Switch,
   Text,
   TouchableOpacity,
@@ -44,6 +46,10 @@ const LottieAnimatedExample = () => {
     console.log('Animation failure ', message);
   };
 
+  const onAnimationLoop = () => {
+    console.log('Animation looped');
+  };
+
   const onPlayPress = () => {
     if (isPlaying) {
       anim.current?.pause();
@@ -58,6 +64,10 @@ const LottieAnimatedExample = () => {
   const onToggleImperative = () => setImperative(p => !p);
 
   const startImperative = () => {
+    if (Platform.OS === 'web') {
+      Alert.alert('Imperative API is not fully supported on web');
+      return;
+    }
     progress.setValue(0);
     Animated.timing(progress, {
       toValue: 1,
@@ -103,6 +113,7 @@ const LottieAnimatedExample = () => {
           hardwareAccelerationAndroid={true}
           onAnimationFailure={onAnimationFailure}
           onAnimationFinish={onAnimationFinish}
+          onAnimationLoop={onAnimationLoop}
           enableMergePathsAndroidForKitKatAndAbove
           renderMode={renderMode}
           resizeMode={'contain'}
