@@ -2,11 +2,9 @@ import Slider from '@react-native-community/slider';
 import LottieView, {LottieViewProps} from 'lottie-react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  Alert,
   Animated,
   Button,
   Image,
-  Platform,
   Switch,
   Text,
   TouchableOpacity,
@@ -64,10 +62,6 @@ const LottieAnimatedExample = () => {
   const onToggleImperative = () => setImperative(p => !p);
 
   const startImperative = () => {
-    if (Platform.OS === 'web') {
-      Alert.alert('Imperative API is not fully supported on web');
-      return;
-    }
     progress.setValue(0);
     Animated.timing(progress, {
       toValue: 1,

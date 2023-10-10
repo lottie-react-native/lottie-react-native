@@ -8,21 +8,23 @@ function parsePossibleSources(source):
       sourceDotLottieURI?: string;
     }
   | undefined {
+  const uri = (source as any).uri;
+
   if (typeof source === 'string') {
     return { sourceName: source };
   }
 
-  if (typeof source === 'object' && !(source as any).uri) {
+  if (typeof source === 'object' && !uri) {
     return { sourceJson: JSON.stringify(source) };
   }
 
-  if (typeof source === 'object' && (source as any).uri) {
+  if (typeof source === 'object' && uri) {
     // uri contains .lottie extension return sourceDotLottieURI
-    if ((source as any).uri.includes('.lottie')) {
-      return { sourceDotLottieURI: (source as any).uri };
+    if (uri.includes('.lottie')) {
+      return { sourceDotLottieURI: uri };
     }
 
-    return { sourceURL: (source as any).uri };
+    return { sourceURL: uri };
   }
 
   if (typeof source === 'number') {

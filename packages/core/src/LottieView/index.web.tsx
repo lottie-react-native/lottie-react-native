@@ -1,11 +1,8 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
-import { ViewProps } from 'react-native';
+import React, { forwardRef, useImperativeHandle, useRef, useCallback } from 'react';
 import type { LottieViewProps } from '../types';
 import { DotLottiePlayer } from '@dotlottie/react-player';
 import { Player } from '@lottiefiles/react-lottie-player';
 import { parsePossibleSources } from './utils';
-
-type Props = LottieViewProps & { containerProps?: ViewProps };
 
 const LottieView = forwardRef(
   (
@@ -17,10 +14,11 @@ const LottieView = forwardRef(
       autoPlay,
       hover,
       direction,
+      progress,
       onAnimationFailure,
       onAnimationFinish,
       onAnimationLoop,
-    }: Props,
+    }: LottieViewProps,
     ref: any,
   ) => {
     const sources = parsePossibleSources(source);
@@ -28,20 +26,31 @@ const LottieView = forwardRef(
       sources.sourceName?.includes('.lottie') || !!sources.sourceDotLottieURI;
     const lottieSource = sources.sourceDotLottieURI || sources.sourceName;
 
-    const handleEvent = (event) => {
-      if (event === 'error') {
-        onAnimationFailure?.('error');
+    if (progress && __DEV__) {
+      console.warn('lottie-react-native: progress is not supported on web');
+    }
+
+    const handleEvent = useCallback((event) => {
+      switch (event) {
+        case 'error':
+          onAnimationFailure?.('error');
+          break;
+
+        case 'complete':
+          onAnimationFinish?.(false);
+          break;
+
+        case 'stop':
+        case 'pause':
+          onAnimationFinish?.(true);
+          break;
+
+        case 'loop':
+        case 'loopComplete':
+          onAnimationLoop?.();
+          break;
       }
-      if (event === 'complete') {
-        onAnimationFinish?.(false);
-      }
-      if (event === 'stop' || event === 'pause') {
-        onAnimationFinish?.(true);
-      }
-      if (event === 'loop' || event === 'loopComplete') {
-        onAnimationLoop?.();
-      }
-    };
+    }, []);
 
     const playerRef = useRef(null);
 
