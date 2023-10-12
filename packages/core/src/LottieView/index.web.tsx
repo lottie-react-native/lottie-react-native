@@ -5,9 +5,14 @@ import { parsePossibleSources } from './utils';
 let DotLottiePlayer, Player;
 try {
     DotLottiePlayer = require('@dotlottie/react-player').DotLottiePlayer;
-    Player = require('@lottiefiles/react-lottie-player').Player;
 } catch (e) {
-    console.warn('lottie-react-native: The module @dotlottie/react-player or @lottiefiles/react-lottie-player is missing. Please install it for the app to function correctly.');
+    console.warn('lottie-react-native: The module @dotlottie/react-player is missing. Please install it for the app to function correctly.');
+}
+
+try {
+  Player = require('@lottiefiles/react-lottie-player').Player;
+} catch (e) {
+  console.warn('lottie-react-native: The module @lottiefiles/react-lottie-player is missing. Please install it for the app to function correctly.');
 }
 
 const LottieView = forwardRef(
