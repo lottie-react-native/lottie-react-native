@@ -80,6 +80,9 @@ const LottieView = forwardRef(
     }));
 
     if (isLottie) {
+      if (!DotLottiePlayer) {
+        throw new Error('lottie-react-native: The module @dotlottie/react-player is missing.');
+      }
       return (
         <DotLottiePlayer
           lottieRef={playerRef}
@@ -93,6 +96,10 @@ const LottieView = forwardRef(
           direction={direction}
         />
       );
+    }
+
+    if (!Player) {
+      throw new Error('lottie-react-native: The module @lottiefiles/react-lottie-player is missing.');
     }
     return (
       <Player
