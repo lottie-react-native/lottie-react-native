@@ -41,6 +41,10 @@ export class LottieView extends React.PureComponent<Props, {}> {
     this.resume = this.resume.bind(this);
     this.onAnimationFinish = this.onAnimationFinish.bind(this);
     this.captureRef = this.captureRef.bind(this);
+
+    if (props.hover != undefined && __DEV__) {
+      console.warn('lottie-react-native: hover is only supported on web');
+    }
   }
 
   play(startFrame?: number, endFrame?: number): void {

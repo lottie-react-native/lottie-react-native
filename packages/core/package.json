@@ -42,10 +42,18 @@
   "peerDependencies": {
     "react": "*",
     "react-native": ">=0.46",
-    "react-native-windows": ">=0.63.x"
+    "react-native-windows": ">=0.63.x",
+    "@dotlottie/react-player": "^1.4.6",
+    "@lottiefiles/react-lottie-player": "^3.5.3"
   },
   "peerDependenciesMeta": {
     "react-native-windows": {
+      "optional": true
+    },
+    "@dotlottie/react-player": {
+      "optional": true
+    },
+    "@lottiefiles/react-lottie-player": {
       "optional": true
     }
   },
@@ -102,9 +110,5 @@
         "infile": "../../CHANGELOG.md"
       }
     }
-  },
-  "dependencies": {
-    "@dotlottie/react-player": "^1.4.6",
-    "@lottiefiles/react-lottie-player": "^3.5.3"
   }
 }
