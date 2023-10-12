@@ -1,8 +1,14 @@
 import React, { forwardRef, useImperativeHandle, useRef, useCallback } from 'react';
 import type { LottieViewProps } from '../types';
-import { DotLottiePlayer } from '@dotlottie/react-player';
-import { Player } from '@lottiefiles/react-lottie-player';
 import { parsePossibleSources } from './utils';
+
+let DotLottiePlayer, Player;
+try {
+    DotLottiePlayer = require('@dotlottie/react-player').DotLottiePlayer;
+    Player = require('@lottiefiles/react-lottie-player').Player;
+} catch (e) {
+    console.warn('lottie-react-native: The module @dotlottie/react-player or @lottiefiles/react-lottie-player is missing. Please install it for the app to function correctly.');
+}
 
 const LottieView = forwardRef(
   (
