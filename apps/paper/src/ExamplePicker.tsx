@@ -17,27 +17,20 @@ export const ExamplePicker = ({example, examples, onChange}: Props) => {
     paddingVertical: 5,
   };
 
-  const viewStyle = Platform.select({
-    ios: {
-      marginBottom: -30,
-    },
-    android: {
-      marginBottom: 0,
-    },
-  });
+  const viewStyle = {
+    marginBottom: Platform.OS === 'ios' ? -30 : 0,
+  };
 
   return (
-    <View style={viewStyle}>
-      <Picker
-        selectedValue={example.name}
-        onValueChange={(value: string) => {
-          onChange(examples.find(ex => ex.name === value)!);
-        }}
-        style={Platform.OS === 'web' ? webStyle : viewStyle}>
-        {examples.map(ex => (
-          <Picker.Item key={ex.name} label={ex.name} value={ex.name} />
-        ))}
-      </Picker>
-    </View>
+    <Picker
+      selectedValue={example.name}
+      onValueChange={(value: string) => {
+        onChange(examples.find(ex => ex.name === value)!);
+      }}
+      style={Platform.OS === 'web' ? webStyle : viewStyle}>
+      {examples.map(ex => (
+        <Picker.Item key={ex.name} label={ex.name} value={ex.name} />
+      ))}
+    </Picker>
   );
 };
