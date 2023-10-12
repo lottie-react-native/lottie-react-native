@@ -43,6 +43,26 @@ While the packager is running and you have an iOS device or simulator connected 
 npm run run:ios
 ```
 
+### Developing on Web
+
+First, you have to install all dependencies:
+
+```
+yarn
+```
+
+After that, you have to build the library. You have to do that each time you want to see the changes in the example app, as currently, we don't support hot reloading in the demo app.
+
+```
+yarn setup
+```
+
+Finally, you can run the demo. Then you can go to the link printed in the terminal to see the demo.
+
+```
+yarn paper:web
+```
+
 ### Style & Linting
 
 This codebase adheres to the [Airbnb Styleguide](https://github.com/airbnb/javascript) and is
