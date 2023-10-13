@@ -29,6 +29,7 @@ const LottieView = forwardRef(
     const isLottie =
       sources.sourceName?.includes('.lottie') || !!sources.sourceDotLottieURI;
     const lottieSource = sources.sourceDotLottieURI || sources.sourceName;
+    const jsonSource = sources.sourceURL || sources.sourceJson;
 
     if (progress != undefined && __DEV__) {
       console.warn('lottie-react-native: progress is not supported on web');
@@ -102,7 +103,7 @@ const LottieView = forwardRef(
     return (
       <Player
         ref={playerRef}
-        src={source}
+        src={jsonSource}
         onEvent={handleEvent}
         style={webStyle}
         autoplay={autoPlay}
