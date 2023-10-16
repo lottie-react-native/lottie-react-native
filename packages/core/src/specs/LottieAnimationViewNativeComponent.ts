@@ -18,6 +18,8 @@ export type AnimationFailureEvent = Readonly<{
   error: string;
 }>;
 
+type AnimationLoadedEvent = Readonly<{}>
+
 type ColorFilterStruct = Readonly<{
   keypath: string;
   color: ProcessedColorValue;
@@ -61,6 +63,10 @@ export interface NativeProps extends ViewProps {
   onAnimationFailure?: BubblingEventHandler<
     AnimationFailureEvent,
     'onAnimationFailure'
+  >;
+  onAnimationLoaded?: BubblingEventHandler<
+    AnimationLoadedEvent,
+    'onAnimationLoaded'
   >;
 }
 

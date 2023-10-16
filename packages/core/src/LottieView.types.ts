@@ -111,6 +111,12 @@ export interface LottieViewProps {
   onAnimationFailure?: (error: string) => void;
 
   /**
+   * A callback function which will be called when animation has been loaded.
+   * @platform ios, android
+   */
+  onAnimationLoaded?: () => void;
+
+  /**
    * A callback function which will be called when the view has been laid out.
    */
   onLayout?: (event: LayoutChangeEvent) => void;
