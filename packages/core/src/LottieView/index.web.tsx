@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef, useCallback } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef, useCallback, useEffect } from 'react';
 import type { LottieViewProps } from '../types';
 import { parsePossibleSources } from './utils';
 
@@ -31,6 +31,19 @@ const LottieView = forwardRef(
     const lottieSource = sources.sourceDotLottieURI || sources.sourceName;
     const jsonSource = sources.sourceURL || sources.sourceJson;
 
+    const [isError, setIsError] = React.useState(false);
+    const [key, setKey] = React.useState(0);
+
+    /**
+     *  If an error occured reset the key when the source changes to force a re-render.
+     */
+    useEffect(() => {
+      if (isError) {
+        setKey((prevKey) => prevKey + 1);
+        setIsError(false);
+      }
+    }, [source])
+
     if (progress != undefined && __DEV__) {
       console.warn('lottie-react-native: progress is not supported on web');
     }
@@ -39,6 +52,7 @@ const LottieView = forwardRef(
       switch (event) {
         case 'error':
           onAnimationFailure?.('error');
+          setIsError(true);
           break;
 
         case 'complete':
@@ -102,6 +116,7 @@ const LottieView = forwardRef(
     }
     return (
       <Player
+        key={key}
         ref={playerRef}
         src={jsonSource}
         onEvent={handleEvent}
