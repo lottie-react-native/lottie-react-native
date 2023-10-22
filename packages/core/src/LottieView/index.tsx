@@ -1,16 +1,13 @@
 import React from 'react';
-import {
-  Image,
-  NativeSyntheticEvent,
-  ViewProps,
-  processColor,
-} from 'react-native';
+import { NativeSyntheticEvent, ViewProps, processColor } from 'react-native';
 
-import type { LottieViewProps } from './LottieView.types';
+import { parsePossibleSources } from './utils';
+
+import type { LottieViewProps } from '../types';
 
 import NativeLottieAnimationView, {
   Commands,
-} from './specs/LottieAnimationViewNativeComponent';
+} from '../specs/LottieAnimationViewNativeComponent';
 
 type Props = LottieViewProps & { containerProps?: ViewProps };
 
@@ -44,6 +41,10 @@ export class LottieView extends React.PureComponent<Props, {}> {
     this.resume = this.resume.bind(this);
     this.onAnimationFinish = this.onAnimationFinish.bind(this);
     this.captureRef = this.captureRef.bind(this);
+
+    if (props.hover != undefined && __DEV__) {
+      console.warn('lottie-react-native: hover is only supported on web');
+    }
   }
 
   play(startFrame?: number, endFrame?: number): void {
@@ -89,40 +90,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
     }
   }
 
-  private parsePossibleSources():
-    | {
-        sourceURL?: string;
-        sourceJson?: string;
-        sourceName?: string;
-        sourceDotLottieURI?: string;
-      }
-    | undefined {
-    const { source } = this.props;
-
-    if (typeof source === 'string') {
-      return { sourceName: source };
-    }
-
-    if (typeof source === 'object' && !(source as any).uri) {
-      return { sourceJson: JSON.stringify(source) };
-    }
-
-    if (typeof source === 'object' && (source as any).uri) {
-      // uri contains .lottie extension return sourceDotLottieURI
-      if ((source as any).uri.includes('.lottie')) {
-        return { sourceDotLottieURI: (source as any).uri };
-      }
-
-      return { sourceURL: (source as any).uri };
-    }
-
-    if (typeof source === 'number') {
-      return { sourceDotLottieURI: Image.resolveAssetSource(source).uri };
-    }
-
-    return undefined;
-  }
-
   render(): React.ReactNode {
     const {
       style,
@@ -135,7 +102,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
       ...rest
     } = this.props;
 
-    const sources = this.parsePossibleSources();
+    const sources = parsePossibleSources(source);
 
     const speed =
       duration && sources.sourceJson && (source as any).fr

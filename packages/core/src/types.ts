@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import type { StyleProp, ViewStyle, LayoutChangeEvent } from 'react-native';
 
 /**
@@ -49,6 +50,7 @@ export interface LottieViewProps {
    * represents the normalized progress of the animation. If you update this prop, the
    * animation will correspondingly update to the frame at that progress value. This
    * prop is not required if you are using the imperative API.
+   * @platform ios, android, windows
    */
   progress?: number;
 
@@ -61,6 +63,7 @@ export interface LottieViewProps {
   /**
    * The duration of the animation in ms. Takes precedence over speed when set.
    * This only works when source is an actual JS object of an animation.
+   * @platform ios, android, windows
    */
   duration?: number;
 
@@ -74,8 +77,15 @@ export interface LottieViewProps {
    * http://facebook.github.io/react-native/releases/0.39/docs/view.html#style
    *
    * **CAVEAT: border styling is not supported.**
+   * @platform ios, android, windows
    */
   style?: StyleProp<ViewStyle>;
+
+  /**
+   * Style attributes for the web.
+   * @platform web
+   */
+  webStyle?: CSSProperties;
 
   /**
    * Determines how to resize the animated view when the frame doesn't match the raw image
@@ -100,15 +110,22 @@ export interface LottieViewProps {
   /**
    * A callback function which will be called when animation is finished. Note that this
    * callback will be called only when `loop` is set to false.
-   * @platform ios, android
+   * @platform ios, android, web
    */
   onAnimationFinish?: (isCancelled: boolean) => void;
 
   /**
    * A callback function which will be called when animation is failed to load.
-   * @platform ios, android
+   * @platform ios, android, web
    */
   onAnimationFailure?: (error: string) => void;
+
+  /**
+   * A callback function which will be called when the animation loops.
+   *
+   * @platform windows, web
+   */
+  onAnimationLoop?: () => void;
 
   /**
    * A callback function which will be called when the view has been laid out.
@@ -185,10 +202,17 @@ export interface LottieViewProps {
    */
   useNativeLooping?: boolean;
 
+  // Web Props
+
   /**
-   * A callback function which will be called when the animation loops.
-   *
-   * @platform windows
+   * A boolean flag to enable hover interactions. Whether to play on mouse hover. Defaults to false.
+   * @platform web
    */
-  onAnimationLoop?: () => void;
+  hover?: boolean;
+
+  /**
+   * Direction of the animation. Defaults to 1.
+   * @platform web
+   */
+  direction?: 1 | -1;
 }

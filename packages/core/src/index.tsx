@@ -1,3 +1,3 @@
 import { LottieView } from './LottieView';
-export * from './LottieView.types'
+export * from './types';
 export default LottieView;

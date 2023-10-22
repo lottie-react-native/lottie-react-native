@@ -13,6 +13,7 @@
     "paper:start:android": "yarn workspace paper-example android",
     "paper:build:android": "yarn workspace paper-example build:android",
     "paper:ios": "yarn workspace paper-example ios",
+    "paper:web": "yarn workspace paper-example web",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
@@ -30,6 +31,5 @@
   "workspaces": [
     "./apps/*",
     "./packages/*"
-  ],
-  "packageManager": "yarn@3.2.3"
+  ]
 }
