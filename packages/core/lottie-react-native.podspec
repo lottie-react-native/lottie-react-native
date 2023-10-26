@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.source                  = { :git => "https://github.com/lottie-react-native/lottie-react-native.git", :tag => "v#{s.version}" }
   s.source_files            = "ios/**/*.{h,m,mm,swift}"
 
-  s.dependency 'lottie-ios', '~> 4.3.0'
+  s.dependency 'lottie-ios', '~> 4.3.3'
   
   s.swift_version = '5.6'
 

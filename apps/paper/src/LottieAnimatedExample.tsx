@@ -44,6 +44,10 @@ const LottieAnimatedExample = () => {
     console.log('Animation failure ', message);
   };
 
+  const onAnimationLoop = () => {
+    console.log('Animation looped');
+  };
+
   const onPlayPress = () => {
     if (isPlaying) {
       anim.current?.pause();
@@ -103,6 +107,7 @@ const LottieAnimatedExample = () => {
           hardwareAccelerationAndroid={true}
           onAnimationFailure={onAnimationFailure}
           onAnimationFinish={onAnimationFinish}
+          onAnimationLoop={onAnimationLoop}
           enableMergePathsAndroidForKitKatAndAbove
           renderMode={renderMode}
           resizeMode={'contain'}
