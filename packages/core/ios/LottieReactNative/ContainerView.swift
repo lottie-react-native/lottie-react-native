@@ -103,9 +103,11 @@ class ContainerView: RCTView {
                 filters[key] = value
             }
 
-            let nextAnimationView = LottieAnimationView()
+            let nextAnimationView = LottieAnimationView(
+                animation: animationView?.animation,
+                configuration: lottieConfiguration
+            )
             nextAnimationView.textProvider = DictionaryTextProvider(filters)
-            nextAnimationView.animation = animationView?.animation
             replaceAnimationView(next: nextAnimationView)
         }
     }
