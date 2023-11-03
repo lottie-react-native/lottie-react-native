@@ -1,6 +1,6 @@
 {
   "name": "lottie-react-native",
-  "version": "6.3.1",
+  "version": "6.4.0",
   "description": "React Native bindings for Lottie",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -78,6 +78,16 @@
     "release-it": "^15.11.0",
     "typescript": "^5.1.3"
   },
+  "contributors": [
+    {
+      "name": "Matin Zadeh Dolatabad",
+      "email": "me@matinzd.dev"
+    },
+    {
+      "name": "Parsa Nasirimehr",
+      "email": "p.nasirimehr@gmail.com"
+    }
+  ],
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",

@@ -5,6 +5,8 @@ import { parsePossibleSources } from './utils';
 let DotLottiePlayer, Player;
 try {
     DotLottiePlayer = require('@dotlottie/react-player').DotLottiePlayer;
+} catch (e) { }
+try {
     Player = require('@lottiefiles/react-lottie-player').Player;
 } catch (e) { }
 
