@@ -310,7 +310,8 @@ class ContainerView: RCTView {
         applyColorProperties()
         playIfNeeded()
 
-        animationView?.animationLoaded = { animationView, animation in
+        animationView?.animationLoaded = { [weak self] animationView, animation in
+            guard let self = self else { return }
             self.loadedCallback()
         }
     }
