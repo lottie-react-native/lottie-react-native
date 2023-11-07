@@ -4,6 +4,7 @@ import Foundation
 @objc protocol LottieContainerViewDelegate {
     func onAnimationFinish(isCancelled: Bool)
     func onAnimationFailure(error: String)
+    func onAnimationLoaded()
 }
 
 /* There are Two Views being implemented here:
@@ -26,6 +27,7 @@ class ContainerView: RCTView {
     var animationView: LottieAnimationView?
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     @objc var onAnimationFailure: RCTBubblingEventBlock?
+    @objc var onAnimationLoaded: RCTBubblingEventBlock?
 
     @objc var completionCallback: LottieCompletionBlock {
         return { [weak self] animationFinished in
@@ -48,6 +50,18 @@ class ContainerView: RCTView {
             }
 
             self.delegate?.onAnimationFailure(error: error)
+        }
+    }
+
+    @objc var loadedCallback: () -> Void {
+        return { [weak self] in
+            guard let self = self else { return }
+
+            if let onLoaded = self.onAnimationLoaded {
+                onLoaded([:])
+            }
+
+            self.delegate?.onAnimationLoaded()
         }
     }
 
@@ -297,6 +311,11 @@ class ContainerView: RCTView {
 
         applyColorProperties()
         playIfNeeded()
+
+        animationView?.animationLoaded = { [weak self] animationView, animation in
+            guard let self = self else { return }
+            self.loadedCallback()
+        }
     }
 
     func applyColorProperties() {

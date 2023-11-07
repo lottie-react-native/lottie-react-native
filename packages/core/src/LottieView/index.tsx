@@ -79,6 +79,10 @@ export class LottieView extends React.PureComponent<Props, {}> {
     this.props.onAnimationFailure?.(evt.nativeEvent.error);
   };
 
+  private onAnimationLoaded = () => {
+    this.props.onAnimationLoaded?.()
+  }
+
   private captureRef(ref: React.ElementRef<typeof NativeLottieAnimationView>) {
     if (ref === null) {
       return;
@@ -127,6 +131,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
         style={style}
         onAnimationFinish={this.onAnimationFinish}
         onAnimationFailure={this.onAnimationFailure}
+        onAnimationLoaded={this.onAnimationLoaded}
         autoPlay={autoPlay}
         resizeMode={resizeMode}
         {...sources}
