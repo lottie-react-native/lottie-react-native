@@ -24,6 +24,10 @@ import com.facebook.react.views.text.TextAttributeProps.UNSET
 import com.facebook.react.util.RNLog
 import java.lang.ref.WeakReference
 import java.util.regex.Pattern
+import java.util.zip.ZipInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
 
 /**
  * Class responsible for applying the properties to the LottieView. The way react-native works makes
@@ -119,12 +123,30 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         }
 
         animationURL?.let {
-            view.setAnimationFromUrl(it, it.hashCode().toString())
+            if (it.startsWith('/') || it.startsWith("file://")) {
+                try {
+                    view.setAnimation(FileInputStream(File(it)), Integer.toString(it.hashCode()))
+                } catch (e: FileNotFoundException) {
+                    RNLog.e("Animation for $it was not found in file system")
+                }
+            } else {
+                view.setAnimationFromUrl(it, it.hashCode().toString())
+            }
             animationURL = null
         }
 
         sourceDotLottie?.let { assetName ->
             val scheme = runCatching { Uri.parse(assetName).scheme }.getOrNull()
+
+            if (assetName.startsWith('/') || assetName.startsWith("file://")) {
+                try {
+                    view.setAnimation(ZipInputStream(FileInputStream(File(assetName))), assetName.hashCode().toString())
+                } catch (e: FileNotFoundException) {
+                    RNLog.e("Animation for $assetName was not found in file system")
+                }
+                sourceDotLottie = null
+                return
+            }
 
             if (scheme != null) {
                 view.setAnimationFromUrl(assetName)
