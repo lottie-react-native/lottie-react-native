@@ -166,37 +166,21 @@ class ContainerView: RCTView {
             return
         }
 
-        var url = URL(string: uri)
-
-        if url?.scheme == nil {
-            // interpret raw URL paths as relative to the resource bundle
-            url = URL(fileURLWithPath: uri, relativeTo: Bundle.main.resourceURL)
-        }
-
-        guard let url = url else { return }
-
-        let completion: (LottieAnimationView, Error?) -> Void = { [weak self] view, error in
-            guard let self = self else { return }
-            if let error = error {
-                self.failureCallback(error.localizedDescription)
-                return
-            }
-            self.replaceAnimationView(next: view)
-        }
-
-        if (url.scheme == "file") {
-            _ = LottieAnimationView(
-                dotLottieFilePath: url.path,
-                configuration: lottieConfiguration,
-                completion: completion
-            )
+        guard let url = URL(string: uri) else {
             return
         }
 
         _ = LottieAnimationView(
             dotLottieUrl: url,
             configuration: lottieConfiguration,
-            completion: completion
+            completion: { [weak self] view, error in
+                guard let self = self else { return }
+                if let error = error {
+                    self.failureCallback(error.localizedDescription)
+                    return
+                }
+                self.replaceAnimationView(next: view)
+            }
         )
     }
 
@@ -213,15 +197,6 @@ class ContainerView: RCTView {
         }
 
         guard let url = url else { return }
-
-        if (url.scheme == "file") {
-            let nextAnimationView = LottieAnimationView(
-                filePath: url.path,
-                configuration: lottieConfiguration
-            )
-            replaceAnimationView(next: nextAnimationView)
-            return
-        }
 
         self.fetchRemoteAnimation(from: url)
     }
