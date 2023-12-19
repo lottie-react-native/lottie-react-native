@@ -287,10 +287,9 @@ class ContainerView: RCTView {
     }
 
     // The animation view is a child of the RCTView, so if the bounds ever change, add those changes to the animation view as well
-    override var bounds: CGRect {
-        didSet {
-            animationView?.frame = self.bounds
-        }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        animationView?.frame = self.bounds
     }
 
     // MARK: Private
