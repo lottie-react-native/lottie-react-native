@@ -242,15 +242,8 @@ class ContainerView: RCTView {
     }
 
     @objc func setResizeMode(_ resizeMode: String) {
-        switch resizeMode {
-        case "cover":
-            animationView?.contentMode = .scaleAspectFill
-        case "contain":
-            animationView?.contentMode = .scaleAspectFit
-        case "center":
-            animationView?.contentMode = .center
-        default: break
-        }
+        self.resizeMode = resizeMode
+        applyContentMode()
     }
 
     @objc func setColorFilters(_ newColorFilters: [NSDictionary]) {
@@ -296,11 +289,8 @@ class ContainerView: RCTView {
     func replaceAnimationView(next: LottieAnimationView) {
         super.removeReactSubview(animationView)
 
-        let contentMode = animationView?.contentMode ?? .scaleAspectFit
-
         animationView = next
 
-        animationView?.contentMode = contentMode
         animationView?.backgroundBehavior = .pauseAndRestore
         animationView?.animationSpeed = speed
         animationView?.loopMode = loop
@@ -308,12 +298,27 @@ class ContainerView: RCTView {
 
         addSubview(next)
 
+        applyContentMode()
         applyColorProperties()
         playIfNeeded()
 
-        animationView?.animationLoaded = { [weak self] animationView, animation in
+        animationView?.animationLoaded = { [weak self] _, _ in
             guard let self = self else { return }
             self.loadedCallback()
+        }
+    }
+
+    func applyContentMode() {
+        guard let animationView = animationView else { return }
+
+        switch resizeMode {
+        case "cover":
+            animationView.contentMode = .scaleAspectFill
+        case "contain":
+            animationView.contentMode = .scaleAspectFit
+        case "center":
+            animationView.contentMode = .center
+        default: break
         }
     }
 
