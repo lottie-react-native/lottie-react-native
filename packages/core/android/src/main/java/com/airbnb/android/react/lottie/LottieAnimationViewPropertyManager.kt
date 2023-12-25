@@ -123,12 +123,9 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         }
 
         animationURL?.let {
-            if (it.startsWith('/') || it.startsWith("file://")) {
-                try {
-                    view.setAnimation(FileInputStream(File(it)), Integer.toString(it.hashCode()))
-                } catch (e: FileNotFoundException) {
-                    RNLog.e("Animation for $it was not found in file system")
-                }
+            var file = File(it)
+            if (file.exists()) {
+                view.setAnimation(FileInputStream(file), it.hashCode().toString())
             } else {
                 view.setAnimationFromUrl(it, it.hashCode().toString())
             }
@@ -136,18 +133,17 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         }
 
         sourceDotLottie?.let { assetName ->
-            val scheme = runCatching { Uri.parse(assetName).scheme }.getOrNull()
-
-            if (assetName.startsWith('/') || assetName.startsWith("file://")) {
-                try {
-                    view.setAnimation(ZipInputStream(FileInputStream(File(assetName))), assetName.hashCode().toString())
-                } catch (e: FileNotFoundException) {
-                    RNLog.e("Animation for $assetName was not found in file system")
-                }
+            var file = File(assetName)
+            if (file.exists()) {
+                view.setAnimation(
+                    ZipInputStream(FileInputStream(file)),
+                    assetName.hashCode().toString()
+                )
                 sourceDotLottie = null
                 return
             }
 
+            val scheme = runCatching { Uri.parse(assetName).scheme }.getOrNull()
             if (scheme != null) {
                 view.setAnimationFromUrl(assetName)
                 sourceDotLottie = null
