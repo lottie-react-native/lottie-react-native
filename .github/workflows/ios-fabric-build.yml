@@ -50,5 +50,8 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
+      - name: Run Metro in the background
+        run: yarn workspace fabric-example start </dev/null &>/dev/null &
+
       - name: Build Fabric iOS Example
         run: yarn fabric:ios
