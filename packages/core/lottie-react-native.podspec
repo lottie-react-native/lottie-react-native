@@ -39,13 +39,13 @@ Pod::Spec.new do |s|
   # TODO(workaround): checking RN version for backward comaptibility reasons since lottie is not compatible with RN 72 and below with install_modules_dependencies
   # TODO: We need to replace this line with   if defined?(install_modules_dependencies)
   if is_install_modules_dependencies_needed then
-    print "Using install_modules_dependencies\n"
+    Pod::UI.puts("[Lottie React Native] Using install_modules_dependencies")
     install_modules_dependencies(s)
     if !(ENV['RCT_NEW_ARCH_ENABLED'] == '1') then
       s.exclude_files = "ios/Fabric"
     end
   else
-    print "Not using install_modules_dependencies\n"
+    Pod::UI.puts("[Lottie React Native] Installing manually")
     if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
       folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
       s.compiler_flags = folly_compiler_flags + " -DRCT_NEW_ARCH_ENABLED=1"
