@@ -1445,7 +1445,7 @@ SPEC CHECKSUMS:
   React-utils: debda2c206770ee2785bdebb7f16d8db9f18838a
   ReactCommon: ddb128564dcbfa0287d3d1a2d10f8c7457c971f6
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  Yoga: 2b33a7ac96c58cdaa7b810948fc6a2a76ed2d108
+  Yoga: 4f53dc50008d626fa679c7a1cb4bed898f8c0bde
 
 PODFILE CHECKSUM: 40287ce1aaf5414bc3bea07749a9018d1c25c132
 
