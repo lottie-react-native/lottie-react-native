@@ -27,7 +27,6 @@ import java.util.regex.Pattern
 import java.util.zip.ZipInputStream
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 
 /**
  * Class responsible for applying the properties to the LottieView. The way react-native works makes
