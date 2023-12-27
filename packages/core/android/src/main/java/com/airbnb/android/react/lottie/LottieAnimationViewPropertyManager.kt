@@ -24,6 +24,9 @@ import com.facebook.react.views.text.TextAttributeProps.UNSET
 import com.facebook.react.util.RNLog
 import java.lang.ref.WeakReference
 import java.util.regex.Pattern
+import java.util.zip.ZipInputStream
+import java.io.File
+import java.io.FileInputStream
 
 /**
  * Class responsible for applying the properties to the LottieView. The way react-native works makes
@@ -119,13 +122,27 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         }
 
         animationURL?.let {
-            view.setAnimationFromUrl(it, it.hashCode().toString())
+            var file = File(it)
+            if (file.exists()) {
+                view.setAnimation(FileInputStream(file), it.hashCode().toString())
+            } else {
+                view.setAnimationFromUrl(it, it.hashCode().toString())
+            }
             animationURL = null
         }
 
         sourceDotLottie?.let { assetName ->
-            val scheme = runCatching { Uri.parse(assetName).scheme }.getOrNull()
+            var file = File(assetName)
+            if (file.exists()) {
+                view.setAnimation(
+                    ZipInputStream(FileInputStream(file)),
+                    assetName.hashCode().toString()
+                )
+                sourceDotLottie = null
+                return
+            }
 
+            val scheme = runCatching { Uri.parse(assetName).scheme }.getOrNull()
             if (scheme != null) {
                 view.setAnimationFromUrl(assetName)
                 sourceDotLottie = null
