@@ -24,7 +24,7 @@ about: Create a report to help us improve
 
 ### React Native Environment
 
-<!-- Share if the project is initiated with Expo (Go, Prebuilt or Custom Dev Client) or Bare. You can also execute `npx react-native info` to and paste the results here -->
+<!-- Share if the project is initiated with Expo (Go, Prebuilt or Custom Dev Client) or Bare. Include If you are using: New arch, Old arch, Bridgeless, Dynamic Framework, Static Framework, etc. You can also execute `npx react-native info` to and paste the results here -->
 
 ### Lottie Version
 
