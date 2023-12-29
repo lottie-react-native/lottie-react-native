@@ -1,9 +1,15 @@
 name: Build iOS Fabric Example
 
 on:
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      variant:
+        type: choice
+        description: Variant to run
+        options:
+          - static-library
+          - static-framework
+          - dynamic-framework
 
 # Only run on the latest workflow run
 concurrency:
@@ -17,6 +23,7 @@ jobs:
     strategy:
       matrix:
         xcode-version: [14.3.1]
+        variant: ${{ github.event.inputs.variant }}
 
     steps:
       - name: List all available XCode versions
@@ -54,4 +61,11 @@ jobs:
         run: yarn workspace fabric-example start </dev/null &>/dev/null &
 
       - name: Build Fabric iOS Example
-        run: yarn fabric:ios
+        run: |
+          if [ "${{ matrix.variant }}" = "static-framework" ]; then
+            yarn fabric:ios-static-framework
+          elif [ "${{ matrix.variant }}" = "dynamic-framework" ]; then
+            yarn fabric:ios-dynamic-framework
+          else
+            yarn fabric:ios
+          fi
