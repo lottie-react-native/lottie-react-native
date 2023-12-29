@@ -1,9 +1,6 @@
 name: Build Android Fabric Example
 
-on:
-  pull_request:
-    branches:
-      - master
+on: workflow_dispatch
 
 # Only run on the latest workflow run
 concurrency:
