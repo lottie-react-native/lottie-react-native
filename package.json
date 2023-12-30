@@ -10,6 +10,8 @@
     "fabric:start:android": "yarn workspace fabric-example android",
     "fabric:build:android": "yarn workspace fabric-example build:android",
     "fabric:ios": "yarn workspace fabric-example ios",
+    "fabric:ios-static-framework": "yarn workspace fabric-example ios-static-framework",
+    "fabric:ios-dynamic-framework": "yarn workspace fabric-example ios-dynamic-framework",
     "paper:start:android": "yarn workspace paper-example android",
     "paper:build:android": "yarn workspace paper-example build:android",
     "paper:ios": "yarn workspace paper-example ios",
