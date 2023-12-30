@@ -6,6 +6,8 @@
     "android": "react-native run-android --active-arch-only",
     "build:android": "cd android && ./gradlew assembleDebug --no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a",
     "ios": "bundle install && RCT_NEW_ARCH_ENABLED=1 pod update --project-directory=ios && react-native run-ios",
+    "ios-static-framework": "bundle install && USE_FRAMEWORKS=static RCT_NEW_ARCH_ENABLED=1 pod update --project-directory=ios && react-native run-ios",
+    "ios-dynamic-framework": "bundle install && USE_FRAMEWORKS=dynamic RCT_NEW_ARCH_ENABLED=1 pod update --project-directory=ios && react-native run-ios",
     "start": "react-native start",
     "upgrade": "react-native upgrade"
   },
