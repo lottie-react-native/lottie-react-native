@@ -23,7 +23,6 @@ jobs:
     strategy:
       matrix:
         xcode-version: [14.3.1]
-        variant: ${{ github.event.inputs.variant }}
 
     steps:
       - name: List all available XCode versions
@@ -62,9 +61,9 @@ jobs:
 
       - name: Build Fabric iOS Example
         run: |
-          if [ "${{ matrix.variant }}" = "static-framework" ]; then
+          if [ "${{ github.event.inputs.variant }}" = "static-framework" ]; then
             yarn fabric:ios-static-framework
-          elif [ "${{ matrix.variant }}" = "dynamic-framework" ]; then
+          elif [ "${{ github.event.inputs.variant }}" = "dynamic-framework" ]; then
             yarn fabric:ios-dynamic-framework
           else
             yarn fabric:ios
