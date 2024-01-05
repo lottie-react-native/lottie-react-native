@@ -26,7 +26,7 @@ import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.viewmanagers.LottieAnimationViewManagerDelegate
 import com.facebook.react.viewmanagers.LottieAnimationViewManagerInterface
-import java.util.*
+import java.util.WeakHashMap
 
 @ReactModule(name = LottieAnimationViewManagerImpl.REACT_CLASS)
 class LottieAnimationViewManager :
