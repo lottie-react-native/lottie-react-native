@@ -18,9 +18,10 @@ internal object LottieAnimationViewManagerImpl {
 
     @JvmStatic
     val exportedViewConstants: Map<String, Any>
-        get() = MapBuilder.builder<String, Any>()
-            .put("VERSION", 1)
-            .build()
+        get() =
+            MapBuilder.builder<String, Any>()
+                .put("VERSION", 1)
+                .build()
 
     @JvmStatic
     fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
@@ -30,28 +31,34 @@ internal object LottieAnimationViewManagerImpl {
     }
 
     @JvmStatic
-    fun sendOnAnimationFinishEvent(view: LottieAnimationView, isCancelled: Boolean) {
+    fun sendOnAnimationFinishEvent(
+        view: LottieAnimationView,
+        isCancelled: Boolean,
+    ) {
         val screenContext = view.context as ThemedReactContext
         val eventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(screenContext, view.id)
         eventDispatcher?.dispatchEvent(
             OnAnimationFinishEvent(
                 screenContext.surfaceId,
                 view.id,
-                isCancelled
-            )
+                isCancelled,
+            ),
         )
     }
 
     @JvmStatic
-    fun sendAnimationFailureEvent(view: LottieAnimationView, error: Throwable) {
+    fun sendAnimationFailureEvent(
+        view: LottieAnimationView,
+        error: Throwable,
+    ) {
         val screenContext = view.context as ThemedReactContext
         val eventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(screenContext, view.id)
         eventDispatcher?.dispatchEvent(
             OnAnimationFailureEvent(
                 screenContext.surfaceId,
                 view.id,
-                error
-            )
+                error,
+            ),
         )
     }
 
@@ -63,7 +70,7 @@ internal object LottieAnimationViewManagerImpl {
             OnAnimationLoadedEvent(
                 screenContext.surfaceId,
                 view.id,
-            )
+            ),
         )
     }
 
@@ -80,7 +87,11 @@ internal object LottieAnimationViewManagerImpl {
     }
 
     @JvmStatic
-    fun play(view: LottieAnimationView, startFrame: Int, endFrame: Int) {
+    fun play(
+        view: LottieAnimationView,
+        startFrame: Int,
+        endFrame: Int,
+    ) {
         Handler(Looper.getMainLooper()).post {
             if (startFrame != -1 && endFrame != -1) {
                 if (startFrame > endFrame) {
@@ -99,19 +110,21 @@ internal object LottieAnimationViewManagerImpl {
                 view.progress = 0f
                 view.playAnimation()
             } else {
-                view.addOnAttachStateChangeListener(object : OnAttachStateChangeListener {
-                    override fun onViewAttachedToWindow(v: View) {
-                        val listenerView = v as LottieAnimationView
-                        listenerView.progress = 0f
-                        listenerView.playAnimation()
-                        listenerView.removeOnAttachStateChangeListener(this)
-                    }
+                view.addOnAttachStateChangeListener(
+                    object : OnAttachStateChangeListener {
+                        override fun onViewAttachedToWindow(v: View) {
+                            val listenerView = v as LottieAnimationView
+                            listenerView.progress = 0f
+                            listenerView.playAnimation()
+                            listenerView.removeOnAttachStateChangeListener(this)
+                        }
 
-                    override fun onViewDetachedFromWindow(v: View) {
-                        val listenerView = v as LottieAnimationView
-                        listenerView.removeOnAttachStateChangeListener(this)
-                    }
-                })
+                        override fun onViewDetachedFromWindow(v: View) {
+                            val listenerView = v as LottieAnimationView
+                            listenerView.removeOnAttachStateChangeListener(this)
+                        }
+                    },
+                )
             }
         }
     }
@@ -147,7 +160,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setSourceName(
         name: String?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         // To match the behaviour on iOS we expect the source name to be
         // extensionless. This means "myAnimation" corresponds to a file
@@ -165,7 +178,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setSourceJson(
         json: String?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.animationJson = json
         viewManager.commitChanges()
@@ -174,7 +187,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setSourceURL(
         urlString: String?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.animationURL = urlString
         viewManager.commitChanges()
@@ -183,21 +196,24 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setSourceDotLottieURI(
         uri: String?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.sourceDotLottie = uri
         viewManager.commitChanges()
     }
 
     @JvmStatic
-    fun setCacheComposition(view: LottieAnimationView, cacheComposition: Boolean) {
+    fun setCacheComposition(
+        view: LottieAnimationView,
+        cacheComposition: Boolean,
+    ) {
         view.setCacheComposition(cacheComposition)
     }
 
     @JvmStatic
     fun setResizeMode(
         resizeMode: String?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         var mode: ImageView.ScaleType? = null
         when (resizeMode) {
@@ -219,7 +235,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setRenderMode(
         renderMode: String?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         var mode: RenderMode? = null
         when (renderMode) {
@@ -241,7 +257,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setHardwareAcceleration(
         hardwareAccelerationAndroid: Boolean,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         var layerType: Int? = View.LAYER_TYPE_SOFTWARE
         if (hardwareAccelerationAndroid) {
@@ -253,7 +269,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setProgress(
         progress: Float,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.progress = progress
     }
@@ -261,7 +277,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setSpeed(
         speed: Double,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.speed = speed.toFloat()
     }
@@ -269,7 +285,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setLoop(
         loop: Boolean,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.loop = loop
     }
@@ -277,7 +293,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setAutoPlay(
         autoPlay: Boolean,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.autoPlay = autoPlay
     }
@@ -285,7 +301,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setEnableMergePaths(
         enableMergePaths: Boolean,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.enableMergePaths = enableMergePaths
     }
@@ -293,7 +309,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setImageAssetsFolder(
         imageAssetsFolder: String?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.imageAssetsFolder = imageAssetsFolder
     }
@@ -301,7 +317,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setColorFilters(
         colorFilters: ReadableArray?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.colorFilters = colorFilters
     }
@@ -309,7 +325,7 @@ internal object LottieAnimationViewManagerImpl {
     @JvmStatic
     fun setTextFilters(
         textFilters: ReadableArray?,
-        viewManager: LottieAnimationViewPropertyManager
+        viewManager: LottieAnimationViewPropertyManager,
     ) {
         viewManager.textFilters = textFilters
     }

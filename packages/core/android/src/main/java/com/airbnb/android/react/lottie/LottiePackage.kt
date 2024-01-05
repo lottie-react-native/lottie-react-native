@@ -7,7 +7,6 @@ import com.facebook.react.uimanager.ViewManager
 
 @Suppress("unused")
 class LottiePackage : ReactPackage {
-
     override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
         return emptyList()
     }

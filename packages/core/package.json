@@ -37,7 +37,9 @@
     "build": "bob build",
     "release": "release-it",
     "lint:swift": "swiftlint ios",
-    "lint-fix:swift": "swiftlint --fix ios"
+    "lint-fix:swift": "swiftlint --fix ios",
+    "lint:kotlin": "cd android && ktlint --reporter=plain-summary",
+    "lint-fix:kotlin": "cd android && ktlint --format"
   },
   "peerDependencies": {
     "@dotlottie/react-player": "^1.6.1",

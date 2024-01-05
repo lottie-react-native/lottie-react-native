@@ -31,9 +31,7 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     private val propManagersMap =
         WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
 
-    private fun getOrCreatePropertyManager(
-        view: LottieAnimationView
-    ): LottieAnimationViewPropertyManager {
+    private fun getOrCreatePropertyManager(view: LottieAnimationView): LottieAnimationViewPropertyManager {
         var result = propManagersMap[view]
         if (result == null) {
             result = LottieAnimationViewPropertyManager(view)
@@ -75,7 +73,7 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
                 override fun onAnimationRepeat(animation: Animator) {
                     // do nothing
                 }
-            }
+            },
         )
         return view
     }
@@ -87,7 +85,7 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     override fun receiveCommand(
         view: LottieAnimationView,
         commandName: String,
-        args: ReadableArray?
+        args: ReadableArray?,
     ) {
         when (commandName) {
             "play" -> play(view, args?.getInt(0) ?: -1, args?.getInt(1) ?: -1)
@@ -101,85 +99,130 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     }
 
     @ReactProp(name = "sourceName")
-    fun setSourceName(view: LottieAnimationView, name: String?) {
+    fun setSourceName(
+        view: LottieAnimationView,
+        name: String?,
+    ) {
         setSourceName(name, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "sourceJson")
-    fun setSourceJson(view: LottieAnimationView, json: String?) {
+    fun setSourceJson(
+        view: LottieAnimationView,
+        json: String?,
+    ) {
         setSourceJson(json, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "sourceURL")
-    fun setSourceURL(view: LottieAnimationView, urlString: String?) {
+    fun setSourceURL(
+        view: LottieAnimationView,
+        urlString: String?,
+    ) {
         setSourceURL(urlString, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "cacheComposition")
-    fun setCacheComposition(view: LottieAnimationView?, cacheComposition: Boolean) {
+    fun setCacheComposition(
+        view: LottieAnimationView?,
+        cacheComposition: Boolean,
+    ) {
         LottieAnimationViewManagerImpl.setCacheComposition(view!!, cacheComposition)
     }
 
     @ReactProp(name = "resizeMode")
-    fun setResizeMode(view: LottieAnimationView, resizeMode: String?) {
+    fun setResizeMode(
+        view: LottieAnimationView,
+        resizeMode: String?,
+    ) {
         setResizeMode(resizeMode, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "renderMode")
-    fun setRenderMode(view: LottieAnimationView, renderMode: String?) {
+    fun setRenderMode(
+        view: LottieAnimationView,
+        renderMode: String?,
+    ) {
         setRenderMode(renderMode, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "hardwareAccelerationAndroid")
     fun setHardwareAccelerationAndroid(
         view: LottieAnimationView,
-        hardwareAccelerationAndroid: Boolean?
+        hardwareAccelerationAndroid: Boolean?,
     ) {
         setHardwareAcceleration(hardwareAccelerationAndroid!!, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "progress")
-    fun setProgress(view: LottieAnimationView, progress: Float) {
+    fun setProgress(
+        view: LottieAnimationView,
+        progress: Float,
+    ) {
         setProgress(progress, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "speed")
-    fun setSpeed(view: LottieAnimationView, speed: Double) {
+    fun setSpeed(
+        view: LottieAnimationView,
+        speed: Double,
+    ) {
         setSpeed(speed, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "loop")
-    fun setLoop(view: LottieAnimationView, loop: Boolean) {
+    fun setLoop(
+        view: LottieAnimationView,
+        loop: Boolean,
+    ) {
         setLoop(loop, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "autoPlay")
-    fun setAutoPlay(view: LottieAnimationView, autoPlay: Boolean) {
+    fun setAutoPlay(
+        view: LottieAnimationView,
+        autoPlay: Boolean,
+    ) {
         setAutoPlay(autoPlay, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "imageAssetsFolder")
-    fun setImageAssetsFolder(view: LottieAnimationView, imageAssetsFolder: String?) {
+    fun setImageAssetsFolder(
+        view: LottieAnimationView,
+        imageAssetsFolder: String?,
+    ) {
         setImageAssetsFolder(imageAssetsFolder, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "enableMergePathsAndroidForKitKatAndAbove")
-    fun setEnableMergePaths(view: LottieAnimationView, enableMergePaths: Boolean) {
+    fun setEnableMergePaths(
+        view: LottieAnimationView,
+        enableMergePaths: Boolean,
+    ) {
         setEnableMergePaths(enableMergePaths, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "colorFilters")
-    fun setColorFilters(view: LottieAnimationView, colorFilters: ReadableArray?) {
+    fun setColorFilters(
+        view: LottieAnimationView,
+        colorFilters: ReadableArray?,
+    ) {
         setColorFilters(colorFilters, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "textFiltersAndroid")
-    fun setTextFilters(view: LottieAnimationView, textFilters: ReadableArray?) {
+    fun setTextFilters(
+        view: LottieAnimationView,
+        textFilters: ReadableArray?,
+    ) {
         setTextFilters(textFilters, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "sourceDotLottieURI")
-    fun setSourceDotLottie(view: LottieAnimationView, uri: String?) {
+    fun setSourceDotLottie(
+        view: LottieAnimationView,
+        uri: String?,
+    ) {
         setSourceDotLottieURI(uri, getOrCreatePropertyManager(view))
     }
 
