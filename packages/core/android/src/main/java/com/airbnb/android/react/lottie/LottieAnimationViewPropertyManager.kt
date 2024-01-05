@@ -69,8 +69,10 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         view.setFontAssetDelegate(
             object : FontAssetDelegate() {
                 override fun fetchFont(fontFamily: String): Typeface {
-                    return ReactFontManager.getInstance()
-                        .getTypeface(fontFamily, UNSET, UNSET, view.context.assets)
+                    val typeface =
+                        ReactFontManager.getInstance()
+                            .getTypeface(fontFamily, UNSET, UNSET, view.context.assets)
+                    return typeface ?: Typeface.defaultFromStyle(400)
                 }
 
                 override fun fetchFont(
