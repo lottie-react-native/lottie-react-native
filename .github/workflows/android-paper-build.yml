@@ -49,6 +49,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build Paper Android Example
+      - name: Build and Lint Paper Android Example
         run: |
-          yarn paper:build:android
+          yarn paper:lint:android && yarn paper:build:android
