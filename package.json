@@ -14,6 +14,7 @@
     "fabric:ios-dynamic-framework": "yarn workspace fabric-example ios-dynamic-framework",
     "paper:start:android": "yarn workspace paper-example android",
     "paper:build:android": "yarn workspace paper-example build:android",
+    "paper:lint:android": "yarn workspace paper-example lint:android",
     "paper:ios": "yarn workspace paper-example ios",
     "paper:web": "yarn workspace paper-example web",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
