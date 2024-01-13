@@ -18,7 +18,16 @@ module.exports = {
           }
         : {},
       macos: null,
-      windows: null,
+      windows: {
+        sourceDir: 'windows',
+        solutionFile: 'cppwinrt/LottieReactNative.sln',
+        projects: [
+          {
+            projectFile: 'cppwinrt/LottieReactNative.vcxproj',
+            directDependency: false,
+          },
+        ],
+      },
     },
   },
 };
