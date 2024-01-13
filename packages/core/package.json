@@ -12,8 +12,10 @@
     "src",
     "lib",
     "android",
+    "windows",
     "ios",
     "*.podspec",
+    "metro.config.windows.js",
     "react-native.config.js"
   ],
   "author": "Emilio Rodriguez <emiliorodriguez@gmail.com>",
