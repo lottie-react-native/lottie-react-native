@@ -122,7 +122,7 @@ import LottieView from "lottie-react-native";
 
 export default function Animation() {
   return (
-    <LottieView source={require("../path/to/animation.json")} autoPlay loop />
+    <LottieView source={require("../path/to/animation.json")} style={{width: '100%', height: '100%'}} autoPlay loop />
   );
 }
 ```
@@ -204,6 +204,7 @@ export default function ChangingColorOfLayers() {
           color: "#F00000",
         },
       ]}
+      style={{width: '100%', height: '100%'}}
       autoPlay
       loop
     />
