@@ -9,7 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         name: Checkout Code
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -19,16 +18,23 @@ jobs:
         uses: nuget/setup-nuget@v1
         with:
           nuget-version: "5.x"
-
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.1.3
+      - name: Setup Windows SDKs
+      - uses: GuillaumeFalourd/setup-windows10-sdk-action@v1.11
         with:
-          vs-version: "[17.0,)"
-          msbuild-architecture: x64
-
+          sdk-version: 18362
+      - uses: GuillaumeFalourd/setup-windows10-sdk-action@v1.11
+        with:
+          sdk-version: 17763
+      - name: List installed Windows SDKs
+        run: |
+          & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -products * -requires Microsoft.VisualStudio.Component.Windows10SDK -property installationPath
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          vs-version: '[16.0,17.0)'
+            msbuild-architecture: x64
       - name: Install node modules
         run: yarn install
-
       - name: Build x64 release
         shell: powershell
         run: cd ./apps/paper | yarn react-native run-windows --arch x64 --sln ./windows/cppwinrt/Example.sln --proj ./windows/cppwinrt/Example.vcxproj --logging --no-autolink --no-deploy
