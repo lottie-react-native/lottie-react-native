@@ -34,7 +34,7 @@ jobs:
           vs-version: '[16.0,17.0)'
             msbuild-architecture: x64
       - name: Install node modules
-        run: yarn install
+        run: yarn install --frozen-lock
       - name: Build x64 release
         shell: powershell
         run: cd ./apps/paper | yarn react-native run-windows --arch x64 --sln ./windows/cppwinrt/Example.sln --proj ./windows/cppwinrt/Example.vcxproj --logging --no-autolink --no-deploy
