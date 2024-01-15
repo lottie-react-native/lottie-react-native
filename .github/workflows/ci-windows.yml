@@ -1,0 +1,48 @@
+name: Windows CI
+on: [pull_request]
+
+jobs:
+  run-windows-tests:
+    name: Build & run tests
+    runs-on: windows-2022
+
+    steps:
+    - uses: actions/checkout@v3
+      name: Checkout Code
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '^14'
+        cache: 'yarn'
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1.3
+      with:
+        vs-version: '[17.0,)'
+        msbuild-architecture: x64
+
+    - name: Install node modules
+      run: yarn --pure-lockfile
+
+    - name: yarn build
+      run: |
+        yarn build
+        yarn tsc
+
+    - name: Build x64 release
+      shell: powershell
+      run: yarn windows --release --no-packager --no-deploy --logging
+
+    # Workaround for a bug in package searching during deploy.
+    # The deploy script only searches windows/{*/bin/x64/Release,Release/*}, but the build step above placed the packages at windows/x64/Release.
+    # Copy the packages to Windows/Release before deploying.
+    - name: Deploy
+      shell: powershell
+      run: |
+        Copy-Item -Path apps\paper\cppwinrt\windows\x64\Release -Recurse -Destination apps\paper\cppwinrt\windows\
+        npx react-native run-windows --arch x64 --release --root apps --logging --no-build --no-packager --deploy-from-layout
+
+    - name: Start React server
+      shell: powershell
+      run: Start-Process PowerShell -ArgumentList "yarn start"
