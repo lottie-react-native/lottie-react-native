@@ -37,6 +37,4 @@ jobs:
         run: yarn install --frozen-lock
       - name: Build x64 release
         shell: powershell
-        run: |
-          Set-Location -Path ./apps/paper
-          yarn react-native run-windows --arch x64 --sln ./windows/cppwinrt/Example.sln --proj ./windows/cppwinrt/Example.vcxproj --logging --no-autolink --no-deploy
+        run: cd ./apps/paper | yarn react-native run-windows --arch x64 --sln ./windows/cppwinrt/Example.sln --proj ./windows/cppwinrt/Example.vcxproj --logging --no-autolink --no-deploy
