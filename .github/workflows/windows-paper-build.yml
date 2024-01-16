@@ -1,5 +1,10 @@
 name: Windows CI
-on: [pull_request]
+on: workflow_dispatch
+
+# Only run on the latest workflow run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   run-windows-tests:
