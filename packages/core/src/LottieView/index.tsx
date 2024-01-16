@@ -42,6 +42,14 @@ customDirectEventTypes.topAnimationFailureEvent = {
   registrationName: 'onAnimationFailure',
 };
 
+customDirectEventTypes.topAnimationFailure = {
+  registrationName: 'onAnimationFailure',
+}
+
+customDirectEventTypes.topAnimationLoaded = {
+  registrationName: 'onAnimationLoaded',
+}
+
 export class LottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
 
