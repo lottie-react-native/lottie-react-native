@@ -41,10 +41,6 @@ jobs:
         with:
           vs-version: '16.0'
           msbuild-architecture: x64
-  
-      - name: Install missing components
-        shell: powershell
-        run: D:\a\lottie-react-native\lottie-react-native\apps\paper\node_modules\react-native-windows\scripts\rnw-dependencies.ps1
 
       - name: Install node modules
         run: yarn install
