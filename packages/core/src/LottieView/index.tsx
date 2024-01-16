@@ -9,10 +9,6 @@ import NativeLottieAnimationView, {
   Commands,
 } from '../specs/LottieAnimationViewNativeComponent';
 
-// @ts-ignore This is terrible, but after talking with other library maintainers (https://github.com/software-mansion/react-native-gesture-handler/pull/2708/files#r1450056038),
-// there seems to be no better way for now
-import { customDirectEventTypes } from 'react-native/Libraries/Renderer/shims/ReactNativeViewConfigRegistry'
-
 type Props = LottieViewProps & { containerProps?: ViewProps };
 
 const defaultProps: Props = {
@@ -29,18 +25,6 @@ const defaultProps: Props = {
   textFiltersAndroid: [],
   textFiltersIOS: [],
 };
-
-customDirectEventTypes.topAnimationLoaded = {
-  registrationName: 'onAnimationLoaded',
-}
-
-customDirectEventTypes.topAnimationFinish = {
-  registrationName: 'onAnimationFinish',
-};
-
-customDirectEventTypes.topAnimationFailure = {
-  registrationName: 'onAnimationFailure',
-}
 
 export class LottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
