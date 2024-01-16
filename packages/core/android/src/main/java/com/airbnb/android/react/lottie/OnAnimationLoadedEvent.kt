@@ -16,6 +16,6 @@ class OnAnimationLoadedEvent constructor(surfaceId: Int, viewId: Int) :
     }
 
     companion object {
-        const val EVENT_NAME = "topAnimationLoadedEvent"
+        const val EVENT_NAME = "topAnimationLoaded"
     }
 }

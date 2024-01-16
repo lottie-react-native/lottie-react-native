@@ -30,24 +30,16 @@ const defaultProps: Props = {
   textFiltersIOS: [],
 };
 
-customDirectEventTypes.topAnimationLoadedEvent = {
+customDirectEventTypes.topAnimationLoaded = {
   registrationName: 'onAnimationLoaded',
-};
+}
 
 customDirectEventTypes.topAnimationFinish = {
   registrationName: 'onAnimationFinish',
 };
 
-customDirectEventTypes.topAnimationFailureEvent = {
-  registrationName: 'onAnimationFailure',
-};
-
 customDirectEventTypes.topAnimationFailure = {
   registrationName: 'onAnimationFailure',
-}
-
-customDirectEventTypes.topAnimationLoaded = {
-  registrationName: 'onAnimationLoaded',
 }
 
 export class LottieView extends React.PureComponent<Props, {}> {
