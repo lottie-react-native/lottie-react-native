@@ -25,9 +25,6 @@ jobs:
       - uses: GuillaumeFalourd/setup-windows10-sdk-action@v1.11
         with:
           sdk-version: 17763
-      - name: List installed Windows SDKs
-        run: |
-          & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -products * -requires Microsoft.VisualStudio.Component.Windows10SDK -property installationPath
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
         with:
