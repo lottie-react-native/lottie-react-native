@@ -12,7 +12,7 @@ For the first time, designers can create **and ship** beautiful animations witho
 
 ## Breaking Changes in v6!
 
-We've made some significant updates in version 6 that may impact your current setup. To get all the details about these changes, check out the [changelog](/CHANGELOG.md).
+We've made some significant updates in version 6 that may impact your current setup. To get all the details about these changes, check out the [migration guide](/MIGRATION-5-TO-6.md).
 
 Stay informed to ensure a seamless transition to the latest version. Thank you!
 
