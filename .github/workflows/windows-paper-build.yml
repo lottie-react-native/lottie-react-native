@@ -43,7 +43,7 @@ jobs:
           msbuild-architecture: x64
 
       - name: Install node modules
-        run: yarn install --frozen-lock
+        run: yarn install
 
       - name: Build x64 release
         shell: powershell
