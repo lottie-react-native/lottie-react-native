@@ -105,7 +105,7 @@ Codegen animations are supported by adding LottieAnimation items to your project
 
 ```js
 // js
-<LottieView source={"MyAnimation"} />
+<LottieView source={"MyAnimation"} style={{width: "100%", height: "100%"}} />
 ```
 
 Codegen is available to both C# and C++ applications. Dynamic loading of JSON strings at runtime is currently only supported in C# applications.
@@ -122,7 +122,12 @@ import LottieView from "lottie-react-native";
 
 export default function Animation() {
   return (
-    <LottieView source={require("../path/to/animation.json")} style={{width: '100%', height: '100%'}} autoPlay loop />
+    <LottieView
+      source={require("../path/to/animation.json")}
+      style={{width: "100%", height: "100%"}}
+      autoPlay
+      loop
+    />
   );
 }
 ```
@@ -147,6 +152,7 @@ export default function AnimationWithImperativeApi() {
     <LottieView
       ref={animationRef}
       source={require("../path/to/animation.json")}
+      style={{width: "100%", height: "100%"}}
     />
   );
 }
@@ -177,6 +183,7 @@ export default function ControllingAnimationProgress() {
     <AnimatedLottieView
       source={require("../path/to/animation.json")}
       progress={animationProgress.current}
+      style={{width: "100%", height: "100%"}}
     />
   );
 }
@@ -204,7 +211,7 @@ export default function ChangingColorOfLayers() {
           color: "#F00000",
         },
       ]}
-      style={{width: '100%', height: '100%'}}
+      style={{width: "100%", height: "100%"}}
       autoPlay
       loop
     />
