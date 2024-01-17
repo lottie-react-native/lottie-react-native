@@ -39,7 +39,7 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
         with:
-          vs-version: '16.0'
+          vs-version: '17.3'
           msbuild-architecture: x64
 
       - name: Install node modules
