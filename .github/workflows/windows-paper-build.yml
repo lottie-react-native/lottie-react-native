@@ -46,6 +46,7 @@ jobs:
         run: yarn install
 
       - name: Install missing config
+        shell: powershell
         run: apps\paper\node_modules\react-native-windows\scripts\rnw-dependencies.ps1
 
       - name: Build x64 release
