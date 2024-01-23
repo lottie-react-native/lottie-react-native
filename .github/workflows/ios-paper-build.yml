@@ -12,11 +12,11 @@ concurrency:
 
 jobs:
   build-example:
-    runs-on: macos-12
+    runs-on: macos-13-arm64
 
     strategy:
       matrix:
-        xcode-version: [14.0, 14.3]
+        xcode-version: [14.2, 14.3.1]
 
     steps:
       - name: List all available XCode versions
