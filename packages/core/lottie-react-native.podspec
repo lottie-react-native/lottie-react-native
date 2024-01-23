@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'lottie-ios', '~> 4.4.0'
 
-  s.swift_version = '5.6'
+  s.swift_version = '5.7'
 
   # install_modules_dependencies has been defined since React Native 70
   # if you only support React Native 70+, we can remove the `if defined?() else` statement
