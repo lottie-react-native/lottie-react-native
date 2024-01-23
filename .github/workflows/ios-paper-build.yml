@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   build-example:
-    runs-on: macos-13-arm64
+    runs-on: macos-13
 
     strategy:
       matrix:
