@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.homepage                = package["homepage"]
 
   s.ios.deployment_target   = '12.4'
-  s.osx.deployment_target   = '10.10'
+  s.osx.deployment_target   = '10.12'
   s.tvos.deployment_target  = '12.4'
 
   s.source                  = { :git => "https://github.com/lottie-react-native/lottie-react-native.git", :tag => "v#{s.version}" }
@@ -33,9 +33,9 @@ Pod::Spec.new do |s|
     'Lottie_React_Native_Privacy' => ['ios/PrivacyInfo.xcprivacy'],
   }
 
-  s.dependency 'lottie-ios', '~> 4.3.4'
+  s.dependency 'lottie-ios', '~> 4.4.0'
 
-  s.swift_version = '5.6'
+  s.swift_version = '5.7'
 
   # install_modules_dependencies has been defined since React Native 70
   # if you only support React Native 70+, we can remove the `if defined?() else` statement
