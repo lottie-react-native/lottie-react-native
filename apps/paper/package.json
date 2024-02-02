@@ -23,7 +23,7 @@
     "lottie-react-native": "workspace:*",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
-    "react-native": "0.72.6",
+    "react-native": "0.72.10",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-web": "^0.19.8",
     "react-native-windows": "0.71.18",
