@@ -106,6 +106,332 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		456B101AEC98C2F14D08A482 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		456B101FD3A9ED533F8F2AC5 /* _CodeSignature */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = _CodeSignature;
+			path = "ios-arm64_i386_x86_64-simulator/OpenSSL.framework/_CodeSignature";
+			sourceTree = "<group>";
+		};
+		456B10CA52355111965125F8 /* xcuserdata */ = {
+			isa = PBXGroup;
+			children = (
+				456B1908B992B90D01D50D86 /* parsanasirimehr.xcuserdatad */,
+			);
+			name = xcuserdata;
+			path = example.xcworkspace/xcuserdata;
+			sourceTree = "<group>";
+		};
+		456B124E4FF2B0C21D58F4F7 /* xcschemes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = xcschemes;
+			sourceTree = "<group>";
+		};
+		456B126B8BD96690729FEFBF /* A */ = {
+			isa = PBXGroup;
+			children = (
+				456B101AEC98C2F14D08A482 /* Headers */,
+				456B19D8EED1656AB98A7845 /* Modules */,
+			);
+			path = A;
+			sourceTree = "<group>";
+		};
+		456B12A7EE6A892009CF983B /* RCT-Folly */ = {
+			isa = PBXGroup;
+			children = (
+				456B17738E977C4EBC9CC1BA /* experimental */,
+				456B18B910F3743CB1F5CAF5 /* futures */,
+				456B1C0265A542C601F5E8E9 /* detail */,
+				456B134D7C5E770AE697F3E5 /* chrono */,
+				456B1DBA3EE7A23698C2B5AD /* lang */,
+				456B1560CD65A514A4FE517E /* concurrency */,
+				456B1FA5AC8CFC48682848E2 /* executors */,
+				456B1CC2BD06BFF17173A9C8 /* poly */,
+			);
+			path = "RCT-Folly";
+			sourceTree = "<group>";
+		};
+		456B12EF08ABC5C47AE32264 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Delegate;
+			path = Internal/Delegate;
+			sourceTree = "<group>";
+		};
+		456B134D7C5E770AE697F3E5 /* chrono */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = chrono;
+			path = folly/chrono;
+			sourceTree = "<group>";
+		};
+		456B13CA71FB3CCECDE4B894 /* Versions */ = {
+			isa = PBXGroup;
+			children = (
+				456B126B8BD96690729FEFBF /* A */,
+			);
+			name = Versions;
+			path = "macos-arm64_x86_64/OpenSSL.framework/Versions";
+			sourceTree = "<group>";
+		};
+		456B13DAE6F7D747340E8631 /* OpenSSL-Universal */ = {
+			isa = PBXGroup;
+			children = (
+				456B1DD513DE5BD3296A3768 /* Frameworks */,
+			);
+			path = "OpenSSL-Universal";
+			sourceTree = "<group>";
+		};
+		456B14A4E0A7F8F96904792C /* xcschemes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = xcschemes;
+			sourceTree = "<group>";
+		};
+		456B1560CD65A514A4FE517E /* concurrency */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = concurrency;
+			path = folly/concurrency;
+			sourceTree = "<group>";
+		};
+		456B15675056D3C90068BE96 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				456B1D15F7219642BA8B1710 /* lottiereactnative */,
+			);
+			name = components;
+			path = build/generated/ios/react/renderer/components;
+			sourceTree = "<group>";
+		};
+		456B15D3F2A92E55C65D2CAB /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Modules;
+			path = "ios-arm64_i386_x86_64-simulator/OpenSSL.framework/Modules";
+			sourceTree = "<group>";
+		};
+		456B16E6E9A4D4D2444E58B0 /* OpenSSL.xcframework */ = {
+			isa = PBXGroup;
+			children = (
+				456B101FD3A9ED533F8F2AC5 /* _CodeSignature */,
+				456B15D3F2A92E55C65D2CAB /* Modules */,
+				456B13CA71FB3CCECDE4B894 /* Versions */,
+				456B1AF68A1B762BA860E107 /* Headers */,
+			);
+			path = OpenSSL.xcframework;
+			sourceTree = "<group>";
+		};
+		456B17738E977C4EBC9CC1BA /* experimental */ = {
+			isa = PBXGroup;
+			children = (
+				456B18C771686742DCF8934A /* detail */,
+				456B1A316FEB39C143F69638 /* io */,
+				456B1E2F06ACB94E4E782C45 /* observer */,
+				456B1D8650D9AD7A612989F3 /* coro */,
+				456B1832D9D6B3DB8AE010F0 /* flat_combining */,
+				456B1BF5C21FF16AAD7052C9 /* test */,
+			);
+			name = experimental;
+			path = folly/experimental;
+			sourceTree = "<group>";
+		};
+		456B1832D9D6B3DB8AE010F0 /* flat_combining */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = flat_combining;
+			sourceTree = "<group>";
+		};
+		456B18B910F3743CB1F5CAF5 /* futures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = futures;
+			path = folly/futures;
+			sourceTree = "<group>";
+		};
+		456B18C771686742DCF8934A /* detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = detail;
+			path = crypto/detail;
+			sourceTree = "<group>";
+		};
+		456B1908B992B90D01D50D86 /* parsanasirimehr.xcuserdatad */ = {
+			isa = PBXGroup;
+			children = (
+				456B124E4FF2B0C21D58F4F7 /* xcschemes */,
+			);
+			path = parsanasirimehr.xcuserdatad;
+			sourceTree = "<group>";
+		};
+		456B197762FE56D661B95E10 /* FBReactNativeSpec */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = FBReactNativeSpec;
+			path = build/generated/ios/FBReactNativeSpec;
+			sourceTree = "<group>";
+		};
+		456B19D8EED1656AB98A7845 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		456B1A316FEB39C143F69638 /* io */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = io;
+			sourceTree = "<group>";
+		};
+		456B1A6208C7E5B1394113C4 /* thread_factory */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = thread_factory;
+			sourceTree = "<group>";
+		};
+		456B1AF68A1B762BA860E107 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Headers;
+			path = "ios-arm64_armv7/OpenSSL.framework/Headers";
+			sourceTree = "<group>";
+		};
+		456B1BF5C21FF16AAD7052C9 /* test */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = test;
+			path = channels/test;
+			sourceTree = "<group>";
+		};
+		456B1C0265A542C601F5E8E9 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = detail;
+			path = folly/memory/detail;
+			sourceTree = "<group>";
+		};
+		456B1C6E5385577599CE5CE4 /* React */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = React;
+			path = "Target Support Files/React";
+			sourceTree = "<group>";
+		};
+		456B1CC2BD06BFF17173A9C8 /* poly */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = poly;
+			path = folly/poly;
+			sourceTree = "<group>";
+		};
+		456B1D15F7219642BA8B1710 /* lottiereactnative */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = lottiereactnative;
+			sourceTree = "<group>";
+		};
+		456B1D59AE59BBBBBE9D0315 /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				456B12EF08ABC5C47AE32264 /* Delegate */,
+				456B1DACA2A0ADE63B101B3D /* IOConsumer */,
+			);
+			name = SocketRocket;
+			path = SocketRocket/SocketRocket;
+			sourceTree = "<group>";
+		};
+		456B1D8650D9AD7A612989F3 /* coro */ = {
+			isa = PBXGroup;
+			children = (
+				456B1DB9D8FE357808C27797 /* detail */,
+			);
+			path = coro;
+			sourceTree = "<group>";
+		};
+		456B1DACA2A0ADE63B101B3D /* IOConsumer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = IOConsumer;
+			path = Internal/IOConsumer;
+			sourceTree = "<group>";
+		};
+		456B1DB9D8FE357808C27797 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = detail;
+			sourceTree = "<group>";
+		};
+		456B1DBA3EE7A23698C2B5AD /* lang */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = lang;
+			path = folly/lang;
+			sourceTree = "<group>";
+		};
+		456B1DD513DE5BD3296A3768 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				456B16E6E9A4D4D2444E58B0 /* OpenSSL.xcframework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		456B1DF908A6B7C60EA1964C /* parsanasirimehr.xcuserdatad */ = {
+			isa = PBXGroup;
+			children = (
+				456B14A4E0A7F8F96904792C /* xcschemes */,
+			);
+			name = parsanasirimehr.xcuserdatad;
+			path = example.xcodeproj/xcuserdata/parsanasirimehr.xcuserdatad;
+			sourceTree = "<group>";
+		};
+		456B1E2F06ACB94E4E782C45 /* observer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = observer;
+			sourceTree = "<group>";
+		};
+		456B1FA5AC8CFC48682848E2 /* executors */ = {
+			isa = PBXGroup;
+			children = (
+				456B1A6208C7E5B1394113C4 /* thread_factory */,
+			);
+			name = executors;
+			path = folly/executors;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +448,10 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				456B10CA52355111965125F8 /* xcuserdata */,
+				456B1DF908A6B7C60EA1964C /* parsanasirimehr.xcuserdatad */,
+				456B197762FE56D661B95E10 /* FBReactNativeSpec */,
+				456B15675056D3C90068BE96 /* components */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -144,6 +474,10 @@
 				5709B34CF0A7D63546082F79 /* Pods-example.release.xcconfig */,
 				5B7EB9410499542E8C5724F5 /* Pods-example-exampleTests.debug.xcconfig */,
 				89C6BE57DB24E9ADA2F236DE /* Pods-example-exampleTests.release.xcconfig */,
+				456B13DAE6F7D747340E8631 /* OpenSSL-Universal */,
+				456B12A7EE6A892009CF983B /* RCT-Folly */,
+				456B1D59AE59BBBBBE9D0315 /* SocketRocket */,
+				456B1C6E5385577599CE5CE4 /* React */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
