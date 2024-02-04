@@ -111,8 +111,8 @@ export class LottieView extends React.PureComponent<Props, {}> {
     const speed =
       duration && sources.sourceJson && (source as any).fr
         ? Math.round(
-            (((source as any).op / (source as any).fr) * 1000) / duration,
-          )
+          (((source as any).op / (source as any).fr) * 1000) / duration,
+        )
         : this.props.speed;
 
     const colorFilters = this.props.colorFilters?.map((colorFilter) => ({
