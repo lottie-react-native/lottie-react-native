@@ -21,6 +21,6 @@ constructor(surfaceId: Int, viewId: Int, private val error: Throwable) :
     }
 
     companion object {
-        const val EVENT_NAME = "topAnimationFailureEvent"
+        const val EVENT_NAME = "topAnimationFailure"
     }
 }

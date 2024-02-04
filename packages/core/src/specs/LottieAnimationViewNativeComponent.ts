@@ -4,11 +4,9 @@ import type {
   Double,
   Float,
 } from 'react-native/Libraries/Types/CodegenTypes';
-import codegenNativeComponent, {
-  NativeComponentType,
-} from 'react-native/Libraries/Utilities/codegenNativeComponent';
+import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
-import type { ProcessedColorValue, ViewProps } from 'react-native';
+import type { ProcessedColorValue, ViewProps, HostComponent } from 'react-native';
 
 export type OnAnimationFinishEvent = Readonly<{
   isCancelled: boolean;
@@ -57,20 +55,17 @@ export interface NativeProps extends ViewProps {
   textFiltersAndroid?: ReadonlyArray<TextFilterAndroidStruct>;
   textFiltersIOS?: ReadonlyArray<TextFilterIOSStruct>;
   onAnimationFinish?: BubblingEventHandler<
-    OnAnimationFinishEvent,
-    'onAnimationFinish'
+    OnAnimationFinishEvent
   >;
   onAnimationFailure?: BubblingEventHandler<
-    AnimationFailureEvent,
-    'onAnimationFailure'
+    AnimationFailureEvent
   >;
   onAnimationLoaded?: BubblingEventHandler<
-    AnimationLoadedEvent,
-    'onAnimationLoaded'
+    AnimationLoadedEvent
   >;
 }
 
-type LottieViewNativeComponentType = NativeComponentType<NativeProps>;
+type LottieViewNativeComponentType = HostComponent<NativeProps>;
 
 interface NativeCommands {
   play: (
@@ -87,4 +82,4 @@ export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
   supportedCommands: ['play', 'reset', 'pause', 'resume'],
 });
 
-export default codegenNativeComponent<NativeProps>('LottieAnimationView');
+export default codegenNativeComponent<NativeProps>('LottieAnimationView') as HostComponent<NativeProps>;
