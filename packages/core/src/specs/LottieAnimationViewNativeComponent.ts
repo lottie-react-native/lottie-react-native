@@ -55,16 +55,13 @@ export interface NativeProps extends ViewProps {
   textFiltersAndroid?: ReadonlyArray<TextFilterAndroidStruct>;
   textFiltersIOS?: ReadonlyArray<TextFilterIOSStruct>;
   onAnimationFinish?: BubblingEventHandler<
-    OnAnimationFinishEvent,
-    'onAnimationFinish'
+    OnAnimationFinishEvent
   >;
   onAnimationFailure?: BubblingEventHandler<
-    AnimationFailureEvent,
-    'onAnimationFailure'
+    AnimationFailureEvent
   >;
   onAnimationLoaded?: BubblingEventHandler<
-    AnimationLoadedEvent,
-    'onAnimationLoaded'
+    AnimationLoadedEvent
   >;
 }
 
