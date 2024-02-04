@@ -45,7 +45,7 @@ jobs:
         run: corepack enable
 
       - name: Install CocoaPods
-        run: sudo gem install cocoapods
+        run: sudo gem install cocoapods -v 1.14.3
 
       - name: Install Dependencies
         run: yarn install --immutable
