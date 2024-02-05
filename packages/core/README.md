@@ -56,7 +56,7 @@ Add the following to the end of your project file. For C# apps, this should come
     <LottieReactNativeDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\lottie-react-native\package.json'))\node_modules\lottie-react-native</LottieReactNativeDir>
 </PropertyGroup>
 <ImportGroup Label="LottieReactNativeTargets">
-    <Import Project="$(LottieReactNativeDir)\src\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
+    <Import Project="$(LottieReactNativeDir)\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
 </ImportGroup>
 ```
 
@@ -99,7 +99,7 @@ Codegen animations are supported by adding LottieAnimation items to your project
 ```xml
 <!-- .vcxproj or .csproj -->
 <ItemGroup>
-    <LottieAnimation Include="Assets/Animations/MyAnimation.json" Name="MyAnimation" />
+    <LottieAnimation Include="Assets\Animations\MyAnimation.json" Name="MyAnimation" />
 </ItemGroup>
 ```
 

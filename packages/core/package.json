@@ -12,8 +12,10 @@
     "src",
     "lib",
     "android",
+    "windows",
     "ios",
     "*.podspec",
+    "metro.config.windows.js",
     "react-native.config.js"
   ],
   "author": "Emilio Rodriguez <emiliorodriguez@gmail.com>",
@@ -37,7 +39,8 @@
     "build": "bob build",
     "release": "release-it",
     "lint:swift": "swiftlint ios",
-    "lint-fix:swift": "swiftlint --fix ios"
+    "lint-fix:swift": "swiftlint --fix ios",
+    "start:windows": "react-native start --use-react-native-windows"
   },
   "peerDependencies": {
     "@dotlottie/react-player": "^1.6.1",

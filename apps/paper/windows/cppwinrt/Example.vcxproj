@@ -119,16 +119,16 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <LottieAnimation Include="..\..\js\animations\9squares-AlBoardman.json" Name="9 squares" />
-    <LottieAnimation Include="..\..\js\animations\HamburgerArrow.json" Name="Hamburger Arrow" />
-    <LottieAnimation Include="..\..\js\animations\LineAnimation.json" Name="Line Animation" />
-    <LottieAnimation Include="..\..\js\animations\LottieLogo1.json" Name="Lottie Logo 1" />
-    <LottieAnimation Include="..\..\js\animations\LottieLogo2.json" Name="Lottie Logo 2" />
-    <LottieAnimation Include="..\..\js\animations\LottieWalkthrough.json" Name="Lottie Walkthrough" />
-    <LottieAnimation Include="..\..\js\animations\MotionCorpse-Jrcanest.json" Name="Motion Corpse" />
-    <LottieAnimation Include="..\..\js\animations\PinJump.json" Name="Pin Jump" />
-    <LottieAnimation Include="..\..\js\animations\TwitterHeart.json" Name="Twitter Heart" />
-    <LottieAnimation Include="..\..\js\animations\Watermelon.json" Name="Watermelon" />
+    <LottieAnimation Include="..\..\src\animations\9squares-AlBoardman.json" Name="9 squares" />
+    <LottieAnimation Include="..\..\src\animations\HamburgerArrow.json" Name="Hamburger Arrow" />
+    <LottieAnimation Include="..\..\src\animations\LineAnimation.json" Name="Line Animation" />
+    <LottieAnimation Include="..\..\src\animations\LottieLogo1.json" Name="Lottie Logo 1" />
+    <LottieAnimation Include="..\..\src\animations\LottieLogo2.json" Name="Lottie Logo 2" />
+    <LottieAnimation Include="..\..\src\animations\LottieWalkthrough.json" Name="Lottie Walkthrough" />
+    <LottieAnimation Include="..\..\src\animations\MotionCorpse-Jrcanest.json" Name="Motion Corpse" />
+    <LottieAnimation Include="..\..\src\animations\PinJump.json" Name="Pin Jump" />
+    <LottieAnimation Include="..\..\src\animations\TwitterHeart.json" Name="Twitter Heart" />
+    <LottieAnimation Include="..\..\src\animations\Watermelon.json" Name="Watermelon" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -148,10 +148,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\node_modules\@react-native-community\slider\windows\SliderWindows\SliderWindows.vcxproj">
+    <ProjectReference Include="..\..\node_modules\@react-native-community\slider\windows\SliderWindows\SliderWindows.vcxproj">
       <Project>{685a83ae-36bc-4e9d-bdc6-417ebf168463}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\node_modules\@react-native-picker\picker\windows\ReactNativePicker\ReactNativePicker.vcxproj">
+    <ProjectReference Include="..\..\node_modules\@react-native-picker\picker\windows\ReactNativePicker\ReactNativePicker.vcxproj">
       <Project>{bedcc600-4541-41f2-aa46-9e058202b6ad}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -160,7 +160,7 @@
     <LottieReactNativeDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'package.json'))</LottieReactNativeDir>
   </PropertyGroup>
   <ImportGroup Label="LottieReactNativeTargets">
-    <Import Project="$(LottieReactNativeDir)\src\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
+    <Import Project="..\..\..\..\packages\core\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
   </ImportGroup>
   <PropertyGroup Label="ReactNativeWindowsNodeProps">
     <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
@@ -178,14 +178,14 @@
     <Error Condition="!Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppApp.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppApp.targets'))" />
   </Target>
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\Microsoft.UI.Xaml.2.6.0\build\native\Microsoft.UI.Xaml.targets" Condition="Exists('packages\Microsoft.UI.Xaml.2.6.0\build\native\Microsoft.UI.Xaml.targets')" />
+    <Import Project="packages\Microsoft.UI.Xaml.2.8.0\build\native\Microsoft.UI.Xaml.targets" Condition="Exists('packages\Microsoft.UI.Xaml.2.8.0\build\native\Microsoft.UI.Xaml.targets')" />
     <Import Project="packages\Microsoft.Windows.CppWinRT.2.0.211028.7\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('packages\Microsoft.Windows.CppWinRT.2.0.211028.7\build\native\Microsoft.Windows.CppWinRT.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.UI.Xaml.2.6.0\build\native\Microsoft.UI.Xaml.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.UI.Xaml.2.6.0\build\native\Microsoft.UI.Xaml.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.UI.Xaml.2.8.0\build\native\Microsoft.UI.Xaml.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.UI.Xaml.2.8.0\build\native\Microsoft.UI.Xaml.targets'))" />
     <Error Condition="!Exists('packages\LottieGen.MsBuild.7.0.5\build\native\LottieGen.MsBuild.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\LottieGen.MsBuild.7.0.5\build\native\LottieGen.MsBuild.props'))" />
     <Error Condition="!Exists('packages\Microsoft.Windows.CppWinRT.2.0.211028.7\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Windows.CppWinRT.2.0.211028.7\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('packages\Microsoft.Windows.CppWinRT.2.0.211028.7\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Windows.CppWinRT.2.0.211028.7\build\native\Microsoft.Windows.CppWinRT.targets'))" />
