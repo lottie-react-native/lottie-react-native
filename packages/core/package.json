@@ -14,7 +14,8 @@
     "android",
     "ios",
     "*.podspec",
-    "react-native.config.js"
+    "react-native.config.js",
+    "windows"
   ],
   "author": "Emilio Rodriguez <emiliorodriguez@gmail.com>",
   "homepage": "https://github.com/airbnb/lottie-react-native#readme",
