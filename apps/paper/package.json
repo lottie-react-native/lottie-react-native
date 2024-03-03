@@ -7,7 +7,7 @@
     "android": "react-native run-android",
     "build:android": "cd android && ./gradlew assembleDebug --no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a",
     "lint:android": "cd android && ./gradlew lottie-react-native:lint --no-daemon --console=plain && cd ..",
-    "ios": "bundle install && pod install --project-directory=ios && react-native run-ios",
+    "ios": "bundle install && pod update --project-directory=ios && react-native run-ios",
     "web": "webpack serve",
     "start": "react-native start",
     "test": "jest",
