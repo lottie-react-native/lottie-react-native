@@ -1,14 +1,24 @@
-import React, { forwardRef, useImperativeHandle, useRef, useCallback, useEffect } from 'react';
-import type { LottieViewProps } from '../types';
-import { parsePossibleSources } from './utils';
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useCallback,
+  useEffect,
+} from "react";
+import { parsePossibleSources } from "./utils";
+import { LottieViewProps } from "lottie-react-native";
+import type {
+  DotLottieCommonPlayer,
+  PlayerEvents,
+  Props,
+} from "@dotlottie/react-player";
 
-let DotLottiePlayer, Player;
+let DotLottiePlayer: React.ForwardRefExoticComponent<
+  Props & React.RefAttributes<DotLottieCommonPlayer | null>
+>;
 try {
-    DotLottiePlayer = require('@dotlottie/react-player').DotLottiePlayer;
-} catch (e) { }
-try {
-    Player = require('@lottiefiles/react-lottie-player').Player;
-} catch (e) { }
+  DotLottiePlayer = require("@dotlottie/react-player").DotLottiePlayer;
+} catch (e) {}
 
 const LottieView = forwardRef(
   (
@@ -25,17 +35,18 @@ const LottieView = forwardRef(
       onAnimationFinish,
       onAnimationLoop,
     }: LottieViewProps,
-    ref: any,
+    ref: any
   ) => {
     const sources = parsePossibleSources(source);
-    const isLottie =
-      sources.sourceName?.includes('.lottie') || !!sources.sourceDotLottieURI;
-    const lottieSource = sources.sourceDotLottieURI || sources.sourceName;
-    const jsonSource = sources.sourceURL || sources.sourceJson;
+    //const isLottie =  sources?.sourceName?.includes(".lottie") || !!sources?.sourceDotLottieURI;
+    const lottieSource = sources?.sourceDotLottieURI || sources?.sourceName;
+    const jsonSource = sources?.sourceURL || sources?.sourceJson;
 
     const [isError, setIsError] = React.useState(false);
+    const [isReady, setIsReady] = React.useState(false);
     const [key, setKey] = React.useState(0);
 
+    const playerRef = useRef<DotLottieCommonPlayer | null>(null);
     /**
      *  If an error occured reset the key when the source changes to force a re-render.
      */
@@ -44,83 +55,119 @@ const LottieView = forwardRef(
         setKey((prevKey) => prevKey + 1);
         setIsError(false);
       }
-    }, [source])
+    }, [source]);
 
     if (progress != undefined && __DEV__) {
-      console.warn('lottie-react-native: progress is not supported on web');
+      console.warn("lottie-react-native: progress is not supported on web");
     }
 
-    const handleEvent = useCallback((event) => {
-      switch (event) {
-        case 'error':
-          onAnimationFailure?.('error');
-          setIsError(true);
-          break;
-
-        case 'complete':
-          onAnimationFinish?.(false);
-          break;
-
-        case 'stop':
-        case 'pause':
-          onAnimationFinish?.(true);
-          break;
-
-        case 'loop':
-        case 'loopComplete':
-          onAnimationLoop?.();
-          break;
-      }
-    }, []);
-
-    const playerRef = useRef(null);
-
-    useImperativeHandle(ref, () => ({
-      play: () => {
-        playerRef.current?.play();
-      },
-      reset: () => {
-        if (isLottie) {
-          playerRef.current?.stop();
+    const runAfterReady = useCallback(
+      (fn: () => void) => {
+        if (!isReady) {
+          const container = playerRef.current?.container;
+          const listerner = () => {
+            fn();
+            container?.removeEventListener("is_ready", listerner);
+          };
+          container?.addEventListener("is_ready", listerner);
         } else {
-          playerRef.current?.setSeeker(0, false);
+          fn();
         }
       },
-      pause: () => {
-        playerRef.current?.pause();
-      },
-      resume: () => {
-        playerRef.current?.play();
-      },
-    }));
+      [isReady]
+    );
 
-    if (isLottie) {
-      if (!DotLottiePlayer) {
-        throw new Error('lottie-react-native: The module @dotlottie/react-player is missing.');
-      }
-      return (
-        <DotLottiePlayer
-          lottieRef={playerRef}
-          src={lottieSource}
-          onEvent={handleEvent}
-          style={webStyle}
-          autoplay={autoPlay}
-          speed={speed}
-          loop={loop}
-          hover={hover}
-          direction={direction}
-        />
+    const handleEvent = useCallback(
+      (event: PlayerEvents) => {
+        switch (event) {
+          case "ready":
+            if (isReady) return;
+            const container = playerRef.current?.container;
+            setIsReady(true);
+            container?.dispatchEvent(new Event("is_ready"));
+            break;
+          case "error":
+            onAnimationFailure?.("error");
+            setIsError(true);
+            break;
+
+          case "complete":
+            onAnimationFinish?.(false);
+            //prevent reseting animation if not looping, for consistency with native
+            autoPlay && !loop && playerRef.current?.stop();
+            break;
+
+          case "stop":
+          case "pause":
+            onAnimationFinish?.(true);
+            break;
+
+          //case "loop":
+          case "loopComplete":
+            onAnimationLoop?.();
+            break;
+        }
+      },
+      [isReady]
+    );
+
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          play: (s?: number, e?: number) => {
+            const player = playerRef.current;
+            if (!player) return;
+            runAfterReady(() => {
+              try {
+                const bothDefined = s !== undefined && e !== undefined;
+                const bothEqual = e === s;
+                if (bothDefined) {
+                  if (bothEqual) {
+                    player.goToAndStop(e, true);
+                    return;
+                  }
+                  player.playSegments([s, e], true);
+                  return;
+                }
+                if (s !== undefined && e === undefined) {
+                  player.goToAndPlay(s, true);
+                }
+              } catch (error) {
+                console.error(error);
+              }
+            });
+          },
+          reset: () => {
+            runAfterReady(() => {
+              playerRef.current?.goToAndStop(0, false);
+            });
+          },
+          pause: () => {
+            runAfterReady(() => {
+              playerRef.current?.pause();
+            });
+          },
+          resume: () => {
+            runAfterReady(() => {
+              playerRef.current?.play();
+            });
+          },
+        };
+      },
+      [isReady]
+    );
+
+    if (!DotLottiePlayer) {
+      throw new Error(
+        "lottie-react-native: The module @dotlottie/react-player is missing."
       );
     }
-
-    if (!Player) {
-      throw new Error('lottie-react-native: The module @lottiefiles/react-lottie-player is missing.');
-    }
     return (
-      <Player
+      <DotLottiePlayer
         key={key}
         ref={playerRef}
-        src={jsonSource}
+        src={(lottieSource || jsonSource) as string}
         onEvent={handleEvent}
         style={webStyle}
         autoplay={autoPlay}
@@ -130,7 +177,7 @@ const LottieView = forwardRef(
         direction={direction}
       />
     );
-  },
+  }
 );
 
-export { LottieView };
+export default LottieView;
