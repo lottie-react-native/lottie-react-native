@@ -121,6 +121,7 @@ const LottieView = forwardRef(
             runAfterReady(() => {
               try {
                 const bothDefined = s !== undefined && e !== undefined;
+                const bothUndefined = s === undefined && e === undefined;
                 const bothEqual = e === s;
                 if (bothDefined) {
                   if (bothEqual) {
@@ -132,6 +133,9 @@ const LottieView = forwardRef(
                 }
                 if (s !== undefined && e === undefined) {
                   player.goToAndPlay(s, true);
+                }
+                if (bothUndefined) {
+                  player.play();
                 }
               } catch (error) {
                 console.error(error);
