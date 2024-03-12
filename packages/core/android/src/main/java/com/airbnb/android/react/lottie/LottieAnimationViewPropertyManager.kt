@@ -18,13 +18,14 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.ReadableType
 import com.facebook.react.views.text.ReactFontManager
-import com.facebook.react.views.text.TextAttributeProps.UNSET
 import com.facebook.react.util.RNLog
 import java.lang.ref.WeakReference
 import java.util.regex.Pattern
 import java.util.zip.ZipInputStream
 import java.io.File
 import java.io.FileInputStream
+
+
 
 /**
  * Class responsible for applying the properties to the LottieView. The way react-native works makes
@@ -36,6 +37,7 @@ import java.io.FileInputStream
  */
 class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     private val viewWeakReference: WeakReference<LottieAnimationView>
+    const val UNSERT = -1
 
     /**
      * Should be set to true if one of the animationName related parameters has changed as a result
@@ -71,7 +73,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
                 return ReactFontManager.getInstance()
                     .getTypeface(fontFamily, UNSET, UNSET, view.context.assets)
             }
-        
+
             override fun fetchFont(fontFamily: String, fontStyle: String, fontName: String): Typeface {
                 val weight = when (fontStyle) {
                     "Thin" -> 100
