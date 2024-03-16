@@ -38,7 +38,6 @@ const LottieView = forwardRef(
     ref: any
   ) => {
     const sources = parsePossibleSources(source);
-    //const isLottie =  sources?.sourceName?.includes(".lottie") || !!sources?.sourceDotLottieURI;
     const lottieSource = sources?.sourceDotLottieURI || sources?.sourceName;
     const jsonSource = sources?.sourceURL || sources?.sourceJson;
 
@@ -184,4 +183,4 @@ const LottieView = forwardRef(
   }
 );
 
-export default LottieView;
+export { LottieView };
