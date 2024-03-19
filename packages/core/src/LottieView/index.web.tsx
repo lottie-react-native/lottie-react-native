@@ -7,18 +7,11 @@ import React, {
 } from "react";
 import { parsePossibleSources } from "./utils";
 import { LottieViewProps } from "lottie-react-native";
-import type {
+import {
   DotLottieCommonPlayer,
+  DotLottiePlayer,
   PlayerEvents,
-  Props,
 } from "@dotlottie/react-player";
-
-let DotLottiePlayer: React.ForwardRefExoticComponent<
-  Props & React.RefAttributes<DotLottieCommonPlayer | null>
->;
-try {
-  DotLottiePlayer = require("@dotlottie/react-player").DotLottiePlayer;
-} catch (e) {}
 
 const LottieView = forwardRef(
   (
@@ -64,11 +57,11 @@ const LottieView = forwardRef(
       (fn: () => void) => {
         if (!isReady) {
           const container = playerRef.current?.container;
-          const listerner = () => {
+          const listener = () => {
             fn();
-            container?.removeEventListener("is_ready", listerner);
+            container?.removeEventListener("is_ready", listener);
           };
-          container?.addEventListener("is_ready", listerner);
+          container?.addEventListener("is_ready", listener);
         } else {
           fn();
         }
@@ -161,11 +154,6 @@ const LottieView = forwardRef(
       [isReady]
     );
 
-    if (!DotLottiePlayer) {
-      throw new Error(
-        "lottie-react-native: The module @dotlottie/react-player is missing."
-      );
-    }
     return (
       <DotLottiePlayer
         key={key}
