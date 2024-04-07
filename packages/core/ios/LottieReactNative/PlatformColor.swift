@@ -15,10 +15,10 @@ typealias PlatformColor = NSColor
 
 // NSColor doesn't have this extension (UIColor receives it from Lottie), so we add it here
 public extension NSColor {
-    var lottieColorValue: Color {
+    var lottieColorValue: LottieColor {
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         getRed(&r, green: &g, blue: &b, alpha: &a)
-        return Color(r: Double(r), g: Double(g), b: Double(b), a: Double(a))
+        return LottieColor(r: Double(r), g: Double(g), b: Double(b), a: Double(a))
     }
 }
 
