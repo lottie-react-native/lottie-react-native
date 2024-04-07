@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
     'Lottie_React_Native_Privacy' => ['ios/PrivacyInfo.xcprivacy'],
   }
 
-  s.dependency 'lottie-ios', '~> 4.4.1'
+  s.dependency 'lottie-ios', '4.4.1'
 
   s.swift_version = '5.7'
 
