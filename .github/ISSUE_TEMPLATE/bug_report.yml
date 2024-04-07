@@ -1,0 +1,147 @@
+name: Bug report
+description: Report an issue with Lottie React Native here.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+        Before you proceed:
+
+        - Make sure to check whether there are similar issues in the repository
+        - Make sure you've read the [migration guide](https://github.com/lottie-react-native/lottie-react-native/blob/master/MIGRATION-5-TO-6.md) for v5 to v6. 
+        - Make sure you've read the troubleshoot guide in the [README](https://github.com/lottie-react-native/lottie-react-native/blob/master/README.md#troubleshooting).
+        - Make sure to provide a minimal reproducible repo that reproduces the issue. Issues without a reproduction are likely to stale.
+
+        Please fill out the following information to help us understand and reproduce the issue.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Required information
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Please provide a clear, concise and descriptive explanation of what the bug is. Include screenshots or a video if needed. Tell us what were you expecting to happen instead of what is happening now.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide a detailed list of steps that reproduce the issue.
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: input
+    id: repro
+    attributes:
+      label: Snack or a link to a repository
+      description: |
+        Please provide a Snack (https://snack.expo.io/) or a link to a repository on GitHub under your username that reproduces the issue.
+        Here are some tips for providing a minimal example: https://stackoverflow.com/help/mcve.
+        Issues without a reproduction are likely to stale.
+      placeholder: Link to a Snack or a GitHub repository
+    validations:
+      required: true
+
+  - type: input
+    id: lottie-react-native-version
+    attributes:
+      label: Lottie React Native version
+      description: What version of lottie-react-native are you using?
+      placeholder: 6.7.2
+    validations:
+      required: true
+
+  - type: input
+    id: react-native-version
+    attributes:
+      label: React Native version
+      description: What version of react-native are you using?
+      placeholder: 0.73.1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Platforms
+      description: On what platform your application is running on?
+      multiple: true
+      options:
+        - Android
+        - iOS
+        - macOS
+        - Web
+        - Windows
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Additonal information
+
+        Providing as much information as possible greatly helps us with reproducting the issues.
+
+  - type: dropdown
+    id: workflow
+    attributes:
+      label: Workflow
+      description: How is your application managed?
+      options:
+        - React Native
+        - Expo Go
+        - Expo Dev Client
+    validations:
+      required: true
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Architecture
+      description: What React Native architecture your application is running on? Currently, the default architecture on React Native is Paper so if you haven't changed it in your application select this option.
+      options:
+        - Paper (Old Architecture)
+        - Fabric (New Architecture)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: build-type
+    attributes:
+      label: Build type
+      description: What is the build configuration/variant of your native app and JavaScript bundle mode?
+      options:
+        - Debug app & dev bundle
+        - Release app & production bundle
+        - Debug app & production bundle
+        - Release app & dev bundle
+        - Other (please specify)
+
+  - type: dropdown
+    id: emulator
+    attributes:
+      label: Device
+      description: How are you running your application?
+      options:
+        - iOS simulator
+        - Android emulator
+        - Real device
+
+  - type: dropdown
+    id: acknowledgements
+    attributes:
+      label: Acknowledgements
+      description: I searched for similar issues in the repository.
+      options:
+        - 'Yes'
+    validations:
+      required: true
