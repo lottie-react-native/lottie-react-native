@@ -10,7 +10,7 @@ body:
 
         - Make sure to check whether there are similar issues in the repository
         - Make sure you've read the [migration guide](https://github.com/lottie-react-native/lottie-react-native/blob/master/MIGRATION-5-TO-6.md) for v5 to v6. 
-        - Make sure you've read the troubleshoot guide in the [README](https://github.com/lottie-react-native/lottie-react-native/blob/master/README.md#troubleshooting)
+        - Make sure you've read the troubleshoot guide in the [README](https://github.com/lottie-react-native/lottie-react-native/blob/master/README.md#troubleshooting).
         - Make sure to provide a minimal reproducible repo that reproduces the issue. Issues without a reproduction are likely to stale.
 
         Please fill out the following information to help us understand and reproduce the issue.
