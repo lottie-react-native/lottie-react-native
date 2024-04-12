@@ -58,7 +58,7 @@ export interface NativeProps extends ViewProps {
   textFiltersIOS?: ReadonlyArray<TextFilterIOSStruct>;
   onAnimationLoadStart?: BubblingEventHandler<
     AnimationLoadStartEvent,
-    'onAnimationLoadStarted'
+    'onAnimationLoadStart'
   >
   onAnimationFinish?: BubblingEventHandler<
     AnimationFinishEvent,
