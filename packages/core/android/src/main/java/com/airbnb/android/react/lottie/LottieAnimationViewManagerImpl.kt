@@ -30,6 +30,18 @@ internal object LottieAnimationViewManagerImpl {
     }
 
     @JvmStatic
+    fun sendOnAnimationLoadStartEvent(view: LottieAnimationView) {
+        val screenContext = view.context as ThemedReactContext
+        val eventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(screenContext, view.id)
+        eventDispatcher?.dispatchEvent(
+            OnAnimationLoadStartEvent(
+                screenContext.surfaceId,
+                view.id
+            )
+        )
+    }
+
+    @JvmStatic
     fun sendOnAnimationFinishEvent(view: LottieAnimationView, isCancelled: Boolean) {
         val screenContext = view.context as ThemedReactContext
         val eventDispatcher = UIManagerHelper.getEventDispatcherForReactTag(screenContext, view.id)
