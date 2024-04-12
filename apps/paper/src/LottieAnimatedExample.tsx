@@ -1,6 +1,6 @@
 import Slider from '@react-native-community/slider';
-import LottieView, {LottieViewProps} from 'lottie-react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import LottieView, { LottieViewProps } from 'lottie-react-native';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Button,
@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ExamplePicker} from './ExamplePicker';
+import { ExamplePicker } from './ExamplePicker';
 import RenderModePicker from './RenderModePicker';
 import {
   EXAMPLES,
@@ -46,6 +46,10 @@ const LottieAnimatedExample = () => {
 
   const onAnimationLoop = () => {
     console.log('Animation looped');
+  };
+
+  const onAnimationLoadStart = () => {
+    console.log('Animation load started');
   };
 
   const onPlayPress = () => {
@@ -87,19 +91,19 @@ const LottieAnimatedExample = () => {
   }
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ExamplePicker
         example={example}
         examples={EXAMPLES}
         onChange={setExample}
       />
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <AnimatedLottieView
           ref={anim}
           autoPlay={isImperative ? false : isPlaying}
           style={[
             isInverse ? styles.lottieViewInverse : {},
-            {width: '100%', height: '100%'},
+            { width: '100%', height: '100%' },
           ]}
           source={example?.getSource()}
           progress={isImperative ? progress : undefined}
@@ -108,12 +112,13 @@ const LottieAnimatedExample = () => {
           onAnimationFailure={onAnimationFailure}
           onAnimationFinish={onAnimationFinish}
           onAnimationLoop={onAnimationLoop}
+          onAnimationLoadStart={onAnimationLoadStart}
           enableMergePathsAndroidForKitKatAndAbove
           renderMode={renderMode}
           resizeMode={'contain'}
         />
       </View>
-      <View style={{paddingBottom: 20, paddingHorizontal: 10}}>
+      <View style={{ paddingBottom: 20, paddingHorizontal: 10 }}>
         <View style={styles.controlsRow}>
           <TouchableOpacity onPress={onLoopPress} disabled={isImperative}>
             <Image
@@ -167,7 +172,7 @@ const LottieAnimatedExample = () => {
             <Text>Duration: ({Math.round(duration)}ms)</Text>
           </View>
           <Slider
-            style={{height: 30}}
+            style={{ height: 30 }}
             step={50}
             minimumValue={50}
             maximumValue={6000}
