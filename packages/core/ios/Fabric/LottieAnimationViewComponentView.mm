@@ -168,6 +168,17 @@ using namespace facebook::react;
     std::dynamic_pointer_cast<const LottieAnimationViewEventEmitter>(_eventEmitter)->onAnimationLoaded(event);
 }
 
+- (void)onAnimationLoadStart
+{
+    if(!_eventEmitter) {
+        return;
+    }
+    
+    LottieAnimationViewEventEmitter::OnAnimationLoadStart event = {};
+    
+    std::dynamic_pointer_cast<const LottieAnimationViewEventEmitter>(_eventEmitter)->onAnimationLoadStart(event);
+}
+
 @end
 
 Class<RCTComponentViewProtocol> LottieAnimationViewCls(void)

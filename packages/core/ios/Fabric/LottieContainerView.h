@@ -9,6 +9,7 @@
 - (void)onAnimationFinishWithIsCancelled:(BOOL)isCancelled;
 - (void)onAnimationFailureWithError:(NSString*)error;
 - (void)onAnimationLoaded;
+- (void)onAnimationLoadStart;
 @end
 
 @interface LottieContainerView : RCTView

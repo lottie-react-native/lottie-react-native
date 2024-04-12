@@ -59,7 +59,7 @@ export interface NativeProps extends ViewProps {
   onAnimationLoadStart?: BubblingEventHandler<
     AnimationLoadStartEvent,
     'onAnimationLoadStart'
-  >
+  >;
   onAnimationFinish?: BubblingEventHandler<
     AnimationFinishEvent,
     'onAnimationFinish'
