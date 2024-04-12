@@ -8,7 +8,9 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 import type { ProcessedColorValue, ViewProps, HostComponent } from 'react-native';
 
-export type OnAnimationFinishEvent = Readonly<{
+type AnimationLoadStartEvent = Readonly<{}>
+
+export type AnimationFinishEvent = Readonly<{
   isCancelled: boolean;
 }>;
 
@@ -54,8 +56,12 @@ export interface NativeProps extends ViewProps {
   dummy?: Readonly<{ dummy: boolean }>;
   textFiltersAndroid?: ReadonlyArray<TextFilterAndroidStruct>;
   textFiltersIOS?: ReadonlyArray<TextFilterIOSStruct>;
+  onAnimationLoadStart?: BubblingEventHandler<
+    AnimationLoadStartEvent,
+    'onAnimationLoadStarted'
+  >
   onAnimationFinish?: BubblingEventHandler<
-    OnAnimationFinishEvent,
+    AnimationFinishEvent,
     'onAnimationFinish'
   >;
   onAnimationFailure?: BubblingEventHandler<

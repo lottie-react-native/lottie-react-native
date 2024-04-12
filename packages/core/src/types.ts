@@ -108,6 +108,12 @@ export interface LottieViewProps {
   autoPlay?: boolean;
 
   /**
+   * A callback function which will be called when animation starts loading.
+   * @platform ios, android, web
+   */
+  onAnimationLoadStart?: () => void
+
+  /**
    * A callback function which will be called when animation is finished. Note that this
    * callback will be called only when `loop` is set to false.
    * @platform ios, android, web
