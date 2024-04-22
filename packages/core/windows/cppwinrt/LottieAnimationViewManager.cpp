@@ -197,14 +197,14 @@ namespace winrt::LottieReactNative::implementation {
     // IViewManagerWithExportedEventTypeConstants
     winrt::Microsoft::ReactNative::ConstantProviderDelegate LottieAnimationViewManager::ExportedCustomBubblingEventTypeConstants() noexcept
     {
-        return nullptr;
-    }
-
-    winrt::Microsoft::ReactNative::ConstantProviderDelegate LottieAnimationViewManager::ExportedCustomDirectEventTypeConstants() noexcept
-    {
         return [](IJSValueWriter const& constantWriter) {
             WriteCustomDirectEventTypeConstant(constantWriter, "onAnimationLoop", "onAnimationLoop");
             WriteCustomDirectEventTypeConstant(constantWriter, "onAnimationFinish", "onAnimationFinish");
         };
+    }
+
+    winrt::Microsoft::ReactNative::ConstantProviderDelegate LottieAnimationViewManager::ExportedCustomDirectEventTypeConstants() noexcept
+    {
+        return nullptr;
     }
 }

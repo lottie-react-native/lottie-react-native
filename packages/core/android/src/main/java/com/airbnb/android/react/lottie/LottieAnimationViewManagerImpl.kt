@@ -68,7 +68,7 @@ internal object LottieAnimationViewManagerImpl {
     }
 
     @JvmStatic
-    fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
+    fun getExportedCustomBubblingEventTypeConstants(): MutableMap<String, Any> {
         return MapBuilder.of(
             OnAnimationFinishEvent.EVENT_NAME,
             MapBuilder.of("registrationName", "onAnimationFinish"),
