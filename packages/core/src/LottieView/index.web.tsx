@@ -85,8 +85,6 @@ const LottieView = forwardRef(
 
           case "complete":
             onAnimationFinish?.(false);
-            //prevent reseting animation if not looping, for consistency with native
-            autoPlay && !loop && playerRef.current?.stop();
             break;
 
           case "stop":
