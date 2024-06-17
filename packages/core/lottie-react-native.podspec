@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.author                  = package["author"]
   s.homepage                = package["homepage"]
 
-  s.ios.deployment_target   = '12.4'
+  s.ios.deployment_target   = '13.0'
   s.osx.deployment_target   = '10.12'
   s.tvos.deployment_target  = '12.4'
 
@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
     'Lottie_React_Native_Privacy' => ['ios/PrivacyInfo.xcprivacy'],
   }
 
-  s.dependency 'lottie-ios', '4.4.1'
+  s.dependency 'lottie-ios', '4.4.3'
 
   s.swift_version = '5.7'
 
