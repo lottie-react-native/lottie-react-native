@@ -23,9 +23,9 @@ Pod::Spec.new do |s|
   s.author                  = package["author"]
   s.homepage                = package["homepage"]
 
-  s.ios.deployment_target   = '13.0'
-  s.osx.deployment_target   = '10.12'
-  s.tvos.deployment_target  = '12.4'
+  s.ios.deployment_target   = '13.4'
+  s.osx.deployment_target   = '10.15'
+  s.tvos.deployment_target  = '13.0'
 
   s.source                  = { :git => "https://github.com/lottie-react-native/lottie-react-native.git", :tag => "v#{s.version}" }
   s.source_files            = "ios/**/*.{h,m,mm,swift}"
@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'lottie-ios', '4.4.3'
 
-  s.swift_version = '5.7'
+  s.swift_version = '5.9'
 
   # install_modules_dependencies has been defined since React Native 70
   # if you only support React Native 70+, we can remove the `if defined?() else` statement
