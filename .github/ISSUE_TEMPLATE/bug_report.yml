@@ -7,7 +7,7 @@ body:
         Thanks for taking the time to fill out this bug report!
 
         Before you proceed:
-
+        - If you have any issues with animations not working which you have downloaded from sources like lottiefiles.com, please check their respective support page first. We do not have direct contact with them, and your issue will be likely ignored.
         - Make sure to check whether there are similar issues in the repository
         - Make sure you've read the [migration guide](https://github.com/lottie-react-native/lottie-react-native/blob/master/MIGRATION-5-TO-6.md) for v5 to v6. 
         - Make sure you've read the troubleshoot guide in the [README](https://github.com/lottie-react-native/lottie-react-native/blob/master/README.md#troubleshooting).
