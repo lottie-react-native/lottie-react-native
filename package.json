@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": "16"
+    "node": "18"
   },
   "scripts": {
     "setup": "yarn workspace lottie-react-native build",
@@ -25,7 +25,8 @@
     "docs:publish": "yarn docs:clean && yarn docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git fetch git@github.com:airbnb/lottie-react-native.git gh-pages && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:airbnb/lottie-react-native.git gh-pages --force"
   },
   "devDependencies": {
-    "gitbook-cli": "^2.3.2"
+    "gitbook-cli": "^2.3.2",
+    "react-native-test-app": "^3.8.7"
   },
   "resolutions": {
     "@types/react": "^18.2.12",
@@ -33,6 +34,7 @@
   },
   "workspaces": [
     "./apps/*",
-    "./packages/*"
+    "./packages/*",
+    "./example"
   ]
 }
