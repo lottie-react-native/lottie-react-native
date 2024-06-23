@@ -14,7 +14,7 @@
     "fabric:ios-dynamic-framework": "yarn workspace fabric-example ios-dynamic-framework",
     "paper:start:android": "yarn workspace example android",
     "paper:build:android": "yarn workspace example build:android",
-    "paper:ios": "yarn workspace example ios",
+    "paper:build:ios": "yarn workspace example ci:ios",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",

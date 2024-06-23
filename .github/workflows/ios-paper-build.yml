@@ -51,4 +51,4 @@ jobs:
         run: yarn install --immutable
 
       - name: Build Paper iOS Example
-        run: yarn paper:ios
+        run: yarn paper:build:ios
