@@ -1,118 +1,138 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import LottieView from 'lottie-react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const color = {
+  primary: '#1652f0',
+  secondary: '#64E9FF',
+};
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const remoteSource = {
+  uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/apps/paper/src/animations/Watermelon.json',
+};
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const dotLottie = require('./animations/animation_lkekfrcl.lottie');
+
+const localSource = require('./animations/LottieLogo1.json');
+
+const App = () => {
+  const [source, setSource] = React.useState(localSource);
+  const [isLoop, setLoop] = React.useState(false);
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <LottieView
+        key={source + isLoop}
+        source={source}
+        autoPlay={true}
+        loop={isLoop}
+        style={styles.lottie}
+        resizeMode={'contain'}
+        colorFilters={colorFilter}
+        enableMergePathsAndroidForKitKatAndAbove
+        onAnimationFinish={() => {
+          console.log('Finished');
+        }}
+        onAnimationFailure={e => {
+          console.log('Error ', { e });
+        }}
+      />
+      <View style={styles.controlsContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(localSource);
+          }}
+          style={styles.button}>
+          <Text style={styles.text}>{'Local animation'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(remoteSource);
+          }}
+          style={styles.button}>
+          <Text style={styles.text}>{'Remote animation'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(dotLottie);
+          }}
+          style={styles.button}>
+          <Text style={styles.text}>{'DotLottie animation'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setLoop(p => !p);
+          }}
+          style={styles.button}>
+          <Text style={styles.text}>{isLoop ? 'Loop on' : 'Loop off'}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 32,
+  },
+  controlsContainer: { marginTop: 24, gap: 12 },
+  button: {
+    backgroundColor: color.primary,
     paddingHorizontal: 24,
+    paddingVertical: 16,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  text: { color: 'white', textAlign: 'center' },
+  lottie: { width: 400, height: 400 },
 });
+
+const colorFilter = [
+  {
+    keypath: 'BG',
+    color: color.primary,
+  },
+  {
+    keypath: 'O-B',
+    color: color.secondary,
+  },
+  {
+    keypath: 'L-B',
+    color: color.secondary,
+  },
+  {
+    keypath: 'T1a-Y 2',
+    color: color.secondary,
+  },
+  {
+    keypath: 'T1b-Y',
+    color: color.secondary,
+  },
+  {
+    keypath: 'T2b-B',
+    color: color.secondary,
+  },
+  {
+    keypath: 'T2a-B',
+    color: color.secondary,
+  },
+  {
+    keypath: 'I-Y',
+    color: color.secondary,
+  },
+  {
+    keypath: 'E1-Y',
+    color: color.secondary,
+  },
+  {
+    keypath: 'E2-Y',
+    color: color.secondary,
+  },
+  {
+    keypath: 'E3-Y',
+    color: color.secondary,
+  },
+];
 
 export default App;
