@@ -51,7 +51,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Start Packager
-        run: yarn paper:run:ios &
+        run: yarn paper:run:bundler &
 
       - name: Build Paper iOS Example
         run: yarn paper:build:ios
