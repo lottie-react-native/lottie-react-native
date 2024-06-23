@@ -50,5 +50,8 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
+      - name: Start Packager
+        run: yarn paper:run:ios &
+
       - name: Build Paper iOS Example
         run: yarn paper:build:ios
