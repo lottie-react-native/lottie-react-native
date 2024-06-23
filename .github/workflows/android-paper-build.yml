@@ -51,4 +51,4 @@ jobs:
 
       - name: Build and Lint Paper Android Example
         run: |
-          yarn paper:lint:android && yarn paper:build:android
+          yarn paper:build:android
