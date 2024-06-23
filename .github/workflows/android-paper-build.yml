@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: "zulu"
-          java-version: "11"
+          java-version: "17"
 
       - name: Finalize Android SDK
         run: |
@@ -49,6 +49,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Start Packager
+        run: yarn paper:run:bundler &
+
       - name: Build and Lint Paper Android Example
         run: |
-          yarn paper:lint:android && yarn paper:build:android
+          yarn paper:build:android

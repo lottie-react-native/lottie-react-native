@@ -29,6 +29,9 @@ jobs:
       - name: Install CocoaPods
         run: sudo gem install cocoapods
 
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
       - name: Install Dependencies
         run: yarn install --immutable
 
