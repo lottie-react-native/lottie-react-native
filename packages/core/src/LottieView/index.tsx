@@ -67,6 +67,10 @@ export class LottieView extends React.PureComponent<Props, {}> {
     Commands.resume(this.lottieAnimationViewRef);
   }
 
+  private onAnimationLoadStart = () => {
+    this.props.onAnimationLoadStart?.()
+  }
+
   private onAnimationFinish = (
     evt: NativeSyntheticEvent<{ isCancelled: boolean }>,
   ) => {
@@ -132,6 +136,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
         onAnimationFinish={this.onAnimationFinish}
         onAnimationFailure={this.onAnimationFailure}
         onAnimationLoaded={this.onAnimationLoaded}
+        onAnimationLoadStarted={this.onAnimationLoadStart}
         autoPlay={autoPlay}
         resizeMode={resizeMode}
         {...sources}

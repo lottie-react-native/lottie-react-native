@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 const color = {
@@ -30,11 +30,14 @@ const App = () => {
         resizeMode={'contain'}
         colorFilters={colorFilter}
         enableMergePathsAndroidForKitKatAndAbove
+        onAnimationLoadStart={() => {
+          console.log('I can see this!')
+        }}
         onAnimationFinish={() => {
           console.log('Finished');
         }}
         onAnimationFailure={e => {
-          console.log('Error ', {e});
+          console.log('Error ', { e });
         }}
       />
       <View style={styles.controlsContainer}>
@@ -78,14 +81,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 32,
   },
-  controlsContainer: {marginTop: 24, gap: 12},
+  controlsContainer: { marginTop: 24, gap: 12 },
   button: {
     backgroundColor: color.primary,
     paddingHorizontal: 24,
     paddingVertical: 16,
   },
-  text: {color: 'white', textAlign: 'center'},
-  lottie: {width: 400, height: 400},
+  text: { color: 'white', textAlign: 'center' },
+  lottie: { width: 400, height: 400 },
 });
 
 const colorFilter = [

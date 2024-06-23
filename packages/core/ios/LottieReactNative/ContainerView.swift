@@ -5,6 +5,7 @@ import Foundation
     func onAnimationFinish(isCancelled: Bool)
     func onAnimationFailure(error: String)
     func onAnimationLoaded()
+    func onAnimationLoadStart()
 }
 
 /* There are Two Views being implemented here:
@@ -28,6 +29,7 @@ class ContainerView: RCTView {
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     @objc var onAnimationFailure: RCTBubblingEventBlock?
     @objc var onAnimationLoaded: RCTBubblingEventBlock?
+    @objc var onAnimationLoadStart: RCTBubblingEventBlock?
 
     @objc var completionCallback: LottieCompletionBlock {
         return { [weak self] animationFinished in
@@ -62,6 +64,17 @@ class ContainerView: RCTView {
             }
 
             self.delegate?.onAnimationLoaded()
+        }
+    }
+    
+    @objc var loadStartCallback: () -> Void {
+        return { [weak self] in
+            guard let self = self else { return }
+            
+            if let onLoadStart = self.onAnimationLoadStart {
+                onLoadStart([:])
+            }
+            self.delegate?.onAnimationLoadStart()
         }
     }
 
@@ -162,6 +175,7 @@ class ContainerView: RCTView {
     }
 
     @objc func setSourceDotLottieURI(_ uri: String) {
+        self.loadStartCallback()
         if checkReactSourceString(uri) {
             return
         }
@@ -185,6 +199,7 @@ class ContainerView: RCTView {
     }
 
     @objc func setSourceURL(_ newSourceURLString: String) {
+        self.loadStartCallback()
         if checkReactSourceString(newSourceURLString) {
             return
         }
@@ -202,6 +217,7 @@ class ContainerView: RCTView {
     }
 
     @objc func setSourceJson(_ newSourceJson: String) {
+        self.loadStartCallback()
         if checkReactSourceString(newSourceJson) {
             return
         }
@@ -223,6 +239,7 @@ class ContainerView: RCTView {
     }
 
     @objc func setSourceName(_ newSourceName: String) {
+        self.loadStartCallback()
         if checkReactSourceString(newSourceName) {
             return
         }
