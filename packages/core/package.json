@@ -41,17 +41,13 @@
     "lint-fix:swift": "swiftlint --fix ios"
   },
   "peerDependencies": {
-    "@dotlottie/react-player": "^1.6.1",
-    "@lottiefiles/react-lottie-player": "^3.5.3",
+    "@lottiefiles/dotlottie-react": "^0.6.5",
     "react": "*",
     "react-native": ">=0.46",
     "react-native-windows": ">=0.63.x"
   },
   "peerDependenciesMeta": {
-    "@dotlottie/react-player": {
-      "optional": true
-    },
-    "@lottiefiles/react-lottie-player": {
+    "@lottiefiles/dotlottie-react": {
       "optional": true
     },
     "react-native-windows": {
@@ -59,8 +55,7 @@
     }
   },
   "devDependencies": {
-    "@dotlottie/react-player": "^1.6.1",
-    "@lottiefiles/react-lottie-player": "^3.5.3",
+    "@lottiefiles/dotlottie-react": "^0.6.5",
     "@react-native-community/eslint-config": "^3.1.0",
     "@release-it/conventional-changelog": "^5.1.1",
     "@types/react": "^18.2.12",
