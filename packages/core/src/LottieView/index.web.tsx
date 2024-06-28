@@ -76,7 +76,7 @@ const LottieView = forwardRef(
       if (progress != undefined && __DEV__) {
         console.warn('lottie-react-native: progress is not supported on web');
       }
-    }, [dotLottie, progress]);
+    }, [progress]);
 
     useImperativeHandle(
       ref,
