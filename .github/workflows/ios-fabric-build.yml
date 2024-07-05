@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   build-example:
-    runs-on: macos-13
+    runs-on: macos-latest
 
     strategy:
       matrix:
