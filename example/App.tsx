@@ -30,6 +30,9 @@ const App = () => {
         resizeMode={'contain'}
         colorFilters={colorFilter}
         enableMergePathsAndroidForKitKatAndAbove
+        onAnimationLoadStart={() => {
+          console.log('Load started')
+        }}
         onAnimationFinish={() => {
           console.log('Finished');
         }}

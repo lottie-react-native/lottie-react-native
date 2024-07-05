@@ -124,21 +124,25 @@ class LottieAnimationViewManager :
 
     @ReactProp(name = "sourceName")
     override fun setSourceName(view: LottieAnimationView, name: String?) {
+        LottieAnimationViewManagerImpl.sendOnAnimationLoadStartEvent(view)
         setSourceName(name, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "sourceJson")
     override fun setSourceJson(view: LottieAnimationView, json: String?) {
+        LottieAnimationViewManagerImpl.sendOnAnimationLoadStartEvent(view)
         setSourceJson(json, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "sourceURL")
     override fun setSourceURL(view: LottieAnimationView, urlString: String?) {
+        LottieAnimationViewManagerImpl.sendOnAnimationLoadStartEvent(view)
         setSourceURL(urlString, getOrCreatePropertyManager(view))
     }
     
     @ReactProp(name = "sourceDotLottieURI")
     override fun setSourceDotLottieURI(view: LottieAnimationView, urlString: String?) {
+        LottieAnimationViewManagerImpl.sendOnAnimationLoadStartEvent(view)
         setSourceDotLottieURI(urlString, getOrCreatePropertyManager(view))
     }
 
