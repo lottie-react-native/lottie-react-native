@@ -49,6 +49,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Start Packager
+        run: yarn run:bundler &
+
       - name: Build Fabric Android Example
         run: |
           yarn fabric:build:android

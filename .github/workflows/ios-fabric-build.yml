@@ -4,15 +4,6 @@ on:
   pull_request:
     branches:
       - master
-  # workflow_dispatch:
-  #   inputs:
-  #     variant:
-  #       type: choice
-  #       description: Variant to run
-  #       options:
-  #         - static-library
-  #         - static-framework
-  #         - dynamic-framework
 
 # Only run on the latest workflow run
 concurrency:
