@@ -1,6 +1,6 @@
 name: Build Android Fabric Example
 
-# on: workflow_dispatch
+on: workflow_dispatch
 
 # Only run on the latest workflow run
 concurrency:
