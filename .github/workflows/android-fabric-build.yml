@@ -1,6 +1,9 @@
 name: Build Android Fabric Example
 
-# on: workflow_dispatch
+on:
+  pull_request:
+    branches:
+      - master
 
 # Only run on the latest workflow run
 concurrency:
@@ -45,6 +48,9 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: Start Packager
+        run: yarn run:bundler &
 
       - name: Build Fabric Android Example
         run: |
