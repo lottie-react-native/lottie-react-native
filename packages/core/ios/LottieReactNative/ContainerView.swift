@@ -294,6 +294,7 @@ class ContainerView: RCTView {
         animationView?.backgroundBehavior = .pauseAndRestore
         animationView?.animationSpeed = speed
         animationView?.loopMode = loop
+        animationView?.currentProgress = progress
         animationView?.frame = self.bounds
 
         addSubview(next)
