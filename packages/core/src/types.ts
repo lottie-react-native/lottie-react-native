@@ -157,6 +157,12 @@ export interface LottieViewProps {
   enableMergePathsAndroidForKitKatAndAbove?: boolean;
 
   /**
+   * A boolean flag to enable safe mode which wraps the draw call with a try catch on Android
+   * @platform android
+   */
+  enableSafeModeAndroid?: boolean
+
+  /**
    * A boolean flag indicating whether or not the animation should caching. Defaults to true.
    * Refer to LottieAnimationView#setCacheComposition(boolean) for more information.
    *

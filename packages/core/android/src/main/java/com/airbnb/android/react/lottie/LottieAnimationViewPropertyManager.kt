@@ -51,6 +51,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     var scaleType: ImageView.ScaleType? = null
     var imageAssetsFolder: String? = null
     var enableMergePaths: Boolean? = null
+    var enableSafeMode: Boolean? = null
     var colorFilters: ReadableArray? = null
     var textFilters: ReadableArray? = null
     var renderMode: RenderMode? = null
@@ -208,6 +209,11 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         enableMergePaths?.let {
             view.enableMergePathsForKitKatAndAbove(it)
             enableMergePaths = null
+        }
+
+        enableSafeMode?.let {
+            view.setSafeMode(it)
+            enableSafeMode = null
         }
 
         colorFilters?.let { colorFilters ->
