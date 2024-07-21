@@ -18,6 +18,7 @@ const defaultProps: Props = {
   loop: true,
   autoPlay: false,
   enableMergePathsAndroidForKitKatAndAbove: false,
+  enableSafeModeAndroid: false,
   cacheComposition: true,
   useNativeLooping: false,
   resizeMode: 'contain',
