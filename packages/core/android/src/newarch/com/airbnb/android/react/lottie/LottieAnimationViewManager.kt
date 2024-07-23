@@ -90,8 +90,8 @@ class LottieAnimationViewManager :
         return view
     }
 
-    override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
-        return LottieAnimationViewManagerImpl.getExportedCustomDirectEventTypeConstants()
+    override fun getExportedCustomBubblingEventTypeConstants(): MutableMap<String, Any>? {
+        return LottieAnimationViewManagerImpl.getExportedCustomBubblingEventTypeConstants()
     }
 
     override fun onAfterUpdateTransaction(view: LottieAnimationView) {
