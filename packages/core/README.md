@@ -41,7 +41,7 @@ yarn add lottie-react-native
 - Add dependencies for web players:
 
 ```
-yarn add @dotlottie/react-player @lottiefiles/react-lottie-player
+yarn add @lottiefiles/dotlottie-react
 ```
 
 ### Windows (React Native >= 0.63)
