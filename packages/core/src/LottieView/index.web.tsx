@@ -122,6 +122,10 @@ const LottieView = forwardRef(
       [dotLottie],
     );
 
+    if (!sources) {
+      return null;
+    }
+
     return (
       <DotLottieReact
         dotLottieRefCallback={dotLottieRefCallback}
