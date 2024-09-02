@@ -1,5 +1,15 @@
 import { Image } from 'react-native';
 
+function looksLikeDotLottieURI(uri: string): boolean {
+  try {
+    const parsedURL = new URL(uri);
+    return parsedURL.pathname.endsWith('.lottie');
+  } catch (e) {
+    // Failed to parse URL, assume it's an ordinary JSON
+    return false;
+  }
+}
+
 function parsePossibleSources(source):
   | {
       sourceURL?: string;
@@ -19,8 +29,7 @@ function parsePossibleSources(source):
   }
 
   if (typeof source === 'object' && uri) {
-    // uri contains .lottie extension return sourceDotLottieURI
-    if (uri.includes('.lottie')) {
+    if (looksLikeDotLottieURI(uri)) {
       return { sourceDotLottieURI: uri };
     }
 
