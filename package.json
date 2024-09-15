@@ -31,7 +31,6 @@
     "@types/react-native": "^0.70.14"
   },
   "workspaces": [
-    "./apps/*",
     "./packages/*",
     "./example"
   ]
