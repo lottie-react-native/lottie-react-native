@@ -15,6 +15,7 @@
     "paper:build:android": "yarn workspace example ci:paper:android",
     "paper:build:ios": "yarn workspace example ci:paper:ios",
     "run:bundler": "yarn workspace example start",
+    "run:web": "yarn workspace example web",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",

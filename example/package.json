@@ -15,6 +15,7 @@
     "mkdist": "node -e \"require('node:fs').mkdirSync('dist', { recursive: true, mode: 0o755 })\"",
     "start": "npx react-native start",
     "test": "jest",
+    "web": "webpack serve",
     "visionos": "npx react-native run-visionos",
     "ci:paper:android": "npx react-native build-android",
     "ci:fabric:android": "ORG_GRADLE_PROJECT_newArchEnabled=true npx react-native build-android",
@@ -25,10 +26,13 @@
   },
   "dependencies": {
     "@callstack/react-native-visionos": "^0.73.0",
+    "@lottiefiles/dotlottie-react": "^0.8.12",
     "lottie-react-native": "workspace:*",
     "react": "18.2.0",
+    "react-dom": "^18.3.1",
     "react-native": "0.73.8",
-    "react-native-macos": "^0.73.0"
+    "react-native-macos": "^0.73.0",
+    "react-native-web": "^0.19.12"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -42,12 +46,18 @@
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
+    "babel-loader": "^9.1.3",
+    "babel-plugin-react-native-web": "^0.19.12",
     "eslint": "^8.19.0",
+    "html-webpack-plugin": "^5.6.0",
     "jest": "^29.6.3",
     "prettier": "2.8.8",
     "react-native-test-app": "^3.8.7",
     "react-test-renderer": "18.2.0",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   },
   "engines": {
     "node": ">=18"
