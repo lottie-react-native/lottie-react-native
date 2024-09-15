@@ -1,15 +1,9 @@
 name: Build iOS Fabric Example
 
-# on:
-#   workflow_dispatch:
-#     inputs:
-#       variant:
-#         type: choice
-#         description: Variant to run
-#         options:
-#           - static-library
-#           - static-framework
-#           - dynamic-framework
+on:
+  pull_request:
+    branches:
+      - master
 
 # Only run on the latest workflow run
 concurrency:
@@ -18,11 +12,11 @@ concurrency:
 
 jobs:
   build-example:
-    runs-on: macos-13
+    runs-on: macos-latest
 
     strategy:
       matrix:
-        xcode-version: [14.3.1]
+        xcode-version: [15.4, 16_Release_Candidate]
 
     steps:
       - name: List all available XCode versions
@@ -57,14 +51,9 @@ jobs:
         run: yarn install --immutable
 
       - name: Run Metro in the background
-        run: yarn workspace fabric-example start </dev/null &>/dev/null &
+        run: yarn run:bundler &
 
       - name: Build Fabric iOS Example
         run: |
-          if [ "${{ github.event.inputs.variant }}" = "static-framework" ]; then
-            yarn fabric:ios-static-framework
-          elif [ "${{ github.event.inputs.variant }}" = "dynamic-framework" ]; then
-            yarn fabric:ios-dynamic-framework
-          else
-            yarn fabric:ios
-          fi
+          yarn fabric:build:ios
+            

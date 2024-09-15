@@ -50,7 +50,7 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Start Packager
-        run: yarn paper:run:bundler &
+        run: yarn run:bundler &
 
       - name: Build and Lint Paper Android Example
         run: |

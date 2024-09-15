@@ -291,6 +291,14 @@ internal object LottieAnimationViewManagerImpl {
     }
 
     @JvmStatic
+    fun setEnableSafeMode(
+        enableSafeMode: Boolean,
+        viewManager: LottieAnimationViewPropertyManager
+    ) {
+        viewManager.enableSafeMode = enableSafeMode
+    }
+
+    @JvmStatic
     fun setImageAssetsFolder(
         imageAssetsFolder: String?,
         viewManager: LottieAnimationViewPropertyManager

@@ -7,14 +7,14 @@
   },
   "scripts": {
     "setup": "yarn workspace lottie-react-native build",
-    "fabric:start:android": "yarn workspace fabric-example android",
-    "fabric:build:android": "yarn workspace fabric-example build:android",
-    "fabric:ios": "yarn workspace fabric-example ios",
-    "fabric:ios-static-framework": "yarn workspace fabric-example ios-static-framework",
-    "fabric:ios-dynamic-framework": "yarn workspace fabric-example ios-dynamic-framework",
-    "paper:build:android": "yarn workspace example ci:android",
-    "paper:build:ios": "yarn workspace example ci:ios",
-    "paper:run:bundler": "yarn workspace example start",
+    "fabric:android": "yarn workspace example fabric:android",
+    "fabric:build:android": "yarn workspace example ci:fabric:android",
+    "fabric:build:ios": "yarn workspace example ci:fabric:ios",
+    "fabric:build:ios-static-framework": "yarn workspace example ci:fabric:ios-static-framework",
+    "fabric:build:ios-dynamic-framework": "yarn workspace example ci:fabric:ios-dynamic-framework",
+    "paper:build:android": "yarn workspace example ci:paper:android",
+    "paper:build:ios": "yarn workspace example ci:paper:ios",
+    "run:bundler": "yarn workspace example start",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
@@ -31,7 +31,6 @@
     "@types/react-native": "^0.70.14"
   },
   "workspaces": [
-    "./apps/*",
     "./packages/*",
     "./example"
   ]
