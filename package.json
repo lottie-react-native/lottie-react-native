@@ -7,6 +7,7 @@
   },
   "scripts": {
     "setup": "yarn workspace lottie-react-native build",
+    "fabric:android": "yarn workspace example fabric:android",
     "fabric:build:android": "yarn workspace example ci:fabric:android",
     "fabric:build:ios": "yarn workspace example ci:fabric:ios",
     "fabric:build:ios-static-framework": "yarn workspace example ci:fabric:ios-static-framework",
