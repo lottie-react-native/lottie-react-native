@@ -8,7 +8,7 @@ const color = {
 };
 
 const remoteSource = {
-  uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/apps/paper/src/animations/Watermelon.json',
+  uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/example/animations/Watermelon.json',
 };
 
 const dotLottie = require('./animations/animation_lkekfrcl.lottie');
