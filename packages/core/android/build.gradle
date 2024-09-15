@@ -124,7 +124,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+' // From node_modules
 
-    implementation "com.airbnb.android:lottie:6.4.0"
+    implementation "com.airbnb.android:lottie:6.5.2"
 }
 
 if (isNewArchitectureEnabled()) {
