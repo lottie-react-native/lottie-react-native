@@ -115,13 +115,13 @@ const LottieView = forwardRef(
             }
           },
           reset: () => {
-            dotLottie.setFrame(0);
+            dotLottie?.setFrame(0);
           },
           pause: () => {
-            dotLottie.pause();
+            dotLottie?.pause();
           },
           resume: () => {
-            dotLottie.play();
+            dotLottie?.play();
           },
         };
       },
