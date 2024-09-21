@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        xcode-version: [15.4, '16_Release_Candidate']
+        xcode-version: [15.4, 16]
 
     steps:
       - name: List all available XCode versions
