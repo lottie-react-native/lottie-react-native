@@ -4,9 +4,10 @@ import React, {
   useEffect,
   useCallback,
   useState,
+  Ref,
 } from 'react';
 import { parsePossibleSources } from './utils';
-import { LottieViewProps } from 'lottie-react-native';
+import { LottieViewProps } from '../types';
 import { DotLottie, DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const LottieView = forwardRef(
@@ -25,11 +26,16 @@ const LottieView = forwardRef(
       onAnimationFinish,
       onAnimationLoop,
     }: LottieViewProps,
-    ref: any,
+    ref: Ref<{
+      play: (s?: number, e?: number) => void;
+      reset: () => void;
+      pause: () => void;
+      resume: () => void;
+    }>,
   ) => {
-    const [dotLottie, setDotLottie] = useState<DotLottie>(null);
+    const [dotLottie, setDotLottie] = useState<DotLottie | null>(null);
     const sources = parsePossibleSources(source);
-    const dotLottieRefCallback = useCallback((dotLottie) => {
+    const dotLottieRefCallback = useCallback((dotLottie: DotLottie) => {
       setDotLottie(dotLottie);
     }, []);
 
