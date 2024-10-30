@@ -53,6 +53,18 @@ using namespace facebook::react;
         [_view setResizeMode:RCTNSStringFromString(newLottieProps.resizeMode)];
     }
 
+    if(oldLottieProps.progress != newLottieProps.progress) {
+        [_view setProgress:newLottieProps.progress];
+    }
+
+    if(oldLottieProps.loop != newLottieProps.loop) {
+        [_view setLoop:newLottieProps.loop];
+    }
+
+    if(oldLottieProps.speed != newLottieProps.speed) {
+        [_view setSpeed:newLottieProps.speed];
+    }
+
     if(oldLottieProps.sourceJson != newLottieProps.sourceJson) {
         [_view setSourceJson:RCTNSStringFromString(newLottieProps.sourceJson.c_str())];
     }
@@ -68,19 +80,7 @@ using namespace facebook::react;
     if(oldLottieProps.sourceURL != newLottieProps.sourceURL) {
         [_view setSourceURL:RCTNSStringFromString(newLottieProps.sourceURL)];
     }
-
-    if(oldLottieProps.progress != newLottieProps.progress) {
-        [_view setProgress:newLottieProps.progress];
-    }
-
-    if(oldLottieProps.loop != newLottieProps.loop) {
-        [_view setLoop:newLottieProps.loop];
-    }
-
-    if(oldLottieProps.speed != newLottieProps.speed) {
-        [_view setSpeed:newLottieProps.speed];
-    }
-
+    
     if(oldLottieProps.colorFilters != newLottieProps.colorFilters) {
         [_view setColorFilters:convertColorFilters(newLottieProps.colorFilters)];
     }
