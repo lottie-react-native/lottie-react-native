@@ -50,6 +50,9 @@ export interface LottieViewProps {
    * represents the normalized progress of the animation. If you update this prop, the
    * animation will correspondingly update to the frame at that progress value. This
    * prop is not required if you are using the imperative API.
+   *
+   * To use the `Animated` value, the component needs to be wrapped using
+   * `Animated.createAnimatedComponent(LottieView)`
    * @platform ios, android, windows
    */
   progress?: number;
