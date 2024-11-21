@@ -81,6 +81,7 @@ internal object LottieAnimationViewManagerImpl {
 
     @JvmStatic
     fun play(view: LottieAnimationView, startFrame: Int, endFrame: Int) {
+        val restartAnimation = startFrame != -1 && endFrame != -1
         Handler(Looper.getMainLooper()).post {
             if (startFrame != -1 && endFrame != -1) {
                 if (startFrame > endFrame) {
@@ -94,16 +95,31 @@ internal object LottieAnimationViewManagerImpl {
                         view.reverseAnimationSpeed()
                     }
                 }
+            } else {
+                val actualStartFrame = view.composition?.startFrame?.toInt()
+                val actualEndFrame = view.composition?.endFrame?.toInt()
+
+                val minFrame = view.minFrame.toInt()
+                val maxFrame = view.maxFrame.toInt()
+                if (actualStartFrame != null && actualEndFrame != null && (minFrame != actualStartFrame || maxFrame != actualEndFrame)) {
+                    view.setMinAndMaxFrame(actualStartFrame, actualEndFrame)
+                }
             }
             if (ViewCompat.isAttachedToWindow(view)) {
-                view.progress = 0f
-                view.playAnimation()
+                if (restartAnimation) {
+                    view.playAnimation()
+                } else {
+                    view.resumeAnimation()
+                }
             } else {
                 view.addOnAttachStateChangeListener(object : OnAttachStateChangeListener {
                     override fun onViewAttachedToWindow(v: View) {
                         val listenerView = v as LottieAnimationView
-                        listenerView.progress = 0f
-                        listenerView.playAnimation()
+                        if (restartAnimation) {
+                            view.playAnimation()
+                        } else {
+                            view.resumeAnimation()
+                        }
                         listenerView.removeOnAttachStateChangeListener(this)
                     }
 
