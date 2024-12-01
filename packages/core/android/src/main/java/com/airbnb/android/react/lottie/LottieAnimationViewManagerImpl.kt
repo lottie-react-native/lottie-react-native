@@ -81,9 +81,9 @@ internal object LottieAnimationViewManagerImpl {
 
     @JvmStatic
     fun play(view: LottieAnimationView, startFrame: Int, endFrame: Int) {
-        val restartAnimation = startFrame != -1 && endFrame != -1
+        val withCustomFrames = startFrame != -1 && endFrame != -1
         Handler(Looper.getMainLooper()).post {
-            if (startFrame != -1 && endFrame != -1) {
+            if (withCustomFrames) {
                 if (startFrame > endFrame) {
                     view.setMinAndMaxFrame(endFrame, startFrame)
                     if (view.speed > 0) {
@@ -106,7 +106,7 @@ internal object LottieAnimationViewManagerImpl {
                 }
             }
             if (ViewCompat.isAttachedToWindow(view)) {
-                if (restartAnimation) {
+                if (withCustomFrames) {
                     view.playAnimation()
                 } else {
                     view.resumeAnimation()
@@ -115,7 +115,7 @@ internal object LottieAnimationViewManagerImpl {
                 view.addOnAttachStateChangeListener(object : OnAttachStateChangeListener {
                     override fun onViewAttachedToWindow(v: View) {
                         val listenerView = v as LottieAnimationView
-                        if (restartAnimation) {
+                        if (withCustomFrames) {
                             view.playAnimation()
                         } else {
                             view.resumeAnimation()
