@@ -103,8 +103,8 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         textFilters?.let {
             if (it.size() > 0) {
                 val textDelegate = TextDelegate(view)
-                for (i in 0 until textFilters!!.size()) {
-                    val current = textFilters!!.getMap(i)
+                for (i in 0 until it.size()) {
+                    val current = it.getMap(i) ?: continue
                     val searchText = current.getString("find")
                     val replacementText = current.getString("replace")
                     textDelegate.setText(searchText, replacementText)
@@ -219,7 +219,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         colorFilters?.let { colorFilters ->
             if (colorFilters.size() > 0) {
                 for (i in 0 until colorFilters.size()) {
-                    val current = colorFilters.getMap(i)
+                    val current = colorFilters.getMap(i) ?: continue
                     parseColorFilter(current, view)
                 }
             }
