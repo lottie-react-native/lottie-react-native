@@ -107,6 +107,11 @@ export class LottieView extends React.PureComponent<Props, {}> {
       ...rest
     } = this.props;
 
+    if (source == null) {
+      console.warn('LottieView needs `source` parameter, provided value for source:', source);
+      return null;
+    }
+
     const sources = parsePossibleSources(source);
 
     const speed =
