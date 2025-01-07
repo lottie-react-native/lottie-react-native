@@ -107,7 +107,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
       ...rest
     } = this.props;
 
-    if (!source) {
+    if (source === null || source === undefined) {
       console.warn('LottieView needs `source` parameter, provided value for source:', source);
       return null;
     }
