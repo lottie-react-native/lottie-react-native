@@ -3,6 +3,7 @@ package com.airbnb.android.react.lottie
 import android.graphics.ColorFilter
 import android.graphics.Typeface
 import android.net.Uri
+import android.util.Log
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
@@ -36,6 +37,8 @@ import java.io.FileInputStream
  */
 class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     private val viewWeakReference: WeakReference<LottieAnimationView>
+    private val TAG = "lottie-react-native"
+
 
     /**
      * Should be set to true if one of the animationName related parameters has changed as a result
@@ -72,7 +75,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
                 return ReactFontManager.getInstance()
                     .getTypeface(fontFamily, UNSET, UNSET, view.context.assets)
             }
-        
+
             override fun fetchFont(fontFamily: String, fontStyle: String, fontName: String): Typeface {
                 val weight = when (fontStyle) {
                     "Thin" -> 100
@@ -141,7 +144,20 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
 
             val scheme = runCatching { Uri.parse(assetName).scheme }.getOrNull()
             if (scheme != null) {
-                view.setAnimationFromUrl(assetName)
+                // if the asset path has file:// prefix, which indicates locally stored file, parse the path to be able to load it properly
+                // This is useful for apps, which are using OTA (CodePush, Expo-Updates etc.)
+                if (scheme == "file") {
+                    val uri = Uri.parse(assetName)
+                    uri.path?.let { path ->
+                        val fileWithScheme = File(path)
+                        view.setAnimation(
+                            ZipInputStream(FileInputStream(fileWithScheme)),
+                            assetName.hashCode().toString()
+                        )
+                    } ?: Log.w(TAG, "URI path is null for asset: $assetName")
+                } else {
+                    view.setAnimationFromUrl(assetName)
+                }
                 sourceDotLottie = null
                 return
             }
