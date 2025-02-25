@@ -41,7 +41,7 @@ Previously, we used to wrap the Base Lottie View in a React Native Animated comp
 
 ## The new prop for leveraging GPU for rendering
 
-As of Lottie V6, we can now levarage the GPU to do all the heavy lifting of rendering, alleviating the load from the CPU. This is achieved via a new Prop, called `renderMode` which takes one of three values:
+As of Lottie V6, we can now leverage the GPU to do all the heavy lifting of rendering, alleviating the load from the CPU. This is achieved via a new Prop, called `renderMode` which takes one of three values:
 1. "AUTOMATIC": This is the new default, and it will allow Lottie to decide based on environment whether to use GPU or CPU for the rendering
 2. "SOFTWARE": This is the old behaviour that also exists on V5 and below. In this mode, Lottie is using the UI thread for doing the animations. Setting the prop to this value ensures a backward compatible way of behaviour, in line with the old methods
 3. "HARDWARE": The new render mode. It leverages the devices GPU and offloads the animation to it to ensure that the UI thread is left at a lower utilization, resulting in better performance.
