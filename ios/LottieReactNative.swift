@@ -1,3 +1,5 @@
+import Lottie
+
 class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   // Props
   var sourceName: String?
