@@ -125,11 +125,24 @@ class HybridLottieAnimationView(
       view.setCacheComposition(value ?: false)
     }
 
-  override var colorFilters: Array<ColorFilterStruct>? = null
-  override var textFiltersAndroid: Array<TextFilterAndroidStruct>? = null
-  override var textFiltersIOS: Array<TextFilterIOSStruct>? = null
+  override var colorFilters: Array<ColorFilterStruct>?
+    get() = colorFilters
+    set(value) {
+      propertyManager.colorFilters = value
+    }
+
+  override var textFiltersAndroid: Array<TextFilterAndroidStruct>?
+    get() = textFiltersAndroid
+    set(value) {
+      propertyManager.textFilters = value
+    }
+
+  override var textFiltersIOS: Array<TextFilterIOSStruct>? = null // NOOP
+
   override var onAnimationFinish: ((Boolean) -> Unit)? = null
+
   override var onAnimationFailure: ((String) -> Unit)? = null
+
   override var onAnimationLoaded: (() -> Unit)? = null
 
   // Methods

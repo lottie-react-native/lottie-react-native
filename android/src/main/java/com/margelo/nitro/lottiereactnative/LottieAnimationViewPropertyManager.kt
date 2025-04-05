@@ -55,8 +55,8 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
   var imageAssetsFolder: String? = null
   var enableMergePaths: Boolean? = null
   var enableSafeMode: Boolean? = null
-  var colorFilters: ReadableArray? = null
-  var textFilters: ReadableArray? = null
+  var colorFilters: Array<ColorFilterStruct>? = null
+  var textFilters: Array<TextFilterAndroidStruct>? = null
   var renderMode: RenderMode? = null
   var layerType: Int? = null
   var animationJson: String? = null
@@ -103,17 +103,12 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
   fun commitChanges() {
     val view = viewWeakReference.get() ?: return
 
-    textFilters?.let {
-      if (it.size() > 0) {
-        val textDelegate = TextDelegate(view)
-        for (i in 0 until it.size()) {
-          val current = it.getMap(i) ?: continue
-          val searchText = current.getString("find")
-          val replacementText = current.getString("replace")
-          textDelegate.setText(searchText, replacementText)
-        }
-        view.setTextDelegate(textDelegate)
+    textFilters?.let { filters ->
+      val textDelegate = TextDelegate(view)
+      filters.forEach {
+        textDelegate.setText(it.find, it.replace)
       }
+      view.setTextDelegate(textDelegate)
     }
 
     animationJson?.let {
@@ -233,26 +228,18 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     }
 
     colorFilters?.let { colorFilters ->
-      if (colorFilters.size() > 0) {
-        for (i in 0 until colorFilters.size()) {
-          val current = colorFilters.getMap(i) ?: continue
-          parseColorFilter(current, view)
-        }
+      colorFilters.forEach {
+        parseColorFilter(it, view)
       }
     }
   }
 
   private fun parseColorFilter(
-    colorFilter: ReadableMap,
+    colorFilter: ColorFilterStruct,
     view: LottieAnimationView
   ) {
-    val color: Int = if (colorFilter.getType("color") == ReadableType.Map) {
-      ColorPropConverter.getColor(colorFilter.getMap("color"), view.context)
-    } else {
-      colorFilter.getInt("color")
-    }
-
-    val path = colorFilter.getString("keypath")
+    val color: Int = ColorPropConverter.getColor(colorFilter.color, view.context)
+    val path = colorFilter.keypath
     val pathGlob = "$path.**"
     val keys = pathGlob.split(Pattern.quote(".").toRegex())
       .dropLastWhile { it.isEmpty() }
