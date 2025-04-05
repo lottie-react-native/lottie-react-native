@@ -15,8 +15,24 @@ export default function App() {
         {...parsePossibleSources(LottieLogo)}
         style={styles.lottie}
         autoPlay
-        loop
         colorFilters={colorFilter}
+        onAnimationLoaded={{
+          f: () => {
+            console.log('Lottie loaded');
+          },
+        }}
+        onAnimationFailure={{
+          f: (error) => {
+            console.log(`Lottie Errored: ${error}`);
+          },
+        }}
+        onAnimationFinish={{
+          f: (isCancelled) => {
+            console.log(
+              `Lottie Finished with isCancelled set to ${isCancelled}`
+            );
+          },
+        }}
       />
     </View>
   );

@@ -14,9 +14,6 @@ import com.airbnb.lottie.TextDelegate
 import com.airbnb.lottie.model.KeyPath
 import com.airbnb.lottie.value.LottieValueCallback
 import com.facebook.react.bridge.ColorPropConverter
-import com.facebook.react.bridge.ReadableArray
-import com.facebook.react.bridge.ReadableMap
-import com.facebook.react.bridge.ReadableType
 import com.facebook.react.common.assets.ReactFontManager
 import com.facebook.react.util.RNLog
 import com.facebook.react.views.text.TextAttributeProps.UNSET
@@ -36,9 +33,7 @@ import androidx.core.net.toUri
  * end of react transaction, so it could control how changes are applied.
  */
 class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
-  private val viewWeakReference: WeakReference<LottieAnimationView>
-  private val TAG = "lottie-react-native"
-
+  private val viewWeakReference: WeakReference<LottieAnimationView> = WeakReference(view)
 
   /**
    * Should be set to true if one of the animationName related parameters has changed as a result
@@ -68,7 +63,6 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
   var speed: Float? = null
 
   init {
-    viewWeakReference = WeakReference(view)
 
     view.setFontAssetDelegate(object : FontAssetDelegate() {
       override fun fetchFont(fontFamily: String): Typeface {
@@ -250,5 +244,9 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     val colorFilterCallback = LottieValueCallback(filter)
 
     view.addValueCallback(keyPath, LottieProperty.COLOR_FILTER, colorFilterCallback)
+  }
+
+  companion object {
+    private const val TAG = "lottie-react-native"
   }
 }

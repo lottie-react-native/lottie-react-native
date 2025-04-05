@@ -147,23 +147,27 @@ class HybridLottieAnimationView(
 
   // Methods
   override fun play(startFrame: Double, endFrame: Double) {
-    TODO("Not yet implemented")
+    commandManager.play(view, startFrame.toInt(), endFrame.toInt())
   }
 
   override fun reset() {
-    TODO("Not yet implemented")
+    commandManager.reset(view)
   }
 
   override fun pause() {
-    TODO("Not yet implemented")
+    commandManager.pause(view)
   }
 
   override fun resume() {
-    TODO("Not yet implemented")
+    commandManager.resume(view)
   }
 
   private val propertyManager by lazy {
     LottieAnimationViewPropertyManager(view)
+  }
+
+  private val commandManager by lazy {
+    LottieAnimationViewCommandManager(view)
   }
 
   // View
