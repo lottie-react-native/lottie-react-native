@@ -147,19 +147,19 @@ class HybridLottieAnimationView(
 
   // Methods
   override fun play(startFrame: Double, endFrame: Double) {
-    commandManager.play(view, startFrame.toInt(), endFrame.toInt())
+    commandManager.play(startFrame.toInt(), endFrame.toInt())
   }
 
   override fun reset() {
-    commandManager.reset(view)
+    commandManager.reset()
   }
 
   override fun pause() {
-    commandManager.pause(view)
+    commandManager.pause()
   }
 
   override fun resume() {
-    commandManager.resume(view)
+    commandManager.resume()
   }
 
   private val propertyManager by lazy {

@@ -1,5 +1,6 @@
 package com.margelo.nitro.lottiereactnative
 
+import android.annotation.SuppressLint
 import android.graphics.ColorFilter
 import android.graphics.Typeface
 import android.util.Log
@@ -94,6 +95,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
    * this is animationName and cacheStrategy. These two properties are should be set
    * simultaneously if the dirty flag is set.
    */
+  @SuppressLint("MemberExtensionConflict")
   fun commitChanges() {
     val view = viewWeakReference.get() ?: return
 
@@ -111,7 +113,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     }
 
     animationURL?.let {
-      var file = File(it)
+      val file = File(it)
       if (file.exists()) {
         view.setAnimation(FileInputStream(file), it.hashCode().toString())
       } else {
@@ -121,7 +123,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     }
 
     sourceDotLottie?.let { assetName ->
-      var file = File(assetName)
+      val file = File(assetName)
       if (file.exists()) {
         view.setAnimation(
           ZipInputStream(FileInputStream(file)),

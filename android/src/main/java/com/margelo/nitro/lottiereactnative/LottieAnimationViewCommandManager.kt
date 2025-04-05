@@ -5,8 +5,8 @@ import android.os.Looper
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 
-class LottieAnimationViewCommandManager(view: LottieAnimationView) {
-  fun play(view: LottieAnimationView, startFrame: Int, endFrame: Int) {
+class LottieAnimationViewCommandManager(private val view: LottieAnimationView) {
+  fun play(startFrame: Int, endFrame: Int) {
     val withCustomFrames = startFrame != -1 && endFrame != -1
     Handler(Looper.getMainLooper()).post {
       if (withCustomFrames) {
@@ -58,7 +58,7 @@ class LottieAnimationViewCommandManager(view: LottieAnimationView) {
     }
   }
 
-  fun reset(view: LottieAnimationView) {
+  fun reset() {
     Handler(Looper.getMainLooper()).post {
       if (view.isAttachedToWindow) {
         view.cancelAnimation()
@@ -67,7 +67,7 @@ class LottieAnimationViewCommandManager(view: LottieAnimationView) {
     }
   }
 
-  fun pause(view: LottieAnimationView) {
+  fun pause() {
     Handler(Looper.getMainLooper()).post {
       if (view.isAttachedToWindow) {
         view.pauseAnimation()
@@ -75,7 +75,7 @@ class LottieAnimationViewCommandManager(view: LottieAnimationView) {
     }
   }
 
-  fun resume(view: LottieAnimationView) {
+  fun resume() {
     Handler(Looper.getMainLooper()).post {
       if (view.isAttachedToWindow) {
         view.resumeAnimation()
