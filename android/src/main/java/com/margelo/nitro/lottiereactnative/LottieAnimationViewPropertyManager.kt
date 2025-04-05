@@ -2,7 +2,6 @@ package com.margelo.nitro.lottiereactnative
 
 import android.graphics.ColorFilter
 import android.graphics.Typeface
-import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
@@ -26,6 +25,7 @@ import java.io.FileInputStream
 import java.lang.ref.WeakReference
 import java.util.regex.Pattern
 import java.util.zip.ZipInputStream
+import androidx.core.net.toUri
 
 /**
  * Class responsible for applying the properties to the LottieView. The way react-native works makes
@@ -142,12 +142,12 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         return
       }
 
-      val scheme = runCatching { Uri.parse(assetName).scheme }.getOrNull()
+      val scheme = runCatching { assetName.toUri().scheme }.getOrNull()
       if (scheme != null) {
         // if the asset path has file:// prefix, which indicates locally stored file, parse the path to be able to load it properly
         // This is useful for apps, which are using OTA (CodePush, Expo-Updates etc.)
         if (scheme == "file") {
-          val uri = Uri.parse(assetName)
+          val uri = assetName.toUri()
           uri.path?.let { path ->
             val fileWithScheme = File(path)
             view.setAnimation(

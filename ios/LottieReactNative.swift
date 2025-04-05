@@ -10,9 +10,9 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   
   var sourceDotLottieURI: String?
   
-  var resizeMode: String?
+  var resizeMode: ResizeMode?
   
-  var renderMode: String?
+  var renderMode: RenderMode?
   
   var imageAssetsFolder: String?
   

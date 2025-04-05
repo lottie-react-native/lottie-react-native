@@ -1,6 +1,7 @@
 package com.margelo.nitro.lottiereactnative
 
 import android.animation.Animator
+import android.view.View
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
 import com.facebook.proguard.annotations.DoNotStrip
@@ -28,40 +29,102 @@ class HybridLottieAnimationView(
 
   override var sourceJson: String?
     get() = sourceJson
-    set(json) {
-      propertyManager.animationJson = json
+    set(value) {
+      propertyManager.animationJson = value
     }
 
   override var sourceURL: String?
     get() = sourceURL
-    set(url) {
-      propertyManager.animationURL = url
+    set(value) {
+      propertyManager.animationURL = value
     }
 
   override var sourceDotLottieURI: String?
     get() = sourceDotLottieURI
-    set(dotLottie) {
-      propertyManager.sourceDotLottie = dotLottie
+    set(value) {
+      propertyManager.sourceDotLottie = value
     }
-  override var resizeMode: String? = null
-  override var renderMode: String? = null
-  override var imageAssetsFolder: String? = null
-  override var progress: Double? = null
-  override var speed: Double? = null
+
+  override var resizeMode: ResizeMode?
+    get() = resizeMode
+    set(value) {
+      propertyManager.scaleType = when (value) {
+        ResizeMode.CENTER -> ImageView.ScaleType.CENTER_INSIDE
+        ResizeMode.CONTAIN -> ImageView.ScaleType.FIT_CENTER
+        ResizeMode.COVER -> ImageView.ScaleType.CENTER_CROP
+        null -> null
+      }
+    }
+
+  override var renderMode: RenderMode?
+    get() = renderMode
+    set(value) {
+      propertyManager.renderMode = when (value) {
+        RenderMode.AUTOMATIC -> com.airbnb.lottie.RenderMode.AUTOMATIC
+        RenderMode.HARDWARE -> com.airbnb.lottie.RenderMode.HARDWARE
+        RenderMode.SOFTWARE -> com.airbnb.lottie.RenderMode.SOFTWARE
+        null -> null
+      }
+    }
+
+  override var imageAssetsFolder: String?
+    get() = imageAssetsFolder
+    set(value) {
+      propertyManager.imageAssetsFolder = value
+    }
+
+  override var progress: Double?
+    get() = progress
+    set(value) {
+      propertyManager.progress = value?.toFloat()
+    }
+
+  override var speed: Double?
+    get() = speed
+    set(value) {
+      propertyManager.speed = value?.toFloat()
+    }
+
   override var loop: Boolean?
     get() = loop
-    set(loop) {
-      propertyManager.loop = loop
+    set(value) {
+      propertyManager.loop = value
     }
+
   override var autoPlay: Boolean?
     get() = autoPlay
-    set(autoPlay) {
-      propertyManager.autoPlay = autoPlay
+    set(value) {
+      propertyManager.autoPlay = value
     }
-  override var enableMergePathsAndroidForKitKatAndAbove: Boolean? = null
-  override var enableSafeModeAndroid: Boolean? = null
-  override var hardwareAccelerationAndroid: Boolean? = null
-  override var cacheComposition: Boolean? = null
+
+  override var enableMergePathsAndroidForKitKatAndAbove: Boolean?
+    get() = enableMergePathsAndroidForKitKatAndAbove
+    set(value) {
+      propertyManager.enableMergePaths = value
+    }
+
+  override var enableSafeModeAndroid: Boolean?
+    get() = enableSafeModeAndroid
+    set(value) {
+      propertyManager.enableSafeMode = value
+    }
+
+  override var hardwareAccelerationAndroid: Boolean?
+    get() = hardwareAccelerationAndroid
+    set(value) {
+      propertyManager.layerType = when (value) {
+        true -> View.LAYER_TYPE_HARDWARE
+        false -> View.LAYER_TYPE_SOFTWARE
+        null -> null
+      }
+    }
+
+  override var cacheComposition: Boolean?
+    get() = cacheComposition
+    set(value) {
+      view.setCacheComposition(value ?: false)
+    }
+
   override var colorFilters: Array<ColorFilterStruct>? = null
   override var textFiltersAndroid: Array<TextFilterAndroidStruct>? = null
   override var textFiltersIOS: Array<TextFilterIOSStruct>? = null

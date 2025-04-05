@@ -20,9 +20,13 @@ type TextFilterAndroidStruct = {
   replace: string;
 };
 
+type ResizeMode = 'cover' | 'contain' | 'center';
+
+type RenderMode = 'AUTOMATIC' | 'HARDWARE' | 'SOFTWARE';
+
 export interface NativeProps extends HybridViewProps {
-  resizeMode?: string;
-  renderMode?: string;
+  resizeMode?: ResizeMode;
+  renderMode?: RenderMode;
   sourceName?: string;
   sourceJson?: string;
   sourceURL?: string;
