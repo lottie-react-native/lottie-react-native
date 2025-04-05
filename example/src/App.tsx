@@ -1,12 +1,12 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { multiply } from 'lottie-react-native';
-
-const result = multiply(3, 7);
+import { View, StyleSheet } from 'react-native';
+import { LottieAnimationView } from 'lottie-react-native';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <LottieAnimationView
+        style={{ height: 100, width: 100, backgroundColor: '#abc' }}
+      />
     </View>
   );
 }

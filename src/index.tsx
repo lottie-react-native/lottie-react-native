@@ -1,9 +1,8 @@
-import { NitroModules } from 'react-native-nitro-modules';
-import type { LottieReactNative } from './LottieReactNative.nitro';
+import { getHostComponent } from 'react-native-nitro-modules';
+import LottieAnimationViewConfig from '../nitrogen/generated/shared/json/LottieAnimationViewConfig.json';
+import type { NativeProps, NativeCommands } from './LottieReactNative.nitro';
 
-const LottieReactNativeHybridObject =
-  NitroModules.createHybridObject<LottieReactNative>('LottieReactNative');
-
-export function multiply(a: number, b: number): number {
-  return LottieReactNativeHybridObject.multiply(a, b);
-}
+export const LottieAnimationView = getHostComponent<
+  NativeProps,
+  NativeCommands
+>('LottieAnimationView', () => LottieAnimationViewConfig);

@@ -1,6 +1,20 @@
-import type { HybridObject } from 'react-native-nitro-modules';
+import type {
+  HybridRef,
+  HybridView,
+  HybridViewMethods,
+  HybridViewProps,
+} from 'react-native-nitro-modules';
 
-export interface LottieReactNative
-  extends HybridObject<{ ios: 'swift'; android: 'kotlin' }> {
-  multiply(a: number, b: number): number;
+export interface NativeProps extends HybridViewProps {
+  sourceName?: string;
+  sourceJson?: string;
+  sourceURL?: string;
+  sourceDotLottieURI?: string;
 }
+
+export interface NativeCommands extends HybridViewMethods {
+  play(startFrame: number, endFrame: number): void;
+}
+
+export type LottieAnimationView = HybridView<NativeProps, NativeCommands>;
+export type LottieAnimationViewRef = HybridRef<NativeProps, NativeCommands>;

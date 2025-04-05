@@ -8,9 +8,9 @@
     "androidCxxLibName": "lottiereactnative"
   },
   "autolinking": {
-    "LottieReactNative": {
-      "swift": "LottieReactNative",
-      "kotlin": "LottieReactNative"
+    "LottieAnimationView": {
+      "swift": "HybridLottieAnimationView",
+      "kotlin": "HybridLottieAnimationView"
     }
   },
   "ignorePaths": ["node_modules"]
