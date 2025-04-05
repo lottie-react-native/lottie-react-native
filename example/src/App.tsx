@@ -1,11 +1,15 @@
 import { View, StyleSheet } from 'react-native';
 import { LottieAnimationView } from 'lottie-react-native';
-import { parsePossibleSources } from '../../src/LottieView/utils';
+import {
+  parseColorToHex,
+  parsePossibleSources,
+} from '../../src/LottieView/utils';
 import LottieLogo from './animations/LottieLogo1.json';
 
 const color = {
-  primary: '#1652f0',
+  third: '#1652f0',
   secondary: '#64E9FF',
+  primary: 'rgba(0, 10, 100, 0.2)',
 };
 
 export default function App() {
@@ -15,7 +19,10 @@ export default function App() {
         {...parsePossibleSources(LottieLogo)}
         style={styles.lottie}
         autoPlay
-        colorFilters={colorFilter}
+        colorFilters={colorFilter.map((item) => ({
+          ...item,
+          color: parseColorToHex(item.color),
+        }))}
         onAnimationLoaded={{
           f: () => {
             console.log('Lottie loaded');
@@ -98,6 +105,6 @@ const colorFilter = [
   },
   {
     keypath: 'E3-Y',
-    color: color.secondary,
+    color: color.third,
   },
 ];

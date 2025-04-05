@@ -5,6 +5,7 @@ import android.graphics.ColorFilter
 import android.graphics.Typeface
 import android.util.Log
 import android.widget.ImageView
+import androidx.core.graphics.toColorInt
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.RenderMode
 import com.airbnb.lottie.FontAssetDelegate
@@ -14,7 +15,6 @@ import com.airbnb.lottie.SimpleColorFilter
 import com.airbnb.lottie.TextDelegate
 import com.airbnb.lottie.model.KeyPath
 import com.airbnb.lottie.value.LottieValueCallback
-import com.facebook.react.bridge.ColorPropConverter
 import com.facebook.react.common.assets.ReactFontManager
 import com.facebook.react.util.RNLog
 import com.facebook.react.views.text.TextAttributeProps.UNSET
@@ -234,7 +234,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
     colorFilter: ColorFilterStruct,
     view: LottieAnimationView
   ) {
-    val color: Int = ColorPropConverter.getColor(colorFilter.color, view.context)
+    val color: Int = colorFilter.color.toColorInt()
     val path = colorFilter.keypath
     val pathGlob = "$path.**"
     val keys = pathGlob.split(Pattern.quote(".").toRegex())

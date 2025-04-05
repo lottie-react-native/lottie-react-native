@@ -161,5 +161,8 @@
     "languages": "kotlin-swift",
     "type": "nitro-module",
     "version": "0.49.2"
+  },
+  "dependencies": {
+    "color": "^5.0.0"
   }
 }

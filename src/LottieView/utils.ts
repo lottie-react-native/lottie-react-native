@@ -1,4 +1,5 @@
 import { Image } from 'react-native';
+import Color from 'color';
 
 function parsePossibleSources(source: any):
   | {
@@ -34,4 +35,8 @@ function parsePossibleSources(source: any):
   return undefined;
 }
 
-export { parsePossibleSources };
+function parseColorToHex(source: string): string {
+  return Color(source).hex();
+}
+
+export { parsePossibleSources, parseColorToHex };
