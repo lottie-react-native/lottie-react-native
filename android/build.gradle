@@ -142,5 +142,7 @@ dependencies {
   implementation "com.facebook.react:react-android"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation project(":react-native-nitro-modules")
+
+  implementation "com.airbnb.android:lottie:6.6.4"
 }
 
