@@ -1,38 +1,165 @@
 {
-  "name": "monorepo-root",
-  "version": "1.0.0",
-  "private": true,
-  "engines": {
-    "node": "18"
+  "name": "lottie-react-native",
+  "version": "0.1.0",
+  "description": "Lottie wrapper for React Native.",
+  "source": "./src/index.tsx",
+  "main": "./lib/module/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/typescript/src/index.d.ts",
+      "default": "./lib/module/index.js"
+    },
+    "./package.json": "./package.json"
   },
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "ios",
+    "cpp",
+    "nitrogen",
+    "*.podspec",
+    "react-native.config.js",
+    "!ios/build",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*"
+  ],
   "scripts": {
-    "setup": "yarn workspace lottie-react-native build",
-    "fabric:android": "yarn workspace example fabric:android",
-    "fabric:build:android": "yarn workspace example ci:fabric:android",
-    "fabric:build:ios": "yarn workspace example ci:fabric:ios",
-    "fabric:build:ios-static-framework": "yarn workspace example ci:fabric:ios-static-framework",
-    "fabric:build:ios-dynamic-framework": "yarn workspace example ci:fabric:ios-dynamic-framework",
-    "paper:build:android": "yarn workspace example ci:paper:android",
-    "paper:build:ios": "yarn workspace example ci:paper:ios",
-    "run:bundler": "yarn workspace example start",
-    "run:web": "yarn workspace example web",
-    "lint:swift": "yarn workspace lottie-react-native lint:swift",
-    "docs:clean": "rimraf _book",
-    "docs:prepare": "gitbook install",
-    "docs:build": "yarn docs:prepare && gitbook build",
-    "docs:watch": "yarn docs:prepare && gitbook serve",
-    "docs:publish": "yarn docs:clean && yarn docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git fetch git@github.com:airbnb/lottie-react-native.git gh-pages && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push git@github.com:airbnb/lottie-react-native.git gh-pages --force"
+    "example": "yarn workspace lottie-react-native-example",
+    "test": "jest",
+    "typecheck": "tsc",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
+    "prepare": "bob build",
+    "nitrogen": "nitro-codegen",
+    "release": "release-it"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lottie-react-native/lottie-react-native.git"
+  },
+  "author": "Parsa Nasirimehr <p.nasirimehr@gmail.com> (https://github.com/TheRogue76)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lottie-react-native/lottie-react-native/issues"
+  },
+  "homepage": "https://github.com/lottie-react-native/lottie-react-native#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "gitbook-cli": "^2.3.2",
-    "react-native-test-app": "^3.8.7"
+    "@commitlint/config-conventional": "^19.6.0",
+    "@eslint/compat": "^1.2.7",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
+    "@evilmartians/lefthook": "^1.5.0",
+    "@react-native/eslint-config": "^0.78.0",
+    "@release-it/conventional-changelog": "^9.0.2",
+    "@types/jest": "^29.5.5",
+    "@types/react": "^19.0.0",
+    "commitlint": "^19.6.1",
+    "del-cli": "^5.1.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "jest": "^29.7.0",
+    "nitro-codegen": "^0.25.2",
+    "prettier": "^3.0.3",
+    "react": "19.0.0",
+    "react-native": "0.78.2",
+    "react-native-builder-bob": "^0.40.0",
+    "react-native-nitro-modules": "^0.25.2",
+    "release-it": "^17.10.0",
+    "turbo": "^1.10.7",
+    "typescript": "^5.2.2"
   },
-  "resolutions": {
-    "@types/react": "^18.2.12",
-    "@types/react-native": "^0.70.14"
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-nitro-modules": "^0.25.2"
   },
   "workspaces": [
-    "./packages/*",
-    "./example"
-  ]
+    "example"
+  ],
+  "packageManager": "yarn@3.6.1",
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": {
+          "name": "angular"
+        }
+      }
+    }
+  },
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "custom",
+        {
+          "script": "nitrogen",
+          "clean": "nitrogen/"
+        }
+      ],
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "create-react-native-library": {
+    "languages": "kotlin-swift",
+    "type": "nitro-module",
+    "version": "0.49.2"
+  }
 }

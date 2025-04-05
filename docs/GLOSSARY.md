@@ -1,3 +1,0 @@
-## Glossary
-
-(no terms yet)
