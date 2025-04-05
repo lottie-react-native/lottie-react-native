@@ -1,5 +1,5 @@
 const path = require('path');
-const pkg = require('lottie-react-native/package.json');
+const pkg = require('../package.json');
 
 module.exports = {
   project: {

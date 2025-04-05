@@ -33,5 +33,11 @@ target 'LottieReactNativeExample' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+    # Hack while using Xcode < 16.3. To be removed afterwards
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.6'
+      end
+    end
   end
 end
