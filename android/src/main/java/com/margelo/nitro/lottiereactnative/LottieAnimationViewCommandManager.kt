@@ -6,6 +6,8 @@ import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import java.lang.ref.WeakReference
 
+// Why do we do Handler with main loop? Because Actions based on ref can come from threads that are not the main thread,
+// And if not handled, we can cause a crash when touching UI
 class LottieAnimationViewCommandManager(view: LottieAnimationView) {
   private val viewWeakReference: WeakReference<LottieAnimationView> = WeakReference(view)
 
