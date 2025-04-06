@@ -4,9 +4,13 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
+import java.lang.ref.WeakReference
 
-class LottieAnimationViewCommandManager(private val view: LottieAnimationView) {
+class LottieAnimationViewCommandManager(view: LottieAnimationView) {
+  private val viewWeakReference: WeakReference<LottieAnimationView> = WeakReference(view)
+
   fun play(startFrame: Int, endFrame: Int) {
+    val view = viewWeakReference.get() ?: return
     val withCustomFrames = startFrame != -1 && endFrame != -1
     Handler(Looper.getMainLooper()).post {
       if (withCustomFrames) {
@@ -59,6 +63,7 @@ class LottieAnimationViewCommandManager(private val view: LottieAnimationView) {
   }
 
   fun reset() {
+    val view = viewWeakReference.get() ?: return
     Handler(Looper.getMainLooper()).post {
       if (view.isAttachedToWindow) {
         view.cancelAnimation()
@@ -68,6 +73,7 @@ class LottieAnimationViewCommandManager(private val view: LottieAnimationView) {
   }
 
   fun pause() {
+    val view = viewWeakReference.get() ?: return
     Handler(Looper.getMainLooper()).post {
       if (view.isAttachedToWindow) {
         view.pauseAnimation()
@@ -76,6 +82,7 @@ class LottieAnimationViewCommandManager(private val view: LottieAnimationView) {
   }
 
   fun resume() {
+    val view = viewWeakReference.get() ?: return
     Handler(Looper.getMainLooper()).post {
       if (view.isAttachedToWindow) {
         view.resumeAnimation()

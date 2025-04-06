@@ -2,9 +2,33 @@ import Lottie
 
 class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   // Props
-  var sourceName: String?
+  var sourceName: String? {
+    get { nil }
+    set {
+      guard let newValue else { return }
+      let animationView = LottieAnimationView(
+        name: newValue,
+        configuration: lottieConfiguration
+      )
+      replaceAnimationView(next: animationView)
+    }
+  }
   
-  var sourceJson: String?
+  var sourceJson: String? {
+    get { nil }
+    set {
+      guard let newValue else { return }
+      guard let data = newValue.data(using: .utf8), let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
+        onAnimationFailure?("Unable to create the lottie animation object from the JSON source")
+        return
+      }
+      let animationView = LottieAnimationView(
+        animation: animation,
+        configuration: lottieConfiguration
+      )
+      replaceAnimationView(next: animationView)
+    }
+  }
   
   var sourceURL: String?
   
@@ -12,7 +36,34 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   
   var resizeMode: ResizeMode?
   
-  var renderMode: RenderMode?
+  var renderMode: RenderMode? {
+    get { nil }
+    set {
+      switch newValue {
+      case .software:
+        if (_internalRenderMode == .mainThread) {
+          return
+        }
+        _internalRenderMode = .mainThread
+      case .hardware:
+        if (_internalRenderMode == .coreAnimation) {
+          return
+        }
+        _internalRenderMode = .coreAnimation
+      default:
+        if (_internalRenderMode == .automatic) {
+          return
+        }
+        _internalRenderMode = .automatic
+      }
+      guard let oldAnimationView = view as? LottieAnimationView else { return }
+      let animationView = LottieAnimationView(
+        animation: oldAnimationView.animation,
+        configuration: lottieConfiguration
+      )
+      replaceAnimationView(next: animationView)
+    }
+  }
   
   var imageAssetsFolder: String?
   
@@ -20,9 +71,19 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   
   var speed: Double?
   
-  var loop: Bool?
+  var loop: Bool? {
+    get { nil }
+    set {
+      propertyManager.loop = newValue
+    }
+  }
   
-  var autoPlay: Bool?
+  var autoPlay: Bool? {
+    get { nil }
+    set {
+      propertyManager.autoPlay = newValue
+    }
+  }
   
   var enableMergePathsAndroidForKitKatAndAbove: Bool?
   
@@ -61,6 +122,41 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   }
   
   // View
-  var view: UIView = UIView()
+  var view: UIView = LottieAnimationView()
   
+  private var _internalRenderMode: RenderingEngineOption = .automatic
+  
+  private lazy var propertyManager: LottieAnimationViewPropertyManager = {
+    return LottieAnimationViewPropertyManager(view as? LottieAnimationView)
+  }()
+  
+  private var lottieConfiguration: LottieConfiguration {
+    LottieConfiguration(
+      renderingEngine: _internalRenderMode
+    )
+  }
+  
+  private func replaceAnimationView(next: LottieAnimationView) {
+    guard var view = view as? LottieAnimationView else { return }
+    
+    view = next
+
+    view.backgroundBehavior = .pauseAndRestore
+//    view.animationSpeed = speed
+//    view.loopMode = loop
+//    view.currentProgress = progress
+
+//    applyContentMode()
+//    applyColorProperties()
+//    playIfNeeded()
+
+    view.animationLoaded = { [weak self] _, _ in
+      guard let self else { return }
+      self.onAnimationLoaded?()
+    }
+  }
+  
+  func afterUpdate() {
+    propertyManager.commitChanges()
+  }
 }

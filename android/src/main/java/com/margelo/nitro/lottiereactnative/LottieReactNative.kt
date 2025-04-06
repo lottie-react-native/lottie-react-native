@@ -13,7 +13,7 @@ class HybridLottieAnimationView(
 ) : HybridLottieAnimationViewSpec() {
   // Props
   override var sourceName: String?
-    get() = sourceName
+    get() = null
     set(name) {
       // To match the behaviour on iOS we expect the source name to be
       // extensionless. This means "myAnimation" corresponds to a file
@@ -28,25 +28,25 @@ class HybridLottieAnimationView(
     }
 
   override var sourceJson: String?
-    get() = sourceJson
+    get() = null
     set(value) {
       propertyManager.animationJson = value
     }
 
   override var sourceURL: String?
-    get() = sourceURL
+    get() = null
     set(value) {
       propertyManager.animationURL = value
     }
 
   override var sourceDotLottieURI: String?
-    get() = sourceDotLottieURI
+    get() = null
     set(value) {
       propertyManager.sourceDotLottie = value
     }
 
   override var resizeMode: ResizeMode?
-    get() = resizeMode
+    get() = null
     set(value) {
       propertyManager.scaleType = when (value) {
         ResizeMode.CENTER -> ImageView.ScaleType.CENTER_INSIDE
@@ -57,7 +57,7 @@ class HybridLottieAnimationView(
     }
 
   override var renderMode: RenderMode?
-    get() = renderMode
+    get() = null
     set(value) {
       propertyManager.renderMode = when (value) {
         RenderMode.AUTOMATIC -> com.airbnb.lottie.RenderMode.AUTOMATIC
@@ -68,49 +68,49 @@ class HybridLottieAnimationView(
     }
 
   override var imageAssetsFolder: String?
-    get() = imageAssetsFolder
+    get() = null
     set(value) {
       propertyManager.imageAssetsFolder = value
     }
 
   override var progress: Double?
-    get() = progress
+    get() = null
     set(value) {
       propertyManager.progress = value?.toFloat()
     }
 
   override var speed: Double?
-    get() = speed
+    get() = null
     set(value) {
       propertyManager.speed = value?.toFloat()
     }
 
   override var loop: Boolean?
-    get() = loop
+    get() = null
     set(value) {
       propertyManager.loop = value
     }
 
   override var autoPlay: Boolean?
-    get() = autoPlay
+    get() = null
     set(value) {
       propertyManager.autoPlay = value
     }
 
   override var enableMergePathsAndroidForKitKatAndAbove: Boolean?
-    get() = enableMergePathsAndroidForKitKatAndAbove
+    get() = null
     set(value) {
       propertyManager.enableMergePaths = value
     }
 
   override var enableSafeModeAndroid: Boolean?
-    get() = enableSafeModeAndroid
+    get() = null
     set(value) {
       propertyManager.enableSafeMode = value
     }
 
   override var hardwareAccelerationAndroid: Boolean?
-    get() = hardwareAccelerationAndroid
+    get() = null
     set(value) {
       propertyManager.layerType = when (value) {
         true -> View.LAYER_TYPE_HARDWARE
@@ -120,19 +120,19 @@ class HybridLottieAnimationView(
     }
 
   override var cacheComposition: Boolean?
-    get() = cacheComposition
+    get() = null
     set(value) {
       view.setCacheComposition(value ?: false)
     }
 
   override var colorFilters: Array<ColorFilterStruct>?
-    get() = colorFilters
+    get() = null
     set(value) {
       propertyManager.colorFilters = value
     }
 
   override var textFiltersAndroid: Array<TextFilterAndroidStruct>?
-    get() = textFiltersAndroid
+    get() = null
     set(value) {
       propertyManager.textFilters = value
     }
