@@ -138,7 +138,7 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   
   private func replaceAnimationView(next: LottieAnimationView) {
     guard var view = view as? LottieAnimationView else { return }
-    
+    // TODO: this probably breaks propertManager since the reference changed. Figure out how to get rid of this function, or have a method on property manager for updating the weak reference
     view = next
 
     view.backgroundBehavior = .pauseAndRestore
