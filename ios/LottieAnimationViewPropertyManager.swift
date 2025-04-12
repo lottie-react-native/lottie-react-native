@@ -27,21 +27,62 @@ class LottieAnimationViewPropertyManager {
     guard let view = viewWeakReference else { return }
     
     if let currentAnimationJSONString = animationJSONString {
+      defer { animationJSONString = nil }
       guard let data = currentAnimationJSONString.data(using: .utf8), let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
         onFailure?("Unable to create the lottie animation object from the JSON source")
         return
       }
       view.animation = animation
-      animationJSONString = nil
+    }
+    
+    if let currentAnimationURLString = animationURLString {
+      defer { animationURLString = nil }
+      var url = URL(string: currentAnimationURLString)
+      
+      if url?.scheme == nil {
+        url = URL(fileURLWithPath: currentAnimationURLString, relativeTo: Bundle.main.resourceURL)
+      }
+      
+      guard let url else {
+        onFailure?("Unable to create a valid URL from the string: \(currentAnimationURLString)")
+        return
+      }
+      Task {
+        guard let animation = await LottieAnimation.loadedFrom(url: url) else {
+          onFailure?("Unable to load the lottie animation from the URL: \(url)")
+          return
+        }
+        await MainActor.run {
+          view.animation = animation
+        }
+      }
+    }
+    
+    if let currentAnimationDotLottie = animationDotLottie {
+      defer { animationDotLottie = nil }
+      guard let url = URL(string: currentAnimationDotLottie) else {
+        onFailure?("Unable to create a valid URL from the string: \(currentAnimationDotLottie)")
+        return
+      }
+      
+      Task {
+        guard let animation = await LottieAnimation.loadedFrom(url: url) else {
+          onFailure?("Unable to load the dotlottie animation from the URL: \(url)")
+          return
+        }
+        await MainActor.run {
+          view.animation = animation
+        }
+      }
     }
     
     if let currentAnimationName = animationName {
+      defer { animationName = nil }
       guard let animation = LottieAnimation.named(currentAnimationName) else {
         onFailure?("Unable to find the lottie animation named: \(currentAnimationName)")
         return
       }
       view.animation = animation
-      animationName = nil
     }
     
     if let currentLoop = loop {

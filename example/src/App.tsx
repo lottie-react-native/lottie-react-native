@@ -19,6 +19,7 @@ export default function App() {
         {...parsePossibleSources(LottieLogo)}
         style={styles.lottie}
         autoPlay
+        loop
         renderMode={'NOT_SET'}
         resizeMode={'NOT_SET'}
         colorFilters={colorFilter.map((item) => ({

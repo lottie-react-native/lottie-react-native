@@ -16,9 +16,19 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
     }
   }
   
-  var sourceURL: String?
+  var sourceURL: String? {
+    get { nil }
+    set {
+      propertyManager.animationURLString = newValue
+    }
+  }
   
-  var sourceDotLottieURI: String?
+  var sourceDotLottieURI: String? {
+    get { nil }
+    set {
+      propertyManager.animationDotLottie = newValue
+    }
+  }
   
   var resizeMode: ResizeMode = .notSet
   
