@@ -1,5 +1,7 @@
 import { Image } from 'react-native';
 import Color from 'color';
+import type { LottieViewProps } from 'lottie-react-native';
+import type { NativeProps } from '../specs/LottieReactNative.nitro';
 
 function parsePossibleSources(source: any):
   | {
@@ -39,4 +41,43 @@ function parseColorToHex(source: string): string {
   return Color(source).hex();
 }
 
-export { parsePossibleSources, parseColorToHex };
+function parseResizeModeToInternal(
+  resizeMode: LottieViewProps['resizeMode']
+): NativeProps['resizeMode'] {
+  return (() => {
+    switch (resizeMode) {
+      case 'center':
+        return 'center';
+      case 'cover':
+        return 'cover';
+      case 'contain':
+        return 'contain';
+      case undefined:
+        return 'NOT_SET';
+    }
+  })();
+}
+
+function parseRenderModeToInternal(
+  renderMode: LottieViewProps['renderMode']
+): NativeProps['renderMode'] {
+  return (() => {
+    switch (renderMode) {
+      case 'AUTOMATIC':
+        return 'AUTOMATIC';
+      case 'SOFTWARE':
+        return 'SOFTWARE';
+      case 'HARDWARE':
+        return 'HARDWARE';
+      case undefined:
+        return 'NOT_SET';
+    }
+  })();
+}
+
+export {
+  parsePossibleSources,
+  parseColorToHex,
+  parseResizeModeToInternal,
+  parseRenderModeToInternal,
+};

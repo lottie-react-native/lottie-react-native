@@ -11,9 +11,9 @@ const remoteSource = {
   uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/example/animations/Watermelon.json',
 };
 
-const dotLottie = require('./animations/animation_lkekfrcl.lottie');
+const dotLottie = require('../animations/animation_lkekfrcl.lottie');
 
-const localSource = require('./animations/LottieLogo1.json');
+const localSource = require('../animations/LottieLogo1.json');
 
 const App = () => {
   const ref = useRef<LottieView>(null);
