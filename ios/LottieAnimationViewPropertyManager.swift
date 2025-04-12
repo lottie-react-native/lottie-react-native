@@ -137,7 +137,7 @@ class LottieAnimationViewPropertyManager {
     if let currentColorFilters = colorFilters {
       for filter in currentColorFilters {
         let key = filter.keypath
-        guard let platformColor = UIColor(hexString: key) else { break }
+        guard let platformColor = UIColor(hexString: filter.color) else { break }
         let keypath: String = "\(key).**.Color"
         let fillKeypath = AnimationKeypath(keypath: keypath)
         let colorFilterValueProvider = ColorValueProvider(platformColor.lottieColorValue)
