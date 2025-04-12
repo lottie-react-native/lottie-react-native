@@ -11,8 +11,9 @@ import UIKit
 class LottieAnimationViewPropertyManager {
   private weak var viewWeakReference: LottieAnimationView?
   private var onFailure: ((String) -> Void)?
+  private var onFinish: ((Bool) -> Void)?
   
-  var loop: Bool? = nil
+  var loop: LottieLoopMode? = nil
   var autoPlay: Bool? = nil
   var animationName: String? = nil
   var animationJSONString: String? = nil
@@ -22,14 +23,26 @@ class LottieAnimationViewPropertyManager {
   var renderMode: RenderingEngineOption? = nil
   var progress: AnimationProgressTime? = nil
   var speed: CGFloat? = nil
+  var colorFilters: [ColorFilterStruct]? = nil
+  var textFilters: [TextFilterIOSStruct]? = nil
   
-  init(_ viewWeakReference: LottieAnimationView?,_ onFailure: ((String) -> Void)?) {
+  init(_ viewWeakReference: LottieAnimationView?,_ onFailure: ((String) -> Void)?, _ onFinish: ((Bool) -> Void)?) {
     self.viewWeakReference = viewWeakReference
     self.onFailure = onFailure
+    self.onFinish = onFinish
   }
   
   func commitChanges() {
     guard let view = viewWeakReference else { return }
+    
+    if let currentTextFilters = textFilters {
+      var filters = [String: String]()
+      for filter in currentTextFilters {
+        filters[filter.keypath] = filter.text
+      }
+
+      view.textProvider = DictionaryTextProvider(filters)
+    }
     
     if let currentAnimationJSONString = animationJSONString {
       defer { animationJSONString = nil }
@@ -95,13 +108,13 @@ class LottieAnimationViewPropertyManager {
     }
     
     if let currentLoop = loop {
-      view.loopMode = currentLoop ? .loop : .playOnce
+      view.loopMode = currentLoop
       loop = nil
     }
     
     if let autoPlay {
       if autoPlay && !view.isAnimationPlaying {
-        view.play()
+        view.play(completion: onFinish)
       }
     }
     
@@ -118,6 +131,18 @@ class LottieAnimationViewPropertyManager {
     if let currentRenderMode = renderMode {
       view.configuration.renderingEngine = currentRenderMode
       renderMode = nil
+    }
+    
+    if let currentColorFilters = colorFilters {
+      for filter in currentColorFilters {
+        let key = filter.keypath
+        guard let platformColor = UIColor(hexString: key) else { break }
+        let keypath: String = "\(key).**.Color"
+        let fillKeypath = AnimationKeypath(keypath: keypath)
+        let colorFilterValueProvider = ColorValueProvider(platformColor.lottieColorValue)
+        view.setValueProvider(colorFilterValueProvider, keypath: fillKeypath)
+      }
+      colorFilters = nil
     }
   }
 }

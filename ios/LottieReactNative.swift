@@ -81,7 +81,7 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
       if let speed = newValue {
         propertyManager.speed = CGFloat(speed)
       } else {
-        propertyManager.speed = nil
+        propertyManager.speed = 1
       }
     }
   }
@@ -89,7 +89,13 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   var loop: Bool? {
     get { nil }
     set {
-      propertyManager.loop = newValue
+      if let newValue {
+        propertyManager.loop = newValue ? .loop : .playOnce
+        commandManager.loop = newValue ? .loop : .playOnce
+      } else {
+        propertyManager.loop = .playOnce
+        commandManager.loop = .playOnce
+      }
     }
   }
   
@@ -108,61 +114,64 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   
   var cacheComposition: Bool? // NOOP
   
-  var colorFilters: [ColorFilterStruct]?
+  var colorFilters: [ColorFilterStruct]? {
+    get { nil }
+    set {
+      propertyManager.colorFilters = newValue
+    }
+  }
   
-  var textFiltersAndroid: [TextFilterAndroidStruct]?
+  var textFiltersAndroid: [TextFilterAndroidStruct]? // NOOP
   
-  var textFiltersIOS: [TextFilterIOSStruct]?
+  var textFiltersIOS: [TextFilterIOSStruct]? {
+    get { nil }
+    set {
+      propertyManager.textFilters = newValue
+    }
+  }
   
-  var onAnimationLoaded: (() -> Void)?
+  var onAnimationLoaded: (() -> Void)? {
+    get { nil }
+    set {
+      guard let view = view as? LottieAnimationView else { return }
+      view.animationLoaded = { [weak self] _, _ in
+        guard let self else { return }
+        newValue?()
+      }
+    }
+  }
   
   var onAnimationFailure: ((String) -> Void)?
   
   var onAnimationFinish: ((Bool) -> Void)?
   
   // Methods
-  // MARK: Since these are grabbed by ref, it is possible for these NOT to be on the UI thread, be careful when calling these to only touch UI stuff after doing a Dispatch.main.async
   func play(startFrame: Double, endFrame: Double) throws {
-    
+    commandManager.play(startFrame: startFrame, endFrame: endFrame)
   }
+  
   func reset() throws {
-    
+    commandManager.reset()
   }
   
   func pause() throws {
-    
+    commandManager.pause()
   }
   
   func resume() throws {
-    
+    commandManager.resume()
   }
   
   // View
   var view: UIView = LottieAnimationView()
   
   private lazy var propertyManager: LottieAnimationViewPropertyManager = {
-    return LottieAnimationViewPropertyManager(view as? LottieAnimationView, onAnimationFailure)
+    return LottieAnimationViewPropertyManager(view as? LottieAnimationView, onAnimationFailure, onAnimationFinish)
   }()
   
-//  private func replaceAnimationView(next: LottieAnimationView) {
-//    guard var view = view as? LottieAnimationView else { return }
-//    // TODO: this probably breaks propertManager since the reference changed. Figure out how to get rid of this function, or have a method on property manager for updating the weak reference
-//    view = next
-//
-//    view.backgroundBehavior = .pauseAndRestore
-//    view.animationSpeed = speed
-//    view.loopMode = loop
-//    view.currentProgress = progress
-//
-//    applyContentMode()
-//    applyColorProperties()
-//    playIfNeeded()
-
-//    view.animationLoaded = { [weak self] _, _ in
-//      guard let self else { return }
-//      self.onAnimationLoaded?()
-//    }
-//  }
+  private lazy var commandManager: LottieAnimationViewCommandManager = {
+    return LottieAnimationViewCommandManager(viewWeakReference: view as? LottieAnimationView, onAnimationFinish)
+  }()
   
   func afterUpdate() {
     propertyManager.commitChanges()
