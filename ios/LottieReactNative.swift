@@ -134,8 +134,7 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
     get { nil }
     set {
       guard let view = view as? LottieAnimationView else { return }
-      view.animationLoaded = { [weak self] _, _ in
-        guard let self else { return }
+      view.animationLoaded = {_, _ in
         newValue?()
       }
     }
