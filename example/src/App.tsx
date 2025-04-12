@@ -33,11 +33,17 @@ const App = () => {
         colorFilters={colorFilter}
         enableMergePathsAndroidForKitKatAndAbove
         enableSafeModeAndroid
+        onAnimationLoaded={() => {
+          console.log('Lottie loaded');
+        }}
         onAnimationFinish={() => {
           console.log('Finished');
         }}
         onAnimationFailure={(e) => {
           console.log('Error ', { e });
+        }}
+        onLayout={(event) => {
+          console.log('Layout', event);
         }}
       />
       <View style={styles.controlsContainer}>
