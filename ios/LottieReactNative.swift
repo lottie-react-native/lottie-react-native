@@ -62,11 +62,29 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
     }
   }
   
-  var imageAssetsFolder: String?
+  var imageAssetsFolder: String? // NOOP
   
-  var progress: Double?
+  var progress: Double? {
+    get { nil }
+    set {
+      if let progress = newValue {
+        propertyManager.progress = CGFloat(progress)
+      } else {
+        propertyManager.progress = nil
+      }
+    }
+  }
   
-  var speed: Double?
+  var speed: Double? {
+    get { nil }
+    set {
+      if let speed = newValue {
+        propertyManager.speed = CGFloat(speed)
+      } else {
+        propertyManager.speed = nil
+      }
+    }
+  }
   
   var loop: Bool? {
     get { nil }
@@ -82,13 +100,13 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
     }
   }
   
-  var enableMergePathsAndroidForKitKatAndAbove: Bool?
+  var enableMergePathsAndroidForKitKatAndAbove: Bool? // NOOP
   
-  var enableSafeModeAndroid: Bool?
+  var enableSafeModeAndroid: Bool? // NOOP
   
-  var hardwareAccelerationAndroid: Bool?
+  var hardwareAccelerationAndroid: Bool? // NOOP
   
-  var cacheComposition: Bool?
+  var cacheComposition: Bool? // NOOP
   
   var colorFilters: [ColorFilterStruct]?
   

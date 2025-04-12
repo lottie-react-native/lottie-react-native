@@ -20,6 +20,8 @@ class LottieAnimationViewPropertyManager {
   var animationDotLottie: String? = nil
   var contentMode: UIView.ContentMode? = nil
   var renderMode: RenderingEngineOption? = nil
+  var progress: AnimationProgressTime? = nil
+  var speed: CGFloat? = nil
   
   init(_ viewWeakReference: LottieAnimationView?,_ onFailure: ((String) -> Void)?) {
     self.viewWeakReference = viewWeakReference
@@ -87,6 +89,10 @@ class LottieAnimationViewPropertyManager {
       }
       view.animation = animation
     }
+    if let currentProgress = progress {
+      view.currentProgress = currentProgress
+      progress = nil
+    }
     
     if let currentLoop = loop {
       view.loopMode = currentLoop ? .loop : .playOnce
@@ -97,6 +103,11 @@ class LottieAnimationViewPropertyManager {
       if autoPlay && !view.isAnimationPlaying {
         view.play()
       }
+    }
+    
+    if let currentSpeed = speed {
+      view.animationSpeed = currentSpeed
+      speed = nil
     }
     
     if let currentScaleType = contentMode {
