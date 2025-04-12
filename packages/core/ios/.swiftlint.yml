@@ -1,6 +1,0 @@
-disabled_rules:
-  - line_length
-  - identifier_name
-type_body_length:
-  - 300
-  - 400

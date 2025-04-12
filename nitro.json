@@ -1,0 +1,17 @@
+{
+  "cxxNamespace": ["lottiereactnative"],
+  "ios": {
+    "iosModuleName": "LottieReactNative"
+  },
+  "android": {
+    "androidNamespace": ["lottiereactnative"],
+    "androidCxxLibName": "lottiereactnative"
+  },
+  "autolinking": {
+    "LottieAnimationView": {
+      "swift": "HybridLottieAnimationView",
+      "kotlin": "HybridLottieAnimationView"
+    }
+  },
+  "ignorePaths": ["node_modules"]
+}

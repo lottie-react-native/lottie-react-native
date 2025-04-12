@@ -1,31 +1,29 @@
 const path = require('path');
-const { makeMetroConfig } = require("@rnx-kit/metro-config");
-const {getDefaultConfig} = require('@react-native/metro-config')
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { getConfig } = require('react-native-builder-bob/metro-config');
+const pkg = require('../package.json');
+
+const root = path.resolve(__dirname, '..');
 
 const defaultConfig = getDefaultConfig(__dirname);
 
-const root = path.resolve(__dirname, '../packages/core/');
-const pack = require('../packages/core/package.json');
-
-const modules = Object.keys(pack.peerDependencies);
-
-module.exports = makeMetroConfig({
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: false,
-      },
-    }),
-  },
+/**
+ * Metro configuration
+ * https://facebook.github.io/metro/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {
   resolver: {
-    // In order to import dotLottie assets, we will need this
     assetExts: [...defaultConfig.resolver.assetExts, 'lottie'],
-    unstable_enableSymlinks: true,
-    extraNodeModules: modules.reduce((acc, name) => {
-      acc[name] = path.join(__dirname, 'node_modules', name);
-      return acc;
-    }, {}),
   },
-  watchFolders: [root],
-});
+};
+
+module.exports = mergeConfig(
+  getConfig(getDefaultConfig(__dirname), {
+    root,
+    pkg,
+    project: __dirname,
+  }),
+  config
+);

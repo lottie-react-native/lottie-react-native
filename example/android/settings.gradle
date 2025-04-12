@@ -1,21 +1,6 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-        google()
-    }
-}
-
-rootProject.name = "Example"
-
-apply(from: {
-    def searchDir = rootDir.toPath()
-    do {
-        def p = searchDir.resolve("node_modules/react-native-test-app/test-app.gradle")
-        if (p.toFile().exists()) {
-            return p.toRealPath().toString()
-        }
-    } while (searchDir = searchDir.getParent())
-    throw new GradleException("Could not find `react-native-test-app`");
-}())
-applyTestAppSettings(settings)
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+rootProject.name = 'lottiereactnative.example'
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')

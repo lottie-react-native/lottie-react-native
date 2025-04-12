@@ -1,2 +1,3 @@
-/.yarn/releases/** binary
-/.yarn/plugins/** binary
+*.pbxproj -text
+# specific for windows script files
+*.bat text eol=crlf
