@@ -1,61 +1,44 @@
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { LottieAnimationView } from 'lottie-react-native';
-import {
-  parseColorToHex,
-  parsePossibleSources,
-} from '../../src/LottieView/utils';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import LottieView from 'lottie-react-native';
 
 const color = {
-  third: '#1652f0',
-  secondary: '#64EAFF',
-  primary: 'rgba(0, 10, 100, 0.2)',
+  primary: '#1652f0',
+  secondary: '#64E9FF',
 };
 
 const remoteSource = {
   uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/example/animations/Watermelon.json',
 };
 
-const dotLottie = require('../animations/animation_lkekfrcl.lottie');
+const dotLottie = require('./animations/animation_lkekfrcl.lottie');
 
-const localSource = require('../animations/LottieLogo1.json');
+const localSource = require('./animations/LottieLogo1.json');
 
-export default function App() {
-  // const ref = useRef<LottieView>(null);
+const App = () => {
+  const ref = useRef<LottieView>(null);
   const [source, setSource] = useState(localSource);
   const [isLoop, setLoop] = useState(false);
+
   return (
     <View style={styles.container}>
-      <LottieAnimationView
-        {...parsePossibleSources(source)}
-        autoPlay={true} // Temporary till i create the callback wrappers and allow passing ref
+      <LottieView
+        ref={ref}
+        key={source + isLoop}
+        source={source}
+        autoPlay={false}
         loop={isLoop}
         style={styles.lottie}
-        resizeMode={'NOT_SET'}
-        renderMode={'NOT_SET'}
+        resizeMode={'contain'}
+        colorFilters={colorFilter}
         enableMergePathsAndroidForKitKatAndAbove
         enableSafeModeAndroid
-        colorFilters={colorFilter.map((item) => ({
-          ...item,
-          color: parseColorToHex(item.color),
-        }))}
-        // onAnimationLoaded={{
-        //   f: () => {
-        //     console.log('Lottie loaded');
-        //   },
-        // }}
-        // onAnimationFailure={{
-        //   f: (error) => {
-        //     console.log(`Lottie Errored: ${error}`);
-        //   },
-        // }}
-        // onAnimationFinish={{
-        //   f: (isCancelled) => {
-        //     console.log(
-        //       `Lottie Finished with isCancelled set to ${isCancelled}`
-        //     );
-        //   },
-        // }}
+        onAnimationFinish={() => {
+          console.log('Finished');
+        }}
+        onAnimationFailure={(e) => {
+          console.log('Error ', { e });
+        }}
       />
       <View style={styles.controlsContainer}>
         <TouchableOpacity
@@ -68,7 +51,7 @@ export default function App() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            // ref.current?.play();
+            ref.current?.play();
           }}
           style={styles.button}
         >
@@ -76,7 +59,7 @@ export default function App() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            // ref.current?.play(40, 179);
+            ref.current?.play(40, 179);
           }}
           style={styles.button}
         >
@@ -84,7 +67,7 @@ export default function App() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            // ref.current?.reset();
+            ref.current?.reset();
           }}
           style={styles.button}
         >
@@ -108,7 +91,7 @@ export default function App() {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setLoop((p: boolean) => !p);
+            setLoop((p) => !p);
           }}
           style={styles.button}
         >
@@ -117,7 +100,7 @@ export default function App() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -179,6 +162,8 @@ const colorFilter = [
   },
   {
     keypath: 'E3-Y',
-    color: color.third,
+    color: color.secondary,
   },
 ];
+
+export default App;

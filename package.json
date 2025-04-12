@@ -65,6 +65,7 @@
     "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.22.0",
     "@evilmartians/lefthook": "^1.5.0",
+    "@lottiefiles/dotlottie-react": "^0.13.3",
     "@react-native/eslint-config": "^0.78.0",
     "@release-it/conventional-changelog": "^9.0.2",
     "@types/jest": "^29.5.5",
@@ -86,9 +87,15 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.3",
     "react": "*",
     "react-native": "*",
     "react-native-nitro-modules": "^0.25.2"
+  },
+  "peerDependenciesMeta": {
+    "@lottiefiles/dotlottie-react": {
+      "optional": true
+    }
   },
   "workspaces": [
     "example"
