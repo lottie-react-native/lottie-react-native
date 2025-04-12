@@ -5,28 +5,14 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   var sourceName: String? {
     get { nil }
     set {
-      guard let newValue else { return }
-      let animationView = LottieAnimationView(
-        name: newValue,
-        configuration: lottieConfiguration
-      )
-      replaceAnimationView(next: animationView)
+      propertyManager.animationName = newValue
     }
   }
   
   var sourceJson: String? {
     get { nil }
     set {
-      guard let newValue else { return }
-      guard let data = newValue.data(using: .utf8), let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
-        onAnimationFailure?("Unable to create the lottie animation object from the JSON source")
-        return
-      }
-      let animationView = LottieAnimationView(
-        animation: animation,
-        configuration: lottieConfiguration
-      )
-      replaceAnimationView(next: animationView)
+      propertyManager.animationJSONString = newValue
     }
   }
   
@@ -57,11 +43,12 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
         _internalRenderMode = .automatic
       }
       guard let oldAnimationView = view as? LottieAnimationView else { return }
-      let animationView = LottieAnimationView(
-        animation: oldAnimationView.animation,
-        configuration: lottieConfiguration
-      )
-      replaceAnimationView(next: animationView)
+      // TODO: FIX
+//      let animationView = LottieAnimationView(
+//        animation: oldAnimationView.animation,
+//        configuration: lottieConfiguration
+//      )
+//      replaceAnimationView(next: animationView)
     }
   }
   
@@ -128,21 +115,15 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   private var _internalRenderMode: RenderingEngineOption = .automatic
   
   private lazy var propertyManager: LottieAnimationViewPropertyManager = {
-    return LottieAnimationViewPropertyManager(view as? LottieAnimationView)
+    return LottieAnimationViewPropertyManager(view as? LottieAnimationView, onAnimationFailure)
   }()
   
-  private var lottieConfiguration: LottieConfiguration {
-    LottieConfiguration(
-      renderingEngine: _internalRenderMode
-    )
-  }
-  
-  private func replaceAnimationView(next: LottieAnimationView) {
-    guard var view = view as? LottieAnimationView else { return }
-    // TODO: this probably breaks propertManager since the reference changed. Figure out how to get rid of this function, or have a method on property manager for updating the weak reference
-    view = next
-
-    view.backgroundBehavior = .pauseAndRestore
+//  private func replaceAnimationView(next: LottieAnimationView) {
+//    guard var view = view as? LottieAnimationView else { return }
+//    // TODO: this probably breaks propertManager since the reference changed. Figure out how to get rid of this function, or have a method on property manager for updating the weak reference
+//    view = next
+//
+//    view.backgroundBehavior = .pauseAndRestore
 //    view.animationSpeed = speed
 //    view.loopMode = loop
 //    view.currentProgress = progress
@@ -151,11 +132,11 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
 //    applyColorProperties()
 //    playIfNeeded()
 
-    view.animationLoaded = { [weak self] _, _ in
-      guard let self else { return }
-      self.onAnimationLoaded?()
-    }
-  }
+//    view.animationLoaded = { [weak self] _, _ in
+//      guard let self else { return }
+//      self.onAnimationLoaded?()
+//    }
+//  }
   
   func afterUpdate() {
     propertyManager.commitChanges()
