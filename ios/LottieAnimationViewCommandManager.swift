@@ -19,34 +19,32 @@ class LottieAnimationViewCommandManager {
   }
   
   func play(startFrame: AnimationFrameTime, endFrame: AnimationFrameTime) {
-    guard let view = viewWeakReference else { return }
-    DispatchQueue.main.async { [weak self] in
+    DispatchQueue.main.async { [weak self, weak viewWeakReference] in
       guard let self else { return }
+      guard let view = viewWeakReference else { return }
       view.play(fromFrame: startFrame, toFrame: endFrame, loopMode: self.loop ?? .playOnce, completion: onFinish)
     }
   }
   
   func reset() {
-    guard let view = viewWeakReference else { return }
-    DispatchQueue.main.async { [weak self] in
-      guard let self else { return }
+    DispatchQueue.main.async { [weak viewWeakReference] in
+      guard let view = viewWeakReference else { return }
       view.currentProgress = 0
       view.pause()
     }
   }
   
   func pause() {
-    guard let view = viewWeakReference else { return }
-    DispatchQueue.main.async { [weak self] in
-      guard let self else { return }
+    DispatchQueue.main.async { [weak viewWeakReference] in
+      guard let view = viewWeakReference else { return }
       view.pause()
     }
   }
   
   func resume() {
-    guard let view = viewWeakReference else { return }
-    DispatchQueue.main.async { [weak self] in
+    DispatchQueue.main.async { [weak viewWeakReference, weak self] in
       guard let self else { return }
+      guard let view = viewWeakReference else { return }
       view.play(completion: onFinish)
     }
   }

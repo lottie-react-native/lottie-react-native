@@ -130,6 +130,7 @@ class LottieAnimationViewPropertyManager {
     
     if let currentRenderMode = renderMode {
       view.configuration.renderingEngine = currentRenderMode
+      view.play(completion: onFinish) // When you change render mode, it stops the animation.
       renderMode = nil
     }
     
