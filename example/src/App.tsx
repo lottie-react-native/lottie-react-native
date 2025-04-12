@@ -1,27 +1,40 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { LottieAnimationView } from 'lottie-react-native';
 import {
   parseColorToHex,
   parsePossibleSources,
 } from '../../src/LottieView/utils';
-import LottieLogo from './animations/LottieLogo1.json';
+import { useState } from 'react';
 
 const color = {
   third: '#1652f0',
-  secondary: '#64E9FF',
+  secondary: '#64EAFF',
   primary: 'rgba(0, 10, 100, 0.2)',
 };
 
+const remoteSource = {
+  uri: 'https://raw.githubusercontent.com/lottie-react-native/lottie-react-native/master/example/animations/Watermelon.json',
+};
+
+const dotLottie = require('../animations/animation_lkekfrcl.lottie');
+
+const localSource = require('../animations/LottieLogo1.json');
+
 export default function App() {
+  // const ref = useRef<LottieView>(null);
+  const [source, setSource] = useState(localSource);
+  const [isLoop, setLoop] = useState(false);
   return (
     <View style={styles.container}>
       <LottieAnimationView
-        {...parsePossibleSources(LottieLogo)}
+        {...parsePossibleSources(source)}
+        autoPlay={true} // Temporary till i create the callback wrappers and allow passing ref
+        loop={isLoop}
         style={styles.lottie}
-        autoPlay
-        loop
-        renderMode={'NOT_SET'}
         resizeMode={'NOT_SET'}
+        renderMode={'NOT_SET'}
+        enableMergePathsAndroidForKitKatAndAbove
+        enableSafeModeAndroid
         colorFilters={colorFilter.map((item) => ({
           ...item,
           color: parseColorToHex(item.color),
@@ -44,6 +57,64 @@ export default function App() {
         //   },
         // }}
       />
+      <View style={styles.controlsContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(localSource);
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>{'Local animation'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            // ref.current?.play();
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>{'Play'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            // ref.current?.play(40, 179);
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>{'Play from frames'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            // ref.current?.reset();
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>{'Reset'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(remoteSource);
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>{'Remote animation'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setSource(dotLottie);
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>{'DotLottie animation'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setLoop((p: boolean) => !p);
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.text}>{isLoop ? 'Loop on' : 'Loop off'}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
