@@ -45,25 +45,25 @@ class HybridLottieAnimationView(
       propertyManager.sourceDotLottie = value
     }
 
-  override var resizeMode: ResizeMode?
-    get() = null
+  override var resizeMode: ResizeMode
+    get() = ResizeMode.NOT_SET
     set(value) {
       propertyManager.scaleType = when (value) {
         ResizeMode.CENTER -> ImageView.ScaleType.CENTER_INSIDE
         ResizeMode.CONTAIN -> ImageView.ScaleType.FIT_CENTER
         ResizeMode.COVER -> ImageView.ScaleType.CENTER_CROP
-        null -> null
+        ResizeMode.NOT_SET -> null
       }
     }
 
-  override var renderMode: RenderMode?
-    get() = null
+  override var renderMode: RenderMode
+    get() = RenderMode.NOT_SET
     set(value) {
       propertyManager.renderMode = when (value) {
         RenderMode.AUTOMATIC -> com.airbnb.lottie.RenderMode.AUTOMATIC
         RenderMode.HARDWARE -> com.airbnb.lottie.RenderMode.HARDWARE
         RenderMode.SOFTWARE -> com.airbnb.lottie.RenderMode.SOFTWARE
-        null -> null
+        RenderMode.NOT_SET -> null
       }
     }
 
