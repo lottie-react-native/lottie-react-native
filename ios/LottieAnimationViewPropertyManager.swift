@@ -6,6 +6,7 @@
 //
 
 import Lottie
+import UIKit
 
 class LottieAnimationViewPropertyManager {
   private weak var viewWeakReference: LottieAnimationView?
@@ -17,6 +18,8 @@ class LottieAnimationViewPropertyManager {
   var animationJSONString: String? = nil
   var animationURLString: String? = nil
   var animationDotLottie: String? = nil
+  var contentMode: UIView.ContentMode? = nil
+  var renderMode: RenderingEngineOption? = nil
   
   init(_ viewWeakReference: LottieAnimationView?,_ onFailure: ((String) -> Void)?) {
     self.viewWeakReference = viewWeakReference
@@ -94,6 +97,16 @@ class LottieAnimationViewPropertyManager {
       if autoPlay && !view.isAnimationPlaying {
         view.play()
       }
+    }
+    
+    if let currentScaleType = contentMode {
+      view.contentMode = currentScaleType
+      contentMode = nil
+    }
+    
+    if let currentRenderMode = renderMode {
+      view.configuration.renderingEngine = currentRenderMode
+      renderMode = nil
     }
   }
 }

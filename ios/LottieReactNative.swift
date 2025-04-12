@@ -30,35 +30,35 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
     }
   }
   
-  var resizeMode: ResizeMode = .notSet
+  var resizeMode: ResizeMode {
+    get { .notSet }
+    set {
+      switch newValue {
+      case .cover:
+        propertyManager.contentMode = .scaleAspectFill
+      case .contain:
+        propertyManager.contentMode = .scaleAspectFit
+      case .center:
+        propertyManager.contentMode = .center
+      case .notSet:
+        propertyManager.contentMode = nil
+      }
+    }
+  }
   
   var renderMode: RenderMode {
     get { .notSet }
     set {
       switch newValue {
-      case .software:
-        if (_internalRenderMode == .mainThread) {
-          return
-        }
-        _internalRenderMode = .mainThread
+      case .automatic:
+        propertyManager.renderMode = .automatic
       case .hardware:
-        if (_internalRenderMode == .coreAnimation) {
-          return
-        }
-        _internalRenderMode = .coreAnimation
-      default:
-        if (_internalRenderMode == .automatic) {
-          return
-        }
-        _internalRenderMode = .automatic
+        propertyManager.renderMode = .coreAnimation
+      case .software:
+        propertyManager.renderMode = .mainThread
+      case .notSet:
+        propertyManager.renderMode = nil
       }
-      guard let oldAnimationView = view as? LottieAnimationView else { return }
-      // TODO: FIX
-//      let animationView = LottieAnimationView(
-//        animation: oldAnimationView.animation,
-//        configuration: lottieConfiguration
-//      )
-//      replaceAnimationView(next: animationView)
     }
   }
   
@@ -121,8 +121,6 @@ class HybridLottieAnimationView: HybridLottieAnimationViewSpec {
   
   // View
   var view: UIView = LottieAnimationView()
-  
-  private var _internalRenderMode: RenderingEngineOption = .automatic
   
   private lazy var propertyManager: LottieAnimationViewPropertyManager = {
     return LottieAnimationViewPropertyManager(view as? LottieAnimationView, onAnimationFailure)
