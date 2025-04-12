@@ -146,9 +146,9 @@ export class LottieView extends PureComponent<LottieViewProps> {
         onAnimationFinish={{
           f: onAnimationFinish,
         }}
-        onLayout={{
-          f: onLayout,
-        }}
+        // Fixed in Nitro core, awaiting next release: https://github.com/mrousavy/nitro/pull/618 https://github.com/mrousavy/nitro/issues/616
+        // @ts-ignore
+        onLayout={onLayout}
       />
     );
   }
