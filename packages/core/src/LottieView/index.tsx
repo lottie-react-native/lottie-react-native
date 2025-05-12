@@ -71,17 +71,23 @@ export class LottieView extends React.PureComponent<Props, {}> {
   private onAnimationFinish = (
     evt: NativeSyntheticEvent<{ isCancelled: boolean }>,
   ) => {
-    this.props.onAnimationFinish?.(evt.nativeEvent.isCancelled);
+    if (this.props.onAnimationFinish) {
+      this.props.onAnimationFinish(evt.nativeEvent.isCancelled);
+    }
   };
 
   private onAnimationFailure = (
     evt: NativeSyntheticEvent<{ error: string }>,
   ) => {
-    this.props.onAnimationFailure?.(evt.nativeEvent.error);
+    if (this.props.onAnimationFailure) {
+      this.props.onAnimationFailure(evt.nativeEvent.error);
+    }
   };
 
   private onAnimationLoaded = () => {
-    this.props.onAnimationLoaded?.()
+    if (this.props.onAnimationLoaded) {
+      this.props.onAnimationLoaded();
+    }
   }
 
   private captureRef(ref: React.ElementRef<typeof NativeLottieAnimationView>) {

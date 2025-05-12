@@ -19,6 +19,7 @@ const App = () => {
   const ref = React.useRef<LottieView>(null);
   const [source, setSource] = React.useState(localSource);
   const [isLoop, setLoop] = React.useState(false);
+  const [finishCount, setFinishCount] = React.useState(0);
 
   return (
     <View style={styles.container}>
@@ -33,14 +34,19 @@ const App = () => {
         colorFilters={colorFilter}
         enableMergePathsAndroidForKitKatAndAbove
         enableSafeModeAndroid
-        onAnimationFinish={() => {
-          console.log("Finished");
+        onAnimationFinish={(isCancelled) => {
+          console.log("Finished", { isCancelled });
+          setFinishCount(prev => prev + 1);
         }}
         onAnimationFailure={(e) => {
           console.log("Error ", { e });
         }}
+        onAnimationLoaded={() => {
+          console.log("Animation loaded");
+        }}
       />
       <View style={styles.controlsContainer}>
+        <Text style={styles.finishText}>Animation finished: {finishCount} times</Text>
         <TouchableOpacity
           onPress={() => {
             setSource(localSource);
@@ -116,6 +122,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   text: { color: "white", textAlign: "center" },
+  finishText: { fontWeight: "bold", marginBottom: 10 },
   lottie: { width: 400, height: 400 },
 });
 
