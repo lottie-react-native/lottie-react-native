@@ -47,7 +47,7 @@
     "react-native-windows": ">=0.63.x"
   },
   "peerDependenciesMeta": {
-    "@lottiefiles/-react": {
+    "@lottiefiles/dotlottie-react": {
       "optional": true
     },
     "react-native-windows": {
