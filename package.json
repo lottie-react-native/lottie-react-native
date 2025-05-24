@@ -6,7 +6,7 @@
     "node": "18"
   },
   "scripts": {
-    "setup": "yarn workspace lottie-react-native build",
+    "setup": "yarn workspace @engefoto/lottie-react-native build",
     "fabric:android": "yarn workspace example fabric:android",
     "fabric:build:android": "yarn workspace example ci:fabric:android",
     "fabric:build:ios": "yarn workspace example ci:fabric:ios",
@@ -16,7 +16,7 @@
     "paper:build:ios": "yarn workspace example ci:paper:ios",
     "run:bundler": "yarn workspace example start",
     "run:web": "yarn workspace example web",
-    "lint:swift": "yarn workspace lottie-react-native lint:swift",
+    "lint:swift": "yarn workspace @engefoto/lottie-react-native lint:swift",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "yarn docs:prepare && gitbook build",
