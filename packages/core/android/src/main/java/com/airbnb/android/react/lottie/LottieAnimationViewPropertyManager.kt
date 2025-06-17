@@ -247,7 +247,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         view: LottieAnimationView
     ) {
         val color: Int = if (colorFilter.getType("color") == ReadableType.Map) {
-            ColorPropConverter.getColor(colorFilter.getMap("color"), view.context)
+            ColorPropConverter.getColor(colorFilter.getMap("color"), view.context) ?: 0
         } else {
             colorFilter.getInt("color")
         }
