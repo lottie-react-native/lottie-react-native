@@ -1,5 +1,6 @@
 package com.airbnb.android.react.lottie
 
+import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.Typeface
 import android.net.Uri
@@ -247,7 +248,7 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
         view: LottieAnimationView
     ) {
         val color: Int = if (colorFilter.getType("color") == ReadableType.Map) {
-            ColorPropConverter.getColor(colorFilter.getMap("color"), view.context)
+            ColorPropConverter.getColor(colorFilter.getMap("color"), view.context) ?: Color.TRANSPARENT;
         } else {
             colorFilter.getInt("color")
         }
