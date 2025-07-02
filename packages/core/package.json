@@ -97,6 +97,11 @@
     "android": {
       "javaPackageName": "com.airbnb.android.react.lottie"
     },
+    "ios": {
+      "componentProvider": {
+        "LottieAnimationView": "LottieAnimationViewComponentView"
+      }
+    },
     "name": "lottiereactnative",
     "type": "components",
     "jsSrcsDir": "./src/specs"
