@@ -1,6 +1,6 @@
 {
   "name": "monorepo-root",
-  "version": "1.0.0",
+  "version": "7.2.4",
   "private": true,
   "engines": {
     "node": "18"

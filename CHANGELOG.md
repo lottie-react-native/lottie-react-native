@@ -1,5 +1,16 @@
 # Changelog
 
+## [7.2.4](https://github.com/lottie-react-native/lottie-react-native/compare/v7.2.3...v7.2.4) (2025-07-08)
+
+
+### Bug Fixes
+
+* **ci:** macos xcode versions ([c145b4a](https://github.com/lottie-react-native/lottie-react-native/commit/c145b4a635e13c0003176d525d67a144685a0349))
+* **ci:** macos xcode versions for paper ([3ac6f56](https://github.com/lottie-react-native/lottie-react-native/commit/3ac6f562a681f8bba6c1f3e9b6506ae8d9287112))
+* fix ios new arch by declaring component for codegen ([#1357](https://github.com/lottie-react-native/lottie-react-native/issues/1357)) ([77d832f](https://github.com/lottie-react-native/lottie-react-native/commit/77d832fe7e1c6acf4fc3f4fecabe310dfb1e2eb1))
+* **ios:** incorrect animations when switching between raw json and string source in fabric ([#1359](https://github.com/lottie-react-native/lottie-react-native/issues/1359)) ([2625e84](https://github.com/lottie-react-native/lottie-react-native/commit/2625e84f7a4d59318e1e0956db1778ab908ed208))
+* release-it script ([58e641e](https://github.com/lottie-react-native/lottie-react-native/commit/58e641e70500588989b06349681db6ebd23b34c5))
+
 ## 6.0.0
 
 ### Features
