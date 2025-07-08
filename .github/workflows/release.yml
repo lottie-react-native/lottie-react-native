@@ -1,12 +1,7 @@
-name: Automated Release
+name: Release & Publish To NPM
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   release:
@@ -29,6 +24,12 @@ jobs:
           node-version: '22'
           cache: 'yarn'
 
+
+      - name: Initialize Git User
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
       - name: Enable corepack
         run: corepack enable
 
@@ -41,6 +42,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Run release-it
-        run: yarn release-it --ci --dry-run --no-git
+        run: yarn release-it --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
