@@ -41,7 +41,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Run release-it
-        run: yarn release-it --ci --verbose
+        run: yarn release-it --ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

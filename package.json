@@ -1,6 +1,6 @@
 {
   "name": "monorepo-root",
-  "version": "7.3.2",
+  "version": "1.0.0",
   "private": true,
   "engines": {
     "node": "18"
@@ -44,9 +44,7 @@
       "commitMessage": "chore: release ${version}",
       "tagName": "v${version}"
     },
-    "npm": {
-      "publish": true
-    },
+    "npm": false,
     "github": {
       "release": true,
       "comments": {
