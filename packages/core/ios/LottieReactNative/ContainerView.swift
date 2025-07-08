@@ -17,9 +17,7 @@ class ContainerView: RCTView {
     private var progress: CGFloat = 0.0
     private var autoPlay: Bool = false
     private var loop: LottieLoopMode = .playOnce
-    private var sourceJson: String = ""
     private var resizeMode: String = ""
-    private var sourceName: String = ""
     private var colorFilters: [NSDictionary] = []
     private var textFilters: [NSDictionary] = []
     private var renderMode: RenderingEngineOption = .automatic
@@ -206,9 +204,7 @@ class ContainerView: RCTView {
             return
         }
 
-        sourceJson = newSourceJson
-
-        guard let data = sourceJson.data(using: String.Encoding.utf8),
+        guard let data = newSourceJson.data(using: String.Encoding.utf8),
               let animation = try? JSONDecoder().decode(LottieAnimation.self, from: data) else {
             failureCallback("Unable to create the lottie animation object from the JSON source")
             return
@@ -227,14 +223,8 @@ class ContainerView: RCTView {
             return
         }
 
-        if newSourceName == sourceName {
-            return
-        }
-
-        sourceName = newSourceName
-
         let nextAnimationView = LottieAnimationView(
-            name: sourceName,
+            name: newSourceName,
             configuration: lottieConfiguration
         )
 
