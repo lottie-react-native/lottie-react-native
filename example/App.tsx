@@ -176,6 +176,7 @@ const App: React.FC = () => {
               autoPlay={false}
               loop={isLooping}
               speed={animationSpeed}
+              containerStyle={styles.lottieContainer}
               style={styles.lottie}
               resizeMode="contain"
               colorFilters={colorFilters}
@@ -315,9 +316,9 @@ const styles = StyleSheet.create({
   lottie: {
     width: Math.min(screenWidth - 64, 320),
     height: Math.min(screenWidth - 64, 320),
-    borderRadius: 16,
-    backgroundColor: colors.background,
+    borderRadius: 60,
   },
+  lottieContainer: { backgroundColor: "gray", borderRadius: 60 },
   loadingOverlay: {
     position: "absolute",
     top: 0,
