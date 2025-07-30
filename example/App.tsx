@@ -1,6 +1,6 @@
+import LottieView from "lottie-react-native";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import LottieView from "lottie-react-native";
 
 const color = {
   primary: "#1652f0",
@@ -116,7 +116,12 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   text: { color: "white", textAlign: "center" },
-  lottie: { width: 400, height: 400 },
+  lottie: {
+    width: 400,
+    height: 400,
+    borderRadius: 200,
+    backgroundColor: "yellow",
+  },
 });
 
 const colorFilter = [
