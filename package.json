@@ -58,7 +58,7 @@
         "workspaces": [
           "packages/*"
         ],
-        "publishCommand": "yarn workspace lottie-react-native publish"
+        "publishCommand": "yarn workspace lottie-react-native release"
       },
       "@release-it/conventional-changelog": {
         "preset": "angular",

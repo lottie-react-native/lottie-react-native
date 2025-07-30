@@ -41,7 +41,7 @@
     "prepare": "bob build",
     "lint:swift": "swiftlint ios",
     "lint-fix:swift": "swiftlint --fix ios",
-    "publish": "npm publish"
+    "release": "npm publish"
   },
   "peerDependencies": {
     "@lottiefiles/dotlottie-react": "^0.6.5",
