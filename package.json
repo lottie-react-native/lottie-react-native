@@ -18,6 +18,7 @@
     "run:bundler": "yarn workspace example start",
     "run:web": "yarn workspace example web",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
+    "tsc": "yarn workspace example tsc",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
     "docs:build": "yarn docs:prepare && gitbook build",
