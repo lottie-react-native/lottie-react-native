@@ -316,7 +316,6 @@ const styles = StyleSheet.create({
   lottie: {
     width: Math.min(screenWidth - 64, 320),
     height: Math.min(screenWidth - 64, 320),
-    borderRadius: 60,
   },
   lottieContainer: { backgroundColor: "gray", borderRadius: 60 },
   loadingOverlay: {
