@@ -27,18 +27,21 @@
     "react-native",
     "keyframe"
   ],
-  "repository": "https://github.com/react-native-community/lottie-react-native",
+  "repository": "https://github.com/lottie-react-native/lottie-react-native",
   "bugs": {
-    "url": "https://github.com/react-native-community/lottie-react-native/issues"
+    "url": "https://github.com/lottie-react-native/lottie-react-native/issues"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true,
+    "access": "public"
   },
   "scripts": {
     "build": "bob build",
     "prepare": "bob build",
     "lint:swift": "swiftlint ios",
-    "lint-fix:swift": "swiftlint --fix ios"
+    "lint-fix:swift": "swiftlint --fix ios",
+    "publish": "npm publish"
   },
   "peerDependencies": {
     "@lottiefiles/dotlottie-react": "^0.6.5",
