@@ -1,5 +1,7 @@
 # Changelog
 
+## [7.2.5](https://github.com/lottie-react-native/lottie-react-native/compare/v7.2.4...v7.2.5) (2025-07-30)
+
 ## [7.2.4](https://github.com/lottie-react-native/lottie-react-native/compare/v7.2.3...v7.2.4) (2025-07-08)
 
 
