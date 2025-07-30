@@ -3,6 +3,7 @@ package com.airbnb.android.react.lottie
 import android.animation.Animator
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setColorFilters
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setEnableMergePaths
+import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setEnableSafeMode
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setHardwareAcceleration
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setImageAssetsFolder
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setLoop
@@ -188,6 +189,11 @@ class LottieAnimationViewManager :
         enableMergePaths: Boolean
     ) {
         setEnableMergePaths(enableMergePaths, getOrCreatePropertyManager(view))
+    }
+
+    @ReactProp(name = "enableSafeModeAndroid")
+    override fun setEnableSafeModeAndroid(view: LottieAnimationView, enableSafeMode: Boolean) {
+        setEnableSafeMode(enableSafeMode, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "hardwareAccelerationAndroid")

@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        xcode-version: [15.4]
+        xcode-version: [15.4.0, 16.2.0]
 
     steps:
       - name: List all available XCode versions
@@ -24,14 +24,6 @@ jobs:
 
       - name: Switch XCode Version
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
-
-      - name: Cache cocoapods
-        uses: actions/cache@v3
-        with:
-          path: apps/paper/ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
 
       - name: Checkout Repository
         uses: actions/checkout@v3

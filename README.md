@@ -41,7 +41,7 @@ yarn add lottie-react-native
 - Add dependencies for web players:
 
 ```
-yarn add @dotlottie/react-player
+yarn add @lottiefiles/dotlottie-react
 ```
 
 ### Windows (React Native >= 0.63)
@@ -285,6 +285,8 @@ You can find the full list of props and methods available in our [API document](
 ## Troubleshooting
 
 Not all After Effects features are supported by Lottie. If you notice there are some layers or animations missing check [this list](https://github.com/airbnb/lottie/blob/master/supported-features.md) to ensure they are supported.
+
+When it comes to animations, please validate that your animation file is compliant with the standard (for example, that it doesn't have floating number in places that require integers). If you have an animation that is not working as expected, it is always recommended that you look at the [Logcat output on Android](https://developer.android.com/studio/debug/logcat) and the [console on iOS](https://developer.apple.com/documentation/xcode/stepping-through-code-and-inspecting-variables-to-isolate-bugs), as both ecosystems will have logs attached in case of an error that usually highlights what has gone wrong.
 
 ## More
 
