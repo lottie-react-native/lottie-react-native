@@ -44,7 +44,7 @@
     "release": "npm publish"
   },
   "peerDependencies": {
-    "@lottiefiles/dotlottie-react": "^0.6.5",
+    "@lottiefiles/dotlottie-react": "^0.13.5",
     "react": "*",
     "react-native": ">=0.46",
     "react-native-windows": ">=0.63.x"
@@ -58,7 +58,7 @@
     }
   },
   "devDependencies": {
-    "@lottiefiles/dotlottie-react": "^0.6.5",
+    "@lottiefiles/dotlottie-react": "^0.13.5",
     "@react-native-community/eslint-config": "^3.1.0",
     "@types/react": "^18.2.12",
     "@types/react-native": "^0.70.14",
