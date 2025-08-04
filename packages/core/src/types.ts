@@ -33,6 +33,15 @@ type TextFilterAndroid = {
   replace: string;
 };
 
+type CommonStyleKeys = Extract<keyof CSSProperties, keyof ViewStyle>;
+
+/**
+ * Unified style type for web and native
+ */
+type UnifiedViewStyle = {
+  [K in CommonStyleKeys]: CSSProperties[K] & ViewStyle[K];
+};
+
 /**
  * Properties of the LottieView component
  */
@@ -79,7 +88,7 @@ export interface LottieViewProps {
    * **CAVEAT: border styling is not supported.**
    * @platform ios, android, windows
    */
-  style?: StyleProp<ViewStyle>;
+  style?: UnifiedViewStyle;
 
   /**
    * Style attributes for the web.
@@ -228,3 +237,5 @@ export interface LottieViewProps {
    */
   direction?: 1 | -1;
 }
+
+
