@@ -1,5 +1,12 @@
 # Changelog
 
+# [7.3.0](https://github.com/lottie-react-native/lottie-react-native/compare/v7.2.5...v7.3.0) (2025-08-04)
+
+
+### Features
+
+* add container style property ([#1365](https://github.com/lottie-react-native/lottie-react-native/issues/1365)) ([be9d2fe](https://github.com/lottie-react-native/lottie-react-native/commit/be9d2fed723bf770654ef6ddc24738eef0414afa)), closes [#1363](https://github.com/lottie-react-native/lottie-react-native/issues/1363)
+
 ## [7.2.5](https://github.com/lottie-react-native/lottie-react-native/compare/v7.2.4...v7.2.5) (2025-07-30)
 
 ## [7.2.4](https://github.com/lottie-react-native/lottie-react-native/compare/v7.2.3...v7.2.4) (2025-07-08)
