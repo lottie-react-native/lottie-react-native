@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   NativeSyntheticEvent,
+  StyleProp,
   View,
   ViewStyle,
   processColor,
@@ -14,7 +15,7 @@ import NativeLottieAnimationView, {
   Commands,
 } from '../specs/LottieAnimationViewNativeComponent';
 
-type Props = LottieViewProps & { containerStyle?: ViewStyle };
+type Props = LottieViewProps & { containerStyle?: StyleProp<ViewStyle> };
 
 const defaultProps: Props = {
   source: undefined,
