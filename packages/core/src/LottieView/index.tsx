@@ -101,7 +101,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
     }
   }
 
-  render(): React.ReactNode {
+  private renderLottieView() {
     const {
       style,
       source,
@@ -113,14 +113,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
       containerStyle,
       ...rest
     } = this.props;
-
-    if (source == null) {
-      console.warn(
-        'LottieView needs `source` parameter, provided value for source:',
-        source,
-      );
-      return null;
-    }
 
     const sources = parsePossibleSources(source);
 
@@ -137,23 +129,43 @@ export class LottieView extends React.PureComponent<Props, {}> {
     }));
 
     return (
-      <View style={containerStyle} collapsable={false}>
-        <NativeLottieAnimationView
-          ref={this.captureRef}
-          {...rest}
-          colorFilters={colorFilters}
-          textFiltersAndroid={textFiltersAndroid}
-          textFiltersIOS={textFiltersIOS}
-          speed={speed}
-          style={style}
-          onAnimationFinish={this.onAnimationFinish}
-          onAnimationFailure={this.onAnimationFailure}
-          onAnimationLoaded={this.onAnimationLoaded}
-          autoPlay={autoPlay}
-          resizeMode={resizeMode}
-          {...sources}
-        />
-      </View>
+      <NativeLottieAnimationView
+        ref={this.captureRef}
+        {...rest}
+        colorFilters={colorFilters}
+        textFiltersAndroid={textFiltersAndroid}
+        textFiltersIOS={textFiltersIOS}
+        speed={speed}
+        style={style}
+        onAnimationFinish={this.onAnimationFinish}
+        onAnimationFailure={this.onAnimationFailure}
+        onAnimationLoaded={this.onAnimationLoaded}
+        autoPlay={autoPlay}
+        resizeMode={resizeMode}
+        {...sources}
+      />
     );
+  }
+
+  render(): React.ReactNode {
+    const { source, containerStyle } = this.props;
+
+    if (source == null) {
+      console.warn(
+        'LottieView needs `source` parameter, provided value for source:',
+        source,
+      );
+      return null;
+    }
+
+    if (containerStyle) {
+      return (
+        <View style={containerStyle} collapsable={false}>
+          {this.renderLottieView()}
+        </View>
+      );
+    }
+
+    return this.renderLottieView();
   }
 }
