@@ -11,6 +11,7 @@
     "build:visionos": "npm run mkdist && react-native bundle --entry-file index.js --platform ios --dev true --bundle-output dist/main.visionos.jsbundle --assets-dest dist",
     "ios": "pod install --project-directory=ios && npx react-native run-ios",
     "lint": "eslint .",
+    "tsc": "tsc --noEmit",
     "macos": "npx react-native run-macos --scheme Example",
     "mkdist": "node -e \"require('node:fs').mkdirSync('dist', { recursive: true, mode: 0o755 })\"",
     "start": "npx react-native start",

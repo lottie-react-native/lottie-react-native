@@ -195,8 +195,6 @@ export default function ControllingAnimationProgress() {
 
 Changing color of layers:
 
-NOTE: This feature may not work properly on Android. We will try fix it soon.
-
 ```jsx
 import React from "react";
 import LottieView from "lottie-react-native";

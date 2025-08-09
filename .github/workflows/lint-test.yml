@@ -38,5 +38,8 @@ jobs:
       - name: Build project
         run: yarn setup
 
+      - name: Compile TypeScript for Example Project
+        run: yarn tsc
+
       - name: SwiftLint
         run: yarn lint:swift

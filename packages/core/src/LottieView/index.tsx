@@ -1,5 +1,11 @@
 import React from 'react';
-import { NativeSyntheticEvent, ViewProps, processColor } from 'react-native';
+import {
+  NativeSyntheticEvent,
+  StyleProp,
+  View,
+  ViewStyle,
+  processColor,
+} from 'react-native';
 
 import { parsePossibleSources } from './utils';
 
@@ -9,7 +15,7 @@ import NativeLottieAnimationView, {
   Commands,
 } from '../specs/LottieAnimationViewNativeComponent';
 
-type Props = LottieViewProps & { containerProps?: ViewProps };
+type Props = LottieViewProps & { containerStyle?: StyleProp<ViewStyle> };
 
 const defaultProps: Props = {
   source: undefined,
@@ -81,8 +87,8 @@ export class LottieView extends React.PureComponent<Props, {}> {
   };
 
   private onAnimationLoaded = () => {
-    this.props.onAnimationLoaded?.()
-  }
+    this.props.onAnimationLoaded?.();
+  };
 
   private captureRef(ref: React.ElementRef<typeof NativeLottieAnimationView>) {
     if (ref === null) {
@@ -104,11 +110,15 @@ export class LottieView extends React.PureComponent<Props, {}> {
       textFiltersAndroid,
       textFiltersIOS,
       resizeMode,
+      containerStyle,
       ...rest
     } = this.props;
 
     if (source == null) {
-      console.warn('LottieView needs `source` parameter, provided value for source:', source);
+      console.warn(
+        'LottieView needs `source` parameter, provided value for source:',
+        source,
+      );
       return null;
     }
 
@@ -117,8 +127,8 @@ export class LottieView extends React.PureComponent<Props, {}> {
     const speed =
       duration && sources.sourceJson && (source as any).fr
         ? Math.round(
-          (((source as any).op / (source as any).fr) * 1000) / duration,
-        )
+            (((source as any).op / (source as any).fr) * 1000) / duration,
+          )
         : this.props.speed;
 
     const colorFilters = this.props.colorFilters?.map((colorFilter) => ({
@@ -127,21 +137,23 @@ export class LottieView extends React.PureComponent<Props, {}> {
     }));
 
     return (
-      <NativeLottieAnimationView
-        ref={this.captureRef}
-        {...rest}
-        colorFilters={colorFilters}
-        textFiltersAndroid={textFiltersAndroid}
-        textFiltersIOS={textFiltersIOS}
-        speed={speed}
-        style={style}
-        onAnimationFinish={this.onAnimationFinish}
-        onAnimationFailure={this.onAnimationFailure}
-        onAnimationLoaded={this.onAnimationLoaded}
-        autoPlay={autoPlay}
-        resizeMode={resizeMode}
-        {...sources}
-      />
+      <View style={containerStyle} collapsable={false}>
+        <NativeLottieAnimationView
+          ref={this.captureRef}
+          {...rest}
+          colorFilters={colorFilters}
+          textFiltersAndroid={textFiltersAndroid}
+          textFiltersIOS={textFiltersIOS}
+          speed={speed}
+          style={style}
+          onAnimationFinish={this.onAnimationFinish}
+          onAnimationFailure={this.onAnimationFailure}
+          onAnimationLoaded={this.onAnimationLoaded}
+          autoPlay={autoPlay}
+          resizeMode={resizeMode}
+          {...sources}
+        />
+      </View>
     );
   }
 }
