@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.2](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.1...v7.3.2) (2025-08-13)
+
+
+### Bug Fixes
+
+* bring backward compatibility for containerStyle prop ([#1372](https://github.com/lottie-react-native/lottie-react-native/issues/1372)) ([0efef17](https://github.com/lottie-react-native/lottie-react-native/commit/0efef1733a8ed93830ef94646a9299d3a5a159ff))
+
 ## [7.3.1](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.0...v7.3.1) (2025-08-07)
 
 # [7.3.0](https://github.com/lottie-react-native/lottie-react-native/compare/v7.2.5...v7.3.0) (2025-08-04)
