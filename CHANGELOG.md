@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.3](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.2...v7.3.3) (2025-08-28)
+
+
+### Bug Fixes
+
+* update @lottiefiles/dotlottie-reac to support react 19 (required for RN 0.78 + Expo SDK 53) ([#1367](https://github.com/lottie-react-native/lottie-react-native/issues/1367)) ([3e7d8d5](https://github.com/lottie-react-native/lottie-react-native/commit/3e7d8d5c1b055b6ef8810eb1ffe7125ca9707ff2))
+
 ## [7.3.2](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.1...v7.3.2) (2025-08-13)
 
 
