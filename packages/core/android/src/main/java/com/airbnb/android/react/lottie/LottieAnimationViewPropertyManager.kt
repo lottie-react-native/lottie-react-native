@@ -20,7 +20,7 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.ReadableType
 import com.facebook.react.views.text.ReactFontManager
-import com.facebook.react.views.text.TextAttributeProps.UNSET
+import com.facebook.react.common.ReactConstants.UNSET
 import com.facebook.react.util.RNLog
 import java.lang.ref.WeakReference
 import java.util.regex.Pattern
