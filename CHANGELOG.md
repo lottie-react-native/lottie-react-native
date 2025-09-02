@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.4](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.3...v7.3.4) (2025-09-02)
+
+
+### Bug Fixes
+
+* RN [0.82] import for `TextAttributeProps.UNSET` ([c6729b2](https://github.com/lottie-react-native/lottie-react-native/commit/c6729b23a767db70c59c20c04ec26d7ec1edcbdf))
+
 ## [7.3.3](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.2...v7.3.3) (2025-08-28)
 
 
