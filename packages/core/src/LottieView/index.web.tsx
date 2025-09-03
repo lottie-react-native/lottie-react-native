@@ -17,6 +17,7 @@ const LottieView = forwardRef(
       speed,
       loop,
       webStyle,
+      style,
       autoPlay,
       hover,
       direction,
@@ -139,7 +140,7 @@ const LottieView = forwardRef(
         src={
           sources.sourceDotLottieURI ?? sources.sourceURL ?? sources.sourceName
         }
-        style={webStyle}
+        style={style ?? webStyle}
         autoplay={autoPlay}
         speed={speed}
         loop={loop}
