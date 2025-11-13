@@ -168,6 +168,9 @@ class ContainerView: RCTView {
             return
         }
 
+        // Immediately clear the previous animation view so the region is blank while loading
+        removeCurrentAnimationView()
+
         _ = LottieAnimationView(
             dotLottieUrl: url,
             configuration: lottieConfiguration,
@@ -195,6 +198,9 @@ class ContainerView: RCTView {
         }
 
         guard let url = url else { return }
+
+        // Immediately clear the previous animation view so the region is blank while loading
+        removeCurrentAnimationView()
 
         self.fetchRemoteAnimation(from: url)
     }
@@ -276,8 +282,20 @@ class ContainerView: RCTView {
     }
 
     // MARK: Private
+    private func removeCurrentAnimationView() {
+        if let current = animationView {
+            // Remove from view hierarchy
+            current.removeFromSuperview()
+            // Clear layer contents to prevent any rendering artifacts
+            current.layer.contents = nil
+            // Clear the reference
+            animationView = nil
+        }
+    }
+
     func replaceAnimationView(next: LottieAnimationView) {
-        super.removeReactSubview(animationView)
+        // Ensure any existing view is properly detached from UIKit hierarchy
+        removeCurrentAnimationView()
 
         animationView = next
 
