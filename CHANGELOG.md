@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.5](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.4...v7.3.5) (2026-01-09)
+
+
+### Bug Fixes
+
+* improve animation loading by clearing previous view ([#1385](https://github.com/lottie-react-native/lottie-react-native/issues/1385)) ([b7a0e3c](https://github.com/lottie-react-native/lottie-react-native/commit/b7a0e3c02ce4f8edbc57ea73f8c4c0c3f01f90b0))
+
 ## [7.3.4](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.3...v7.3.4) (2025-09-02)
 
 
