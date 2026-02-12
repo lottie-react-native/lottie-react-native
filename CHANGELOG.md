@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.3.6](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.5...v7.3.6) (2026-02-12)
+
+
+### Bug Fixes
+
+* update native libs ([#1398](https://github.com/lottie-react-native/lottie-react-native/issues/1398)) ([8827c00](https://github.com/lottie-react-native/lottie-react-native/commit/8827c00131115d6cea25fea927d1214811672bc0))
+
 ## [7.3.5](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.4...v7.3.5) (2026-01-09)
 
 
