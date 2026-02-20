@@ -13,6 +13,7 @@
 
 @interface LottieContainerView : RCTView
 @property (nonatomic, weak) id <LottieContainerViewDelegate> _Nullable delegate;
+@property (nonatomic, readonly) BOOL isAnimationLoaded;
 - (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
 - (void)setSpeed:(CGFloat)newSpeed;
 - (void)setProgress:(CGFloat)newProgress;
