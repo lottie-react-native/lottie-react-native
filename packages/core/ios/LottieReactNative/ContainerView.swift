@@ -23,6 +23,8 @@ class ContainerView: RCTView {
     private var renderMode: RenderingEngineOption = .automatic
     @objc weak var delegate: LottieContainerViewDelegate?
     var animationView: LottieAnimationView?
+    private var loadingAnimationView: LottieAnimationView?
+    @objc private(set) var isAnimationLoaded: Bool = false
     @objc var onAnimationFinish: RCTBubblingEventBlock?
     @objc var onAnimationFailure: RCTBubblingEventBlock?
     @objc var onAnimationLoaded: RCTBubblingEventBlock?
@@ -55,6 +57,8 @@ class ContainerView: RCTView {
         return { [weak self] in
             guard let self = self else { return }
 
+            self.isAnimationLoaded = true
+
             if let onLoaded = self.onAnimationLoaded {
                 onLoaded([:])
             }
@@ -81,9 +85,6 @@ class ContainerView: RCTView {
 
         if newSpeed != 0.0 {
             animationView?.animationSpeed = newSpeed
-            if !(animationView?.isAnimationPlaying ?? true) {
-                animationView?.play()
-            }
         } else if animationView?.isAnimationPlaying ?? false {
             animationView?.pause()
         }
@@ -171,11 +172,12 @@ class ContainerView: RCTView {
         // Immediately clear the previous animation view so the region is blank while loading
         removeCurrentAnimationView()
 
-        _ = LottieAnimationView(
+        let loader = LottieAnimationView(
             dotLottieUrl: url,
             configuration: lottieConfiguration,
             completion: { [weak self] view, error in
                 guard let self = self else { return }
+                self.loadingAnimationView = nil
                 if let error = error {
                     self.failureCallback(error.localizedDescription)
                     return
@@ -183,6 +185,7 @@ class ContainerView: RCTView {
                 self.replaceAnimationView(next: view)
             }
         )
+        loadingAnimationView = loader
     }
 
     @objc func setSourceURL(_ newSourceURLString: String) {
@@ -291,6 +294,7 @@ class ContainerView: RCTView {
             // Clear the reference
             animationView = nil
         }
+        isAnimationLoaded = false
     }
 
     func replaceAnimationView(next: LottieAnimationView) {
@@ -298,6 +302,13 @@ class ContainerView: RCTView {
         removeCurrentAnimationView()
 
         animationView = next
+
+        // Must be set before addSubview / any setup that might trigger the event,
+        // because for already-loaded animations the callback fires immediately on first access.
+        animationView?.animationLoaded = { [weak self] _, _ in
+            guard let self = self else { return }
+            self.loadedCallback()
+        }
 
         animationView?.backgroundBehavior = .pauseAndRestore
         animationView?.animationSpeed = speed
@@ -310,11 +321,6 @@ class ContainerView: RCTView {
         applyContentMode()
         applyColorProperties()
         playIfNeeded()
-
-        animationView?.animationLoaded = { [weak self] _, _ in
-            guard let self = self else { return }
-            self.loadedCallback()
-        }
     }
 
     func applyContentMode() {
