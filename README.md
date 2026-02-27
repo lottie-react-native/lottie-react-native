@@ -1,6 +1,7 @@
 # Lottie React Native
 
 [![npm Version](https://img.shields.io/npm/v/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native) [![License](https://img.shields.io/npm/l/lottie-react-native.svg)](https://www.npmjs.com/package/lottie-react-native)
+[![Maintainability](https://cloud.quality-gate.com/dashboard/api/badge?projectName=react-native-community_lottie-react-native&branchName=master)](https://cloud.quality-gate.com/dashboard/branches/25464#overview)
 
 Lottie component for React Native ([iOS](https://github.com/airbnb/lottie-ios), [Android](https://github.com/airbnb/lottie-android), and [Windows](https://github.com/CommunityToolkit/Lottie-Windows))
 
