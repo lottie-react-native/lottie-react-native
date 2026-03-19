@@ -294,6 +294,8 @@ class ContainerView: RCTView {
             // Clear the reference
             animationView = nil
         }
+
+        loadingAnimationView = nil
         isAnimationLoaded = false
     }
 
