@@ -8641,9 +8641,9 @@ __metadata:
   linkType: hard
 
 "defu@npm:^6.1.4":
-  version: 6.1.4
-  resolution: "defu@npm:6.1.4"
-  checksum: 40e3af6338f195ac1564f53d1887fa2d0429ac7e8c081204bc4d29191180059d3952b5f4e08fe5df8d59eb873aa26e9c88b56d4fac699673d4a372c93620b229
+  version: 6.1.6
+  resolution: "defu@npm:6.1.6"
+  checksum: 639367cc678f08a919c46b86368e981db005745df91f726ba69b035f61d5a3ce150f716f71527821b8252a518586c6bda09a816b68efb0df842b2ebdf3e45e82
   languageName: node
   linkType: hard
 
