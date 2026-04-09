@@ -166,29 +166,28 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
                     val weakView = WeakReference(view)
                     Thread {
                         try {
-                            val connection = java.net.URL(assetName).openConnection()
-                            val inputStream = connection.getInputStream()
-                            val v = weakView.get()
-                            if (v == null) {
-                                inputStream.close()
-                                return@Thread
+                            val connection = java.net.URL(assetName).openConnection().apply {
+                                connectTimeout = 15_000
+                                readTimeout = 15_000
                             }
-                            val result = LottieCompositionFactory.fromZipStreamSync(
-                                v.context,
-                                ZipInputStream(inputStream),
-                                cacheKey
-                            )
-                            inputStream.close()
-                            val composition = result.value
-                            if (composition != null) {
-                                android.os.Handler(android.os.Looper.getMainLooper()).post {
-                                    weakView.get()?.setComposition(composition)
-                                }
-                            } else {
-                                val error = result.exception ?: Exception("Failed to parse dotLottie from: $assetName")
-                                android.os.Handler(android.os.Looper.getMainLooper()).post {
-                                    weakView.get()?.let {
-                                        LottieAnimationViewManagerImpl.sendAnimationFailureEvent(it, error)
+                            connection.getInputStream().use { inputStream ->
+                                val v = weakView.get() ?: return@Thread
+                                val result = LottieCompositionFactory.fromZipStreamSync(
+                                    v.context,
+                                    ZipInputStream(inputStream),
+                                    cacheKey
+                                )
+                                val composition = result.value
+                                if (composition != null) {
+                                    android.os.Handler(android.os.Looper.getMainLooper()).post {
+                                        weakView.get()?.setComposition(composition)
+                                    }
+                                } else {
+                                    val error = result.exception ?: Exception("Failed to parse dotLottie from: $assetName")
+                                    android.os.Handler(android.os.Looper.getMainLooper()).post {
+                                        weakView.get()?.let {
+                                            LottieAnimationViewManagerImpl.sendAnimationFailureEvent(it, error)
+                                        }
                                     }
                                 }
                             }
