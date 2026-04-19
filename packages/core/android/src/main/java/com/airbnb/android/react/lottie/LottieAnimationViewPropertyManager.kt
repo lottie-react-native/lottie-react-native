@@ -7,6 +7,7 @@ import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieCompositionFactory
 import com.airbnb.lottie.LottieDrawable
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.RenderMode
@@ -157,7 +158,47 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
                         )
                     } ?: Log.w(TAG, "URI path is null for asset: $assetName")
                 } else {
-                    view.setAnimationFromUrl(assetName)
+                    // setAnimationFromUrl relies on NetworkFetcher's Content-Type/extension
+                    // check which misidentifies dotLottie ZIP files as JSON when the server
+                    // doesn't set a ZIP Content-Type (e.g. Metro dev server, CDNs).
+                    // Since we know this is a dotLottie file, download and parse as ZIP.
+                    val cacheKey = assetName.hashCode().toString()
+                    val weakView = WeakReference(view)
+                    Thread {
+                        try {
+                            val connection = java.net.URL(assetName).openConnection().apply {
+                                connectTimeout = 15_000
+                                readTimeout = 15_000
+                            }
+                            connection.getInputStream().use { inputStream ->
+                                val v = weakView.get() ?: return@Thread
+                                val result = LottieCompositionFactory.fromZipStreamSync(
+                                    v.context,
+                                    ZipInputStream(inputStream),
+                                    cacheKey
+                                )
+                                val composition = result.value
+                                if (composition != null) {
+                                    android.os.Handler(android.os.Looper.getMainLooper()).post {
+                                        weakView.get()?.setComposition(composition)
+                                    }
+                                } else {
+                                    val error = result.exception ?: Exception("Failed to parse dotLottie from: $assetName")
+                                    android.os.Handler(android.os.Looper.getMainLooper()).post {
+                                        weakView.get()?.let {
+                                            LottieAnimationViewManagerImpl.sendAnimationFailureEvent(it, error)
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (e: Exception) {
+                            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                                weakView.get()?.let {
+                                    LottieAnimationViewManagerImpl.sendAnimationFailureEvent(it, e)
+                                }
+                            }
+                        }
+                    }.start()
                 }
                 sourceDotLottie = null
                 return
@@ -175,7 +216,13 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
                 return
             }
 
-            view.setAnimation(resourceId)
+            // Explicitly use ZipInputStream since we know this is a dotLottie file.
+            // setAnimation(resourceId) relies on Lottie's magic byte detection via
+            // fromRawRes() which can fail if AAPT2 reprocesses the resource.
+            view.setAnimation(
+                ZipInputStream(view.resources.openRawResource(resourceId)),
+                assetName.hashCode().toString()
+            )
             animationNameDirty = false
             sourceDotLottie = null
         }
