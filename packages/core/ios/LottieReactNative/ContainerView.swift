@@ -287,7 +287,7 @@ class ContainerView: RCTView {
             // Remove from view hierarchy
             current.removeFromSuperview()
             // Clear layer contents to prevent any rendering artifacts
-            current.layer.contents = nil
+            current.layer?.contents = nil
             // Clear the reference
             animationView = nil
         }
