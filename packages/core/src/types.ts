@@ -43,7 +43,7 @@ export interface LottieViewProps {
    * animation, obtained (for example) with something like
    * `require('../path/to/animation.json')`
    */
-  source: string | AnimationObject | { uri: string };
+  source: string | AnimationObject | { uri: string } | number;
 
   /**
    * A number between 0 and 1, or an `Animated` number between 0 and 1. This number
