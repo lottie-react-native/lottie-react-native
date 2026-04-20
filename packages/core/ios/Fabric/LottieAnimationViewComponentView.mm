@@ -45,6 +45,11 @@ using namespace facebook::react;
     return concreteComponentDescriptorProvider<LottieAnimationViewComponentDescriptor>();
 }
 
++ (BOOL)shouldBeRecycled
+{
+    return NO;
+}
+
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps {
     const auto &oldLottieProps = *std::static_pointer_cast<const LottieAnimationViewProps>(_props);
     const auto &newLottieProps = *std::static_pointer_cast<const LottieAnimationViewProps>(props);
