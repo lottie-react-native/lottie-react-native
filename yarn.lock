@@ -6173,15 +6173,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^2.0.1":
-  version: 2.6.4
-  resolution: "async@npm:2.6.4"
-  dependencies:
-    lodash: "npm:^4.17.14"
-  checksum: 10/df8e52817d74677ab50c438d618633b9450aff26deb274da6dfedb8014130909482acdc7753bce9b72e6171ce9a9f6a92566c4ced34c3cb3714d57421d58ad27
-  languageName: node
-  linkType: hard
-
 "async@npm:^3.2.2":
   version: 3.2.6
   resolution: "async@npm:3.2.6"
@@ -7400,7 +7391,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"combined-stream@npm:^1.0.5, combined-stream@npm:^1.0.6, combined-stream@npm:~1.0.5, combined-stream@npm:~1.0.6":
+"combined-stream@npm:^1.0.8, combined-stream@npm:~1.0.5, combined-stream@npm:~1.0.6":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
   dependencies:
@@ -9734,36 +9725,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:~1.0.0-rc4":
-  version: 1.0.1
-  resolution: "form-data@npm:1.0.1"
-  dependencies:
-    async: "npm:^2.0.1"
-    combined-stream: "npm:^1.0.5"
-    mime-types: "npm:^2.1.11"
-  checksum: 10/d9be55f91c7a2e84125bf556a5699c558645964f6619afd649c183fe6f9f3a80f9eed29774cd096d3ff21f3c52d8f7bcce5750da7846f3e3afabcc273afb5869
-  languageName: node
-  linkType: hard
-
-"form-data@npm:~2.1.1":
-  version: 2.1.4
-  resolution: "form-data@npm:2.1.4"
+"form-data@npm:2.5.4":
+  version: 2.5.4
+  resolution: "form-data@npm:2.5.4"
   dependencies:
     asynckit: "npm:^0.4.0"
-    combined-stream: "npm:^1.0.5"
-    mime-types: "npm:^2.1.12"
-  checksum: 10/6187b0c2ea91bbadfd97a0e88284f55d7a90d829791fad782dcba8abd157f811227d625be614ca8ac10ae2fb04f55855780271e707f10aef48b8195537a360b8
-  languageName: node
-  linkType: hard
-
-"form-data@npm:~2.3.2":
-  version: 2.3.3
-  resolution: "form-data@npm:2.3.3"
-  dependencies:
-    asynckit: "npm:^0.4.0"
-    combined-stream: "npm:^1.0.6"
-    mime-types: "npm:^2.1.12"
-  checksum: 10/1b6f3ccbf4540e535887b42218a2431a3f6cfdea320119c2affa2a7a374ad8fdd1e60166fc865181f45d49b1684c3e90e7b2190d3fe016692957afb9cf0d0d02
+    combined-stream: "npm:^1.0.8"
+    es-set-tostringtag: "npm:^2.1.0"
+    has-own: "npm:^1.0.1"
+    mime-types: "npm:^2.1.35"
+    safe-buffer: "npm:^5.2.1"
+  checksum: 10/30f40ac68f9f677f1e6451ec4a6f32a64fb6cb7c6cec60599375a1b25ee3e14038f6f5c99ea4390577482dc199239a09240dc892b01045992b052836d9e190fb
   languageName: node
   linkType: hard
 
@@ -10549,6 +10521,13 @@ __metadata:
   version: 4.0.0
   resolution: "has-flag@npm:4.0.0"
   checksum: 10/261a1357037ead75e338156b1f9452c016a37dcd3283a972a30d9e4a87441ba372c8b81f818cd0fbcd9c0354b4ae7e18b9e1afa1971164aef6d18c2b6095a8ad
+  languageName: node
+  linkType: hard
+
+"has-own@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "has-own@npm:1.0.1"
+  checksum: 10/3893dd749c56fbda5c8a6277cf627d5ec8de2094fd8beb2cb17d492c1773e5826d092512714b94ffa11fb8c2f5c31106adf6dd60d53680c2846246addff94338
   languageName: node
   linkType: hard
 
@@ -14524,7 +14503,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-types@npm:^2.1.11, mime-types@npm:^2.1.12, mime-types@npm:^2.1.27, mime-types@npm:~2.1.19, mime-types@npm:~2.1.24, mime-types@npm:~2.1.34, mime-types@npm:~2.1.35, mime-types@npm:~2.1.7":
+"mime-types@npm:^2.1.27, mime-types@npm:^2.1.35, mime-types@npm:~2.1.19, mime-types@npm:~2.1.24, mime-types@npm:~2.1.34, mime-types@npm:~2.1.35, mime-types@npm:~2.1.7":
   version: 2.1.35
   resolution: "mime-types@npm:2.1.35"
   dependencies:
@@ -14613,17 +14592,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.5, minimist@npm:^1.2.6":
-  version: 1.2.8
-  resolution: "minimist@npm:1.2.8"
-  checksum: 10/908491b6cc15a6c440ba5b22780a0ba89b9810e1aea684e253e43c4e3b8d56ec1dcdd7ea96dde119c29df59c936cde16062159eae4225c691e19c70b432b6e6f
-  languageName: node
-  linkType: hard
-
-"minimist@npm:~0.0.1":
-  version: 0.0.10
-  resolution: "minimist@npm:0.0.10"
-  checksum: 10/eb87d49c637be2a17c39f29331d6fb0d1a394077b320a994b7c42e9459a55720e66474e0a375ab8ddcbfb2b154e57dfb5133b8baac66e8b0f31fd9bdef91f5c7
+"minimist@npm:0.2.4":
+  version: 0.2.4
+  resolution: "minimist@npm:0.2.4"
+  checksum: 10/d86040a2126c4423b56f151293819ddecaaa0a3b3ebd85d777d7ec505b689a3a7a16391da222bc3aa3d6d4cb2d28affa96b45665c8d95bec58925b0e239fe9b1
   languageName: node
   linkType: hard
 
