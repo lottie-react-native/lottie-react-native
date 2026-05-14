@@ -286,8 +286,12 @@ class ContainerView: RCTView {
         if let current = animationView {
             // Remove from view hierarchy
             current.removeFromSuperview()
-            // Clear layer contents to prevent any rendering artifacts
-            current.layer.contents = nil
+            // Clear layer contents to prevent any rendering artifacts 
+            #if !os(macOS) 
+                current.layer.contents = nil
+            #else
+                current.layer?.contents = nil
+            #endif
             // Clear the reference
             animationView = nil
         }

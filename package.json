@@ -1,6 +1,6 @@
 {
   "name": "monorepo-root",
-  "version": "7.3.6",
+  "version": "7.3.7",
   "private": true,
   "engines": {
     "node": "18"
@@ -34,7 +34,9 @@
   },
   "resolutions": {
     "@types/react": "^18.2.12",
-    "@types/react-native": "^0.70.14"
+    "@types/react-native": "^0.70.14",
+    "lodash": "4.17.12",
+    "fast-xml-parser": "4.5.4"
   },
   "workspaces": [
     "./packages/*",
@@ -42,7 +44,7 @@
   ],
   "release-it": {
     "git": {
-      "commitMessage": "chore: release ${version}",
+      "commitMessage": "chore: release ${version} [skip ci]",
       "tagName": "v${version}"
     },
     "npm": false,
@@ -59,6 +61,7 @@
         "workspaces": [
           "packages/*"
         ],
+        "skipChecks": true,
         "publishCommand": "yarn workspace lottie-react-native release"
       },
       "@release-it/conventional-changelog": {
@@ -67,5 +70,5 @@
       }
     }
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@4.14.1"
 }
