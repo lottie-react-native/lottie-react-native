@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.3.8](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.7...v7.3.8) (2026-05-14)
+
+
+### Bug Fixes
+
+* audit deps ([d556c00](https://github.com/lottie-react-native/lottie-react-native/commit/d556c00225115c764e33963dfba96640aae8cc4b))
+* CAlayer ambiguous expression on macOS ([#1414](https://github.com/lottie-react-native/lottie-react-native/issues/1414)) ([6deeab0](https://github.com/lottie-react-native/lottie-react-native/commit/6deeab0d8aec5c26daa734d5fc3beba265be66fa))
+
 ## [7.3.7](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.6...v7.3.7) (2026-05-14)
 
 ## [7.3.6](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.5...v7.3.6) (2026-02-12)
