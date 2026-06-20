@@ -9,7 +9,7 @@ After forking to your own github org, do the following steps to get started:
 
 ```bash
 # clone your fork to your local machine
-git clone https://github.com/airbnb/lottie-react-native.git
+git clone https://github.com/lottie-react-native/lottie-react-native.git
 
 # step into local repo
 cd lottie-react-native
