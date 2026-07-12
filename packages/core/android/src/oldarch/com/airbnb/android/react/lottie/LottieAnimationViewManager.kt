@@ -6,6 +6,7 @@ import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.play
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.reset
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.resume
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setAutoPlay
+import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setApplyOpacityToLayers
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setColorFilters
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setEnableMergePaths
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setEnableSafeMode
@@ -167,6 +168,14 @@ class LottieAnimationViewManager : SimpleViewManager<LottieAnimationView>() {
     @ReactProp(name = "enableMergePathsAndroidForKitKatAndAbove")
     fun setEnableMergePaths(view: LottieAnimationView, enableMergePaths: Boolean) {
         setEnableMergePaths(enableMergePaths, getOrCreatePropertyManager(view))
+    }
+
+    @ReactProp(name = "applyOpacityToLayersAndroid")
+    fun setApplyOpacityToLayersAndroid(
+        view: LottieAnimationView,
+        applyOpacityToLayers: Boolean
+    ) {
+        setApplyOpacityToLayers(applyOpacityToLayers, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "enableSafeModeAndroid")
