@@ -46,6 +46,7 @@ export interface NativeProps extends ViewProps {
   loop?: boolean;
   autoPlay?: boolean;
   enableMergePathsAndroidForKitKatAndAbove?: boolean;
+  applyOpacityToLayersAndroid?: boolean;
   enableSafeModeAndroid?: boolean
   hardwareAccelerationAndroid?: boolean;
   cacheComposition?: boolean;
