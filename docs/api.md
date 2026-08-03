@@ -53,7 +53,7 @@ When creating animations using AfterEffects and bodymovin, the exported json may
   ...
 ```
 
-To make `react-native-lottie` use those assets properly, it is necessary to go for the native route: so remember that you need to **fully** rebuild your application if you modify the images / add new ones.
+To make `lottie-react-native` use those assets properly, it is necessary to go for the native route: so remember that you need to **fully** rebuild your application if you modify the images / add new ones.
 
 ### Android
 

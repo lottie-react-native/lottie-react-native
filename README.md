@@ -268,7 +268,7 @@ module.exports = {
 
 ## API
 
-You can find the full list of props and methods available in our [API document](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md). These are the most common ones:
+You can find the full list of props and methods available in our [API document](https://github.com/lottie-react-native/lottie-react-native/blob/master/docs/api.md). These are the most common ones:
 
 | Prop               | Description                                                                                                                                                                                                                                                                     | Default                                                                                                                         |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
@@ -278,7 +278,7 @@ You can find the full list of props and methods available in our [API document](
 | **`autoPlay`**     | A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.                                                                                                                                           | `false`                                                                                                                         |
 | **`colorFilters`** | An array of objects denoting layers by KeyPath and a new color filter value (as hex string).                                                                                                                                                                                    | `[]`                                                                                                                            |
 
-[More...](https://github.com/airbnb/lottie-react-native/blob/master/docs/api.md)
+[More...](https://github.com/lottie-react-native/lottie-react-native/blob/master/docs/api.md)
 
 ## Troubleshooting
 
