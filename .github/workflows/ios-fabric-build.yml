@@ -14,17 +14,7 @@ jobs:
   build-example:
     runs-on: macos-latest
 
-    strategy:
-      matrix:
-        xcode-version: [16.4]
-
     steps:
-      - name: List all available XCode versions
-        run: ls -n /Applications/ | grep Xcode*
-
-      - name: Switch XCode Version
-        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
-
       - name: Cache cocoapods
         uses: actions/cache@v3
         with:
