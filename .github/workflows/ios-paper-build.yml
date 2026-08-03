@@ -12,19 +12,9 @@ concurrency:
 
 jobs:
   build-example:
-    runs-on: macos-15
-
-    strategy:
-      matrix:
-        xcode-version: [16.4]
+    runs-on: macos-latest
 
     steps:
-      - name: List all available XCode versions
-        run: ls -n /Applications/ | grep Xcode*
-
-      - name: Switch XCode Version
-        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
-
       - name: Checkout Repository
         uses: actions/checkout@v3
 
