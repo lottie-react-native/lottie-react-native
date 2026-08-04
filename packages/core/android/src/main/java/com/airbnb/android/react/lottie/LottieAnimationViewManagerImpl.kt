@@ -307,6 +307,14 @@ internal object LottieAnimationViewManagerImpl {
     }
 
     @JvmStatic
+    fun setApplyOpacityToLayers(
+        applyOpacityToLayers: Boolean,
+        viewManager: LottieAnimationViewPropertyManager
+    ) {
+        viewManager.applyOpacityToLayers = applyOpacityToLayers
+    }
+
+    @JvmStatic
     fun setEnableSafeMode(
         enableSafeMode: Boolean,
         viewManager: LottieAnimationViewPropertyManager

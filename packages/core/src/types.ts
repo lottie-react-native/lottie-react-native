@@ -157,6 +157,14 @@ export interface LottieViewProps {
   enableMergePathsAndroidForKitKatAndAbove?: boolean;
 
   /**
+   * A boolean flag to apply opacity to layers instead of shapes on Android.
+   * This is more accurate when translucent shapes overlap, but may impact performance.
+   *
+   * @platform android
+   */
+  applyOpacityToLayersAndroid?: boolean;
+
+  /**
    * A boolean flag to enable safe mode which wraps the draw call with a try catch on Android
    * @platform android
    */
