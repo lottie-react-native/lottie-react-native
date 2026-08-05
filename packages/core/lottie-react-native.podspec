@@ -11,9 +11,6 @@ Pod::Spec.new do |s|
   s.author                  = package["author"]
   s.homepage                = package["homepage"]
 
-  # Kept in step with the minimums declared by the React Native versions this
-  # package supports: `min_ios_version_supported` (react-native 0.84) and
-  # `min_macos_version_supported` (react-native-macos 0.81).
   s.ios.deployment_target   = '15.1'
   s.osx.deployment_target   = '14.0'
   s.tvos.deployment_target  = '15.1'

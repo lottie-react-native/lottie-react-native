@@ -19,3 +19,4 @@ dist/
 !.yarn/versions
 
 .npmrc
+.idea
