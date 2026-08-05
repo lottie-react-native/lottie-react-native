@@ -55,7 +55,7 @@
     "html-webpack-plugin": "^5.6.0",
     "jest": "^29.2.1",
     "prettier": "2.8.8",
-    "react-native-test-app": "^4.1.4",
+    "react-native-test-app": "^5.4.7",
     "react-test-renderer": "19.0.0",
     "typescript": "5.0.4",
     "webpack": "^5.94.0",
@@ -63,6 +63,6 @@
     "webpack-dev-server": "^5.1.0"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.19.4"
   }
 }
