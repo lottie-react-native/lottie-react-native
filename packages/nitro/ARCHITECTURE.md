@@ -20,7 +20,7 @@ anchored to the file and symbol it governs. See the root `AGENTS.md` for the pol
 12. [Android registration and JNI](#12-android-registration-and-jni)
 13. [v7 bugs replicated on purpose](#13-v7-bugs-replicated-on-purpose) (items 1–6)
 14. [v8-only divergences](#14-v8-only-divergences) (items 7–11)
-15. [Native divergences from v7](#15-native-divergences-from-v7) (items 12–30)
+15. [Native divergences from v7](#15-native-divergences-from-v7) (items 12–30) · [Commands](#15a-command-divergences-from-v7) (31–36) · [Unrecorded drops](#15b-unrecorded-drops-now-recorded) (37–38)
 16. [Testing status](#16-testing-status)
 17. [The example app](#17-the-example-app)
 18. [Comment carve-outs](#18-comment-carve-outs)
@@ -629,8 +629,57 @@ modes.
     `sourceURL`.** v7 applied it only to the latter, so a bundle-relative `.lottie` path
     silently failed on iOS.
 
-The imperative commands (`play`/`reset`/`pause`/`resume`) are implemented — see section 9a
-for the divergences they introduce.
+---
+
+## 15a. Command divergences from v7
+
+The four imperative commands are implemented. Where v7's platforms disagreed with each
+other, they are converged. Section 9a covers the mechanics; these are the observable
+differences.
+
+31. **A reversed range (`play(10, 0)`) is passed through** for Lottie to derive direction
+    from, on both platforms — v7 iOS's behaviour. v7 Android instead swapped the frames and
+    called `reverseAnimationSpeed()`, which permanently flipped the view's `speed` field: a
+    later plain `play()` still ran backwards, and it fought the `speed` prop until that prop
+    next changed.
+32. **`pause()` and `reset()` both emit `onAnimationFinish(isCancelled: true)`** on both
+    platforms. v7 emitted on both from iOS, on `reset` only from Android (and twice), and on
+    `pause` from web. Android's `pause()` is the one place the emit is explicit, since
+    `pauseAnimation()` notifies neither cancel nor end.
+33. **`resume()` preserves a range set by a prior `play(from, to)`** — v7 Android's
+    behaviour. v7 iOS discarded it and silently replayed the whole composition, which made
+    `resume()` widen what was playing.
+34. **`play()` issued while the view is detached is deferred until it attaches**, on both
+    platforms. v7 did this for Android's `play` only, so on iOS the call was silently
+    dropped; and even on Android `reset`/`pause`/`resume` did nothing when detached rather
+    than deferring.
+35. **Commands marshal to the main/UI thread themselves.** Nitro delivers methods as direct
+    JSI calls on the JS thread, where v7's Fabric commands already arrived on the UI thread.
+    See item 10.
+36. **`autoPlay` is driven only by the native prop.** v7's JS `captureRef` also called
+    `play()` when `autoPlay` was true; that was harmless there because the call usually hit
+    a nil animation, but with commands implemented it would double-start and discard the
+    `progress` prop.
+
+---
+
+## 15b. Unrecorded drops, now recorded
+
+Found by audit rather than decided at the time. Documented so they are choices rather than
+accidents.
+
+37. **tvOS is dropped.** `LottieNitro.podspec` declares `:ios` only, where
+    `packages/core/lottie-react-native.podspec` declares ios, osx, tvos and visionos. macOS
+    and visionOS were dropped deliberately (Nitro Views are iOS + Android only, item 4 and
+    the scaffold's platform decision), but tvOS was never called out. It is the same
+    constraint — there is no Nitro View for tvOS — but v7 did support it, so this is a
+    platform regression for anyone on tvOS.
+38. **`onAnimationLoop` is a fourth orphan prop**, missing from item 4's list. It is in the
+    public `LottieViewProps`, absent from `LottieView.nitro.ts`, and absent from the
+    generated view config. Windows and web only in v7, so it already did nothing on
+    iOS/Android — same class as `useNativeLooping`, `webStyle`, `hover` and `direction`.
+    Note `defaultProps` also sets `useNativeLooping: false`, an orphan default that is never
+    read by anything.
 
 ---
 
