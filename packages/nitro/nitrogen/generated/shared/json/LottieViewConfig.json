@@ -1,0 +1,10 @@
+{
+  "uiViewClassName": "LottieView",
+  "supportsRawText": false,
+  "bubblingEventTypes": {},
+  "directEventTypes": {},
+  "validAttributes": {
+    "placeholder": true,
+    "hybridRef": true
+  }
+}

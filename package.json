@@ -16,7 +16,16 @@
     "run:bundler": "yarn workspace example start",
     "run:web": "yarn workspace example web",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
-    "tsc": "yarn workspace example tsc"
+    "tsc": "yarn workspace example tsc",
+    "nitro:codegen": "yarn workspace lottie-react-native-nitro nitrogen",
+    "nitro:tsc:lib": "yarn workspace lottie-react-native-nitro typecheck",
+    "nitro:tsc": "yarn workspace example-v8 tsc",
+    "nitro:pods": "yarn workspace example-v8 pods",
+    "nitro:ios": "yarn workspace example-v8 ios",
+    "nitro:android": "yarn workspace example-v8 android",
+    "nitro:run:bundler": "yarn workspace example-v8 start",
+    "nitro:run:web": "yarn workspace example-v8 web",
+    "nitro:build:web": "yarn workspace example-v8 build:web"
   },
   "devDependencies": {
     "@release-it-plugins/workspaces": "^5.0.3",
@@ -32,7 +41,8 @@
   },
   "workspaces": [
     "./packages/*",
-    "./example"
+    "./example",
+    "./example-v8"
   ],
   "release-it": {
     "git": {

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": ["lottienitro"],
+  "ios": {
+    "iosModuleName": "LottieNitro"
+  },
+  "android": {
+    "androidNamespace": ["lottienitro"],
+    "androidCxxLibName": "LottieNitro"
+  },
+  "autolinking": {
+    "LottieView": {
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridLottieView"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridLottieView"
+      }
+    }
+  },
+  "ignorePaths": ["**/node_modules"]
+}
