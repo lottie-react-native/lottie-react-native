@@ -11,9 +11,9 @@ Pod::Spec.new do |s|
   s.author                  = package["author"]
   s.homepage                = package["homepage"]
 
-  s.ios.deployment_target   = '13.4'
-  s.osx.deployment_target   = '10.15'
-  s.tvos.deployment_target  = '13.0'
+  s.ios.deployment_target   = '15.1'
+  s.osx.deployment_target   = '14.0'
+  s.tvos.deployment_target  = '15.1'
   s.visionos.deployment_target = '1.0'
 
   s.source                  = { :git => "https://github.com/lottie-react-native/lottie-react-native.git", :tag => "v#{s.version}" }

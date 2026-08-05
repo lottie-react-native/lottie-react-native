@@ -3,7 +3,7 @@
   "version": "7.3.8",
   "private": true,
   "engines": {
-    "node": "18"
+    "node": ">=20.19.4"
   },
   "scripts": {
     "setup": "yarn workspace lottie-react-native build",
@@ -23,12 +23,10 @@
   "devDependencies": {
     "@release-it-plugins/workspaces": "^5.0.3",
     "@release-it/conventional-changelog": "^10.0.1",
-    "react-native-test-app": "^3.8.7",
     "release-it": "^19.0.3"
   },
   "resolutions": {
-    "@types/react": "^18.2.12",
-    "@types/react-native": "^0.70.14",
+    "@types/react": "^19.2.18",
     "lodash": "4.17.12",
     "fast-xml-parser": "4.5.4",
     "minimist": "0.2.4",
