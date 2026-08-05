@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-android:
+  build-android-v8:
     runs-on: ubuntu-latest
 
     steps:

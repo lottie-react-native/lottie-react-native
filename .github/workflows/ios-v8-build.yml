@@ -11,10 +11,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-example:
+  build-example-v8:
     runs-on: macos-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Cache cocoapods
         uses: actions/cache@v3
         with:
@@ -22,9 +25,6 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-
-      - name: Checkout Repository
-        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -46,4 +46,3 @@ jobs:
       - name: Build v8 iOS Example
         run: |
           yarn nitro:ci:ios
-            
