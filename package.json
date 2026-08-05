@@ -25,7 +25,12 @@
     "nitro:android": "yarn workspace example-v8 android",
     "nitro:run:bundler": "yarn workspace example-v8 start",
     "nitro:run:web": "yarn workspace example-v8 web",
-    "nitro:build:web": "yarn workspace example-v8 build:web"
+    "nitro:build:web": "yarn workspace example-v8 build:web",
+    "nitro:lint:swift": "yarn workspace lottie-react-native-nitro lint:swift",
+    "nitro:build:android": "yarn workspace example-v8 build:android",
+    "nitro:build:ios": "yarn workspace example-v8 build:ios",
+    "nitro:ci:android": "yarn workspace example-v8 ci:android",
+    "nitro:ci:ios": "yarn workspace example-v8 ci:ios"
   },
   "devDependencies": {
     "@release-it-plugins/workspaces": "^5.0.3",

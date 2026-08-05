@@ -754,6 +754,20 @@ library in 3.4 and is provided by `nkf`; CFPropertyList requires it, so CocoaPod
 even parse the Podfile with `cannot load such file -- kconv`. `xcodeproj` declares `nkf`
 itself from 1.26 onwards, but the pin above it holds this repo below that version.
 
+### `packages/nitro/ios/.swiftlint.yml`
+
+Starts from `packages/core/ios/.swiftlint.yml` and adds the deltas this package needs, kept
+as a separate file rather than shared — matching how core owns its own.
+
+`HybridLottieView.swift` is deliberately a single file: it is one coalesced
+apply-and-playback state machine, and splitting it across extensions would scatter the
+ordering rules that make it correct. The length and complexity thresholds are raised to fit
+it, rather than the file being carved up to satisfy the defaults.
+
+The `todo` rule is left enabled. It was disabled while the port's comments cross-referenced
+a divergence log by name; with the sources carrying no comments at all it cannot fire, and
+leaving it on enforces a corner of the comment policy for free.
+
 ### `example-v8/tsconfig.json`
 
 `compilerOptions.types` is set to `[]` because the base `@react-native/typescript-config`
