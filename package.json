@@ -13,8 +13,6 @@
     "fabric:build:ios": "yarn workspace example ci:fabric:ios",
     "fabric:build:ios-static-framework": "yarn workspace example ci:fabric:ios-static-framework",
     "fabric:build:ios-dynamic-framework": "yarn workspace example ci:fabric:ios-dynamic-framework",
-    "paper:build:android": "yarn workspace example ci:paper:android",
-    "paper:build:ios": "yarn workspace example ci:paper:ios",
     "run:bundler": "yarn workspace example start",
     "run:web": "yarn workspace example web",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",

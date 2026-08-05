@@ -107,7 +107,7 @@ body:
     id: architecture
     attributes:
       label: Architecture
-      description: What React Native architecture your application is running on? Currently, the default architecture on React Native is Paper so if you haven't changed it in your application select this option.
+      description: What React Native architecture your application is running on? The New Architecture is the default from React Native 0.76, and the only option from 0.82 onwards, so select Fabric unless you are reporting against an older React Native version.
       options:
         - Paper (Old Architecture)
         - Fabric (New Architecture)
