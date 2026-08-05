@@ -16,10 +16,17 @@
 #include <react/renderer/components/view/ConcreteViewShadowNode.h>
 #include <react/renderer/components/view/ViewProps.h>
 
+#include "ResizeMode.hpp"
+#include <optional>
+#include "RenderMode.hpp"
+#include <string>
+#include "LottieColorFilter.hpp"
+#include <vector>
+#include "TextFilterAndroid.hpp"
+#include "TextFilterIOS.hpp"
+#include <functional>
 #include <memory>
 #include "HybridLottieViewSpec.hpp"
-#include <functional>
-#include <optional>
 
 namespace margelo::nitro::lottienitro::views {
 
@@ -41,7 +48,28 @@ namespace margelo::nitro::lottienitro::views {
                           const react::RawProps& rawProps);
 
   public:
-    CachedProp<bool> placeholder;
+    CachedProp<std::optional<ResizeMode>> resizeMode;
+    CachedProp<std::optional<RenderMode>> renderMode;
+    CachedProp<std::optional<std::string>> sourceName;
+    CachedProp<std::optional<std::string>> sourceJson;
+    CachedProp<std::optional<std::string>> sourceURL;
+    CachedProp<std::optional<std::string>> sourceDotLottieURI;
+    CachedProp<std::optional<std::string>> imageAssetsFolder;
+    CachedProp<std::optional<double>> progress;
+    CachedProp<std::optional<double>> speed;
+    CachedProp<std::optional<bool>> loop;
+    CachedProp<std::optional<bool>> autoPlay;
+    CachedProp<std::optional<bool>> enableMergePathsAndroidForKitKatAndAbove;
+    CachedProp<std::optional<bool>> applyOpacityToLayersAndroid;
+    CachedProp<std::optional<bool>> enableSafeModeAndroid;
+    CachedProp<std::optional<bool>> hardwareAccelerationAndroid;
+    CachedProp<std::optional<bool>> cacheComposition;
+    CachedProp<std::optional<std::vector<LottieColorFilter>>> colorFilters;
+    CachedProp<std::optional<std::vector<TextFilterAndroid>>> textFiltersAndroid;
+    CachedProp<std::optional<std::vector<TextFilterIOS>>> textFiltersIOS;
+    CachedProp<std::optional<std::function<void(bool /* isCancelled */)>>> onAnimationFinish;
+    CachedProp<std::optional<std::function<void(const std::string& /* error */)>>> onAnimationFailure;
+    CachedProp<std::optional<std::function<void()>>> onAnimationLoaded;
     CachedProp<std::optional<std::function<void(const std::shared_ptr<HybridLottieViewSpec>& /* ref */)>>> hybridRef;
 
   private:

@@ -13,9 +13,26 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::lottienitro { enum class ResizeMode; }
+// Forward declaration of `RenderMode` to properly resolve imports.
+namespace margelo::nitro::lottienitro { enum class RenderMode; }
+// Forward declaration of `LottieColorFilter` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct LottieColorFilter; }
+// Forward declaration of `TextFilterAndroid` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct TextFilterAndroid; }
+// Forward declaration of `TextFilterIOS` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct TextFilterIOS; }
 
-
-
+#include "ResizeMode.hpp"
+#include <optional>
+#include "RenderMode.hpp"
+#include <string>
+#include "LottieColorFilter.hpp"
+#include <vector>
+#include "TextFilterAndroid.hpp"
+#include "TextFilterIOS.hpp"
+#include <functional>
 
 namespace margelo::nitro::lottienitro {
 
@@ -44,12 +61,57 @@ namespace margelo::nitro::lottienitro {
 
     public:
       // Properties
-      virtual bool getPlaceholder() = 0;
-      virtual void setPlaceholder(bool placeholder) = 0;
+      virtual std::optional<ResizeMode> getResizeMode() = 0;
+      virtual void setResizeMode(std::optional<ResizeMode> resizeMode) = 0;
+      virtual std::optional<RenderMode> getRenderMode() = 0;
+      virtual void setRenderMode(std::optional<RenderMode> renderMode) = 0;
+      virtual std::optional<std::string> getSourceName() = 0;
+      virtual void setSourceName(const std::optional<std::string>& sourceName) = 0;
+      virtual std::optional<std::string> getSourceJson() = 0;
+      virtual void setSourceJson(const std::optional<std::string>& sourceJson) = 0;
+      virtual std::optional<std::string> getSourceURL() = 0;
+      virtual void setSourceURL(const std::optional<std::string>& sourceURL) = 0;
+      virtual std::optional<std::string> getSourceDotLottieURI() = 0;
+      virtual void setSourceDotLottieURI(const std::optional<std::string>& sourceDotLottieURI) = 0;
+      virtual std::optional<std::string> getImageAssetsFolder() = 0;
+      virtual void setImageAssetsFolder(const std::optional<std::string>& imageAssetsFolder) = 0;
+      virtual std::optional<double> getProgress() = 0;
+      virtual void setProgress(std::optional<double> progress) = 0;
+      virtual std::optional<double> getSpeed() = 0;
+      virtual void setSpeed(std::optional<double> speed) = 0;
+      virtual std::optional<bool> getLoop() = 0;
+      virtual void setLoop(std::optional<bool> loop) = 0;
+      virtual std::optional<bool> getAutoPlay() = 0;
+      virtual void setAutoPlay(std::optional<bool> autoPlay) = 0;
+      virtual std::optional<bool> getEnableMergePathsAndroidForKitKatAndAbove() = 0;
+      virtual void setEnableMergePathsAndroidForKitKatAndAbove(std::optional<bool> enableMergePathsAndroidForKitKatAndAbove) = 0;
+      virtual std::optional<bool> getApplyOpacityToLayersAndroid() = 0;
+      virtual void setApplyOpacityToLayersAndroid(std::optional<bool> applyOpacityToLayersAndroid) = 0;
+      virtual std::optional<bool> getEnableSafeModeAndroid() = 0;
+      virtual void setEnableSafeModeAndroid(std::optional<bool> enableSafeModeAndroid) = 0;
+      virtual std::optional<bool> getHardwareAccelerationAndroid() = 0;
+      virtual void setHardwareAccelerationAndroid(std::optional<bool> hardwareAccelerationAndroid) = 0;
+      virtual std::optional<bool> getCacheComposition() = 0;
+      virtual void setCacheComposition(std::optional<bool> cacheComposition) = 0;
+      virtual std::optional<std::vector<LottieColorFilter>> getColorFilters() = 0;
+      virtual void setColorFilters(const std::optional<std::vector<LottieColorFilter>>& colorFilters) = 0;
+      virtual std::optional<std::vector<TextFilterAndroid>> getTextFiltersAndroid() = 0;
+      virtual void setTextFiltersAndroid(const std::optional<std::vector<TextFilterAndroid>>& textFiltersAndroid) = 0;
+      virtual std::optional<std::vector<TextFilterIOS>> getTextFiltersIOS() = 0;
+      virtual void setTextFiltersIOS(const std::optional<std::vector<TextFilterIOS>>& textFiltersIOS) = 0;
+      virtual std::optional<std::function<void(bool /* isCancelled */)>> getOnAnimationFinish() = 0;
+      virtual void setOnAnimationFinish(const std::optional<std::function<void(bool /* isCancelled */)>>& onAnimationFinish) = 0;
+      virtual std::optional<std::function<void(const std::string& /* error */)>> getOnAnimationFailure() = 0;
+      virtual void setOnAnimationFailure(const std::optional<std::function<void(const std::string& /* error */)>>& onAnimationFailure) = 0;
+      virtual std::optional<std::function<void()>> getOnAnimationLoaded() = 0;
+      virtual void setOnAnimationLoaded(const std::optional<std::function<void()>>& onAnimationLoaded) = 0;
 
     public:
       // Methods
-      
+      virtual void play(double startFrame, double endFrame) = 0;
+      virtual void reset() = 0;
+      virtual void pause() = 0;
+      virtual void resume() = 0;
 
     protected:
       // Hybrid Setup

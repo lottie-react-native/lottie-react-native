@@ -121,18 +121,607 @@ open class HybridLottieViewSpec_cxx {
   }
 
   // Properties
-  public final var placeholder: Bool {
+  public final var resizeMode: bridge.std__optional_ResizeMode_ {
     @inline(__always)
     get {
-      return self.__implementation.placeholder
+      return { () -> bridge.std__optional_ResizeMode_ in
+        if let __unwrappedValue = self.__implementation.resizeMode {
+          return bridge.create_std__optional_ResizeMode_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
     }
     @inline(__always)
     set {
-      self.__implementation.placeholder = newValue
+      self.__implementation.resizeMode = newValue.value
+    }
+  }
+  
+  public final var renderMode: bridge.std__optional_RenderMode_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_RenderMode_ in
+        if let __unwrappedValue = self.__implementation.renderMode {
+          return bridge.create_std__optional_RenderMode_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.renderMode = newValue.value
+    }
+  }
+  
+  public final var sourceName: bridge.std__optional_std__string_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__string_ in
+        if let __unwrappedValue = self.__implementation.sourceName {
+          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.sourceName = { () -> String? in
+        if bridge.has_value_std__optional_std__string_(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__string_(newValue)
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var sourceJson: bridge.std__optional_std__string_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__string_ in
+        if let __unwrappedValue = self.__implementation.sourceJson {
+          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.sourceJson = { () -> String? in
+        if bridge.has_value_std__optional_std__string_(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__string_(newValue)
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var sourceURL: bridge.std__optional_std__string_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__string_ in
+        if let __unwrappedValue = self.__implementation.sourceURL {
+          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.sourceURL = { () -> String? in
+        if bridge.has_value_std__optional_std__string_(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__string_(newValue)
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var sourceDotLottieURI: bridge.std__optional_std__string_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__string_ in
+        if let __unwrappedValue = self.__implementation.sourceDotLottieURI {
+          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.sourceDotLottieURI = { () -> String? in
+        if bridge.has_value_std__optional_std__string_(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__string_(newValue)
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var imageAssetsFolder: bridge.std__optional_std__string_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__string_ in
+        if let __unwrappedValue = self.__implementation.imageAssetsFolder {
+          return bridge.create_std__optional_std__string_(std.string(__unwrappedValue))
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.imageAssetsFolder = { () -> String? in
+        if bridge.has_value_std__optional_std__string_(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__string_(newValue)
+          return String(__unwrapped)
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var progress: bridge.std__optional_double_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_double_ in
+        if let __unwrappedValue = self.__implementation.progress {
+          return bridge.create_std__optional_double_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.progress = { () -> Double? in
+        if bridge.has_value_std__optional_double_(newValue) {
+          let __unwrapped = bridge.get_std__optional_double_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var speed: bridge.std__optional_double_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_double_ in
+        if let __unwrappedValue = self.__implementation.speed {
+          return bridge.create_std__optional_double_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.speed = { () -> Double? in
+        if bridge.has_value_std__optional_double_(newValue) {
+          let __unwrapped = bridge.get_std__optional_double_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var loop: bridge.std__optional_bool_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_bool_ in
+        if let __unwrappedValue = self.__implementation.loop {
+          return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.loop = { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(newValue) {
+          let __unwrapped = bridge.get_std__optional_bool_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var autoPlay: bridge.std__optional_bool_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_bool_ in
+        if let __unwrappedValue = self.__implementation.autoPlay {
+          return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.autoPlay = { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(newValue) {
+          let __unwrapped = bridge.get_std__optional_bool_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var enableMergePathsAndroidForKitKatAndAbove: bridge.std__optional_bool_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_bool_ in
+        if let __unwrappedValue = self.__implementation.enableMergePathsAndroidForKitKatAndAbove {
+          return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.enableMergePathsAndroidForKitKatAndAbove = { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(newValue) {
+          let __unwrapped = bridge.get_std__optional_bool_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var applyOpacityToLayersAndroid: bridge.std__optional_bool_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_bool_ in
+        if let __unwrappedValue = self.__implementation.applyOpacityToLayersAndroid {
+          return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.applyOpacityToLayersAndroid = { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(newValue) {
+          let __unwrapped = bridge.get_std__optional_bool_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var enableSafeModeAndroid: bridge.std__optional_bool_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_bool_ in
+        if let __unwrappedValue = self.__implementation.enableSafeModeAndroid {
+          return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.enableSafeModeAndroid = { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(newValue) {
+          let __unwrapped = bridge.get_std__optional_bool_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var hardwareAccelerationAndroid: bridge.std__optional_bool_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_bool_ in
+        if let __unwrappedValue = self.__implementation.hardwareAccelerationAndroid {
+          return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.hardwareAccelerationAndroid = { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(newValue) {
+          let __unwrapped = bridge.get_std__optional_bool_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var cacheComposition: bridge.std__optional_bool_ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_bool_ in
+        if let __unwrappedValue = self.__implementation.cacheComposition {
+          return bridge.create_std__optional_bool_(__unwrappedValue)
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.cacheComposition = { () -> Bool? in
+        if bridge.has_value_std__optional_bool_(newValue) {
+          let __unwrapped = bridge.get_std__optional_bool_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var colorFilters: bridge.std__optional_std__vector_LottieColorFilter__ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__vector_LottieColorFilter__ in
+        if let __unwrappedValue = self.__implementation.colorFilters {
+          return bridge.create_std__optional_std__vector_LottieColorFilter__({ () -> bridge.std__vector_LottieColorFilter_ in
+            var __vector = bridge.create_std__vector_LottieColorFilter_(__unwrappedValue.count)
+            for __item in __unwrappedValue {
+              __vector.push_back(__item)
+            }
+            return __vector
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.colorFilters = { () -> [LottieColorFilter]? in
+        if bridge.has_value_std__optional_std__vector_LottieColorFilter__(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__vector_LottieColorFilter__(newValue)
+          return __unwrapped.map({ __item in __item })
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var textFiltersAndroid: bridge.std__optional_std__vector_TextFilterAndroid__ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__vector_TextFilterAndroid__ in
+        if let __unwrappedValue = self.__implementation.textFiltersAndroid {
+          return bridge.create_std__optional_std__vector_TextFilterAndroid__({ () -> bridge.std__vector_TextFilterAndroid_ in
+            var __vector = bridge.create_std__vector_TextFilterAndroid_(__unwrappedValue.count)
+            for __item in __unwrappedValue {
+              __vector.push_back(__item)
+            }
+            return __vector
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.textFiltersAndroid = { () -> [TextFilterAndroid]? in
+        if bridge.has_value_std__optional_std__vector_TextFilterAndroid__(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__vector_TextFilterAndroid__(newValue)
+          return __unwrapped.map({ __item in __item })
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var textFiltersIOS: bridge.std__optional_std__vector_TextFilterIOS__ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__vector_TextFilterIOS__ in
+        if let __unwrappedValue = self.__implementation.textFiltersIOS {
+          return bridge.create_std__optional_std__vector_TextFilterIOS__({ () -> bridge.std__vector_TextFilterIOS_ in
+            var __vector = bridge.create_std__vector_TextFilterIOS_(__unwrappedValue.count)
+            for __item in __unwrappedValue {
+              __vector.push_back(__item)
+            }
+            return __vector
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.textFiltersIOS = { () -> [TextFilterIOS]? in
+        if bridge.has_value_std__optional_std__vector_TextFilterIOS__(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__vector_TextFilterIOS__(newValue)
+          return __unwrapped.map({ __item in __item })
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var onAnimationFinish: bridge.std__optional_std__function_void_bool____isCancelled______ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void_bool____isCancelled______ in
+        if let __unwrappedValue = self.__implementation.onAnimationFinish {
+          return bridge.create_std__optional_std__function_void_bool____isCancelled______({ () -> bridge.Func_void_bool in
+            let __closureWrapper = Func_void_bool(__unwrappedValue)
+            return bridge.create_Func_void_bool(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onAnimationFinish = { () -> ((_ isCancelled: Bool) -> Void)? in
+        if bridge.has_value_std__optional_std__function_void_bool____isCancelled______(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void_bool____isCancelled______(newValue)
+          return { () -> (Bool) -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void_bool(__unwrapped)
+            return { (__isCancelled: Bool) -> Void in
+              __wrappedFunction.call(__isCancelled)
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var onAnimationFailure: bridge.std__optional_std__function_void_const_std__string_____error______ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void_const_std__string_____error______ in
+        if let __unwrappedValue = self.__implementation.onAnimationFailure {
+          return bridge.create_std__optional_std__function_void_const_std__string_____error______({ () -> bridge.Func_void_std__string in
+            let __closureWrapper = Func_void_std__string(__unwrappedValue)
+            return bridge.create_Func_void_std__string(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onAnimationFailure = { () -> ((_ error: String) -> Void)? in
+        if bridge.has_value_std__optional_std__function_void_const_std__string_____error______(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void_const_std__string_____error______(newValue)
+          return { () -> (String) -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void_std__string(__unwrapped)
+            return { (__error: String) -> Void in
+              __wrappedFunction.call(std.string(__error))
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
+    }
+  }
+  
+  public final var onAnimationLoaded: bridge.std__optional_std__function_void____ {
+    @inline(__always)
+    get {
+      return { () -> bridge.std__optional_std__function_void____ in
+        if let __unwrappedValue = self.__implementation.onAnimationLoaded {
+          return bridge.create_std__optional_std__function_void____({ () -> bridge.Func_void in
+            let __closureWrapper = Func_void(__unwrappedValue)
+            return bridge.create_Func_void(__closureWrapper.toUnsafe())
+          }())
+        } else {
+          return .init()
+        }
+      }()
+    }
+    @inline(__always)
+    set {
+      self.__implementation.onAnimationLoaded = { () -> (() -> Void)? in
+        if bridge.has_value_std__optional_std__function_void____(newValue) {
+          let __unwrapped = bridge.get_std__optional_std__function_void____(newValue)
+          return { () -> () -> Void in
+            let __wrappedFunction = bridge.wrap_Func_void(__unwrapped)
+            return { () -> Void in
+              __wrappedFunction.call()
+            }
+          }()
+        } else {
+          return nil
+        }
+      }()
     }
   }
 
   // Methods
+  @inline(__always)
+  public final func play(startFrame: Double, endFrame: Double) -> bridge.Result_void_ {
+    do {
+      try self.__implementation.play(startFrame: startFrame, endFrame: endFrame)
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func reset() -> bridge.Result_void_ {
+    do {
+      try self.__implementation.reset()
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func pause() -> bridge.Result_void_ {
+    do {
+      try self.__implementation.pause()
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
+  @inline(__always)
+  public final func resume() -> bridge.Result_void_ {
+    do {
+      try self.__implementation.resume()
+      return bridge.create_Result_void_()
+    } catch (let __error) {
+      let __exceptionPtr = __error.toCpp()
+      return bridge.create_Result_void_(__exceptionPtr)
+    }
+  }
+  
   public final func getView() -> UnsafeMutableRawPointer {
     return Unmanaged.passRetained(__implementation.view).toOpaque()
   }

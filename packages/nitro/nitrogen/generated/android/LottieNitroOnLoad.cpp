@@ -16,6 +16,9 @@
 #include <NitroModules/HybridObjectRegistry.hpp>
 
 #include "JHybridLottieViewSpec.hpp"
+#include "JFunc_void_bool.hpp"
+#include "JFunc_void_std__string.hpp"
+#include "JFunc_void.hpp"
 #include "views/JHybridLottieViewStateUpdater.hpp"
 #include <NitroModules/DefaultConstructableObject.hpp>
 
@@ -42,6 +45,9 @@ void registerAllNatives() {
 
   // Register native JNI methods
   margelo::nitro::lottienitro::JHybridLottieViewSpec::CxxPart::registerNatives();
+  margelo::nitro::lottienitro::JFunc_void_bool_cxx::registerNatives();
+  margelo::nitro::lottienitro::JFunc_void_std__string_cxx::registerNatives();
+  margelo::nitro::lottienitro::JFunc_void_cxx::registerNatives();
   margelo::nitro::lottienitro::views::JHybridLottieViewStateUpdater::registerNatives();
 
   // Register Nitro Hybrid Objects

@@ -7,10 +7,10 @@
   "homepage": "https://airbnb.io/lottie/#/react-native",
   "author": "Lottie React Native contributors",
   "repository": "https://github.com/lottie-react-native/lottie-react-native",
-  "source": "src/index",
-  "main": "src/index",
-  "react-native": "src/index",
-  "types": "src/index.ts",
+  "source": "src/index.tsx",
+  "main": "src/index.tsx",
+  "react-native": "src/index.tsx",
+  "types": "src/index.tsx",
   "sideEffects": false,
   "files": [
     "src",
@@ -30,16 +30,23 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.5",
     "react": ">=19.2",
     "react-native": ">=0.84",
     "react-native-nitro-modules": "^0.36.5"
   },
   "devDependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.5",
     "@types/react": "^19.2.18",
     "nitrogen": "^0.36.5",
     "react": "19.2.3",
     "react-native": "0.84.1",
     "react-native-nitro-modules": "^0.36.5",
     "typescript": "5.9.3"
+  },
+  "peerDependenciesMeta": {
+    "@lottiefiles/dotlottie-react": {
+      "optional": true
+    }
   }
 }

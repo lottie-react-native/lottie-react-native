@@ -14,6 +14,30 @@
 
 namespace margelo::nitro::lottienitro::bridge::swift {
 
+  // pragma MARK: std::function<void(bool /* isCancelled */)>
+  Func_void_bool create_Func_void_bool(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = LottieNitro::Func_void_bool::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](bool isCancelled) mutable -> void {
+      swiftClosure.call(isCancelled);
+    };
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* error */)>
+  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = LottieNitro::Func_void_std__string::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::string& error) mutable -> void {
+      swiftClosure.call(error);
+    };
+  }
+  
+  // pragma MARK: std::function<void()>
+  Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = LottieNitro::Func_void::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)]() mutable -> void {
+      swiftClosure.call();
+    };
+  }
+  
   // pragma MARK: std::shared_ptr<HybridLottieViewSpec>
   std::shared_ptr<HybridLottieViewSpec> create_std__shared_ptr_HybridLottieViewSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     LottieNitro::HybridLottieViewSpec_cxx swiftPart = LottieNitro::HybridLottieViewSpec_cxx::fromUnsafe(swiftUnsafePointer);

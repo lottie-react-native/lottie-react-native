@@ -7982,6 +7982,7 @@ __metadata:
     "@babel/core": "npm:^7.20.0"
     "@babel/preset-env": "npm:^7.20.0"
     "@babel/runtime": "npm:^7.20.0"
+    "@lottiefiles/dotlottie-react": "npm:^0.13.5"
     "@react-native-community/cli": "npm:^20.2.0"
     "@react-native/babel-preset": "npm:^0.84.1"
     "@react-native/metro-config": "npm:^0.84.1"
@@ -10933,6 +10934,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "lottie-react-native-nitro@workspace:packages/nitro"
   dependencies:
+    "@lottiefiles/dotlottie-react": "npm:^0.13.5"
     "@types/react": "npm:^19.2.18"
     nitrogen: "npm:^0.36.5"
     react: "npm:19.2.3"
@@ -10940,9 +10942,13 @@ __metadata:
     react-native-nitro-modules: "npm:^0.36.5"
     typescript: "npm:5.9.3"
   peerDependencies:
+    "@lottiefiles/dotlottie-react": ^0.13.5
     react: ">=19.2"
     react-native: ">=0.84"
     react-native-nitro-modules: ^0.36.5
+  peerDependenciesMeta:
+    "@lottiefiles/dotlottie-react":
+      optional: true
   languageName: unknown
   linkType: soft
 
