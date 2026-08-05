@@ -68,7 +68,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "metro-react-native-babel-preset": "^0.73.10",
     "prettier": "^2.8.8",
-    "react": "19.2.8",
+    "react": "19.2.3",
     "react-native": "0.84.1",
     "react-native-builder-bob": "^0.20.4",
     "react-native-windows": "0.84.0",
