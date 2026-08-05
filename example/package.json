@@ -18,9 +18,7 @@
     "test": "jest",
     "web": "webpack serve",
     "visionos": "npx react-native run-visionos",
-    "ci:paper:android": "npx react-native build-android",
     "ci:fabric:android": "ORG_GRADLE_PROJECT_newArchEnabled=true npx react-native build-android",
-    "ci:paper:ios": "pod install --project-directory=ios && npx react-native run-ios --no-packager",
     "ci:fabric:ios": "RCT_NEW_ARCH_ENABLED=1 pod install --project-directory=ios && npx react-native run-ios --no-packager",
     "ci:fabric:ios-static-framework": "USE_FRAMEWORKS=static RCT_NEW_ARCH_ENABLED=1 pod install --project-directory=ios && npx react-native run-ios --no-packager",
     "ci:fabric:ios-dynamic-framework": "USE_FRAMEWORKS=dynamic RCT_NEW_ARCH_ENABLED=1 pod install --project-directory=ios && npx react-native run-ios --no-packager"
