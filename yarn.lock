@@ -4263,13 +4263,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnx-kit/metro-config@npm:^1.3.15":
-  version: 1.3.17
-  resolution: "@rnx-kit/metro-config@npm:1.3.17"
+"@rnx-kit/metro-config@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "@rnx-kit/metro-config@npm:2.2.4"
   dependencies:
-    "@rnx-kit/tools-node": "npm:^2.0.0"
-    "@rnx-kit/tools-react-native": "npm:^1.4.1"
-    "@rnx-kit/tools-workspaces": "npm:^0.1.3"
+    "@rnx-kit/tools-node": "npm:^3.0.0"
+    "@rnx-kit/tools-react-native": "npm:^2.3.1"
+    "@rnx-kit/tools-workspaces": "npm:^0.2.0"
   peerDependencies:
     "@react-native/metro-config": "*"
     react: "*"
@@ -4277,7 +4277,7 @@ __metadata:
   peerDependenciesMeta:
     "@react-native/metro-config":
       optional: true
-  checksum: 10/42a81752b46f650e41788abaa5b10ad14a7ba904676def1ae1e22b55acf2e0e682a56aa7322322924bca84fe7f0c1e3d6ea81f4f160497b59d259b11d9042049
+  checksum: 10/c7e7fe6c597d54d808dc2f7504279cbb281e39f5c359284d7226e49e152f48966956c7f0d361ccf944276b3e653642bc86b2335a97b500a7d7404ecc57f9bb67
   languageName: node
   linkType: hard
 
@@ -4302,10 +4302,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnx-kit/tools-node@npm:^2.0.0, @rnx-kit/tools-node@npm:^2.0.1":
-  version: 2.1.2
-  resolution: "@rnx-kit/tools-node@npm:2.1.2"
-  checksum: 10/3b76e9be771be473b4555118d0957bd1c9b93f6ae3690f10c6d12d7ab57c300fb890ed8eda7d19d8a7f87ba1fd5f7e35ed45670213a51bc98ce0fbce0e9737de
+"@rnx-kit/tools-node@npm:^3.0.0, @rnx-kit/tools-node@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@rnx-kit/tools-node@npm:3.0.5"
+  dependencies:
+    "@rnx-kit/types-node": "npm:^1.0.0"
+  checksum: 10/322e0a4a69c562c4c17b6bc9a810e9ba5e5eec2eda1a1089676ac3a2fec01ccb3fbfa1bac0d371d4cc15e4721397b212693f5485417c1d03b2d31c50fedd1d58
   languageName: node
   linkType: hard
 
@@ -4315,15 +4317,6 @@ __metadata:
   dependencies:
     "@rnx-kit/types-node": "npm:^1.0.0"
   checksum: 10/8656900707b9f8ebcb0c67ffb5beb0c111421029b686a05de501484252fbe45393f53bd9abb4d384f092d2eff21d574f381f8b0c33d1cee43c0e414d15fc17a3
-  languageName: node
-  linkType: hard
-
-"@rnx-kit/tools-react-native@npm:^1.4.1":
-  version: 1.4.2
-  resolution: "@rnx-kit/tools-react-native@npm:1.4.2"
-  dependencies:
-    "@rnx-kit/tools-node": "npm:^2.0.1"
-  checksum: 10/a6881d8e8aba7400a274f653a7d7e9e151e4ca5d347370b81933acdbc9b80462e01144c60816a4684339e54ce9c5ac2574aacef3548e6dbfa7590f9ecea6c726
   languageName: node
   linkType: hard
 
@@ -4338,15 +4331,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnx-kit/tools-workspaces@npm:^0.1.3":
-  version: 0.1.6
-  resolution: "@rnx-kit/tools-workspaces@npm:0.1.6"
+"@rnx-kit/tools-react-native@npm:^2.3.1":
+  version: 2.3.8
+  resolution: "@rnx-kit/tools-react-native@npm:2.3.8"
+  dependencies:
+    "@rnx-kit/tools-filesystem": "npm:^0.2.0"
+    "@rnx-kit/tools-node": "npm:^3.0.5"
+    "@rnx-kit/types-bundle-config": "npm:^1.0.0"
+  peerDependencies:
+    "@react-native-community/cli-types": "*"
+  peerDependenciesMeta:
+    "@react-native-community/cli-types":
+      optional: true
+  checksum: 10/175279eddf3f31d73dd3326b6e76a738efbb395e6e04429064eaf03551bcbdfeb5cab6f4cef9dc78b60251af85ff75bdeb33b789b62cda157874bc88c482a141
+  languageName: node
+  linkType: hard
+
+"@rnx-kit/tools-workspaces@npm:^0.2.0":
+  version: 0.2.3
+  resolution: "@rnx-kit/tools-workspaces@npm:0.2.3"
   dependencies:
     fast-glob: "npm:^3.2.7"
     find-up: "npm:^5.0.0"
+    micromatch: "npm:^4.0.0"
     read-yaml-file: "npm:^2.1.0"
     strip-json-comments: "npm:^3.1.1"
-  checksum: 10/243c190b392f8578a96cf23551ae801ccf1edbc77c2483539a48ff280a06d6443d7d06e09d3221b8ca4d33f41ebcf070ac78a70e2dcf88ba4ef618cd290d97bd
+  checksum: 10/1aa128b3479e24ad80a4d3fab40fcc2da2befb79340ae15fa761cedd0c6a8f7a7b7cccea95477a5f06773cdb8849d6cfbc4bf459a719d6779263761fef7ada7e
   languageName: node
   linkType: hard
 
@@ -8174,7 +8184,7 @@ __metadata:
     "@react-native/metro-config": "npm:^0.84.1"
     "@react-native/typescript-config": "npm:0.84.1"
     "@rnx-kit/align-deps": "npm:^3.1.0"
-    "@rnx-kit/metro-config": "npm:^1.3.15"
+    "@rnx-kit/metro-config": "npm:^2.2.4"
     "@types/react": "npm:^19.2.18"
     "@types/react-test-renderer": "npm:^19.1.0"
     babel-jest: "npm:^29.6.3"
@@ -11838,7 +11848,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.2, micromatch@npm:^4.0.4, micromatch@npm:^4.0.8":
+"micromatch@npm:^4.0.0, micromatch@npm:^4.0.2, micromatch@npm:^4.0.4, micromatch@npm:^4.0.8":
   version: 4.0.8
   resolution: "micromatch@npm:4.0.8"
   dependencies:
