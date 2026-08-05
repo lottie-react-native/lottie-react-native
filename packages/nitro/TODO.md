@@ -165,3 +165,34 @@ Behavioural fixes:
 Still deliberately absent: the imperative commands (`play`/`reset`/`pause`/
 `resume`) are no-ops pending the ref work, so `example-v8`'s playback buttons are
 wired but inert.
+
+## Untested: the colour parsers
+
+`LottieColorParser.swift` and `LottieColorParser.kt` have **no automated tests**.
+Deliberate, not an oversight — recorded here so it can be revisited.
+
+Nitro Modules provides no native testing story: as of 0.36.5 the entire test
+suite in its own repository, across `react-native-nitro-modules` and
+`react-native-nitro-test`, is `it.todo('write a test')`. There is no XCTest, no
+JUnit, no `androidTest`. This repository has no test infrastructure either.
+
+The parsers do not actually depend on any of that — they are plain Swift and
+plain Kotlin — but testing them needs work neither platform gives for free:
+
+- **Android**: `android.graphics.Color.argb` is stubbed in plain JUnit and
+  throws. Needs either Robolectric, or hand-packing the int
+  (`(a shl 24) or (r shl 16) or (g shl 8) or b`) so the parser becomes pure
+  Kotlin.
+- **iOS**: returning `UIColor` ties it to UIKit, and there is no test target —
+  `react-native-test-app` generates the Xcode project and overwrites it on every
+  `pod install`. Would need the parser to return neutral RGBA components
+  (arguably better anyway, since Lottie wants `LottieColor(r:g:b:a:)` and the
+  `UIColor` round-trip is incidental) plus a small SwiftPM package for
+  `swift test`.
+
+**The risk this leaves open** is the one worth remembering: the two parsers are
+hand-written to accept an identical set, and nothing enforces that. A shared
+fixture table asserted on both sides is what would catch divergence. Until then,
+only the hex path is exercised in practice — `example/App.tsx` uses `#1652f0` and
+`#64E9FF`, so `rgb()`, `rgba()`, percentages and the named colours are unverified
+on either platform.
