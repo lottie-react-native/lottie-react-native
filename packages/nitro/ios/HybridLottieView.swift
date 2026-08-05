@@ -1,3 +1,4 @@
+import Lottie
 import NitroModules
 import UIKit
 
@@ -16,7 +17,15 @@ import UIKit
 /// `TextFilterAndroid` are generated into this same module, so they need no
 /// import.
 class HybridLottieView: HybridLottieViewSpec {
-  var view: UIView = UIView()
+  /// One animation view for the component's lifetime.
+  ///
+  /// It never needs replacing: `configuration` and `animation` are settable vars
+  /// whose `didSet` rebuilds the layer in place, and `makeAnimationLayer`
+  /// re-applies registered value providers and carries the image and text
+  /// providers across. React Native frames it for us via `RCTViewComponentView`.
+  private let animationView = LottieAnimationView(frame: .zero)
+
+  var view: UIView { animationView }
 
   // MARK: - Props
   //

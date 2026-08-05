@@ -129,6 +129,11 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"
+    // Pinned to match packages/core/android/build.gradle, so any rendering
+    // difference between v7 and v8 comes from our code rather than a different
+    // Lottie. Brings androidx.appcompat transitively, which LottieAnimationView
+    // needs (it extends AppCompatImageView).
+    implementation "com.airbnb.android:lottie:6.7.1"
     // Provides the NitroModules prefab and com.margelo.nitro.R.id.associated_hybrid_view_tag,
     // which the generated view manager imports.
     implementation project(":react-native-nitro-modules")

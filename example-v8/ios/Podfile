@@ -6,8 +6,39 @@ require "#{ws_dir}/node_modules/react-native-test-app/test_app.rb"
 
 workspace 'LottieNitroExample.xcworkspace'
 
-# NOTE: unlike `example/ios/Podfile` there is no post_install hook raising
-# resource bundle deployment targets. That exists solely because `lottie-ios`
-# declares iOS 13.0 for its privacy resource bundle, and this app pulls no
-# `lottie-ios` yet. Add it back when lottie-ios enters LottieNitro.podspec.
-use_test_app!
+# Raise resource bundle targets to React Native's minimum iOS version.
+#
+# React Native's `ReactNativePodsUtils.updateOSDeploymentTarget` raises pods to
+# `min_ios_version_supported`, but it only walks each pod's `native_target`.
+# Targets generated from a podspec's `resource_bundles` are left alone and keep
+# whatever that podspec declared, and the platform `react-native-test-app` sets
+# does not reach them either. A dependency that still supports iOS 13 therefore
+# produces a bundle target below the minimum Xcode accepts, failing the build
+# before anything compiles:
+#
+#   lottie-ios                    -> 15.1  (raised by React Native)
+#   lottie-ios-LottiePrivacyInfo  -> 13.0  (from the podspec, unchanged)
+#
+# lottie-ios still declares iOS 13.0 as of 4.6.1, so this cannot be resolved by
+# bumping it. This only ever raises a target to React Native's own floor;
+# anything already at or above it is untouched. Remove once the upstream helper
+# covers resource bundles.
+#
+# Identical to `example/ios/Podfile`. It became necessary here the moment
+# `lottie-ios` entered LottieNitro.podspec.
+raise_resource_bundle_deployment_targets = lambda do |installer|
+  minimum = min_ios_version_supported
+  installer.target_installation_results.pod_target_installation_results
+           .each_value do |result|
+    result.resource_bundle_targets.each do |bundle_target|
+      bundle_target.build_configurations.each do |config|
+        current = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+        next if current && current.to_f >= minimum.to_f
+
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = minimum
+      end
+    end
+  end
+end
+
+use_test_app!(post_install: raise_resource_bundle_deployment_targets)

@@ -12,6 +12,8 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
+  # lottie-ios 4.6.0 requires Swift 5.9.
+  s.swift_version = '5.9'
   s.platforms    = { :ios => min_ios_version_supported }
   s.source       = {
     :git => "https://github.com/lottie-react-native/lottie-react-native.git",
@@ -27,6 +29,11 @@ Pod::Spec.new do |s|
   # c++20 / objcxx interop build settings the generated bridge requires.
   load 'nitrogen/generated/ios/LottieNitro+autolinking.rb'
   add_nitrogen_files(s)
+
+  # Pinned exactly, matching packages/core/lottie-react-native.podspec, so any
+  # rendering difference between v7 and v8 comes from our code rather than a
+  # different Lottie.
+  s.dependency 'lottie-ios', '4.6.0'
 
   s.dependency 'React-jsi'
   s.dependency 'React-callinvoker'

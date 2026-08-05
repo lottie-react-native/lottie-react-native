@@ -1,7 +1,9 @@
 package com.margelo.nitro.lottienitro
 
 import android.view.View
+import android.widget.ImageView
 import androidx.annotation.Keep
+import com.airbnb.lottie.LottieAnimationView
 import com.facebook.proguard.annotations.DoNotStrip
 import com.facebook.react.uimanager.ThemedReactContext
 
@@ -30,7 +32,19 @@ import com.facebook.react.uimanager.ThemedReactContext
 class HybridLottieView(
   val context: ThemedReactContext,
 ) : HybridLottieViewSpec() {
-  override val view: View = View(context)
+  /**
+   * One animation view for the component's lifetime. Keeping the same instance
+   * is what buys us lottie-android's own `cancelLoaderTask()`, which detaches
+   * the listeners of a superseded composition load.
+   *
+   * `CENTER_INSIDE` matches v7's `createViewInstance`, so appearance before the
+   * first `resizeMode` prop arrives is identical.
+   */
+  private val animationView = LottieAnimationView(context).apply {
+    scaleType = ImageView.ScaleType.CENTER_INSIDE
+  }
+
+  override val view: View = animationView
 
   // Props
   //
