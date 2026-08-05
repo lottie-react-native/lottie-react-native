@@ -14,3 +14,9 @@ gem 'bigdecimal'
 gem 'logger'
 gem 'benchmark'
 gem 'mutex_m'
+
+# `kconv` also left the standard library in 3.4, and is provided by `nkf`.
+# CFPropertyList requires it, so CocoaPods fails to even parse the Podfile with
+# "cannot load such file -- kconv". xcodeproj declares this itself from 1.26
+# onwards, but the pin above holds us below that.
+gem 'nkf'
