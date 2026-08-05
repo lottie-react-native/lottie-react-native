@@ -2,10 +2,36 @@ import Lottie
 import NitroModules
 import UIKit
 
+private final class WindowAttachObserver: UIView {
+  var onAttachToWindow: (() -> Void)?
+
+  init() {
+    super.init(frame: .zero)
+    isHidden = true
+    isUserInteractionEnabled = false
+  }
+
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) is not supported")
+  }
+
+  override func didMoveToWindow() {
+    super.didMoveToWindow()
+    if window != nil {
+      onAttachToWindow?()
+    }
+  }
+}
+
 class HybridLottieView: HybridLottieViewSpec {
   private let animationView = LottieAnimationView(frame: .zero)
 
+  private let attachObserver = WindowAttachObserver()
+
   var view: UIView { animationView }
+
+  private var pendingAttachPlay: (() -> Void)?
 
   var resizeMode: ResizeMode?
   var renderMode: RenderMode?
@@ -76,6 +102,12 @@ class HybridLottieView: HybridLottieViewSpec {
       self.onAnimationLoaded?()
       self.applyCompositionDependent()
     }
+    animationView.addSubview(attachObserver)
+    attachObserver.onAttachToWindow = { [weak self] in
+      guard let self, let pending = self.pendingAttachPlay else { return }
+      self.pendingAttachPlay = nil
+      pending()
+    }
   }
 
   func afterUpdate() {
@@ -113,7 +145,9 @@ class HybridLottieView: HybridLottieViewSpec {
     suppressFinishDepth += 1
     inFlightLoad?.cancel()
     inFlightLoad = nil
+    pendingAttachPlay = nil
     animationView.animationLoaded = nil
+    attachObserver.onAttachToWindow = nil
     for keypath in installedColorKeypaths {
       animationView.removeValueProvider(for: keypath)
     }
@@ -348,9 +382,60 @@ class HybridLottieView: HybridLottieViewSpec {
   }
 
   func play(startFrame: Double, endFrame: Double) throws {
+    let hasRange = startFrame != -1 && endFrame != -1
+    onMain { [weak self] in
+      guard let self else { return }
+      let body = {
+        if hasRange {
+          self.animationView.play(
+            fromFrame: AnimationFrameTime(startFrame),
+            toFrame: AnimationFrameTime(endFrame),
+            loopMode: self.appliedLoop ? .loop : .playOnce,
+            completion: self.makeFinishCompletion()
+          )
+        } else {
+          self.animationView.play(completion: self.makeFinishCompletion())
+        }
+      }
+      self.whenAttached(body)
+    }
   }
 
-  func reset() throws {}
-  func pause() throws {}
-  func resume() throws {}
+  func reset() throws {
+    onMain { [weak self] in
+      guard let self else { return }
+      self.animationView.currentProgress = 0
+      self.animationView.pause()
+      self.appliedProgress = 0
+    }
+  }
+
+  func pause() throws {
+    onMain { [weak self] in
+      self?.animationView.pause()
+    }
+  }
+
+  func resume() throws {
+    onMain { [weak self] in
+      guard let self else { return }
+      self.animationView.play(completion: self.makeFinishCompletion())
+    }
+  }
+
+  private func onMain(_ body: @escaping () -> Void) {
+    if Thread.isMainThread {
+      body()
+    } else {
+      DispatchQueue.main.async(execute: body)
+    }
+  }
+
+  private func whenAttached(_ body: @escaping () -> Void) {
+    if animationView.window != nil {
+      body()
+      return
+    }
+    pendingAttachPlay = body
+  }
 }

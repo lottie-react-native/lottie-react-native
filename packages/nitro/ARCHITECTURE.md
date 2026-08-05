@@ -14,7 +14,7 @@ anchored to the file and symbol it governs. See the root `AGENTS.md` for the pol
 6. [Lifecycle](#6-lifecycle)
 7. [Source loading](#7-source-loading)
 8. [Composition-dependent props](#8-composition-dependent-props)
-9. [Playback and events](#9-playback-and-events)
+9. [Playback and events](#9-playback-and-events) · [Imperative commands](#9a-imperative-commands)
 10. [Colour handling](#10-colour-handling)
 11. [Text filters](#11-text-filters)
 12. [Android registration and JNI](#12-android-registration-and-jni)
@@ -133,8 +133,13 @@ wrapped with `callback(...)` exactly once, in a field, so the `{ f }` object ide
 stable for the component's lifetime. Nitro diffs props with `!==` and re-invokes the
 native setter whenever identity changes, so wrapping inside `render()` would re-fire every
 setter — and re-invoke `hybridRef` — on every render. Native calls `hybridRef` after the
-props of the same transaction have been applied, which is why `autoPlay` can call `play()`
-straight from there, exactly as v7's `captureRef` did.
+props of the same transaction have been applied.
+
+**`captureRef` deliberately does not call `play()` for `autoPlay`, unlike v7's.** The native
+`autoPlay` prop is solely authoritative and already handles first mount, source changes and
+progress. v7 fired both as belt-and-braces, which was harmless there only because its JS
+call usually hit a nil animation; here it would genuinely double-start and discard the
+`progress` prop.
 
 **Every optional prop is always passed, never conditionally.** When a prop goes from set
 to unset React Native sends native a JS `null`, but Nitro's `std::optional` converter
@@ -327,6 +332,61 @@ item 18.
 
 **`autoPlay: true → false` is a no-op** on both platforms, matching v7. Stopping requires
 the imperative `pause()`. See item 29.
+
+---
+
+## 9a. Imperative commands
+
+`play` / `reset` / `pause` / `resume`, reached through the ref.
+
+**Every command hops to the main/UI thread itself.** v7's Fabric commands arrived already
+on the UI thread; Nitro methods are direct JSI calls on the JS thread, and every Lottie
+call must be on main. See item 10.
+
+**Deferral until the view is in a window.** A `play()` fired before the view is on screen
+would otherwise be dropped — v7 iOS silently did nothing, and v7 Android handled it for
+`play` only. Both platforms now defer and replay on attach.
+
+- **iOS — `WindowAttachObserver`.** UIKit has no closure-based attach callback, and
+  `LottieAnimationView` cannot be subclassed for one: `LottieAnimationViewBase` overrides
+  `didMoveToWindow` without marking it `open`, so an override outside the Lottie module
+  does not compile. The workaround is a zero-size, non-interactive child of the animation
+  view — when the animation view enters a window so does the child, and `didMoveToWindow`
+  fires there, where the override is permitted. The pending closure is held in
+  `pendingAttachPlay`.
+- **Android — `whenAttached`**, via an `OnAttachStateChangeListener`.
+
+**`play(startFrame, endFrame)` is all-or-nothing**, matching v7 on both platforms: a custom
+range needs both frames, and a single `-1` discards the other. A reversed range
+(`start > end`) is passed straight through for Lottie to derive direction from. v7 Android
+instead swapped the frames and called `reverseAnimationSpeed()`, which permanently flipped
+the view's speed field, so a later plain `play()` still ran backwards and fought the `speed`
+prop.
+
+**Android restores the composition's full range** when no custom range is given, but only if
+it actually differs. It then uses `playAnimation()`, which restarts at the new segment's
+start frame — what a range change wants; `resumeAnimation()` would continue in place.
+
+**`reset()`** emits `isCancelled: true` on both platforms, by different routes. iOS seeks
+then stops, in that order, as v7 did: the seek fires the pending completion. Android cancels
+then seeks, as v7 did: `cancelAnimation()` fires `onAnimationCancel`, and the
+`onAnimationEnd` that lottie-android always sends afterwards is swallowed by the latch in
+`emitFinish`.
+
+**`pause()` on Android is the one place an emit has to be explicit.** `pauseAnimation()`
+notifies neither cancel nor end, so nothing would fire. v7 Android emitted nothing here
+while v7 iOS and web both emitted `isCancelled: true`; the platforms converged on emitting.
+
+**`resume()` resumes in place**, preserving any range a prior `play(from:to:)` set rather
+than silently replaying the whole composition, which is what v7 iOS did. On Android,
+`resumeAnimation()` does not `notifyStart`, so the finish latch is reset here too —
+otherwise a preceding `pause()`, which set it, would swallow the natural finish.
+
+**None of the iOS commands are wrapped in `withFinishSuppressed`, deliberately.** `pause()`
+and `currentProgress = 0` both cause Lottie to invoke the stored completion with
+`finished: false`, which is exactly the `onAnimationFinish(isCancelled: true)` these should
+emit; suppressing would swallow it. If no play was ever in flight there is no completion and
+nothing emits, which is correct — there was no run to cancel.
 
 ---
 
@@ -569,8 +629,8 @@ modes.
     `sourceURL`.** v7 applied it only to the latter, so a bundle-relative `.lottie` path
     silently failed on iOS.
 
-Still deliberately absent: the imperative commands (`play`/`reset`/`pause`/`resume`) are
-no-ops pending the ref work, so `example-v8`'s playback buttons are wired but inert.
+The imperative commands (`play`/`reset`/`pause`/`resume`) are implemented — see section 9a
+for the divergences they introduce.
 
 ---
 
@@ -732,8 +792,7 @@ the `NaN` sentinel path. Worth covering whenever test infrastructure arrives, in
 
 `example-v8/` exists to be run side by side with `example/` and compared. `App.tsx` is v7's
 example verbatim, and the **only** intentional difference is the import: it renders the Nitro
-implementation via `lottie-react-native-nitro`. The playback buttons are wired but inert
-until the imperative commands land.
+implementation via `lottie-react-native-nitro`.
 
 Keeping that file byte-comparable with `example/App.tsx` is the point, which is why it is
 exempt from the comment policy — see below.
