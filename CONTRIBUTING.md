@@ -60,7 +60,7 @@ yarn setup
 Finally, you can run the demo. Then you can go to the link printed in the terminal to see the demo.
 
 ```
-yarn paper:web
+yarn run:web
 ```
 
 ### Style & Linting
