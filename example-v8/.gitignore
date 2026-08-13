@@ -1,0 +1,21 @@
+*.binlog
+*.hprof
+*.xcworkspace/
+*.zip
+.DS_Store
+.gradle/
+.idea/
+.vs/
+.xcode.env
+Pods/
+build/
+dist/*
+!dist/.gitignore
+local.properties
+msbuild.binlog
+node_modules/
+ios/Podfile.lock
+vendor/bundle/
+
+# Written by `pod install` (react-native-test-app regenerates it each run).
+ReactTestApp-Resources.podspec.json

@@ -1,0 +1,22 @@
+.DS_Store
+
+# Android
+android/build/
+android/.cxx/
+.gradle/
+local.properties
+
+# iOS
+build/
+Pods/
+DerivedData/
+xcuserdata/
+
+# node / TypeScript
+node_modules/
+lib/
+*.tsbuildinfo
+
+# NOTE: nitrogen/generated/ is intentionally NOT ignored. The podspec, gradle
+# and CMake files all reference generated artifacts, so a fresh clone cannot
+# build without them committed.

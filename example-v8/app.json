@@ -1,0 +1,20 @@
+{
+  "name": "LottieNitroExample",
+  "displayName": "LottieNitroExample",
+  "components": [
+    {
+      "appKey": "LottieNitroExample",
+      "displayName": "LottieNitroExample"
+    }
+  ],
+  "android": {
+    "package": "com.lottiereactnative.nitroexample"
+  },
+  "ios": {
+    "bundleIdentifier": "com.lottiereactnative.nitroexample"
+  },
+  "resources": {
+    "android": ["dist/res", "dist/main.android.jsbundle"],
+    "ios": ["dist/assets", "dist/main.ios.jsbundle"]
+  }
+}
