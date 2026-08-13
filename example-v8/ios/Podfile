@@ -1,0 +1,13 @@
+ws_dir = Pathname.new(__dir__)
+ws_dir = ws_dir.parent until
+  File.exist?("#{ws_dir}/node_modules/react-native-test-app/test_app.rb") ||
+  ws_dir.expand_path.to_s == '/'
+require "#{ws_dir}/node_modules/react-native-test-app/test_app.rb"
+
+workspace 'LottieNitroExample.xcworkspace'
+
+# NOTE: unlike `example/ios/Podfile` there is no post_install hook raising
+# resource bundle deployment targets. That exists solely because `lottie-ios`
+# declares iOS 13.0 for its privacy resource bundle, and this app pulls no
+# `lottie-ios` yet. Add it back when lottie-ios enters LottieNitro.podspec.
+use_test_app!
