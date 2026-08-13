@@ -37,9 +37,93 @@ void JHybridLottieViewStateUpdater::updateViewProps(jni::alias_ref<jni::JClass> 
   }
 
   // Update all props if they are dirty
-  if (props->placeholder.isDirty) {
-    hybridView->setPlaceholder(props->placeholder.value);
-    props->placeholder.isDirty = false;
+  if (props->resizeMode.isDirty) {
+    hybridView->setResizeMode(props->resizeMode.value);
+    props->resizeMode.isDirty = false;
+  }
+  if (props->renderMode.isDirty) {
+    hybridView->setRenderMode(props->renderMode.value);
+    props->renderMode.isDirty = false;
+  }
+  if (props->sourceName.isDirty) {
+    hybridView->setSourceName(props->sourceName.value);
+    props->sourceName.isDirty = false;
+  }
+  if (props->sourceJson.isDirty) {
+    hybridView->setSourceJson(props->sourceJson.value);
+    props->sourceJson.isDirty = false;
+  }
+  if (props->sourceURL.isDirty) {
+    hybridView->setSourceURL(props->sourceURL.value);
+    props->sourceURL.isDirty = false;
+  }
+  if (props->sourceDotLottieURI.isDirty) {
+    hybridView->setSourceDotLottieURI(props->sourceDotLottieURI.value);
+    props->sourceDotLottieURI.isDirty = false;
+  }
+  if (props->imageAssetsFolder.isDirty) {
+    hybridView->setImageAssetsFolder(props->imageAssetsFolder.value);
+    props->imageAssetsFolder.isDirty = false;
+  }
+  if (props->progress.isDirty) {
+    hybridView->setProgress(props->progress.value);
+    props->progress.isDirty = false;
+  }
+  if (props->speed.isDirty) {
+    hybridView->setSpeed(props->speed.value);
+    props->speed.isDirty = false;
+  }
+  if (props->loop.isDirty) {
+    hybridView->setLoop(props->loop.value);
+    props->loop.isDirty = false;
+  }
+  if (props->autoPlay.isDirty) {
+    hybridView->setAutoPlay(props->autoPlay.value);
+    props->autoPlay.isDirty = false;
+  }
+  if (props->enableMergePathsAndroidForKitKatAndAbove.isDirty) {
+    hybridView->setEnableMergePathsAndroidForKitKatAndAbove(props->enableMergePathsAndroidForKitKatAndAbove.value);
+    props->enableMergePathsAndroidForKitKatAndAbove.isDirty = false;
+  }
+  if (props->applyOpacityToLayersAndroid.isDirty) {
+    hybridView->setApplyOpacityToLayersAndroid(props->applyOpacityToLayersAndroid.value);
+    props->applyOpacityToLayersAndroid.isDirty = false;
+  }
+  if (props->enableSafeModeAndroid.isDirty) {
+    hybridView->setEnableSafeModeAndroid(props->enableSafeModeAndroid.value);
+    props->enableSafeModeAndroid.isDirty = false;
+  }
+  if (props->hardwareAccelerationAndroid.isDirty) {
+    hybridView->setHardwareAccelerationAndroid(props->hardwareAccelerationAndroid.value);
+    props->hardwareAccelerationAndroid.isDirty = false;
+  }
+  if (props->cacheComposition.isDirty) {
+    hybridView->setCacheComposition(props->cacheComposition.value);
+    props->cacheComposition.isDirty = false;
+  }
+  if (props->colorFilters.isDirty) {
+    hybridView->setColorFilters(props->colorFilters.value);
+    props->colorFilters.isDirty = false;
+  }
+  if (props->textFiltersAndroid.isDirty) {
+    hybridView->setTextFiltersAndroid(props->textFiltersAndroid.value);
+    props->textFiltersAndroid.isDirty = false;
+  }
+  if (props->textFiltersIOS.isDirty) {
+    hybridView->setTextFiltersIOS(props->textFiltersIOS.value);
+    props->textFiltersIOS.isDirty = false;
+  }
+  if (props->onAnimationFinish.isDirty) {
+    hybridView->setOnAnimationFinish(props->onAnimationFinish.value);
+    props->onAnimationFinish.isDirty = false;
+  }
+  if (props->onAnimationFailure.isDirty) {
+    hybridView->setOnAnimationFailure(props->onAnimationFailure.value);
+    props->onAnimationFailure.isDirty = false;
+  }
+  if (props->onAnimationLoaded.isDirty) {
+    hybridView->setOnAnimationLoaded(props->onAnimationLoaded.value);
+    props->onAnimationLoaded.isDirty = false;
   }
 
   // Update hybridRef if it changed

@@ -1,25 +1,65 @@
-import {LottieView} from 'lottie-react-native-nitro';
+import LottieView from 'lottie-react-native-nitro';
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 /**
- * Smoke test for the Nitro view scaffold.
+ * API-parity smoke test for the Nitro port.
  *
- * The bordered frame below should contain an empty native view. If registration
- * is broken you get "Unimplemented component <LottieView>" on Android or a
- * redbox on iOS, rather than a silent pass.
+ * Everything below is v7 API usage, unchanged: the default import, the prop
+ * names and shapes, and the four imperative ref methods. It exercises the
+ * source-kind switch that the `''` sentinel in the wrapper exists to survive
+ * (see packages/nitro/TODO.md item 8) — with the stub natives nothing renders,
+ * but a redbox or an "Unimplemented component" box means the wiring is broken.
  */
 export default function App() {
+  const ref = React.useRef<LottieView>(null);
+  const [remote, setRemote] = React.useState(false);
+
+  // Memoised: Nitro diffs props with `!==`, so inline arrays would re-push to
+  // native on every render.
+  const colorFilters = React.useMemo(
+    () => [{keypath: 'Shape Layer 1', color: '#FF0000'}],
+    [],
+  );
+
   return (
     <SafeAreaView style={styles.root}>
       <Text style={styles.title}>lottie-react-native-nitro</Text>
       <Text style={styles.subtitle}>
-        Nitro HybridView stub — renders an empty native view. No Lottie
-        rendering yet.
+        v7 API on the Nitro spec. Native side is a no-op stub, so nothing
+        animates yet.
       </Text>
+
       <View style={styles.frame}>
-        <LottieView placeholder={false} style={styles.view} />
+        <LottieView
+          ref={ref}
+          source={remote ? {uri: 'https://example.com/animation.json'} : 'Watermelon'}
+          style={styles.view}
+          autoPlay
+          loop
+          speed={1}
+          resizeMode="contain"
+          colorFilters={colorFilters}
+          onAnimationFinish={isCancelled =>
+            console.log('finish, cancelled:', isCancelled)
+          }
+          onAnimationFailure={error => console.log('failure:', error)}
+          onAnimationLoaded={() => console.log('loaded')}
+        />
       </View>
+
+      <View style={styles.row}>
+        <Button title="play" onPress={() => ref.current?.play()} />
+        <Button title="play 0-30" onPress={() => ref.current?.play(0, 30)} />
+        <Button title="pause" onPress={() => ref.current?.pause()} />
+        <Button title="resume" onPress={() => ref.current?.resume()} />
+        <Button title="reset" onPress={() => ref.current?.reset()} />
+      </View>
+
+      <Button
+        title={remote ? 'use local source' : 'use remote source'}
+        onPress={() => setRemote(v => !v)}
+      />
     </SafeAreaView>
   );
 }
@@ -49,5 +89,11 @@ const styles = StyleSheet.create({
   view: {
     width: 200,
     height: 200,
+  },
+  row: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 8,
   },
 });

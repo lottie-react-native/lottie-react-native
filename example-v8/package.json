@@ -15,6 +15,7 @@
     "build:ios": "npm run mkdist && react-native bundle --entry-file index.js --platform ios --dev true --bundle-output dist/main.ios.jsbundle --assets-dest dist"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.5",
     "lottie-react-native-nitro": "workspace:*",
     "react": "19.2.3",
     "react-dom": "19.2.3",

@@ -50,12 +50,57 @@ namespace margelo::nitro::lottienitro {
 
   public:
     // Properties
-    bool getPlaceholder() override;
-    void setPlaceholder(bool placeholder) override;
+    std::optional<ResizeMode> getResizeMode() override;
+    void setResizeMode(std::optional<ResizeMode> resizeMode) override;
+    std::optional<RenderMode> getRenderMode() override;
+    void setRenderMode(std::optional<RenderMode> renderMode) override;
+    std::optional<std::string> getSourceName() override;
+    void setSourceName(const std::optional<std::string>& sourceName) override;
+    std::optional<std::string> getSourceJson() override;
+    void setSourceJson(const std::optional<std::string>& sourceJson) override;
+    std::optional<std::string> getSourceURL() override;
+    void setSourceURL(const std::optional<std::string>& sourceURL) override;
+    std::optional<std::string> getSourceDotLottieURI() override;
+    void setSourceDotLottieURI(const std::optional<std::string>& sourceDotLottieURI) override;
+    std::optional<std::string> getImageAssetsFolder() override;
+    void setImageAssetsFolder(const std::optional<std::string>& imageAssetsFolder) override;
+    std::optional<double> getProgress() override;
+    void setProgress(std::optional<double> progress) override;
+    std::optional<double> getSpeed() override;
+    void setSpeed(std::optional<double> speed) override;
+    std::optional<bool> getLoop() override;
+    void setLoop(std::optional<bool> loop) override;
+    std::optional<bool> getAutoPlay() override;
+    void setAutoPlay(std::optional<bool> autoPlay) override;
+    std::optional<bool> getEnableMergePathsAndroidForKitKatAndAbove() override;
+    void setEnableMergePathsAndroidForKitKatAndAbove(std::optional<bool> enableMergePathsAndroidForKitKatAndAbove) override;
+    std::optional<bool> getApplyOpacityToLayersAndroid() override;
+    void setApplyOpacityToLayersAndroid(std::optional<bool> applyOpacityToLayersAndroid) override;
+    std::optional<bool> getEnableSafeModeAndroid() override;
+    void setEnableSafeModeAndroid(std::optional<bool> enableSafeModeAndroid) override;
+    std::optional<bool> getHardwareAccelerationAndroid() override;
+    void setHardwareAccelerationAndroid(std::optional<bool> hardwareAccelerationAndroid) override;
+    std::optional<bool> getCacheComposition() override;
+    void setCacheComposition(std::optional<bool> cacheComposition) override;
+    std::optional<std::vector<LottieColorFilter>> getColorFilters() override;
+    void setColorFilters(const std::optional<std::vector<LottieColorFilter>>& colorFilters) override;
+    std::optional<std::vector<TextFilterAndroid>> getTextFiltersAndroid() override;
+    void setTextFiltersAndroid(const std::optional<std::vector<TextFilterAndroid>>& textFiltersAndroid) override;
+    std::optional<std::vector<TextFilterIOS>> getTextFiltersIOS() override;
+    void setTextFiltersIOS(const std::optional<std::vector<TextFilterIOS>>& textFiltersIOS) override;
+    std::optional<std::function<void(bool /* isCancelled */)>> getOnAnimationFinish() override;
+    void setOnAnimationFinish(const std::optional<std::function<void(bool /* isCancelled */)>>& onAnimationFinish) override;
+    std::optional<std::function<void(const std::string& /* error */)>> getOnAnimationFailure() override;
+    void setOnAnimationFailure(const std::optional<std::function<void(const std::string& /* error */)>>& onAnimationFailure) override;
+    std::optional<std::function<void()>> getOnAnimationLoaded() override;
+    void setOnAnimationLoaded(const std::optional<std::function<void()>>& onAnimationLoaded) override;
 
   public:
     // Methods
-    
+    void play(double startFrame, double endFrame) override;
+    void reset() override;
+    void pause() override;
+    void resume() override;
 
   private:
     jni::global_ref<JHybridLottieViewSpec::JavaPart> _javaPart;

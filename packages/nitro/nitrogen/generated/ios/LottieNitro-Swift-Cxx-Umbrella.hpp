@@ -10,10 +10,31 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridLottieViewSpec` to properly resolve imports.
 namespace margelo::nitro::lottienitro { class HybridLottieViewSpec; }
+// Forward declaration of `LottieColorFilter` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct LottieColorFilter; }
+// Forward declaration of `RenderMode` to properly resolve imports.
+namespace margelo::nitro::lottienitro { enum class RenderMode; }
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::lottienitro { enum class ResizeMode; }
+// Forward declaration of `TextFilterAndroid` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct TextFilterAndroid; }
+// Forward declaration of `TextFilterIOS` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct TextFilterIOS; }
 
 // Include C++ defined types
 #include "HybridLottieViewSpec.hpp"
+#include "LottieColorFilter.hpp"
+#include "RenderMode.hpp"
+#include "ResizeMode.hpp"
+#include "TextFilterAndroid.hpp"
+#include "TextFilterIOS.hpp"
+#include <NitroModules/Result.hpp>
+#include <exception>
+#include <functional>
 #include <memory>
+#include <optional>
+#include <string>
+#include <vector>
 
 // C++ helpers for Swift
 #include "LottieNitro-Swift-Cxx-Bridge.hpp"

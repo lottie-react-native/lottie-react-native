@@ -10,10 +10,34 @@ import NitroModules
 /// See ``HybridLottieViewSpec``
 public protocol HybridLottieViewSpec_protocol: HybridObject, HybridView {
   // Properties
-  var placeholder: Bool { get set }
+  var resizeMode: ResizeMode? { get set }
+  var renderMode: RenderMode? { get set }
+  var sourceName: String? { get set }
+  var sourceJson: String? { get set }
+  var sourceURL: String? { get set }
+  var sourceDotLottieURI: String? { get set }
+  var imageAssetsFolder: String? { get set }
+  var progress: Double? { get set }
+  var speed: Double? { get set }
+  var loop: Bool? { get set }
+  var autoPlay: Bool? { get set }
+  var enableMergePathsAndroidForKitKatAndAbove: Bool? { get set }
+  var applyOpacityToLayersAndroid: Bool? { get set }
+  var enableSafeModeAndroid: Bool? { get set }
+  var hardwareAccelerationAndroid: Bool? { get set }
+  var cacheComposition: Bool? { get set }
+  var colorFilters: [LottieColorFilter]? { get set }
+  var textFiltersAndroid: [TextFilterAndroid]? { get set }
+  var textFiltersIOS: [TextFilterIOS]? { get set }
+  var onAnimationFinish: ((_ isCancelled: Bool) -> Void)? { get set }
+  var onAnimationFailure: ((_ error: String) -> Void)? { get set }
+  var onAnimationLoaded: (() -> Void)? { get set }
 
   // Methods
-  
+  func play(startFrame: Double, endFrame: Double) throws -> Void
+  func reset() throws -> Void
+  func pause() throws -> Void
+  func resume() throws -> Void
 }
 
 public extension HybridLottieViewSpec_protocol {

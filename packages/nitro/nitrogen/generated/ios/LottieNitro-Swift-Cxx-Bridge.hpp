@@ -10,6 +10,16 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridLottieViewSpec` to properly resolve imports.
 namespace margelo::nitro::lottienitro { class HybridLottieViewSpec; }
+// Forward declaration of `LottieColorFilter` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct LottieColorFilter; }
+// Forward declaration of `RenderMode` to properly resolve imports.
+namespace margelo::nitro::lottienitro { enum class RenderMode; }
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::lottienitro { enum class ResizeMode; }
+// Forward declaration of `TextFilterAndroid` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct TextFilterAndroid; }
+// Forward declaration of `TextFilterIOS` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct TextFilterIOS; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridLottieViewSpec_cxx` to properly resolve imports.
@@ -17,7 +27,18 @@ namespace LottieNitro { class HybridLottieViewSpec_cxx; }
 
 // Include C++ defined types
 #include "HybridLottieViewSpec.hpp"
+#include "LottieColorFilter.hpp"
+#include "RenderMode.hpp"
+#include "ResizeMode.hpp"
+#include "TextFilterAndroid.hpp"
+#include "TextFilterIOS.hpp"
+#include <NitroModules/Result.hpp>
+#include <exception>
+#include <functional>
 #include <memory>
+#include <optional>
+#include <string>
+#include <vector>
 
 /**
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
@@ -25,6 +46,270 @@ namespace LottieNitro { class HybridLottieViewSpec_cxx; }
  */
 namespace margelo::nitro::lottienitro::bridge::swift {
 
+  // pragma MARK: std::optional<ResizeMode>
+  /**
+   * Specialized version of `std::optional<ResizeMode>`.
+   */
+  using std__optional_ResizeMode_ = std::optional<ResizeMode>;
+  inline std::optional<ResizeMode> create_std__optional_ResizeMode_(const ResizeMode& value) noexcept {
+    return std::optional<ResizeMode>(value);
+  }
+  inline bool has_value_std__optional_ResizeMode_(const std::optional<ResizeMode>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline ResizeMode get_std__optional_ResizeMode_(const std::optional<ResizeMode>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::optional<RenderMode>
+  /**
+   * Specialized version of `std::optional<RenderMode>`.
+   */
+  using std__optional_RenderMode_ = std::optional<RenderMode>;
+  inline std::optional<RenderMode> create_std__optional_RenderMode_(const RenderMode& value) noexcept {
+    return std::optional<RenderMode>(value);
+  }
+  inline bool has_value_std__optional_RenderMode_(const std::optional<RenderMode>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline RenderMode get_std__optional_RenderMode_(const std::optional<RenderMode>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::optional<std::string>
+  /**
+   * Specialized version of `std::optional<std::string>`.
+   */
+  using std__optional_std__string_ = std::optional<std::string>;
+  inline std::optional<std::string> create_std__optional_std__string_(const std::string& value) noexcept {
+    return std::optional<std::string>(value);
+  }
+  inline bool has_value_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::string get_std__optional_std__string_(const std::optional<std::string>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::optional<double>
+  /**
+   * Specialized version of `std::optional<double>`.
+   */
+  using std__optional_double_ = std::optional<double>;
+  inline std::optional<double> create_std__optional_double_(const double& value) noexcept {
+    return std::optional<double>(value);
+  }
+  inline bool has_value_std__optional_double_(const std::optional<double>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline double get_std__optional_double_(const std::optional<double>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::optional<bool>
+  /**
+   * Specialized version of `std::optional<bool>`.
+   */
+  using std__optional_bool_ = std::optional<bool>;
+  inline std::optional<bool> create_std__optional_bool_(const bool& value) noexcept {
+    return std::optional<bool>(value);
+  }
+  inline bool has_value_std__optional_bool_(const std::optional<bool>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline bool get_std__optional_bool_(const std::optional<bool>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::vector<LottieColorFilter>
+  /**
+   * Specialized version of `std::vector<LottieColorFilter>`.
+   */
+  using std__vector_LottieColorFilter_ = std::vector<LottieColorFilter>;
+  inline std::vector<LottieColorFilter> create_std__vector_LottieColorFilter_(size_t size) noexcept {
+    std::vector<LottieColorFilter> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::vector<LottieColorFilter>>
+  /**
+   * Specialized version of `std::optional<std::vector<LottieColorFilter>>`.
+   */
+  using std__optional_std__vector_LottieColorFilter__ = std::optional<std::vector<LottieColorFilter>>;
+  inline std::optional<std::vector<LottieColorFilter>> create_std__optional_std__vector_LottieColorFilter__(const std::vector<LottieColorFilter>& value) noexcept {
+    return std::optional<std::vector<LottieColorFilter>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_LottieColorFilter__(const std::optional<std::vector<LottieColorFilter>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<LottieColorFilter> get_std__optional_std__vector_LottieColorFilter__(const std::optional<std::vector<LottieColorFilter>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::vector<TextFilterAndroid>
+  /**
+   * Specialized version of `std::vector<TextFilterAndroid>`.
+   */
+  using std__vector_TextFilterAndroid_ = std::vector<TextFilterAndroid>;
+  inline std::vector<TextFilterAndroid> create_std__vector_TextFilterAndroid_(size_t size) noexcept {
+    std::vector<TextFilterAndroid> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::vector<TextFilterAndroid>>
+  /**
+   * Specialized version of `std::optional<std::vector<TextFilterAndroid>>`.
+   */
+  using std__optional_std__vector_TextFilterAndroid__ = std::optional<std::vector<TextFilterAndroid>>;
+  inline std::optional<std::vector<TextFilterAndroid>> create_std__optional_std__vector_TextFilterAndroid__(const std::vector<TextFilterAndroid>& value) noexcept {
+    return std::optional<std::vector<TextFilterAndroid>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_TextFilterAndroid__(const std::optional<std::vector<TextFilterAndroid>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<TextFilterAndroid> get_std__optional_std__vector_TextFilterAndroid__(const std::optional<std::vector<TextFilterAndroid>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::vector<TextFilterIOS>
+  /**
+   * Specialized version of `std::vector<TextFilterIOS>`.
+   */
+  using std__vector_TextFilterIOS_ = std::vector<TextFilterIOS>;
+  inline std::vector<TextFilterIOS> create_std__vector_TextFilterIOS_(size_t size) noexcept {
+    std::vector<TextFilterIOS> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::optional<std::vector<TextFilterIOS>>
+  /**
+   * Specialized version of `std::optional<std::vector<TextFilterIOS>>`.
+   */
+  using std__optional_std__vector_TextFilterIOS__ = std::optional<std::vector<TextFilterIOS>>;
+  inline std::optional<std::vector<TextFilterIOS>> create_std__optional_std__vector_TextFilterIOS__(const std::vector<TextFilterIOS>& value) noexcept {
+    return std::optional<std::vector<TextFilterIOS>>(value);
+  }
+  inline bool has_value_std__optional_std__vector_TextFilterIOS__(const std::optional<std::vector<TextFilterIOS>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::vector<TextFilterIOS> get_std__optional_std__vector_TextFilterIOS__(const std::optional<std::vector<TextFilterIOS>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::function<void(bool /* isCancelled */)>
+  /**
+   * Specialized version of `std::function<void(bool)>`.
+   */
+  using Func_void_bool = std::function<void(bool /* isCancelled */)>;
+  /**
+   * Wrapper class for a `std::function<void(bool / * isCancelled * /)>`, this can be used from Swift.
+   */
+  class Func_void_bool_Wrapper final {
+  public:
+    explicit Func_void_bool_Wrapper(std::function<void(bool /* isCancelled */)>&& func): _function(std::make_unique<std::function<void(bool /* isCancelled */)>>(std::move(func))) {}
+    inline void call(bool isCancelled) const noexcept {
+      _function->operator()(isCancelled);
+    }
+  private:
+    std::unique_ptr<std::function<void(bool /* isCancelled */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_bool create_Func_void_bool(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_bool_Wrapper wrap_Func_void_bool(Func_void_bool value) noexcept {
+    return Func_void_bool_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::function<void(bool /* isCancelled */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(bool / * isCancelled * /)>>`.
+   */
+  using std__optional_std__function_void_bool____isCancelled______ = std::optional<std::function<void(bool /* isCancelled */)>>;
+  inline std::optional<std::function<void(bool /* isCancelled */)>> create_std__optional_std__function_void_bool____isCancelled______(const std::function<void(bool /* isCancelled */)>& value) noexcept {
+    return std::optional<std::function<void(bool /* isCancelled */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_bool____isCancelled______(const std::optional<std::function<void(bool /* isCancelled */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(bool /* isCancelled */)> get_std__optional_std__function_void_bool____isCancelled______(const std::optional<std::function<void(bool /* isCancelled */)>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::function<void(const std::string& /* error */)>
+  /**
+   * Specialized version of `std::function<void(const std::string&)>`.
+   */
+  using Func_void_std__string = std::function<void(const std::string& /* error */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::string& / * error * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__string_Wrapper final {
+  public:
+    explicit Func_void_std__string_Wrapper(std::function<void(const std::string& /* error */)>&& func): _function(std::make_unique<std::function<void(const std::string& /* error */)>>(std::move(func))) {}
+    inline void call(std::string error) const noexcept {
+      _function->operator()(error);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::string& /* error */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__string create_Func_void_std__string(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__string_Wrapper wrap_Func_void_std__string(Func_void_std__string value) noexcept {
+    return Func_void_std__string_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::function<void(const std::string& /* error */)>>
+  /**
+   * Specialized version of `std::optional<std::function<void(const std::string& / * error * /)>>`.
+   */
+  using std__optional_std__function_void_const_std__string_____error______ = std::optional<std::function<void(const std::string& /* error */)>>;
+  inline std::optional<std::function<void(const std::string& /* error */)>> create_std__optional_std__function_void_const_std__string_____error______(const std::function<void(const std::string& /* error */)>& value) noexcept {
+    return std::optional<std::function<void(const std::string& /* error */)>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void_const_std__string_____error______(const std::optional<std::function<void(const std::string& /* error */)>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void(const std::string& /* error */)> get_std__optional_std__function_void_const_std__string_____error______(const std::optional<std::function<void(const std::string& /* error */)>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::function<void()>
+  /**
+   * Specialized version of `std::function<void()>`.
+   */
+  using Func_void = std::function<void()>;
+  /**
+   * Wrapper class for a `std::function<void()>`, this can be used from Swift.
+   */
+  class Func_void_Wrapper final {
+  public:
+    explicit Func_void_Wrapper(std::function<void()>&& func): _function(std::make_unique<std::function<void()>>(std::move(func))) {}
+    inline void call() const noexcept {
+      _function->operator()();
+    }
+  private:
+    std::unique_ptr<std::function<void()>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void create_Func_void(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_Wrapper wrap_Func_void(Func_void value) noexcept {
+    return Func_void_Wrapper(std::move(value));
+  }
+  
+  // pragma MARK: std::optional<std::function<void()>>
+  /**
+   * Specialized version of `std::optional<std::function<void()>>`.
+   */
+  using std__optional_std__function_void____ = std::optional<std::function<void()>>;
+  inline std::optional<std::function<void()>> create_std__optional_std__function_void____(const std::function<void()>& value) noexcept {
+    return std::optional<std::function<void()>>(value);
+  }
+  inline bool has_value_std__optional_std__function_void____(const std::optional<std::function<void()>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::function<void()> get_std__optional_std__function_void____(const std::optional<std::function<void()>>& optional) noexcept {
+    return optional.value();
+  }
+  
   // pragma MARK: std::shared_ptr<HybridLottieViewSpec>
   /**
    * Specialized version of `std::shared_ptr<HybridLottieViewSpec>`.
@@ -36,5 +321,14 @@ namespace margelo::nitro::lottienitro::bridge::swift {
   // pragma MARK: std::weak_ptr<HybridLottieViewSpec>
   using std__weak_ptr_HybridLottieViewSpec_ = std::weak_ptr<HybridLottieViewSpec>;
   inline std__weak_ptr_HybridLottieViewSpec_ weakify_std__shared_ptr_HybridLottieViewSpec_(const std::shared_ptr<HybridLottieViewSpec>& strong) noexcept { return strong; }
+  
+  // pragma MARK: Result<void>
+  using Result_void_ = Result<void>;
+  inline Result_void_ create_Result_void_() noexcept {
+    return Result<void>::withValue();
+  }
+  inline Result_void_ create_Result_void_(const std::exception_ptr& error) noexcept {
+    return Result<void>::withError(error);
+  }
 
 } // namespace margelo::nitro::lottienitro::bridge::swift

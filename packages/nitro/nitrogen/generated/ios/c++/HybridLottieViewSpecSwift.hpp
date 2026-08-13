@@ -12,9 +12,26 @@
 // Forward declaration of `HybridLottieViewSpec_cxx` to properly resolve imports.
 namespace LottieNitro { class HybridLottieViewSpec_cxx; }
 
+// Forward declaration of `ResizeMode` to properly resolve imports.
+namespace margelo::nitro::lottienitro { enum class ResizeMode; }
+// Forward declaration of `RenderMode` to properly resolve imports.
+namespace margelo::nitro::lottienitro { enum class RenderMode; }
+// Forward declaration of `LottieColorFilter` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct LottieColorFilter; }
+// Forward declaration of `TextFilterAndroid` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct TextFilterAndroid; }
+// Forward declaration of `TextFilterIOS` to properly resolve imports.
+namespace margelo::nitro::lottienitro { struct TextFilterIOS; }
 
-
-
+#include "ResizeMode.hpp"
+#include <optional>
+#include "RenderMode.hpp"
+#include <string>
+#include "LottieColorFilter.hpp"
+#include <vector>
+#include "TextFilterAndroid.hpp"
+#include "TextFilterIOS.hpp"
+#include <functional>
 
 #include "LottieNitro-Swift-Cxx-Umbrella.hpp"
 
@@ -62,16 +79,187 @@ namespace margelo::nitro::lottienitro {
 
   public:
     // Properties
-    inline bool getPlaceholder() noexcept override {
-      return _swiftPart.getPlaceholder();
+    inline std::optional<ResizeMode> getResizeMode() noexcept override {
+      auto __result = _swiftPart.getResizeMode();
+      return __result;
     }
-    inline void setPlaceholder(bool placeholder) noexcept override {
-      _swiftPart.setPlaceholder(std::forward<decltype(placeholder)>(placeholder));
+    inline void setResizeMode(std::optional<ResizeMode> resizeMode) noexcept override {
+      _swiftPart.setResizeMode(resizeMode);
+    }
+    inline std::optional<RenderMode> getRenderMode() noexcept override {
+      auto __result = _swiftPart.getRenderMode();
+      return __result;
+    }
+    inline void setRenderMode(std::optional<RenderMode> renderMode) noexcept override {
+      _swiftPart.setRenderMode(renderMode);
+    }
+    inline std::optional<std::string> getSourceName() noexcept override {
+      auto __result = _swiftPart.getSourceName();
+      return __result;
+    }
+    inline void setSourceName(const std::optional<std::string>& sourceName) noexcept override {
+      _swiftPart.setSourceName(sourceName);
+    }
+    inline std::optional<std::string> getSourceJson() noexcept override {
+      auto __result = _swiftPart.getSourceJson();
+      return __result;
+    }
+    inline void setSourceJson(const std::optional<std::string>& sourceJson) noexcept override {
+      _swiftPart.setSourceJson(sourceJson);
+    }
+    inline std::optional<std::string> getSourceURL() noexcept override {
+      auto __result = _swiftPart.getSourceURL();
+      return __result;
+    }
+    inline void setSourceURL(const std::optional<std::string>& sourceURL) noexcept override {
+      _swiftPart.setSourceURL(sourceURL);
+    }
+    inline std::optional<std::string> getSourceDotLottieURI() noexcept override {
+      auto __result = _swiftPart.getSourceDotLottieURI();
+      return __result;
+    }
+    inline void setSourceDotLottieURI(const std::optional<std::string>& sourceDotLottieURI) noexcept override {
+      _swiftPart.setSourceDotLottieURI(sourceDotLottieURI);
+    }
+    inline std::optional<std::string> getImageAssetsFolder() noexcept override {
+      auto __result = _swiftPart.getImageAssetsFolder();
+      return __result;
+    }
+    inline void setImageAssetsFolder(const std::optional<std::string>& imageAssetsFolder) noexcept override {
+      _swiftPart.setImageAssetsFolder(imageAssetsFolder);
+    }
+    inline std::optional<double> getProgress() noexcept override {
+      auto __result = _swiftPart.getProgress();
+      return __result;
+    }
+    inline void setProgress(std::optional<double> progress) noexcept override {
+      _swiftPart.setProgress(progress);
+    }
+    inline std::optional<double> getSpeed() noexcept override {
+      auto __result = _swiftPart.getSpeed();
+      return __result;
+    }
+    inline void setSpeed(std::optional<double> speed) noexcept override {
+      _swiftPart.setSpeed(speed);
+    }
+    inline std::optional<bool> getLoop() noexcept override {
+      auto __result = _swiftPart.getLoop();
+      return __result;
+    }
+    inline void setLoop(std::optional<bool> loop) noexcept override {
+      _swiftPart.setLoop(loop);
+    }
+    inline std::optional<bool> getAutoPlay() noexcept override {
+      auto __result = _swiftPart.getAutoPlay();
+      return __result;
+    }
+    inline void setAutoPlay(std::optional<bool> autoPlay) noexcept override {
+      _swiftPart.setAutoPlay(autoPlay);
+    }
+    inline std::optional<bool> getEnableMergePathsAndroidForKitKatAndAbove() noexcept override {
+      auto __result = _swiftPart.getEnableMergePathsAndroidForKitKatAndAbove();
+      return __result;
+    }
+    inline void setEnableMergePathsAndroidForKitKatAndAbove(std::optional<bool> enableMergePathsAndroidForKitKatAndAbove) noexcept override {
+      _swiftPart.setEnableMergePathsAndroidForKitKatAndAbove(enableMergePathsAndroidForKitKatAndAbove);
+    }
+    inline std::optional<bool> getApplyOpacityToLayersAndroid() noexcept override {
+      auto __result = _swiftPart.getApplyOpacityToLayersAndroid();
+      return __result;
+    }
+    inline void setApplyOpacityToLayersAndroid(std::optional<bool> applyOpacityToLayersAndroid) noexcept override {
+      _swiftPart.setApplyOpacityToLayersAndroid(applyOpacityToLayersAndroid);
+    }
+    inline std::optional<bool> getEnableSafeModeAndroid() noexcept override {
+      auto __result = _swiftPart.getEnableSafeModeAndroid();
+      return __result;
+    }
+    inline void setEnableSafeModeAndroid(std::optional<bool> enableSafeModeAndroid) noexcept override {
+      _swiftPart.setEnableSafeModeAndroid(enableSafeModeAndroid);
+    }
+    inline std::optional<bool> getHardwareAccelerationAndroid() noexcept override {
+      auto __result = _swiftPart.getHardwareAccelerationAndroid();
+      return __result;
+    }
+    inline void setHardwareAccelerationAndroid(std::optional<bool> hardwareAccelerationAndroid) noexcept override {
+      _swiftPart.setHardwareAccelerationAndroid(hardwareAccelerationAndroid);
+    }
+    inline std::optional<bool> getCacheComposition() noexcept override {
+      auto __result = _swiftPart.getCacheComposition();
+      return __result;
+    }
+    inline void setCacheComposition(std::optional<bool> cacheComposition) noexcept override {
+      _swiftPart.setCacheComposition(cacheComposition);
+    }
+    inline std::optional<std::vector<LottieColorFilter>> getColorFilters() noexcept override {
+      auto __result = _swiftPart.getColorFilters();
+      return __result;
+    }
+    inline void setColorFilters(const std::optional<std::vector<LottieColorFilter>>& colorFilters) noexcept override {
+      _swiftPart.setColorFilters(colorFilters);
+    }
+    inline std::optional<std::vector<TextFilterAndroid>> getTextFiltersAndroid() noexcept override {
+      auto __result = _swiftPart.getTextFiltersAndroid();
+      return __result;
+    }
+    inline void setTextFiltersAndroid(const std::optional<std::vector<TextFilterAndroid>>& textFiltersAndroid) noexcept override {
+      _swiftPart.setTextFiltersAndroid(textFiltersAndroid);
+    }
+    inline std::optional<std::vector<TextFilterIOS>> getTextFiltersIOS() noexcept override {
+      auto __result = _swiftPart.getTextFiltersIOS();
+      return __result;
+    }
+    inline void setTextFiltersIOS(const std::optional<std::vector<TextFilterIOS>>& textFiltersIOS) noexcept override {
+      _swiftPart.setTextFiltersIOS(textFiltersIOS);
+    }
+    inline std::optional<std::function<void(bool /* isCancelled */)>> getOnAnimationFinish() noexcept override {
+      auto __result = _swiftPart.getOnAnimationFinish();
+      return __result;
+    }
+    inline void setOnAnimationFinish(const std::optional<std::function<void(bool /* isCancelled */)>>& onAnimationFinish) noexcept override {
+      _swiftPart.setOnAnimationFinish(onAnimationFinish);
+    }
+    inline std::optional<std::function<void(const std::string& /* error */)>> getOnAnimationFailure() noexcept override {
+      auto __result = _swiftPart.getOnAnimationFailure();
+      return __result;
+    }
+    inline void setOnAnimationFailure(const std::optional<std::function<void(const std::string& /* error */)>>& onAnimationFailure) noexcept override {
+      _swiftPart.setOnAnimationFailure(onAnimationFailure);
+    }
+    inline std::optional<std::function<void()>> getOnAnimationLoaded() noexcept override {
+      auto __result = _swiftPart.getOnAnimationLoaded();
+      return __result;
+    }
+    inline void setOnAnimationLoaded(const std::optional<std::function<void()>>& onAnimationLoaded) noexcept override {
+      _swiftPart.setOnAnimationLoaded(onAnimationLoaded);
     }
 
   public:
     // Methods
-    
+    inline void play(double startFrame, double endFrame) override {
+      auto __result = _swiftPart.play(std::forward<decltype(startFrame)>(startFrame), std::forward<decltype(endFrame)>(endFrame));
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void reset() override {
+      auto __result = _swiftPart.reset();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void pause() override {
+      auto __result = _swiftPart.pause();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
+    inline void resume() override {
+      auto __result = _swiftPart.resume();
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+    }
 
   private:
     LottieNitro::HybridLottieViewSpec_cxx _swiftPart;

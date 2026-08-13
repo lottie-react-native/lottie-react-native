@@ -14,8 +14,54 @@ namespace margelo::nitro::lottienitro {
     HybridObject::loadHybridMethods();
     // load custom methods/properties
     registerHybrids(this, [](Prototype& prototype) {
-      prototype.registerHybridGetter("placeholder", &HybridLottieViewSpec::getPlaceholder);
-      prototype.registerHybridSetter("placeholder", &HybridLottieViewSpec::setPlaceholder);
+      prototype.registerHybridGetter("resizeMode", &HybridLottieViewSpec::getResizeMode);
+      prototype.registerHybridSetter("resizeMode", &HybridLottieViewSpec::setResizeMode);
+      prototype.registerHybridGetter("renderMode", &HybridLottieViewSpec::getRenderMode);
+      prototype.registerHybridSetter("renderMode", &HybridLottieViewSpec::setRenderMode);
+      prototype.registerHybridGetter("sourceName", &HybridLottieViewSpec::getSourceName);
+      prototype.registerHybridSetter("sourceName", &HybridLottieViewSpec::setSourceName);
+      prototype.registerHybridGetter("sourceJson", &HybridLottieViewSpec::getSourceJson);
+      prototype.registerHybridSetter("sourceJson", &HybridLottieViewSpec::setSourceJson);
+      prototype.registerHybridGetter("sourceURL", &HybridLottieViewSpec::getSourceURL);
+      prototype.registerHybridSetter("sourceURL", &HybridLottieViewSpec::setSourceURL);
+      prototype.registerHybridGetter("sourceDotLottieURI", &HybridLottieViewSpec::getSourceDotLottieURI);
+      prototype.registerHybridSetter("sourceDotLottieURI", &HybridLottieViewSpec::setSourceDotLottieURI);
+      prototype.registerHybridGetter("imageAssetsFolder", &HybridLottieViewSpec::getImageAssetsFolder);
+      prototype.registerHybridSetter("imageAssetsFolder", &HybridLottieViewSpec::setImageAssetsFolder);
+      prototype.registerHybridGetter("progress", &HybridLottieViewSpec::getProgress);
+      prototype.registerHybridSetter("progress", &HybridLottieViewSpec::setProgress);
+      prototype.registerHybridGetter("speed", &HybridLottieViewSpec::getSpeed);
+      prototype.registerHybridSetter("speed", &HybridLottieViewSpec::setSpeed);
+      prototype.registerHybridGetter("loop", &HybridLottieViewSpec::getLoop);
+      prototype.registerHybridSetter("loop", &HybridLottieViewSpec::setLoop);
+      prototype.registerHybridGetter("autoPlay", &HybridLottieViewSpec::getAutoPlay);
+      prototype.registerHybridSetter("autoPlay", &HybridLottieViewSpec::setAutoPlay);
+      prototype.registerHybridGetter("enableMergePathsAndroidForKitKatAndAbove", &HybridLottieViewSpec::getEnableMergePathsAndroidForKitKatAndAbove);
+      prototype.registerHybridSetter("enableMergePathsAndroidForKitKatAndAbove", &HybridLottieViewSpec::setEnableMergePathsAndroidForKitKatAndAbove);
+      prototype.registerHybridGetter("applyOpacityToLayersAndroid", &HybridLottieViewSpec::getApplyOpacityToLayersAndroid);
+      prototype.registerHybridSetter("applyOpacityToLayersAndroid", &HybridLottieViewSpec::setApplyOpacityToLayersAndroid);
+      prototype.registerHybridGetter("enableSafeModeAndroid", &HybridLottieViewSpec::getEnableSafeModeAndroid);
+      prototype.registerHybridSetter("enableSafeModeAndroid", &HybridLottieViewSpec::setEnableSafeModeAndroid);
+      prototype.registerHybridGetter("hardwareAccelerationAndroid", &HybridLottieViewSpec::getHardwareAccelerationAndroid);
+      prototype.registerHybridSetter("hardwareAccelerationAndroid", &HybridLottieViewSpec::setHardwareAccelerationAndroid);
+      prototype.registerHybridGetter("cacheComposition", &HybridLottieViewSpec::getCacheComposition);
+      prototype.registerHybridSetter("cacheComposition", &HybridLottieViewSpec::setCacheComposition);
+      prototype.registerHybridGetter("colorFilters", &HybridLottieViewSpec::getColorFilters);
+      prototype.registerHybridSetter("colorFilters", &HybridLottieViewSpec::setColorFilters);
+      prototype.registerHybridGetter("textFiltersAndroid", &HybridLottieViewSpec::getTextFiltersAndroid);
+      prototype.registerHybridSetter("textFiltersAndroid", &HybridLottieViewSpec::setTextFiltersAndroid);
+      prototype.registerHybridGetter("textFiltersIOS", &HybridLottieViewSpec::getTextFiltersIOS);
+      prototype.registerHybridSetter("textFiltersIOS", &HybridLottieViewSpec::setTextFiltersIOS);
+      prototype.registerHybridGetter("onAnimationFinish", &HybridLottieViewSpec::getOnAnimationFinish);
+      prototype.registerHybridSetter("onAnimationFinish", &HybridLottieViewSpec::setOnAnimationFinish);
+      prototype.registerHybridGetter("onAnimationFailure", &HybridLottieViewSpec::getOnAnimationFailure);
+      prototype.registerHybridSetter("onAnimationFailure", &HybridLottieViewSpec::setOnAnimationFailure);
+      prototype.registerHybridGetter("onAnimationLoaded", &HybridLottieViewSpec::getOnAnimationLoaded);
+      prototype.registerHybridSetter("onAnimationLoaded", &HybridLottieViewSpec::setOnAnimationLoaded);
+      prototype.registerHybridMethod("play", &HybridLottieViewSpec::play);
+      prototype.registerHybridMethod("reset", &HybridLottieViewSpec::reset);
+      prototype.registerHybridMethod("pause", &HybridLottieViewSpec::pause);
+      prototype.registerHybridMethod("resume", &HybridLottieViewSpec::resume);
     });
   }
 
