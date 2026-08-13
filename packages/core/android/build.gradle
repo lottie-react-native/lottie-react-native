@@ -25,8 +25,24 @@ def isNewArchitectureEnabled() {
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
 
+// AGP 9.0 compiles Kotlin itself and enables that built-in support by default,
+// so applying the standalone Kotlin Android plugin on top of it fails the build.
+// Applications can still opt out with `android.builtInKotlin=false`, in which
+// case the explicit plugin is required again, as it is on every AGP below 9.
+def isBuiltInKotlinEnabled() {
+    def agpMajorVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0].toInteger()
+    if (agpMajorVersion < 9) {
+        return false
+    }
+    def builtInKotlinProperty = project.findProperty('android.builtInKotlin')
+    return builtInKotlinProperty == null || builtInKotlinProperty.toString().toBoolean()
+}
+
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+
+if (!isBuiltInKotlinEnabled()) {
+    apply plugin: 'kotlin-android'
+}
 
 if (isNewArchitectureEnabled()) {
     apply plugin: 'com.facebook.react'
