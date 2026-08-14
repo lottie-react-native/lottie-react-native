@@ -32,8 +32,20 @@ def getExtOrIntegerDefault(name) {
         : (project.properties["LottieNitro_" + name]).toInteger()
 }
 
+def isBuiltInKotlinEnabled() {
+    def agpMajorVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize(".")[0].toInteger()
+    if (agpMajorVersion < 9) {
+        return false
+    }
+    def builtInKotlinProperty = project.findProperty("android.builtInKotlin")
+    return builtInKotlinProperty == null || builtInKotlinProperty.toString().toBoolean()
+}
+
 apply plugin: "com.android.library"
-apply plugin: "org.jetbrains.kotlin.android"
+
+if (!isBuiltInKotlinEnabled()) {
+    apply plugin: "org.jetbrains.kotlin.android"
+}
 
 // Adds nitrogen/generated/android/kotlin to java.srcDirs. Without this the
 // generated HybridLottieViewSpec, HybridLottieViewManager and LottieNitroOnLoad
