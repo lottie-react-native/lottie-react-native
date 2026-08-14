@@ -25,8 +25,20 @@ def isNewArchitectureEnabled() {
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
 }
 
+def isBuiltInKotlinEnabled() {
+    def agpMajorVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0].toInteger()
+    if (agpMajorVersion < 9) {
+        return false
+    }
+    def builtInKotlinProperty = project.findProperty('android.builtInKotlin')
+    return builtInKotlinProperty == null || builtInKotlinProperty.toString().toBoolean()
+}
+
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+
+if (!isBuiltInKotlinEnabled()) {
+    apply plugin: 'kotlin-android'
+}
 
 if (isNewArchitectureEnabled()) {
     apply plugin: 'com.facebook.react'
