@@ -61,10 +61,17 @@ Covers `.ts`, `.tsx`, `.swift`, `.kt`, `.cpp` — including `// MARK:` section m
    `@format`, and similar.
 3. **Generated code** — `packages/nitro/nitrogen/generated/**` is nitrogen's output and
    is rewritten wholesale by `yarn nitro:codegen`.
-4. **Build and config files** — podspec, `*.gradle`, `gradle.properties`, `CMakeLists.txt`,
-   `Podfile`, `Gemfile`, metro/webpack/babel config, `.gitignore`, `index.html`. Much of
-   this is upstream boilerplate it would be wrong to diverge from, and the rest is
-   read by people who are not reading the architecture doc.
+4. **Upstream template text in build and config files.** Podspec, `*.gradle`,
+   `gradle.properties`, `CMakeLists.txt`, `Podfile`, `Gemfile`, metro/webpack/babel config,
+   `.gitignore` and `index.html` keep whatever comments ship in the
+   `react-native-test-app`, React Native, Gradle or CocoaPods template — diverging from
+   boilerplate is noise. Structural section labels in a `.gitignore` (`# Android`, `# iOS`)
+   count as template.
+
+   **Anything we wrote in those files does not.** Explanations of why a hook, pin, flag or
+   plugin exclusion is there belong in the architecture doc like any other rationale —
+   `ARCHITECTURE.md` section 15c covers all of them. This applies even when v7's copy of the
+   same file has the comment: v7 is not touched, so the two will differ, and that is fine.
 5. **Exempt files**, listed verbatim:
    - `packages/nitro/src/types.ts`
    - `packages/nitro/src/LottieView/utils.ts`

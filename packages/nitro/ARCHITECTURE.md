@@ -574,6 +574,140 @@ no-ops pending the ref work, so `example-v8`'s playback buttons are wired but in
 
 ---
 
+## 15c. Build configuration
+
+The build and config files carry no hand-written comments either — only upstream template
+text. Everything the port decided is here.
+
+### `example-v8/ios/Podfile` — the resource-bundle deployment target hook
+
+**Do not delete `raise_resource_bundle_deployment_targets` without reading this.** It looks
+redundant and is not; removing it breaks the iOS build.
+
+React Native's `ReactNativePodsUtils.updateOSDeploymentTarget` raises pods to
+`min_ios_version_supported`, but it only walks each pod's `native_target`. Targets generated
+from a podspec's `resource_bundles` are left alone and keep whatever that podspec declared,
+and the platform `react-native-test-app` sets does not reach them either — CocoaPods derives
+a pod target's platform in `Analyzer#determine_platform`, which reads only the podspec, so a
+Podfile-level `platform :ios` cannot reach it. A dependency that still supports iOS 13
+therefore produces a bundle target below the minimum Xcode accepts:
+
+```
+lottie-ios                    -> 15.1  (raised by React Native)
+lottie-ios-LottiePrivacyInfo  -> 13.0  (from the podspec, unchanged)
+```
+
+The build then fails before anything compiles, with
+`The iOS Simulator deployment target 'IPHONEOS_DEPLOYMENT_TARGET' is set to 13.0, but the
+range of supported deployment target versions is 15.0 to 27.0.x`. Note `pod install`
+*succeeds* — only the build fails, which is why this looks removable.
+
+`lottie-ios` still declares iOS 13.0 as of 4.6.1, so bumping it does not help. The hook only
+ever raises a target to React Native's own floor; anything already at or above it is
+untouched. Remove it once the upstream helper covers resource bundles.
+
+The same hook exists in `example/ios/Podfile` (v7). It became necessary here the moment
+`lottie-ios` entered `LottieNitro.podspec`.
+
+### `packages/nitro/LottieNitro.podspec`
+
+- `s.name` must match `iosModuleName` in `nitro.json` — the generated Swift/C++ bridge
+  headers are namespaced by it.
+- Swift 5.9 is required by `lottie-ios` 4.6.0.
+- `load 'nitrogen/generated/ios/LottieNitro+autolinking.rb'` adds every nitrogen-generated
+  source, the NitroModules dependency, and the c++20 / objcxx interop build settings the
+  generated bridge requires.
+- `lottie-ios` is pinned exactly, matching `packages/core/lottie-react-native.podspec`, so
+  any rendering difference between v7 and v8 comes from our code rather than a different
+  Lottie.
+- The privacy manifest matches `packages/core`. The root README states the library ships one
+  by default, which was not true for this package until it was added.
+
+### `packages/nitro/android/build.gradle`
+
+- **Deliberately no `buildscript { classpath "com.android.tools.build:gradle" }` block.**
+  Both AGP and the Kotlin plugin are already on the root project's classpath —
+  `react-native-test-app`'s `getReactNativeDependencies()` provides them — and Gradle's
+  parent-first classloader delegation means a local pin would be ignored at best and
+  conflict at worst.
+- **Deliberately no `libraryName` and no `apply plugin: "com.facebook.react"`.** This module
+  uses zero React Native codegen; it uses nitrogen. React Native's autolinker emits
+  `add_subdirectory(<lib>/android/build/generated/source/codegen/jni)` for any dependency
+  declaring a `libraryName`, which would point CMake at a directory that is never generated.
+- `nitrogen/generated/android/kotlin` is added to `java.srcDirs`. Without it the generated
+  `HybridLottieViewSpec`, `HybridLottieViewManager` and `LottieNitroOnLoad` do not exist.
+- Prefab is enabled because the nitrogen-generated CMake does
+  `find_package(fbjni / ReactAndroid / react-native-nitro-modules REQUIRED)`.
+- `lottie` is pinned to match `packages/core/android/build.gradle`, for the same
+  same-renderer reason as the podspec. It brings `androidx.appcompat` transitively, which
+  `LottieAnimationView` needs — it extends `AppCompatImageView`.
+- `react-native-nitro-modules` provides the NitroModules prefab and
+  `com.margelo.nitro.R.id.associated_hybrid_view_tag`, which the generated view manager
+  imports.
+
+### `packages/nitro/android/CMakeLists.txt`
+
+The library name must match `androidCxxLibName` in `nitro.json` — the generated
+`LottieNitroOnLoad.kt` calls `System.loadLibrary("LottieNitro")` and the generated
+autolinking CMake does `target_sources(LottieNitro …)`. The included
+`LottieNitro+autolinking.cmake` adds all nitrogen-generated C++ sources plus fbjni /
+ReactAndroid / NitroModules linkage.
+
+### `packages/nitro/android/gradle.properties`
+
+Fallbacks only. When built inside an app, `react-native-test-app` populates
+`rootProject.ext` from React Native's own version catalog and these are unused. The values
+are aligned to React Native 0.84.1's `gradle/libs.versions.toml`.
+
+### `example-v8/android/gradle.properties`
+
+- `android.builtInKotlin=false` — `react-native-test-app` applies the Kotlin plugin itself,
+  so opt out of AGP's built-in Kotlin support to avoid applying it twice.
+- The AGP 9 DSL is not yet supported by the React Native Gradle plugin.
+- Edge-to-edge is enabled to draw behind the system bars, matching the React Native default.
+- **The New Architecture is forced on here** rather than passed per-invocation with
+  `ORG_GRADLE_PROJECT_newArchEnabled`, unlike `example/`. Two reasons: Nitro Views are
+  New-Architecture-only, and `react-native-nitro-modules` gates its own setup on the *root*
+  project property — which the per-invocation and `react-native-test-app`
+  `gradle.beforeProject` paths do not reliably reach.
+
+### `example-v8/metro.config.js`
+
+`nmHoistingLimits: workspaces` gives every workspace its own `node_modules`, so the
+symlinked library would otherwise resolve its own copy of react / react-native. Forcing the
+app's copy for each peer dependency keeps a single instance of each. The asset extension
+list is extended so dotLottie files can be imported.
+
+### `example-v8/webpack.config.js`
+
+`.web.tsx` comes first in `resolve.extensions`, which is what makes the nitro package
+resolve to its web shim rather than the native entry point — the latter deep-imports Flow
+source that cannot be bundled for web. The `react-native` → `react-native-web` alias is
+written after the `extraNodeModules` spread so it wins. `__DEV__` is defined explicitly per
+[react-native-web#349](https://github.com/necolas/react-native-web/issues/349).
+
+### `example-v8/Gemfile`
+
+Ruby 3.4.0 removed several libraries from the standard library, hence the explicit
+`bigdecimal`, `logger`, `benchmark` and `mutex_m` gems. `kconv` also left the standard
+library in 3.4 and is provided by `nkf`; CFPropertyList requires it, so CocoaPods fails to
+even parse the Podfile with `cannot load such file -- kconv`. `xcodeproj` declares `nkf`
+itself from 1.26 onwards, but the pin above it holds this repo below that version.
+
+### `example-v8/tsconfig.json`
+
+`compilerOptions.types` is set to `[]` because the base `@react-native/typescript-config`
+sets `"types": ["jest"]`, and this app has no jest — `tsc` fails with TS2688 without the
+override.
+
+### `.gitignore`
+
+`packages/nitro/nitrogen/generated/` is intentionally **not** ignored — see section 1.
+`example-v8/ios/Podfile.lock` is written by `pod install`, which `react-native-test-app`
+regenerates on each run.
+
+---
+
 ## 16. Testing status
 
 There is no test infrastructure here, and Nitro Modules provides no native testing story: as

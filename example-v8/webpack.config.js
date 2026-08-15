@@ -43,9 +43,6 @@ module.exports = {
 	},
 	resolve: {
 		mainFields: ['react-native', 'main'],
-		// `.web.tsx` first is what makes the nitro package resolve to its web
-		// shim rather than the native entry point, which deep-imports Flow
-		// source that cannot be bundled for web.
 		extensions: [
 			'.web.tsx',
 			'.web.ts',
@@ -58,7 +55,6 @@ module.exports = {
 		],
 		alias: {
 			...resolver.extraNodeModules,
-			// Must come after the spread so it wins.
 			'react-native': 'react-native-web',
 		},
 		symlinks: false,
@@ -87,7 +83,6 @@ module.exports = {
 		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({
-			// See: https://github.com/necolas/react-native-web/issues/349
 			__DEV__: JSON.stringify(true),
 		}),
 	],

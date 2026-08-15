@@ -7,10 +7,6 @@ const defaultConfig = getDefaultConfig(__dirname);
 const root = path.resolve(__dirname, "../packages/nitro/");
 const pack = require("../packages/nitro/package.json");
 
-// `nmHoistingLimits: workspaces` gives every workspace its own node_modules, so
-// the symlinked library would otherwise resolve its own copy of react /
-// react-native. Forcing the app's copy for each peer dependency keeps a single
-// instance of each.
 const modules = Object.keys(pack.peerDependencies);
 
 module.exports = makeMetroConfig({
@@ -23,7 +19,6 @@ module.exports = makeMetroConfig({
     }),
   },
   resolver: {
-    // In order to import dotLottie assets, we will need this
     assetExts: [...defaultConfig.resolver.assetExts, "lottie"],
     unstable_enableSymlinks: true,
     extraNodeModules: modules.reduce((acc, name) => {
