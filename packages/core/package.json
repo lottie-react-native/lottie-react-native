@@ -13,6 +13,7 @@
     "lib",
     "android",
     "ios",
+    "Package.swift",
     "*.podspec",
     "react-native.config.js",
     "windows"
@@ -41,7 +42,8 @@
     "prepare": "bob build",
     "lint:swift": "swiftlint ios",
     "lint-fix:swift": "swiftlint --fix ios",
-    "release": "npm publish"
+    "release": "npm publish",
+    "lint:spm-parity": "node scripts/check-spm-parity.js"
   },
   "peerDependencies": {
     "@lottiefiles/dotlottie-react": "^0.13.5",

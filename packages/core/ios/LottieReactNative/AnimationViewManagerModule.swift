@@ -1,4 +1,5 @@
 import Lottie
+import React
 
 #if os(OSX)
 import AppKit

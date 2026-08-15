@@ -1,5 +1,6 @@
 import Lottie
 import Foundation
+import React
 
 @objc protocol LottieContainerViewDelegate {
     func onAnimationFinish(isCancelled: Bool)
