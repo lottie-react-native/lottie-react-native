@@ -2,33 +2,10 @@ import Lottie
 import NitroModules
 import UIKit
 
-/// Nitro view backing `LottieView` on iOS.
-///
-/// Ported from v7's `packages/core/ios/LottieReactNative/ContainerView.swift`,
-/// with the structure reworked around Nitro's batching. v7 applied each prop
-/// immediately as it arrived, which built the animation view two or three times
-/// per commit and silently dropped the text provider whenever `renderMode`
-/// changed after `textFiltersIOS`. Here the setters are pure stores and
-/// everything is applied once, in a correct order, from `afterUpdate()`.
-///
-/// Nitro calls the setters and `afterUpdate()` synchronously on the main thread
-/// (via `RCTViewComponentView.updateProps`, under `RCTAssertMainQueue`), so no
-/// dispatching is needed for any Lottie call.
-///
-/// Imperative commands (`play`/`reset`/`pause`/`resume`) are intentionally still
-/// no-ops — they land with the ref in a later change.
 class HybridLottieView: HybridLottieViewSpec {
-  /// One animation view for the component's lifetime.
-  ///
-  /// It never needs replacing: `configuration` and `animation` are settable vars
-  /// whose `didSet` rebuilds the layer in place, and `makeAnimationLayer`
-  /// re-applies registered value providers and carries the image and text
-  /// providers across. React Native frames it for us via `RCTViewComponentView`.
   private let animationView = LottieAnimationView(frame: .zero)
 
   var view: UIView { animationView }
-
-  // MARK: - Props (pure stores; nothing is applied until afterUpdate)
 
   var resizeMode: ResizeMode?
   var renderMode: RenderMode?
@@ -53,20 +30,9 @@ class HybridLottieView: HybridLottieViewSpec {
   var onAnimationFailure: ((_ error: String) -> Void)?
   var onAnimationLoaded: (() -> Void)?
 
-  // MARK: - Applied state
-
-  /// Value-typed snapshots of what has actually been pushed to Lottie.
-  ///
-  /// Native diffing is mandatory, not an optimisation: Nitro compares props with
-  /// `jsi::Value::strictEquals`, which is reference identity for arrays, so an
-  /// inline `colorFilters={[...]}` arrives "changed" on every single commit.
   private struct ColorFilterSnapshot: Hashable {
     let keypath: String
 
-    /// Held as the raw bit pattern, not as a `Double`, so the `NaN` sentinel
-    /// compares equal to itself. Swift's `Double` equality is IEEE, where
-    /// `NaN != NaN`, which would make an unresolvable colour read as "changed"
-    /// on every commit and re-emit its failure forever.
     let colorBits: UInt64
 
     var color: Double { Double(bitPattern: colorBits) }
@@ -95,36 +61,16 @@ class HybridLottieView: HybridLottieViewSpec {
   private var appliedColorFilters: [ColorFilterSnapshot] = []
   private var installedColorKeypaths: Set<AnimationKeypath> = []
 
-  /// Bumped on every source change, before the load starts. An async completion
-  /// carrying a stale generation is dropped, which makes the behaviour
-  /// last-*requested* wins where v7 was last-*completed*.
   private var loadGeneration: UInt64 = 0
   private var inFlightLoad: URLSessionDataTask?
 
-  /// Gates spurious `onAnimationFinish`. Three separate Lottie paths invoke a
-  /// stored completion with `finished: false` — the `currentProgress` setter, the
-  /// `animation`/`configuration` didSet, and every `play()` overload — all via
-  /// `removeCurrentAnimationIfNecessary()`. Lottie's own `ignoreDelegate`
-  /// suppression covers only one of them, so we supply the rest.
   private var suppressFinishDepth = 0
   private var playbackEpoch: UInt64 = 0
 
   private var sourceJustChanged = false
 
-  // MARK: - Lifecycle
-
-  /// The generated `LottieNitroAutolinking.swift` calls `HybridLottieView()`, so
-  /// this must stay zero-argument. `override` because `HybridLottieViewSpec` is a
-  /// composition including the `open class HybridLottieViewSpec_base`, which
-  /// declares `public init()`.
   override init() {
     super.init()
-    // Lottie's `animationLoaded` fires on every `animation` didSet, which is the
-    // one hook both the sync and async source paths pass through. Installing it
-    // once here is what lets `applyCompositionDependent()` be reached from either.
-    //
-    // Its own didSet fires immediately when an animation is already present; at
-    // init there is none, so this is safe.
     animationView.animationLoaded = { [weak self] _, _ in
       guard let self else { return }
       self.onAnimationLoaded?()
@@ -137,17 +83,11 @@ class HybridLottieView: HybridLottieViewSpec {
       let nextSource = pendingSource()
       sourceJustChanged = nextSource != appliedSource
 
-      // cacheComposition is consumed by the loaders below, so snapshot first.
       appliedCacheComposition = cacheComposition ?? true
 
-      // imageProvider and textProvider are read when the layer is built, so both
-      // must precede the source. v7 never implemented imageAssetsFolder on iOS at
-      // all (zero references in its entire iOS tree).
       applyImageProvider()
       applyTextProvider()
 
-      // renderMode before the source, so one commit builds one layer. v7 applied
-      // it after, rebuilding the view a second time on first mount.
       applyRenderMode()
       applyResizeMode()
 
@@ -159,8 +99,6 @@ class HybridLottieView: HybridLottieViewSpec {
         installedColorKeypaths = []
         apply(source: nextSource)
       } else {
-        // Nothing re-entered the post-load path, so run it for whatever
-        // composition-dependent prop did change.
         applyCompositionDependent()
       }
 
@@ -170,8 +108,6 @@ class HybridLottieView: HybridLottieViewSpec {
   }
 
   func onDropView() {
-    // Order matters: invalidate generations and detach before stopping, so
-    // nothing can emit into a torn-down runtime.
     loadGeneration &+= 1
     playbackEpoch &+= 1
     suppressFinishDepth += 1
@@ -189,8 +125,6 @@ class HybridLottieView: HybridLottieViewSpec {
     onAnimationLoaded = nil
   }
 
-  // MARK: - Props valid without a composition
-
   private func applyImageProvider() {
     let folder = imageAssetsFolder ?? ""
     guard folder != appliedImageAssetsFolder || !appliedDidApplyOnce else { return }
@@ -203,7 +137,6 @@ class HybridLottieView: HybridLottieViewSpec {
   private func applyTextProvider() {
     let next = pendingTextFilters()
     guard next != appliedTextFilters || !appliedDidApplyOnce else { return }
-    // Empty clears, which v7 could not do (it was guarded by `count > 0`).
     animationView.textProvider = next.isEmpty
       ? DefaultTextProvider()
       : DictionaryTextProvider(next)
@@ -236,13 +169,6 @@ class HybridLottieView: HybridLottieViewSpec {
     appliedResizeMode = key
   }
 
-  // MARK: - Source loading
-
-  /// Fixed precedence, so a caller bypassing the JS wrapper and sending several
-  /// source props is still deterministic. v7 had none — the last setter won,
-  /// i.e. C++ prop declaration order.
-  ///
-  /// `""` means absent: the wrapper always sends all four (see TODO.md item 8).
   private func pendingSource() -> SourceKind? {
     if let s = sourceJson, !s.isEmpty { return .json(s) }
     if let s = sourceName, !s.isEmpty { return .name(s) }
@@ -251,8 +177,6 @@ class HybridLottieView: HybridLottieViewSpec {
     return nil
   }
 
-  /// v7 applied this bundle-relative fallback to `sourceURL` only, so a
-  /// bundle-relative `.lottie` path silently failed. Applied to both here.
   private func resolveURL(_ raw: String) -> URL? {
     if let url = URL(string: raw), url.scheme != nil { return url }
     return URL(fileURLWithPath: raw, relativeTo: Bundle.main.resourceURL)
@@ -277,7 +201,6 @@ class HybridLottieView: HybridLottieViewSpec {
 
     case .name(let name):
       guard let animation = LottieAnimation.named(name, bundle: .main, animationCache: cache) else {
-        // v7 was silent here — a nil animation, no event, a blank view.
         emitFailure("Unable to find the lottie animation named \"\(name)\" in the main bundle")
         return
       }
@@ -288,7 +211,7 @@ class HybridLottieView: HybridLottieViewSpec {
         emitFailure("Invalid Lottie animation URL: \(raw)")
         return
       }
-      animationView.animation = nil  // blank the region while loading, as v7 did
+      animationView.animation = nil
       inFlightLoad = LottieAnimation.loadedFrom(url: url, closure: { [weak self] animation in
         guard let self, generation == self.loadGeneration else { return }
         self.inFlightLoad = nil
@@ -318,17 +241,9 @@ class HybridLottieView: HybridLottieViewSpec {
     }
   }
 
-  // MARK: - Props needing a composition
-
-  /// Invoked from two places: here at the tail of `afterUpdate()` when the source
-  /// did not change, and from the `animationLoaded` hook when it did. That
-  /// convergence is what lets the sync and async source paths share one path.
   private func applyCompositionDependent() {
     guard animationView.animation != nil else { return }
     withFinishSuppressed {
-      // A .lottie load overwrites loopMode, animationSpeed and imageProvider from
-      // the manifest, so re-asserting unconditionally is simpler than an ordering
-      // rule.
       appliedLoop = loop ?? true
       appliedSpeed = speed ?? 1
       animationView.loopMode = appliedLoop ? .loop : .playOnce
@@ -351,9 +266,6 @@ class HybridLottieView: HybridLottieViewSpec {
         || sourceJustChanged
         || !animationView.isAnimationPlaying
       if shouldStart {
-        // Folding progress into the play call is what makes it survive playback
-        // start. v7's Android applied progress first and then called
-        // playAnimation(), which reset it.
         let from = next >= 1 ? 0 : next
         animationView.play(
           fromProgress: AnimationProgressTime(from),
@@ -365,12 +277,9 @@ class HybridLottieView: HybridLottieViewSpec {
     } else if progressChanged {
       animationView.currentProgress = AnimationProgressTime(next)
     }
-    // autoPlay true -> false is a no-op, matching v7 on both platforms.
     appliedAutoPlay = wantsPlay
   }
 
-  /// Reconciles rather than accumulates. v7 only ever added value providers, so a
-  /// keypath removed from the array kept its tint for the view's lifetime.
   private func reconcileColorFilters() {
     let next = (colorFilters ?? []).map {
       ColorFilterSnapshot(keypath: $0.keypath, color: $0.color)
@@ -380,16 +289,11 @@ class HybridLottieView: HybridLottieViewSpec {
     var desired: [AnimationKeypath: UIColor] = [:]
     for filter in next {
       guard let color = Self.colorFromARGB(filter.color) else {
-        // v7 filled transparent silently, and `break`ed out of the whole loop.
-        // The string that failed is not available here — JS resolved it and
-        // already logged it in __DEV__; see `processColorFilters`.
         emitFailure(
           "Unresolvable colorFilters color for keypath \"\(filter.keypath)\""
         )
         continue
       }
-      // v7's iOS keypath shape, verbatim. Android's differs and deliberately
-      // stays different — see TODO.md.
       desired[AnimationKeypath(keypath: "\(filter.keypath).**.Color")] = color
     }
 
@@ -403,17 +307,6 @@ class HybridLottieView: HybridLottieViewSpec {
     appliedColorFilters = next
   }
 
-  /// Unpacks a `processColor` result into a `UIColor`.
-  ///
-  /// Returns nil for the `NaN` sentinel the JS wrapper sends when it could not
-  /// resolve the colour. The range guard is load-bearing beyond that:
-  /// `Int64(_: Double)` traps on NaN *and* on any finite value outside Int64,
-  /// so it must never see an unchecked value. Bounding to the int32/uint32
-  /// union is the tightest range `processColor` can legitimately produce.
-  ///
-  /// The truncation to `UInt32` normalises both sign conventions —
-  /// `processColor` yields a signed int32 on Android and an unsigned one on iOS,
-  /// and the same 32-bit pattern falls out either way.
   private static func colorFromARGB(_ value: Double) -> UIColor? {
     guard value >= -2_147_483_648, value <= 4_294_967_295 else { return nil }
     let argb = UInt32(truncatingIfNeeded: Int64(value))
@@ -425,8 +318,6 @@ class HybridLottieView: HybridLottieViewSpec {
     )
   }
 
-  // MARK: - Events
-
   private func makeFinishCompletion() -> LottieCompletionBlock {
     playbackEpoch &+= 1
     let epoch = playbackEpoch
@@ -434,7 +325,7 @@ class HybridLottieView: HybridLottieViewSpec {
       guard let self,
             epoch == self.playbackEpoch,
             self.suppressFinishDepth == 0 else { return }
-      self.playbackEpoch &+= 1  // one emit per run
+      self.playbackEpoch &+= 1
       self.onAnimationFinish?(!finished)
     }
   }
@@ -449,8 +340,6 @@ class HybridLottieView: HybridLottieViewSpec {
     onAnimationFailure?(message)
   }
 
-  // MARK: - Helpers
-
   private func pendingTextFilters() -> [String: String] {
     Dictionary(
       (textFiltersIOS ?? []).map { ($0.keypath, $0.text) },
@@ -458,10 +347,7 @@ class HybridLottieView: HybridLottieViewSpec {
     )
   }
 
-  // MARK: - Imperative commands (not implemented yet)
-
   func play(startFrame: Double, endFrame: Double) throws {
-    // Lands with the ref in a later change.
   }
 
   func reset() throws {}

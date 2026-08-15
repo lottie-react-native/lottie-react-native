@@ -1,7 +1,3 @@
-// The ONLY intentional difference from `example/App.tsx`: this app renders the
-// Nitro implementation. Everything below is v7's example verbatim, so the two
-// apps can be run side by side and compared. The playback buttons are wired but
-// inert until the imperative commands land.
 import LottieView from "lottie-react-native-nitro";
 import React, { useCallback, useRef, useState } from "react";
 import {

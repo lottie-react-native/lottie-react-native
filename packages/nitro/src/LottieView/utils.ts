@@ -1,9 +1,5 @@
 import { Image } from 'react-native';
 
-// NOTE: `source` is annotated `any` rather than left implicit. This package
-// type-checks with `strict: true` (packages/core does not), and `noImplicitAny`
-// would reject the original signature. The body below is v7 verbatim, including
-// the `.lottie` substring test — see TODO.md.
 function parsePossibleSources(source: any):
   | {
       sourceURL?: string;

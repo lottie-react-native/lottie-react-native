@@ -24,44 +24,16 @@ import java.io.FileInputStream
 import java.util.regex.Pattern
 import java.util.zip.ZipInputStream
 
-/**
- * Nitro view backing `LottieView` on Android.
- *
- * Ported from v7's `LottieAnimationViewManagerImpl.kt` +
- * `LottieAnimationViewPropertyManager.kt`, with the structure reworked. v7's
- * property manager committed eagerly from inside the source setters, so
- * `commitChanges()` ran two or more times per transaction, and its `.lottie`
- * branch used a bare `return` inside a `let` — a non-local return that skipped
- * every remaining prop. Those props only landed because a second commit followed,
- * and an unresolvable raw name wedged the view permanently. Here the setters are
- * pure stores and everything is applied once from [afterUpdate].
- *
- * Nitro calls the setters and [afterUpdate] synchronously on the UI thread (via
- * `SurfaceMountingManager`, `@UiThread`), so no posting is needed.
- *
- * Imperative commands are intentionally still no-ops — they land with the ref in
- * a later change.
- */
 @Keep
 @DoNotStrip
 class HybridLottieView(
   val context: ThemedReactContext,
 ) : HybridLottieViewSpec() {
-  /**
-   * One animation view for the component's lifetime. Keeping the same instance is
-   * what buys us lottie-android's own `cancelLoaderTask()`, which detaches the
-   * listeners of a superseded composition load — so a stale load cannot reach us.
-   *
-   * `CENTER_INSIDE` matches v7's `createViewInstance`, so appearance before the
-   * first `resizeMode` prop arrives is identical.
-   */
   private val animationView = LottieAnimationView(context).apply {
     scaleType = ImageView.ScaleType.CENTER_INSIDE
   }
 
   override val view: View = animationView
-
-  // MARK: Props (pure stores)
 
   override var resizeMode: ResizeMode? = null
   override var renderMode: RenderMode? = null
@@ -86,12 +58,6 @@ class HybridLottieView(
   override var onAnimationFailure: ((error: String) -> Unit)? = null
   override var onAnimationLoaded: (() -> Unit)? = null
 
-  // MARK: Applied state
-  //
-  // Native value diffing is mandatory, not an optimisation: Nitro compares props
-  // with strict equality, which is reference identity for arrays, so an inline
-  // `colorFilters={[...]}` arrives "changed" on every commit.
-
   private sealed interface SourceKind {
     data class Name(val v: String) : SourceKind
     data class Json(val v: String) : SourceKind
@@ -99,17 +65,6 @@ class HybridLottieView(
     data class DotLottie(val v: String) : SourceKind
   }
 
-  /**
-   * Snapshot of one applied colour filter.
-   *
-   * Holds the colour as its raw bit pattern rather than the `Double` that
-   * crossed, so the `NaN` sentinel compares equal to itself and an unresolvable
-   * colour does not read as "changed" on every commit and re-emit its failure
-   * forever. Kotlin does define total-order equality for `Double` properties of
-   * a data class, which would make a plain `Double` work here, but that is a
-   * subtle rule to rest a repeating callback on and it does not match the iOS
-   * side, where `Double` equality is IEEE and would genuinely break.
-   */
   private data class ColorFilterSnapshot(val keypath: String, val colorBits: Long)
 
   private var appliedDidApplyOnce = false
@@ -130,7 +85,6 @@ class HybridLottieView(
   private var appliedColorFilters: List<ColorFilterSnapshot> = emptyList()
   private var installedColorKeyPaths: List<KeyPath> = emptyList()
 
-  /** Bumped on every source change, before the load starts. */
   private var loadGeneration = 0L
 
   private var suppressFinishDepth = 0
@@ -154,8 +108,6 @@ class HybridLottieView(
       onAnimationLoaded?.invoke()
       applyCompositionDependent()
     }
-    // Ported unchanged from v7's property manager, so text layers can use fonts
-    // registered with React Native.
     animationView.setFontAssetDelegate(object : FontAssetDelegate() {
       override fun fetchFont(fontFamily: String): Typeface =
         ReactFontManager.getInstance().getTypeface(fontFamily, UNSET, UNSET, context.assets)
@@ -176,16 +128,11 @@ class HybridLottieView(
     })
   }
 
-  // MARK: Lifecycle
-
   override fun afterUpdate() {
     withFinishSuppressed {
       val nextSource = pendingSource()
       sourceJustChanged = nextSource != appliedSource
 
-      // cacheComposition first: the single-arg setAnimation* overloads read the
-      // field. v7 applied it straight from the prop setter, so ordering relative
-      // to the source was down to luck.
       (cacheComposition ?: true).let {
         if (it != appliedCacheComposition || !appliedDidApplyOnce) {
           animationView.setCacheComposition(it)
@@ -193,8 +140,6 @@ class HybridLottieView(
         }
       }
 
-      // Before the composition: clearComposition() nulls the ImageAssetManager,
-      // which is rebuilt lazily from this string. v7 applied it after, too late.
       (imageAssetsFolder ?: "").let {
         if (it != appliedImageAssetsFolder) {
           animationView.imageAssetsFolder = it
@@ -208,8 +153,6 @@ class HybridLottieView(
       if (sourceJustChanged) {
         appliedSource = nextSource
         loadGeneration++
-        // clearComposition() drops the composition layer, so previously applied
-        // value callbacks are gone with it.
         installedColorKeyPaths = emptyList()
         applySource(nextSource)
       } else if (animationView.composition != null) {
@@ -222,7 +165,6 @@ class HybridLottieView(
   }
 
   override fun onDropView() {
-    // Detach before cancelling, so nothing can emit into a torn-down runtime.
     loadGeneration++
     suppressFinishDepth++
     animationView.removeAnimatorListener(animatorListener)
@@ -239,8 +181,6 @@ class HybridLottieView(
     onAnimationFailure = null
     onAnimationLoaded = null
   }
-
-  // MARK: Props valid without a composition
 
   private fun applyIndependentFlags() {
     resizeMode?.let { mode ->
@@ -267,9 +207,6 @@ class HybridLottieView(
       }
     }
 
-    // A View layer type, NOT a RenderMode. v7 conflated the two names but not the
-    // implementations; this mirrors v7's behaviour including forcing SOFTWARE
-    // rather than LAYER_TYPE_NONE when false.
     hardwareAccelerationAndroid?.let {
       val layerType = if (it) View.LAYER_TYPE_HARDWARE else View.LAYER_TYPE_SOFTWARE
       if (layerType != appliedLayerType) {
@@ -303,10 +240,6 @@ class HybridLottieView(
     if (next == appliedTextFilters && appliedDidApplyOnce) return
 
     if (next.isEmpty()) {
-      // Empty clears, which v7 could not do (guarded by size() > 0). Must be null
-      // rather than an empty delegate: any present delegate flips useTextGlyphs()
-      // off, silently switching from embedded glyphs to font rendering. The setter
-      // is a bare field store, so invalidate explicitly.
       if (appliedTextFilters.isNotEmpty()) {
         animationView.setTextDelegate(null)
         animationView.invalidate()
@@ -321,14 +254,6 @@ class HybridLottieView(
     appliedTextFilters = next
   }
 
-  // MARK: Source loading
-
-  /**
-   * Fixed precedence, so a caller bypassing the JS wrapper and sending several
-   * source props is deterministic. v7 had none — the last setter won.
-   *
-   * `""` means absent: the wrapper always sends all four (TODO.md item 8).
-   */
   private fun pendingSource(): SourceKind? {
     sourceJson?.takeIf { it.isNotEmpty() }?.let { return SourceKind.Json(it) }
     sourceName?.takeIf { it.isNotEmpty() }?.let { return SourceKind.Name(it) }
@@ -339,9 +264,6 @@ class HybridLottieView(
 
   private fun applySource(source: SourceKind?) {
     val generation = loadGeneration
-    // Only pass an explicit cache key when caching is on. v7 always passed one,
-    // which meant `cacheComposition: false` was silently ignored for sourceURL —
-    // the two-arg overloads bypass the flag.
     fun key(s: String): String? = if (appliedCacheComposition) s.hashCode().toString() else null
 
     try {
@@ -351,7 +273,6 @@ class HybridLottieView(
         is SourceKind.Json -> animationView.setAnimationFromJson(source.v, key(source.v))
 
         is SourceKind.Name -> {
-          // v7 appends .json when the name is extensionless, to match iOS.
           val name = if (source.v.contains(".")) source.v else "${source.v}.json"
           animationView.setAnimation(name)
         }
@@ -368,8 +289,6 @@ class HybridLottieView(
         is SourceKind.DotLottie -> applyDotLottie(source.v)
       }
     } catch (t: Throwable) {
-      // v7 let FileNotFoundException propagate out of onAfterUpdateTransaction,
-      // crashing on the UI thread instead of reporting.
       if (generation == loadGeneration) emitFailure(t.message ?: t.toString())
     }
   }
@@ -394,7 +313,6 @@ class HybridLottieView(
         }
         val fileWithScheme = File(path)
         if (!fileWithScheme.exists()) {
-          // v7 had no exists() guard here, so FileInputStream threw synchronously.
           emitFailure("The .lottie file does not exist: $path")
           return
         }
@@ -408,31 +326,16 @@ class HybridLottieView(
       return
     }
 
-    // Bundled raw resource — the release-mode counterpart of the metro URL path.
     val resourceId = animationView.resources.getIdentifier(
       assetName, "raw", context.packageName,
     )
     if (resourceId == 0) {
-      // v7 only logged via RNLog.e AND left the field set, so every later commit
-      // early-returned and no prop ever applied again for that view.
       emitFailure("Animation for $assetName was not found in raw resources")
       return
     }
     animationView.setAnimation(resourceId)
   }
 
-  // MARK: Props needing a composition
-
-  /**
-   * Invoked from two places: the composition-loaded listener, and the tail of
-   * [afterUpdate] when the source did not change. That convergence is what lets
-   * the sync and async source paths share one code path.
-   *
-   * Everything here is gated on an actual composition rather than relying on
-   * lottie's `lazyCompositionTasks`: `clearComposition()` does not clear that
-   * queue, so an op queued in one commit can replay onto a different source
-   * loaded two commits later.
-   */
   private fun applyCompositionDependent() {
     if (animationView.composition == null) return
     withFinishSuppressed {
@@ -459,10 +362,6 @@ class HybridLottieView(
     val next = (progress ?: 0.0).toFloat()
     val progressChanged = next != appliedProgress
 
-    // Seek first, then resume. resumeAnimation() continues from the current frame
-    // whereas playAnimation() resets it, so this is what makes progress survive
-    // playback start — v7 applied progress first and then called playAnimation(),
-    // which reset it.
     if (progressChanged) {
       animationView.progress = next
       appliedProgress = next
@@ -474,21 +373,13 @@ class HybridLottieView(
         sourceJustChanged ||
         !animationView.isAnimating
       if (shouldStart) {
-        // resumeAnimation() does not notifyStart, so the latch must be reset here
-        // as well as in onAnimationStart.
         finishEmittedForRun = false
         animationView.resumeAnimation()
       }
     }
-    // autoPlay true -> false is a no-op, matching v7 on both platforms.
     appliedAutoPlay = wantsPlay
   }
 
-  /**
-   * Reconciles rather than accumulates. v7 only ever added value callbacks and
-   * never nulled the field, so callbacks piled up on every commit and a keypath
-   * removed from the array kept its tint for the view's lifetime.
-   */
   private fun reconcileColorFilters() {
     val next = (colorFilters ?: emptyArray()).map {
       ColorFilterSnapshot(it.keypath, it.color.toRawBits())
@@ -499,17 +390,11 @@ class HybridLottieView(
     for (filter in next) {
       val color = colorFromARGB(Double.fromBits(filter.colorBits))
       if (color == null) {
-        // v7 filled Color.TRANSPARENT silently, or broke out of the whole loop.
-        // The string that failed is not available here — JS resolved it and
-        // already logged it in __DEV__; see `processColorFilters`.
         emitFailure(
           "Unresolvable colorFilters color for keypath \"${filter.keypath}\""
         )
         continue
       }
-      // v7's Android keypath shape, verbatim: append the descendant glob, then
-      // split on literal dots. iOS uses a different shape and deliberately stays
-      // different — see TODO.md.
       val keys = "${filter.keypath}.**"
         .split(Pattern.quote(".").toRegex())
         .dropLastWhile { it.isEmpty() }
@@ -532,30 +417,11 @@ class HybridLottieView(
     appliedColorFilters = next
   }
 
-  /**
-   * Unpacks a `processColor` result into an Android ARGB colour int.
-   *
-   * Returns null for the `NaN` sentinel the JS wrapper sends when it could not
-   * resolve the colour. The range check rejects NaN for free — every comparison
-   * against NaN is false — and also guards the conversion, since `Double.toInt()`
-   * silently saturates rather than failing.
-   *
-   * Going via `Long` normalises both sign conventions: `processColor` yields a
-   * signed int32 on Android and an unsigned one on iOS, and truncating to 32
-   * bits produces the same pattern either way.
-   */
   private fun colorFromARGB(value: Double): Int? {
     if (value < -2_147_483_648.0 || value > 4_294_967_295.0) return null
     return value.toLong().toInt()
   }
 
-  // MARK: Events
-
-  /**
-   * Single emit per run. lottie-android's `LottieValueAnimator.notifyCancel()`
-   * unconditionally calls `notifyEnd()` after `super.notifyCancel()`, so a cancel
-   * is always followed by an end — v7 emitted both.
-   */
   private fun emitFinish(cancelled: Boolean) {
     if (suppressFinishDepth > 0) return
     if (finishEmittedForRun) return
@@ -576,10 +442,7 @@ class HybridLottieView(
     }
   }
 
-  // MARK: Imperative commands (not implemented yet)
-
   override fun play(startFrame: Double, endFrame: Double) {
-    // Lands with the ref in a later change.
   }
 
   override fun reset() {}
@@ -587,7 +450,6 @@ class HybridLottieView(
   override fun resume() {}
 
   private companion object {
-    /** Matches `ReactFontManager`'s "unset" sentinel, as v7 used. */
     const val UNSET = -1
   }
 }

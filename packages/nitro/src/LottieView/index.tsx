@@ -14,31 +14,8 @@ import {
 
 type Props = LottieViewProps & { containerStyle?: StyleProp<ViewStyle> };
 
-/**
- * Sentinel for a colour JS could not resolve. See `LottieColorFilter` in
- * `../LottieView.nitro`: native reports it through `onAnimationFailure` and
- * skips the entry, rather than tinting the layer with something arbitrary.
- */
 const UNRESOLVED_COLOR = Number.NaN;
 
-/**
- * Resolves `colorFilters[].color` with React Native's own `processColor`, which
- * is the same helper v7 used and the only colour-string parser RN ships.
- *
- * Doing this in JS rather than natively is deliberate: it is one implementation
- * instead of two, so the accepted grammar cannot drift between iOS and Android.
- * Whatever `processColor` takes is what this takes — currently hex 3/4/6/8,
- * `rgb()`, `rgba()`, `hsl()`, `hsla()`, `hwb()` and the CSS colour names.
- *
- * Note it does *not* accept percentage channels (`rgb(50%, 0%, 0%)`), which the
- * hand-written parsers this replaced did. That matches v7, which called
- * `processColor` too, so it is a regression only against code that never
- * shipped. See TODO.md.
- *
- * `processColor` returns `undefined`/`null` for an unparseable string and an
- * opaque object for `PlatformColor`; neither can cross as a number, so both
- * collapse to [UNRESOLVED_COLOR].
- */
 function processColorFilters(
   filters: LottieViewProps['colorFilters'],
 ): LottieColorFilter[] {
@@ -59,10 +36,6 @@ function processColorFilters(
 }
 
 const defaultProps: Props = {
-  // v7 sets `source` to `undefined` even though the prop is required, and that
-  // is load-bearing: it is what makes `source` optional at the JSX call site
-  // while `render()` warns and returns null. Kept verbatim. The cast exists
-  // only because this package type-checks with `strict: true`.
   source: undefined as unknown as Props['source'],
   progress: 0,
   speed: 1,
@@ -79,21 +52,9 @@ const defaultProps: Props = {
   textFiltersIOS: [],
 };
 
-/**
- * Presents lottie-react-native v7's public API on top of the Nitro view.
- *
- * Kept as a class component deliberately. It preserves two documented v7
- * patterns that a function component would break:
- * `Animated.createAnimatedComponent(LottieView)` driving `progress`, and the
- * ref being the component instance so `useRef<LottieView>()` works and `play`
- * can be destructured off it.
- */
 export class LottieView extends React.PureComponent<Props, {}> {
   static defaultProps = defaultProps;
 
-  /**
-   * The Nitro HybridObject behind the view, populated by [captureRef].
-   */
   private nativeRef: LottieViewRef | undefined;
 
   constructor(props: Props) {
@@ -108,17 +69,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
     }
   }
 
-  /**
-   * Each callback is wrapped with `callback(...)` exactly once, in a field, so
-   * the `{ f }` object identity is stable for the component's lifetime. Nitro
-   * diffs props with `!==` and re-invokes the native setter whenever identity
-   * changes, so wrapping inside `render()` would re-fire every setter — and
-   * re-invoke `hybridRef` — on every render.
-   *
-   * Native calls `hybridRef` after the props of the same transaction have been
-   * applied, which is why `autoPlay` can call `play()` straight from here,
-   * exactly as v7's `captureRef` did.
-   */
   private readonly captureRef = callback((ref: LottieViewRef) => {
     this.nativeRef = ref;
     if (this.props.autoPlay === true) {
@@ -139,8 +89,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
   });
 
   play(startFrame?: number, endFrame?: number): void {
-    // `?? -1` rather than `|| -1`, so an explicit frame 0 survives. `-1` is the
-    // sentinel native reads as "no explicit frame".
     this.nativeRef?.play(startFrame ?? -1, endFrame ?? -1);
   }
 
@@ -175,10 +123,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
 
     const sources = parsePossibleSources(source);
 
-    // Carried over from v7 verbatim, bug included: Math.round quantises the
-    // speed to an integer, so a duration that is not an exact divisor of the
-    // natural length is wrong, and anything over twice the natural length
-    // rounds to 0 and freezes. See TODO.md.
     const speed =
       duration && sources!.sourceJson && (source as any).fr
         ? Math.round(
@@ -190,13 +134,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
       <NativeLottieView
         hybridRef={this.captureRef}
         {...rest}
-        // Every optional prop is always passed, never conditionally. When a
-        // prop goes from set to unset React Native sends native a JS `null`,
-        // but Nitro's std::optional converter only accepts `undefined` — `null`
-        // falls through to asString() and throws inside the C++ props parse.
-        // `parsePossibleSources` returns exactly one source key, so spreading
-        // it would crash the moment the source kind changed (e.g. a local name
-        // swapped for a remote URI). Empty string means "absent" to native.
         sourceName={sources?.sourceName ?? ''}
         sourceJson={sources?.sourceJson ?? ''}
         sourceURL={sources?.sourceURL ?? ''}
@@ -204,10 +141,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
         renderMode={renderMode ?? 'AUTOMATIC'}
         imageAssetsFolder={imageAssetsFolder ?? ''}
         hardwareAccelerationAndroid={hardwareAccelerationAndroid ?? false}
-        // Mapped every render, which is fine and not a regression: native
-        // diffs `colorFilters` by value precisely because Nitro's reference
-        // identity check already reports an inline array as changed on every
-        // commit. See TODO.md.
         colorFilters={processColorFilters(colorFilters)}
         textFiltersAndroid={textFiltersAndroid}
         textFiltersIOS={textFiltersIOS}
