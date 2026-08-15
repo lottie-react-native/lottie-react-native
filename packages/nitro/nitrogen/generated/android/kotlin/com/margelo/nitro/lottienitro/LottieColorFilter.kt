@@ -23,7 +23,7 @@ data class LottieColorFilter(
   val keypath: String,
   @DoNotStrip
   @Keep
-  val color: String
+  val color: Double
 ) {
   /* primary constructor */
 
@@ -49,7 +49,7 @@ data class LottieColorFilter(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(keypath: String, color: String): LottieColorFilter {
+    private fun fromCpp(keypath: String, color: Double): LottieColorFilter {
       return LottieColorFilter(keypath, color)
     }
   }

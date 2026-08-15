@@ -38,12 +38,21 @@ Fix them as a documented breaking change, not quietly.
 
 ## v8-only divergences
 
-7. **`colorFilters[].color` crosses as a plain string.**
-   v7 ran `processColor` in JS and sent a `ProcessedColorValue`. Nitro cannot
-   express that type, so the string crosses unparsed and each platform parses it
-   natively. This **drops support for `PlatformColor` / `OpaqueColorValue`**,
-   which v7 accepted. Restore it by adding an optional pre-processed int
-   alongside the string if it turns out to matter.
+7. **`colorFilters[].color` crosses as a packed ARGB number.**
+   Resolved by RN's `processColor` in the JS wrapper, exactly as v7 did, so the
+   accepted grammar is RN's and cannot drift between platforms. v7's full
+   `ProcessedColorValue` (`number | NativeColorValue`) is still not expressible
+   in Nitro, so this **drops support for `PlatformColor` / `OpaqueColorValue`**,
+   which v7 accepted; those resolve to an opaque object and are reported as
+   unresolvable. Restore by adding a parallel prop for the object form if it
+   turns out to matter.
+
+   `NaN` is the "JS could not resolve this" sentinel. Both platforms hold the
+   applied colour as a raw bit pattern rather than a `Double` so the sentinel
+   compares equal to itself — under IEEE equality `NaN != NaN`, which would make
+   an unresolvable entry read as changed on every commit and re-emit its failure
+   forever. On iOS that is required; on Android Kotlin's data-class total
+   ordering would have covered it, but both sides match deliberately.
 
 8. **Empty string means "absent" for the source props.**
    `src/LottieView/index.tsx` always passes all four `source*` props plus
@@ -149,13 +158,18 @@ Behavioural fixes:
 27. **`onDropView` tears down.** v7 implemented no cleanup on either platform.
     In-flight loads invalidated, listeners detached, value callbacks cleared,
     animation stopped.
-28. **Colour strings are parsed by a shared grammar** implemented identically on
-    both platforms (`LottieColorParser.swift` / `.kt`): `#RGB`, `#RGBA`,
-    `#RRGGBB`, `#RRGGBBAA`, `rgb()`, `rgba()`, CSS Level 1 names. Deliberately
-    *not* `Color.parseColor` on Android, which supports hex and names but not
-    `rgb()`/`rgba()` and would have diverged from iOS. Still narrower than v7,
-    which ran RN's `processColor` in JS and so accepted `hsl()` and everything
-    else RN supports.
+28. **A colour that cannot be resolved is reported, not silently applied.**
+    v7 filled `Color.TRANSPARENT` and `break`ed out of the whole loop; this
+    reports the keypath through `onAnimationFailure` and continues with the
+    remaining entries. The colour grammar itself is RN's `processColor`, so it
+    matches v7 exactly — hex 3/4/6/8, `rgb()`, `rgba()`, `hsl()`, `hsla()`,
+    `hwb()` and the CSS colour names — and there is no native parser to diverge.
+
+    One narrow note for anyone reading the diff: the hand-written parsers this
+    replaced accepted percentage channels (`rgb(50%, 0%, 0%)`), and
+    `processColor` does not. Since v7 called `processColor` too, that is a
+    regression only against v8 code that never shipped, and the trade buys
+    `hsl()`, `hwb()` and ~130 more colour names.
 29. **`autoPlay: true → false` is a no-op**, matching v7 on both platforms.
     Stopping requires the imperative `pause()`.
 30. **The scheme-less bundle-relative URL fallback applies to
@@ -166,33 +180,23 @@ Still deliberately absent: the imperative commands (`play`/`reset`/`pause`/
 `resume`) are no-ops pending the ref work, so `example-v8`'s playback buttons are
 wired but inert.
 
-## Untested: the colour parsers
+## Colour handling has no tests, and no longer needs many
 
-`LottieColorParser.swift` and `LottieColorParser.kt` have **no automated tests**.
-Deliberate, not an oversight — recorded here so it can be revisited.
+There is no test infrastructure here, and Nitro Modules provides no native
+testing story: as of 0.36.5 the entire suite across `react-native-nitro-modules`
+and `react-native-nitro-test` is `it.todo('write a test')` — no XCTest, no JUnit,
+no `androidTest`.
 
-Nitro Modules provides no native testing story: as of 0.36.5 the entire test
-suite in its own repository, across `react-native-nitro-modules` and
-`react-native-nitro-test`, is `it.todo('write a test')`. There is no XCTest, no
-JUnit, no `androidTest`. This repository has no test infrastructure either.
+This used to matter a great deal, because two hand-written parsers
+(`LottieColorParser.swift` / `.kt`) had to accept an identical grammar with
+nothing enforcing it. That divergence risk is gone: RN's `processColor` is now
+the only implementation, and it is RN's to test.
 
-The parsers do not actually depend on any of that — they are plain Swift and
-plain Kotlin — but testing them needs work neither platform gives for free:
+What remains untested is the unpacking on each side — roughly five lines per
+platform, plus the `NaN` sentinel path. Worth covering whenever test
+infrastructure arrives, in particular that:
 
-- **Android**: `android.graphics.Color.argb` is stubbed in plain JUnit and
-  throws. Needs either Robolectric, or hand-packing the int
-  (`(a shl 24) or (r shl 16) or (g shl 8) or b`) so the parser becomes pure
-  Kotlin.
-- **iOS**: returning `UIColor` ties it to UIKit, and there is no test target —
-  `react-native-test-app` generates the Xcode project and overwrites it on every
-  `pod install`. Would need the parser to return neutral RGBA components
-  (arguably better anyway, since Lottie wants `LottieColor(r:g:b:a:)` and the
-  `UIColor` round-trip is incidental) plus a small SwiftPM package for
-  `swift test`.
-
-**The risk this leaves open** is the one worth remembering: the two parsers are
-hand-written to accept an identical set, and nothing enforces that. A shared
-fixture table asserted on both sides is what would catch divergence. Until then,
-only the hex path is exercised in practice — `example/App.tsx` uses `#1652f0` and
-`#64E9FF`, so `rgb()`, `rgba()`, percentages and the named colours are unverified
-on either platform.
+- Android's signed int32 and iOS's unsigned int32 land on the same colour.
+- An unresolvable colour emits `onAnimationFailure` exactly **once**, not on
+  every commit — the bit-pattern diffing above is what makes that true, and it
+  is the kind of thing that silently regresses.

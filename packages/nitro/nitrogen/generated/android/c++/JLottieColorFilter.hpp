@@ -33,11 +33,11 @@ namespace margelo::nitro::lottienitro {
       static const auto clazz = javaClassStatic();
       static const auto fieldKeypath = clazz->getField<jni::JString>("keypath");
       jni::local_ref<jni::JString> keypath = this->getFieldValue(fieldKeypath);
-      static const auto fieldColor = clazz->getField<jni::JString>("color");
-      jni::local_ref<jni::JString> color = this->getFieldValue(fieldColor);
+      static const auto fieldColor = clazz->getField<double>("color");
+      double color = this->getFieldValue(fieldColor);
       return LottieColorFilter(
         keypath->toStdString(),
-        color->toStdString()
+        color
       );
     }
 
@@ -47,13 +47,13 @@ namespace margelo::nitro::lottienitro {
      */
     [[maybe_unused]]
     static jni::local_ref<JLottieColorFilter::javaobject> fromCpp(const LottieColorFilter& value) {
-      using JSignature = JLottieColorFilter(jni::alias_ref<jni::JString>, jni::alias_ref<jni::JString>);
+      using JSignature = JLottieColorFilter(jni::alias_ref<jni::JString>, double);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
         clazz,
         jni::make_jstring(value.keypath),
-        jni::make_jstring(value.color)
+        value.color
       );
     }
   };

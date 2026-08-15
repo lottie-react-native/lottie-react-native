@@ -23,10 +23,24 @@ export type RenderMode = 'AUTOMATIC' | 'HARDWARE' | 'SOFTWARE';
 /**
  * One layer whose color is overridden.
  *
- * `color` crosses as a plain string in any format the platform understands
- * (`#FF0000`, `red`, `rgba(...)`). Unlike v7 it is deliberately NOT run through
- * `processColor` in JS — each platform parses it natively. See TODO.md: this
- * drops support for `PlatformColor`/`OpaqueColorValue`.
+ * `color` crosses as a packed 32-bit ARGB integer, already resolved by React
+ * Native's `processColor` in the JS wrapper — exactly as v7 did. Nothing parses
+ * colour strings natively, which is the point: `processColor` is the only
+ * implementation, so the accepted grammar cannot drift between platforms.
+ *
+ * The sign convention differs by platform (`processColor` masks with `| 0x0` on
+ * Android, giving a signed int32; iOS leaves it unsigned), so both sides
+ * normalise through a 64-bit truncation to the same 32-bit pattern rather than
+ * trusting the sign.
+ *
+ * `NaN` is the sentinel for "JS could not resolve this colour" — see the wrapper
+ * in `src/LottieView/index.tsx`. Native reports it through `onAnimationFailure`
+ * and skips that entry. It cannot be `undefined`: Nitro's `std::optional`
+ * converter rejects a JS `null`, and an absent number would be indistinguishable
+ * from a deliberate transparent black.
+ *
+ * `PlatformColor`/`OpaqueColorValue` remain unsupported — `processColor` returns
+ * an opaque object for those and Nitro cannot express the union. See TODO.md.
  *
  * Named `LottieColorFilter` rather than `ColorFilter` because the generated
  * Kotlin data class lands in the same package as `HybridLottieView.kt`, where
@@ -36,7 +50,7 @@ export type RenderMode = 'AUTOMATIC' | 'HARDWARE' | 'SOFTWARE';
  */
 export interface LottieColorFilter {
   keypath: string;
-  color: string;
+  color: number;
 }
 
 /**

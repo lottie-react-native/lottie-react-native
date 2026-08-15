@@ -62,7 +62,19 @@ class HybridLottieView: HybridLottieViewSpec {
   /// inline `colorFilters={[...]}` arrives "changed" on every single commit.
   private struct ColorFilterSnapshot: Hashable {
     let keypath: String
-    let color: String
+
+    /// Held as the raw bit pattern, not as a `Double`, so the `NaN` sentinel
+    /// compares equal to itself. Swift's `Double` equality is IEEE, where
+    /// `NaN != NaN`, which would make an unresolvable colour read as "changed"
+    /// on every commit and re-emit its failure forever.
+    let colorBits: UInt64
+
+    var color: Double { Double(bitPattern: colorBits) }
+
+    init(keypath: String, color: Double) {
+      self.keypath = keypath
+      self.colorBits = color.bitPattern
+    }
   }
 
   private enum SourceKind: Equatable {
@@ -367,10 +379,12 @@ class HybridLottieView: HybridLottieViewSpec {
 
     var desired: [AnimationKeypath: UIColor] = [:]
     for filter in next {
-      guard let color = LottieColorParser.parse(filter.color) else {
+      guard let color = Self.colorFromARGB(filter.color) else {
         // v7 filled transparent silently, and `break`ed out of the whole loop.
+        // The string that failed is not available here — JS resolved it and
+        // already logged it in __DEV__; see `processColorFilters`.
         emitFailure(
-          "Unparseable colorFilters color \"\(filter.color)\" for keypath \"\(filter.keypath)\""
+          "Unresolvable colorFilters color for keypath \"\(filter.keypath)\""
         )
         continue
       }
@@ -387,6 +401,28 @@ class HybridLottieView: HybridLottieViewSpec {
     }
     installedColorKeypaths = Set(desired.keys)
     appliedColorFilters = next
+  }
+
+  /// Unpacks a `processColor` result into a `UIColor`.
+  ///
+  /// Returns nil for the `NaN` sentinel the JS wrapper sends when it could not
+  /// resolve the colour. The range guard is load-bearing beyond that:
+  /// `Int64(_: Double)` traps on NaN *and* on any finite value outside Int64,
+  /// so it must never see an unchecked value. Bounding to the int32/uint32
+  /// union is the tightest range `processColor` can legitimately produce.
+  ///
+  /// The truncation to `UInt32` normalises both sign conventions —
+  /// `processColor` yields a signed int32 on Android and an unsigned one on iOS,
+  /// and the same 32-bit pattern falls out either way.
+  private static func colorFromARGB(_ value: Double) -> UIColor? {
+    guard value >= -2_147_483_648, value <= 4_294_967_295 else { return nil }
+    let argb = UInt32(truncatingIfNeeded: Int64(value))
+    return UIColor(
+      red: CGFloat((argb >> 16) & 0xFF) / 255,
+      green: CGFloat((argb >> 8) & 0xFF) / 255,
+      blue: CGFloat(argb & 0xFF) / 255,
+      alpha: CGFloat((argb >> 24) & 0xFF) / 255
+    )
   }
 
   // MARK: - Events

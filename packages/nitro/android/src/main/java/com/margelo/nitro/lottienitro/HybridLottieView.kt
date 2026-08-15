@@ -99,6 +99,19 @@ class HybridLottieView(
     data class DotLottie(val v: String) : SourceKind
   }
 
+  /**
+   * Snapshot of one applied colour filter.
+   *
+   * Holds the colour as its raw bit pattern rather than the `Double` that
+   * crossed, so the `NaN` sentinel compares equal to itself and an unresolvable
+   * colour does not read as "changed" on every commit and re-emit its failure
+   * forever. Kotlin does define total-order equality for `Double` properties of
+   * a data class, which would make a plain `Double` work here, but that is a
+   * subtle rule to rest a repeating callback on and it does not match the iOS
+   * side, where `Double` equality is IEEE and would genuinely break.
+   */
+  private data class ColorFilterSnapshot(val keypath: String, val colorBits: Long)
+
   private var appliedDidApplyOnce = false
   private var appliedSource: SourceKind? = null
   private var appliedRenderMode: LottieRenderMode? = null
@@ -114,7 +127,7 @@ class HybridLottieView(
   private var appliedApplyOpacityToLayers: Boolean? = null
   private var appliedEnableSafeMode: Boolean? = null
   private var appliedTextFilters: List<TextFilterAndroid> = emptyList()
-  private var appliedColorFilters: List<LottieColorFilter> = emptyList()
+  private var appliedColorFilters: List<ColorFilterSnapshot> = emptyList()
   private var installedColorKeyPaths: List<KeyPath> = emptyList()
 
   /** Bumped on every source change, before the load starts. */
@@ -477,16 +490,20 @@ class HybridLottieView(
    * removed from the array kept its tint for the view's lifetime.
    */
   private fun reconcileColorFilters() {
-    val next = colorFilters?.toList() ?: emptyList()
+    val next = (colorFilters ?: emptyArray()).map {
+      ColorFilterSnapshot(it.keypath, it.color.toRawBits())
+    }
     if (next == appliedColorFilters && !sourceJustChanged && appliedDidApplyOnce) return
 
     val desired = mutableListOf<Pair<KeyPath, Int>>()
     for (filter in next) {
-      val color = LottieColorParser.parse(filter.color)
+      val color = colorFromARGB(Double.fromBits(filter.colorBits))
       if (color == null) {
         // v7 filled Color.TRANSPARENT silently, or broke out of the whole loop.
+        // The string that failed is not available here — JS resolved it and
+        // already logged it in __DEV__; see `processColorFilters`.
         emitFailure(
-          "Unparseable colorFilters color \"${filter.color}\" for keypath \"${filter.keypath}\""
+          "Unresolvable colorFilters color for keypath \"${filter.keypath}\""
         )
         continue
       }
@@ -513,6 +530,23 @@ class HybridLottieView(
     }
     installedColorKeyPaths = desiredKeyPaths
     appliedColorFilters = next
+  }
+
+  /**
+   * Unpacks a `processColor` result into an Android ARGB colour int.
+   *
+   * Returns null for the `NaN` sentinel the JS wrapper sends when it could not
+   * resolve the colour. The range check rejects NaN for free — every comparison
+   * against NaN is false — and also guards the conversion, since `Double.toInt()`
+   * silently saturates rather than failing.
+   *
+   * Going via `Long` normalises both sign conventions: `processColor` yields a
+   * signed int32 on Android and an unsigned one on iOS, and truncating to 32
+   * bits produces the same pattern either way.
+   */
+  private fun colorFromARGB(value: Double): Int? {
+    if (value < -2_147_483_648.0 || value > 4_294_967_295.0) return null
+    return value.toLong().toInt()
   }
 
   // MARK: Events

@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { processColor, StyleProp, View, ViewStyle } from 'react-native';
 import { callback } from 'react-native-nitro-modules';
 
 import { parsePossibleSources } from './utils';
 
 import type { LottieViewProps } from '../types';
+import type { LottieColorFilter } from '../LottieView.nitro';
 
 import {
   LottieView as NativeLottieView,
@@ -12,6 +13,50 @@ import {
 } from '../views/LottieView';
 
 type Props = LottieViewProps & { containerStyle?: StyleProp<ViewStyle> };
+
+/**
+ * Sentinel for a colour JS could not resolve. See `LottieColorFilter` in
+ * `../LottieView.nitro`: native reports it through `onAnimationFailure` and
+ * skips the entry, rather than tinting the layer with something arbitrary.
+ */
+const UNRESOLVED_COLOR = Number.NaN;
+
+/**
+ * Resolves `colorFilters[].color` with React Native's own `processColor`, which
+ * is the same helper v7 used and the only colour-string parser RN ships.
+ *
+ * Doing this in JS rather than natively is deliberate: it is one implementation
+ * instead of two, so the accepted grammar cannot drift between iOS and Android.
+ * Whatever `processColor` takes is what this takes — currently hex 3/4/6/8,
+ * `rgb()`, `rgba()`, `hsl()`, `hsla()`, `hwb()` and the CSS colour names.
+ *
+ * Note it does *not* accept percentage channels (`rgb(50%, 0%, 0%)`), which the
+ * hand-written parsers this replaced did. That matches v7, which called
+ * `processColor` too, so it is a regression only against code that never
+ * shipped. See TODO.md.
+ *
+ * `processColor` returns `undefined`/`null` for an unparseable string and an
+ * opaque object for `PlatformColor`; neither can cross as a number, so both
+ * collapse to [UNRESOLVED_COLOR].
+ */
+function processColorFilters(
+  filters: LottieViewProps['colorFilters'],
+): LottieColorFilter[] {
+  return (filters ?? []).map(({ keypath, color }) => {
+    const processed = processColor(color);
+    if (typeof processed !== 'number') {
+      if (__DEV__) {
+        console.warn(
+          `lottie-react-native: could not resolve colorFilters color ${JSON.stringify(
+            color,
+          )} for keypath "${keypath}". PlatformColor is not supported.`,
+        );
+      }
+      return { keypath, color: UNRESOLVED_COLOR };
+    }
+    return { keypath, color: processed };
+  });
+}
 
 const defaultProps: Props = {
   // v7 sets `source` to `undefined` even though the prop is required, and that
@@ -117,6 +162,7 @@ export class LottieView extends React.PureComponent<Props, {}> {
       source,
       autoPlay,
       duration,
+      colorFilters,
       textFiltersAndroid,
       textFiltersIOS,
       resizeMode,
@@ -158,6 +204,11 @@ export class LottieView extends React.PureComponent<Props, {}> {
         renderMode={renderMode ?? 'AUTOMATIC'}
         imageAssetsFolder={imageAssetsFolder ?? ''}
         hardwareAccelerationAndroid={hardwareAccelerationAndroid ?? false}
+        // Mapped every render, which is fine and not a regression: native
+        // diffs `colorFilters` by value precisely because Nitro's reference
+        // identity check already reports an inline array as changed on every
+        // commit. See TODO.md.
+        colorFilters={processColorFilters(colorFilters)}
         textFiltersAndroid={textFiltersAndroid}
         textFiltersIOS={textFiltersIOS}
         speed={speed}

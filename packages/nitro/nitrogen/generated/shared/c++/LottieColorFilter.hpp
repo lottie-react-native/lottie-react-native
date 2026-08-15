@@ -40,11 +40,11 @@ namespace margelo::nitro::lottienitro {
   struct LottieColorFilter final {
   public:
     std::string keypath     SWIFT_PRIVATE;
-    std::string color     SWIFT_PRIVATE;
+    double color     SWIFT_PRIVATE;
 
   public:
     LottieColorFilter() = default;
-    explicit LottieColorFilter(std::string keypath, std::string color): keypath(keypath), color(color) {}
+    explicit LottieColorFilter(std::string keypath, double color): keypath(keypath), color(color) {}
 
   public:
     friend bool operator==(const LottieColorFilter& lhs, const LottieColorFilter& rhs) = default;
@@ -61,13 +61,13 @@ namespace margelo::nitro {
       jsi::Object obj = arg.asObject(runtime);
       return margelo::nitro::lottienitro::LottieColorFilter(
         JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "keypath"))),
-        JSIConverter<std::string>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "color")))
+        JSIConverter<double>::fromJSI(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "color")))
       );
     }
     static inline jsi::Value toJSI(jsi::Runtime& runtime, const margelo::nitro::lottienitro::LottieColorFilter& arg) {
       jsi::Object obj(runtime);
       obj.setProperty(runtime, PropNameIDCache::get(runtime, "keypath"), JSIConverter<std::string>::toJSI(runtime, arg.keypath));
-      obj.setProperty(runtime, PropNameIDCache::get(runtime, "color"), JSIConverter<std::string>::toJSI(runtime, arg.color));
+      obj.setProperty(runtime, PropNameIDCache::get(runtime, "color"), JSIConverter<double>::toJSI(runtime, arg.color));
       return obj;
     }
     static inline bool canConvert(jsi::Runtime& runtime, const jsi::Value& value) {
@@ -79,7 +79,7 @@ namespace margelo::nitro {
         return false;
       }
       if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "keypath")))) return false;
-      if (!JSIConverter<std::string>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "color")))) return false;
+      if (!JSIConverter<double>::canConvert(runtime, obj.getProperty(runtime, PropNameIDCache::get(runtime, "color")))) return false;
       return true;
     }
   };
