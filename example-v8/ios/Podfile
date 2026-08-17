@@ -6,8 +6,19 @@ require "#{ws_dir}/node_modules/react-native-test-app/test_app.rb"
 
 workspace 'LottieNitroExample.xcworkspace'
 
-# NOTE: unlike `example/ios/Podfile` there is no post_install hook raising
-# resource bundle deployment targets. That exists solely because `lottie-ios`
-# declares iOS 13.0 for its privacy resource bundle, and this app pulls no
-# `lottie-ios` yet. Add it back when lottie-ios enters LottieNitro.podspec.
-use_test_app!
+raise_resource_bundle_deployment_targets = lambda do |installer|
+  minimum = min_ios_version_supported
+  installer.target_installation_results.pod_target_installation_results
+           .each_value do |result|
+    result.resource_bundle_targets.each do |bundle_target|
+      bundle_target.build_configurations.each do |config|
+        current = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+        next if current && current.to_f >= minimum.to_f
+
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = minimum
+      end
+    end
+  end
+end
+
+use_test_app!(post_install: raise_resource_bundle_deployment_targets)

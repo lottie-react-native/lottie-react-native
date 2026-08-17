@@ -16,7 +16,3 @@ xcuserdata/
 node_modules/
 lib/
 *.tsbuildinfo
-
-# NOTE: nitrogen/generated/ is intentionally NOT ignored. The podspec, gradle
-# and CMake files all reference generated artifacts, so a fresh clone cannot
-# build without them committed.

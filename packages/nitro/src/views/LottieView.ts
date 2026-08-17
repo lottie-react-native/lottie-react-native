@@ -6,10 +6,6 @@ import type {
   NativeLottieViewProps,
 } from '../LottieView.nitro';
 
-/**
- * The raw Nitro host component. Internal — consumers get the wrapper in
- * `../LottieView`, which presents v7's public API.
- */
 export const LottieView = getHostComponent<
   NativeLottieViewProps,
   NativeLottieViewMethods

@@ -1,8 +1,6 @@
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
-    // The base config sets `"types": ["jest"]`. This app has no jest, so tsc
-    // would fail with TS2688 without overriding it.
     "types": []
   }
 }

@@ -18,8 +18,8 @@ public extension LottieColorFilter {
   /**
    * Create a new instance of `LottieColorFilter`.
    */
-  init(keypath: String, color: String) {
-    self.init(std.string(keypath), std.string(color))
+  init(keypath: String, color: Double) {
+    self.init(std.string(keypath), color)
   }
 
   @inline(__always)
@@ -28,7 +28,7 @@ public extension LottieColorFilter {
   }
   
   @inline(__always)
-  var color: String {
-    return String(self.__color)
+  var color: Double {
+    return self.__color
   }
 }

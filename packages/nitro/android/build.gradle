@@ -1,15 +1,3 @@
-// NOTE: deliberately no `buildscript { classpath "com.android.tools.build:gradle" }`
-// block. Both AGP and the Kotlin plugin are already on the root project's
-// classpath (react-native-test-app's `getReactNativeDependencies()` provides
-// them), and Gradle's parent-first classloader delegation means a local pin
-// would be ignored at best and conflict at worst.
-//
-// Also deliberately absent: `libraryName` and `apply plugin: "com.facebook.react"`.
-// This module uses zero React Native codegen — it uses nitrogen. React Native's
-// autolinker emits `add_subdirectory(<lib>/android/build/generated/source/codegen/jni)`
-// for any dependency that declares a `libraryName`, which would point CMake at a
-// directory that is never generated.
-
 def reactNativeArchitectures() {
     def value = rootProject.getProperties().get("reactNativeArchitectures")
     return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
@@ -47,9 +35,6 @@ if (!isBuiltInKotlinEnabled()) {
     apply plugin: "org.jetbrains.kotlin.android"
 }
 
-// Adds nitrogen/generated/android/kotlin to java.srcDirs. Without this the
-// generated HybridLottieViewSpec, HybridLottieViewManager and LottieNitroOnLoad
-// do not exist.
 apply from: "../nitrogen/generated/android/LottieNitro+autolinking.gradle"
 
 android {
@@ -83,8 +68,6 @@ android {
 
     buildFeatures {
         buildConfig true
-        // The nitrogen-generated CMake does find_package(fbjni / ReactAndroid /
-        // react-native-nitro-modules REQUIRED).
         prefab true
     }
 
@@ -129,7 +112,6 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"
-    // Provides the NitroModules prefab and com.margelo.nitro.R.id.associated_hybrid_view_tag,
-    // which the generated view manager imports.
+    implementation "com.airbnb.android:lottie:6.7.1"
     implementation project(":react-native-nitro-modules")
 }
