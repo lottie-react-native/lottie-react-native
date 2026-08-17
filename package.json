@@ -16,6 +16,7 @@
     "run:bundler": "yarn workspace example start",
     "run:web": "yarn workspace example web",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
+    "lint:spm-parity": "yarn workspace lottie-react-native lint:spm-parity",
     "tsc": "yarn workspace example tsc",
     "nitro:codegen": "yarn workspace lottie-react-native-nitro nitrogen",
     "nitro:tsc:lib": "yarn workspace lottie-react-native-nitro typecheck",

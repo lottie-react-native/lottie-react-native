@@ -44,6 +44,9 @@ jobs:
       - name: SwiftLint
         run: yarn lint:swift
 
+      - name: Check Package.swift matches the podspec
+        run: yarn lint:spm-parity
+
       # --- lottie-react-native-nitro (v8, not yet the default) ---
 
       - name: Compile TypeScript for Nitro Package
