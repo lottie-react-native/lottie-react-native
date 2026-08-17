@@ -27,7 +27,9 @@
   ],
   "scripts": {
     "nitrogen": "nitrogen --logLevel=\"debug\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint:swift": "swiftlint ios",
+    "lint-fix:swift": "swiftlint --fix ios"
   },
   "peerDependencies": {
     "@lottiefiles/dotlottie-react": "^0.13.5",

@@ -14,13 +14,13 @@ anchored to the file and symbol it governs. See the root `AGENTS.md` for the pol
 6. [Lifecycle](#6-lifecycle)
 7. [Source loading](#7-source-loading)
 8. [Composition-dependent props](#8-composition-dependent-props)
-9. [Playback and events](#9-playback-and-events)
+9. [Playback and events](#9-playback-and-events) · [Imperative commands](#9a-imperative-commands)
 10. [Colour handling](#10-colour-handling)
 11. [Text filters](#11-text-filters)
 12. [Android registration and JNI](#12-android-registration-and-jni)
 13. [v7 bugs replicated on purpose](#13-v7-bugs-replicated-on-purpose) (items 1–6)
 14. [v8-only divergences](#14-v8-only-divergences) (items 7–11)
-15. [Native divergences from v7](#15-native-divergences-from-v7) (items 12–30)
+15. [Native divergences from v7](#15-native-divergences-from-v7) (items 12–30) · [Commands](#15a-command-divergences-from-v7) (31–36) · [Unrecorded drops](#15b-unrecorded-drops-now-recorded) (37–38)
 16. [Testing status](#16-testing-status)
 17. [The example app](#17-the-example-app)
 18. [Comment carve-outs](#18-comment-carve-outs)
@@ -133,8 +133,13 @@ wrapped with `callback(...)` exactly once, in a field, so the `{ f }` object ide
 stable for the component's lifetime. Nitro diffs props with `!==` and re-invokes the
 native setter whenever identity changes, so wrapping inside `render()` would re-fire every
 setter — and re-invoke `hybridRef` — on every render. Native calls `hybridRef` after the
-props of the same transaction have been applied, which is why `autoPlay` can call `play()`
-straight from there, exactly as v7's `captureRef` did.
+props of the same transaction have been applied.
+
+**`captureRef` deliberately does not call `play()` for `autoPlay`, unlike v7's.** The native
+`autoPlay` prop is solely authoritative and already handles first mount, source changes and
+progress. v7 fired both as belt-and-braces, which was harmless there only because its JS
+call usually hit a nil animation; here it would genuinely double-start and discard the
+`progress` prop.
 
 **Every optional prop is always passed, never conditionally.** When a prop goes from set
 to unset React Native sends native a JS `null`, but Nitro's `std::optional` converter
@@ -327,6 +332,61 @@ item 18.
 
 **`autoPlay: true → false` is a no-op** on both platforms, matching v7. Stopping requires
 the imperative `pause()`. See item 29.
+
+---
+
+## 9a. Imperative commands
+
+`play` / `reset` / `pause` / `resume`, reached through the ref.
+
+**Every command hops to the main/UI thread itself.** v7's Fabric commands arrived already
+on the UI thread; Nitro methods are direct JSI calls on the JS thread, and every Lottie
+call must be on main. See item 10.
+
+**Deferral until the view is in a window.** A `play()` fired before the view is on screen
+would otherwise be dropped — v7 iOS silently did nothing, and v7 Android handled it for
+`play` only. Both platforms now defer and replay on attach.
+
+- **iOS — `WindowAttachObserver`.** UIKit has no closure-based attach callback, and
+  `LottieAnimationView` cannot be subclassed for one: `LottieAnimationViewBase` overrides
+  `didMoveToWindow` without marking it `open`, so an override outside the Lottie module
+  does not compile. The workaround is a zero-size, non-interactive child of the animation
+  view — when the animation view enters a window so does the child, and `didMoveToWindow`
+  fires there, where the override is permitted. The pending closure is held in
+  `pendingAttachPlay`.
+- **Android — `whenAttached`**, via an `OnAttachStateChangeListener`.
+
+**`play(startFrame, endFrame)` is all-or-nothing**, matching v7 on both platforms: a custom
+range needs both frames, and a single `-1` discards the other. A reversed range
+(`start > end`) is passed straight through for Lottie to derive direction from. v7 Android
+instead swapped the frames and called `reverseAnimationSpeed()`, which permanently flipped
+the view's speed field, so a later plain `play()` still ran backwards and fought the `speed`
+prop.
+
+**Android restores the composition's full range** when no custom range is given, but only if
+it actually differs. It then uses `playAnimation()`, which restarts at the new segment's
+start frame — what a range change wants; `resumeAnimation()` would continue in place.
+
+**`reset()`** emits `isCancelled: true` on both platforms, by different routes. iOS seeks
+then stops, in that order, as v7 did: the seek fires the pending completion. Android cancels
+then seeks, as v7 did: `cancelAnimation()` fires `onAnimationCancel`, and the
+`onAnimationEnd` that lottie-android always sends afterwards is swallowed by the latch in
+`emitFinish`.
+
+**`pause()` on Android is the one place an emit has to be explicit.** `pauseAnimation()`
+notifies neither cancel nor end, so nothing would fire. v7 Android emitted nothing here
+while v7 iOS and web both emitted `isCancelled: true`; the platforms converged on emitting.
+
+**`resume()` resumes in place**, preserving any range a prior `play(from:to:)` set rather
+than silently replaying the whole composition, which is what v7 iOS did. On Android,
+`resumeAnimation()` does not `notifyStart`, so the finish latch is reset here too —
+otherwise a preceding `pause()`, which set it, would swallow the natural finish.
+
+**None of the iOS commands are wrapped in `withFinishSuppressed`, deliberately.** `pause()`
+and `currentProgress = 0` both cause Lottie to invoke the stored completion with
+`finished: false`, which is exactly the `onAnimationFinish(isCancelled: true)` these should
+emit; suppressing would swallow it. If no play was ever in flight there is no completion and
+nothing emits, which is correct — there was no run to cancel.
 
 ---
 
@@ -569,8 +629,57 @@ modes.
     `sourceURL`.** v7 applied it only to the latter, so a bundle-relative `.lottie` path
     silently failed on iOS.
 
-Still deliberately absent: the imperative commands (`play`/`reset`/`pause`/`resume`) are
-no-ops pending the ref work, so `example-v8`'s playback buttons are wired but inert.
+---
+
+## 15a. Command divergences from v7
+
+The four imperative commands are implemented. Where v7's platforms disagreed with each
+other, they are converged. Section 9a covers the mechanics; these are the observable
+differences.
+
+31. **A reversed range (`play(10, 0)`) is passed through** for Lottie to derive direction
+    from, on both platforms — v7 iOS's behaviour. v7 Android instead swapped the frames and
+    called `reverseAnimationSpeed()`, which permanently flipped the view's `speed` field: a
+    later plain `play()` still ran backwards, and it fought the `speed` prop until that prop
+    next changed.
+32. **`pause()` and `reset()` both emit `onAnimationFinish(isCancelled: true)`** on both
+    platforms. v7 emitted on both from iOS, on `reset` only from Android (and twice), and on
+    `pause` from web. Android's `pause()` is the one place the emit is explicit, since
+    `pauseAnimation()` notifies neither cancel nor end.
+33. **`resume()` preserves a range set by a prior `play(from, to)`** — v7 Android's
+    behaviour. v7 iOS discarded it and silently replayed the whole composition, which made
+    `resume()` widen what was playing.
+34. **`play()` issued while the view is detached is deferred until it attaches**, on both
+    platforms. v7 did this for Android's `play` only, so on iOS the call was silently
+    dropped; and even on Android `reset`/`pause`/`resume` did nothing when detached rather
+    than deferring.
+35. **Commands marshal to the main/UI thread themselves.** Nitro delivers methods as direct
+    JSI calls on the JS thread, where v7's Fabric commands already arrived on the UI thread.
+    See item 10.
+36. **`autoPlay` is driven only by the native prop.** v7's JS `captureRef` also called
+    `play()` when `autoPlay` was true; that was harmless there because the call usually hit
+    a nil animation, but with commands implemented it would double-start and discard the
+    `progress` prop.
+
+---
+
+## 15b. Unrecorded drops, now recorded
+
+Found by audit rather than decided at the time. Documented so they are choices rather than
+accidents.
+
+37. **tvOS is dropped.** `LottieNitro.podspec` declares `:ios` only, where
+    `packages/core/lottie-react-native.podspec` declares ios, osx, tvos and visionos. macOS
+    and visionOS were dropped deliberately (Nitro Views are iOS + Android only, item 4 and
+    the scaffold's platform decision), but tvOS was never called out. It is the same
+    constraint — there is no Nitro View for tvOS — but v7 did support it, so this is a
+    platform regression for anyone on tvOS.
+38. **`onAnimationLoop` is a fourth orphan prop**, missing from item 4's list. It is in the
+    public `LottieViewProps`, absent from `LottieView.nitro.ts`, and absent from the
+    generated view config. Windows and web only in v7, so it already did nothing on
+    iOS/Android — same class as `useNativeLooping`, `webStyle`, `hover` and `direction`.
+    Note `defaultProps` also sets `useNativeLooping: false`, an orphan default that is never
+    read by anything.
 
 ---
 
@@ -694,6 +803,20 @@ library in 3.4 and is provided by `nkf`; CFPropertyList requires it, so CocoaPod
 even parse the Podfile with `cannot load such file -- kconv`. `xcodeproj` declares `nkf`
 itself from 1.26 onwards, but the pin above it holds this repo below that version.
 
+### `packages/nitro/ios/.swiftlint.yml`
+
+Starts from `packages/core/ios/.swiftlint.yml` and adds the deltas this package needs, kept
+as a separate file rather than shared — matching how core owns its own.
+
+`HybridLottieView.swift` is deliberately a single file: it is one coalesced
+apply-and-playback state machine, and splitting it across extensions would scatter the
+ordering rules that make it correct. The length and complexity thresholds are raised to fit
+it, rather than the file being carved up to satisfy the defaults.
+
+The `todo` rule is left enabled. It was disabled while the port's comments cross-referenced
+a divergence log by name; with the sources carrying no comments at all it cannot fire, and
+leaving it on enforces a corner of the comment policy for free.
+
 ### `example-v8/tsconfig.json`
 
 `compilerOptions.types` is set to `[]` because the base `@react-native/typescript-config`
@@ -732,8 +855,7 @@ the `NaN` sentinel path. Worth covering whenever test infrastructure arrives, in
 
 `example-v8/` exists to be run side by side with `example/` and compared. `App.tsx` is v7's
 example verbatim, and the **only** intentional difference is the import: it renders the Nitro
-implementation via `lottie-react-native-nitro`. The playback buttons are wired but inert
-until the imperative commands land.
+implementation via `lottie-react-native-nitro`.
 
 Keeping that file byte-comparable with `example/App.tsx` is the point, which is why it is
 exempt from the comment policy — see below.

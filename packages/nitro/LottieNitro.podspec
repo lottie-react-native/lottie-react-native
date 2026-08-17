@@ -22,6 +22,10 @@ Pod::Spec.new do |s|
     "ios/**/*.{m,mm}",
   ]
 
+  s.resource_bundles = {
+    'Lottie_React_Native_Nitro_Privacy' => ['ios/PrivacyInfo.xcprivacy'],
+  }
+
   load 'nitrogen/generated/ios/LottieNitro+autolinking.rb'
   add_nitrogen_files(s)
 

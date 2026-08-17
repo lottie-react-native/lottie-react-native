@@ -4,6 +4,8 @@ import android.animation.Animator
 import android.graphics.ColorFilter
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.Keep
@@ -91,6 +93,8 @@ class HybridLottieView(
   private var finishEmittedForRun = false
   private var sourceJustChanged = false
 
+  private var pendingAttachPlay: View.OnAttachStateChangeListener? = null
+
   private val animatorListener = object : Animator.AnimatorListener {
     override fun onAnimationStart(animation: Animator) {
       finishEmittedForRun = false
@@ -174,6 +178,8 @@ class HybridLottieView(
       animationView.clearValueCallback(it, LottieProperty.COLOR_FILTER)
     }
     installedColorKeyPaths = emptyList()
+    pendingAttachPlay?.let { animationView.removeOnAttachStateChangeListener(it) }
+    pendingAttachPlay = null
     animationView.setTextDelegate(null)
     animationView.cancelAnimation()
     animationView.clearAnimation()
@@ -443,11 +449,83 @@ class HybridLottieView(
   }
 
   override fun play(startFrame: Double, endFrame: Double) {
+    val hasRange = startFrame != -1.0 && endFrame != -1.0
+    onUiThread {
+      if (hasRange) {
+        animationView.setMinAndMaxFrame(startFrame.toInt(), endFrame.toInt())
+      } else {
+        val composition = animationView.composition
+        if (composition != null) {
+          val start = composition.startFrame.toInt()
+          val end = composition.endFrame.toInt()
+          if (animationView.minFrame.toInt() != start || animationView.maxFrame.toInt() != end) {
+            animationView.setMinAndMaxFrame(start, end)
+          }
+        }
+      }
+
+      whenAttached {
+        finishEmittedForRun = false
+        if (hasRange) {
+          animationView.playAnimation()
+        } else {
+          animationView.resumeAnimation()
+        }
+      }
+    }
   }
 
-  override fun reset() {}
-  override fun pause() {}
-  override fun resume() {}
+  override fun reset() {
+    onUiThread {
+      animationView.cancelAnimation()
+      animationView.progress = 0f
+      appliedProgress = 0f
+    }
+  }
+
+  override fun pause() {
+    onUiThread {
+      animationView.pauseAnimation()
+      emitFinish(true)
+    }
+  }
+
+  override fun resume() {
+    onUiThread {
+      finishEmittedForRun = false
+      animationView.resumeAnimation()
+    }
+  }
+
+  private inline fun onUiThread(crossinline body: () -> Unit) {
+    if (Looper.myLooper() == Looper.getMainLooper()) {
+      body()
+    } else {
+      Handler(Looper.getMainLooper()).post { body() }
+    }
+  }
+
+  private fun whenAttached(body: () -> Unit) {
+    if (animationView.isAttachedToWindow) {
+      body()
+      return
+    }
+    pendingAttachPlay?.let { animationView.removeOnAttachStateChangeListener(it) }
+    val listener = object : View.OnAttachStateChangeListener {
+      override fun onViewAttachedToWindow(v: View) {
+        animationView.removeOnAttachStateChangeListener(this)
+        pendingAttachPlay = null
+        body()
+      }
+
+      override fun onViewDetachedFromWindow(v: View) {
+        animationView.removeOnAttachStateChangeListener(this)
+        pendingAttachPlay = null
+      }
+    }
+    pendingAttachPlay = listener
+    animationView.addOnAttachStateChangeListener(listener)
+  }
 
   private companion object {
     const val UNSET = -1

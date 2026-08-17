@@ -12,7 +12,9 @@
     "build:web": "webpack --no-watch",
     "mkdist": "node -e \"require('node:fs').mkdirSync('dist', { recursive: true, mode: 0o755 })\"",
     "build:android": "npm run mkdist && react-native bundle --entry-file index.js --platform android --dev true --bundle-output dist/main.android.jsbundle --assets-dest dist/res",
-    "build:ios": "npm run mkdist && react-native bundle --entry-file index.js --platform ios --dev true --bundle-output dist/main.ios.jsbundle --assets-dest dist"
+    "build:ios": "npm run mkdist && react-native bundle --entry-file index.js --platform ios --dev true --bundle-output dist/main.ios.jsbundle --assets-dest dist",
+    "ci:android": "npx react-native build-android",
+    "ci:ios": "pod install --project-directory=ios && npx react-native run-ios --no-packager"
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.13.5",

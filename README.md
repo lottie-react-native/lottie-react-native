@@ -18,6 +18,9 @@ Stay informed to ensure a seamless transition to the latest version. Thank you!
 
 ### iOS and Android
 
+Requires **React Native 0.84 or newer** and the New Architecture. For older React
+Native versions, use `lottie-react-native` 7.3.x.
+
 - Install `lottie-react-native` (latest):
 
 ```
@@ -56,7 +59,7 @@ Add the following to the end of your project file. For C# apps, this should come
     <LottieReactNativeDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\lottie-react-native\package.json'))\node_modules\lottie-react-native</LottieReactNativeDir>
 </PropertyGroup>
 <ImportGroup Label="LottieReactNativeTargets">
-    <Import Project="$(LottieReactNativeDir)\src\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
+    <Import Project="$(LottieReactNativeDir)\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
 </ImportGroup>
 ```
 

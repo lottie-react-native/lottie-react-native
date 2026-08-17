@@ -56,7 +56,7 @@ body:
     attributes:
       label: Lottie React Native version
       description: What version of lottie-react-native are you using?
-      placeholder: 6.7.2
+      placeholder: 7.3.8
     validations:
       required: true
 
@@ -65,7 +65,7 @@ body:
     attributes:
       label: React Native version
       description: What version of react-native are you using?
-      placeholder: 0.73.1
+      placeholder: 0.84.1
     validations:
       required: true
 

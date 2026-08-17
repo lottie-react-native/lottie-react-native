@@ -1,9 +1,12 @@
-name: Build iOS Fabric Example
+name: Build iOS v8 Example
 
 on:
   pull_request:
     branches:
       - master
+
+permissions:
+  contents: read
 
 # Only run on the latest workflow run
 concurrency:
@@ -11,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-example:
+  build-example-v8:
     runs-on: macos-latest
 
     steps:
@@ -21,7 +24,7 @@ jobs:
       - name: Cache cocoapods
         uses: actions/cache@v3
         with:
-          path: example/ios/Pods
+          path: example-v8/ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
@@ -41,8 +44,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Run Metro in the background
-        run: yarn run:bundler &
+        run: yarn nitro:run:bundler &
 
-      - name: Build Fabric iOS Example
+      - name: Build v8 iOS Example
         run: |
-          yarn fabric:build:ios
+          yarn nitro:ci:ios

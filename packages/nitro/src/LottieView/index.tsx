@@ -71,9 +71,6 @@ export class LottieView extends React.PureComponent<Props, {}> {
 
   private readonly captureRef = callback((ref: LottieViewRef) => {
     this.nativeRef = ref;
-    if (this.props.autoPlay === true) {
-      this.play();
-    }
   });
 
   private readonly onAnimationFinish = callback((isCancelled: boolean) => {
