@@ -5,7 +5,7 @@
 #import <react/renderer/components/lottiereactnative/Props.h>
 #import <react/renderer/components/lottiereactnative/RCTComponentViewHelpers.h>
 
-#import "RCTFabricComponentsPlugins.h"
+#import <React/RCTFabricComponentsPlugins.h>
 #import <React/RCTView.h>
 #import "LottieContainerView.h"
 #import "RNLottieFabricConversions.h"

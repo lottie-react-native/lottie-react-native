@@ -1,0 +1,54 @@
+{
+  "name": "lottie-react-native-nitro",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Nitro Modules bindings for Lottie (work in progress)",
+  "license": "Apache-2.0",
+  "homepage": "https://airbnb.io/lottie/#/react-native",
+  "author": "Lottie React Native contributors",
+  "repository": "https://github.com/lottie-react-native/lottie-react-native",
+  "source": "src/index.tsx",
+  "main": "src/index.tsx",
+  "react-native": "src/index.tsx",
+  "types": "src/index.tsx",
+  "sideEffects": false,
+  "files": [
+    "src",
+    "nitrogen",
+    "nitro.json",
+    "react-native.config.js",
+    "android/build.gradle",
+    "android/gradle.properties",
+    "android/CMakeLists.txt",
+    "android/src",
+    "ios/**/*.swift",
+    "ios/**/*.{h,m,mm,cpp,hpp}",
+    "*.podspec"
+  ],
+  "scripts": {
+    "nitrogen": "nitrogen --logLevel=\"debug\"",
+    "typecheck": "tsc --noEmit",
+    "lint:swift": "swiftlint ios",
+    "lint-fix:swift": "swiftlint --fix ios"
+  },
+  "peerDependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.5",
+    "react": ">=19.2",
+    "react-native": ">=0.84",
+    "react-native-nitro-modules": "^0.36.5"
+  },
+  "devDependencies": {
+    "@lottiefiles/dotlottie-react": "^0.13.5",
+    "@types/react": "^19.2.18",
+    "nitrogen": "^0.36.5",
+    "react": "19.2.3",
+    "react-native": "0.84.1",
+    "react-native-nitro-modules": "^0.36.5",
+    "typescript": "5.9.3"
+  },
+  "peerDependenciesMeta": {
+    "@lottiefiles/dotlottie-react": {
+      "optional": true
+    }
+  }
+}

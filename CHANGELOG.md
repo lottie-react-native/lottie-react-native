@@ -1,5 +1,18 @@
 # Changelog
 
+# [7.4.0](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.8...v7.4.0) (2026-08-05)
+
+
+### Bug Fixes
+
+* **ci:** use macos-latest, drop Xcode version matrix and xcode-select ([#1448](https://github.com/lottie-react-native/lottie-react-native/issues/1448)) ([5cb225d](https://github.com/lottie-react-native/lottie-react-native/commit/5cb225d85c94e07390882228718aa28f08715029))
+
+
+### Features
+
+* expose Android opacity layer option ([#1438](https://github.com/lottie-react-native/lottie-react-native/issues/1438)) ([b27866d](https://github.com/lottie-react-native/lottie-react-native/commit/b27866dd143b793c41c6bac89ce354be9bbcd9c7))
+* require React Native 0.84, upgrade react-native-test-app to 5.4.7 and fix iOS ci ([#1453](https://github.com/lottie-react-native/lottie-react-native/issues/1453)) ([815fd4e](https://github.com/lottie-react-native/lottie-react-native/commit/815fd4ee9cfe487d9828f6cdaf4764bf8283b9bc))
+
 ## [7.3.8](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.7...v7.3.8) (2026-05-14)
 
 

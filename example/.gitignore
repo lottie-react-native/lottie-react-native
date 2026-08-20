@@ -8,6 +8,7 @@
 .vs/
 .xcode.env
 Pods/
+ReactTestApp-Resources.podspec.json
 build/
 dist/*
 !dist/.gitignore
@@ -15,3 +16,4 @@ local.properties
 msbuild.binlog
 node_modules/
 ios/Podfile.lock
+vendor/bundle/

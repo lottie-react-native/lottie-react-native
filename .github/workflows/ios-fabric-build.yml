@@ -15,21 +15,21 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Cache cocoapods
         uses: actions/cache@v3
         with:
-          path: apps/fabric/ios/Pods
+          path: example/ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Enable corepack
         run: corepack enable
@@ -46,4 +46,3 @@ jobs:
       - name: Build Fabric iOS Example
         run: |
           yarn fabric:build:ios
-            

@@ -1,9 +1,9 @@
 {
   "name": "monorepo-root",
-  "version": "7.3.8",
+  "version": "7.4.0",
   "private": true,
   "engines": {
-    "node": "18"
+    "node": ">=20.19.4"
   },
   "scripts": {
     "setup": "yarn workspace lottie-react-native build",
@@ -13,22 +13,33 @@
     "fabric:build:ios": "yarn workspace example ci:fabric:ios",
     "fabric:build:ios-static-framework": "yarn workspace example ci:fabric:ios-static-framework",
     "fabric:build:ios-dynamic-framework": "yarn workspace example ci:fabric:ios-dynamic-framework",
-    "paper:build:android": "yarn workspace example ci:paper:android",
-    "paper:build:ios": "yarn workspace example ci:paper:ios",
     "run:bundler": "yarn workspace example start",
     "run:web": "yarn workspace example web",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
-    "tsc": "yarn workspace example tsc"
+    "lint:spm-parity": "yarn workspace lottie-react-native lint:spm-parity",
+    "tsc": "yarn workspace example tsc",
+    "nitro:codegen": "yarn workspace lottie-react-native-nitro nitrogen",
+    "nitro:tsc:lib": "yarn workspace lottie-react-native-nitro typecheck",
+    "nitro:tsc": "yarn workspace example-v8 tsc",
+    "nitro:pods": "yarn workspace example-v8 pods",
+    "nitro:ios": "yarn workspace example-v8 ios",
+    "nitro:android": "yarn workspace example-v8 android",
+    "nitro:run:bundler": "yarn workspace example-v8 start",
+    "nitro:run:web": "yarn workspace example-v8 web",
+    "nitro:build:web": "yarn workspace example-v8 build:web",
+    "nitro:lint:swift": "yarn workspace lottie-react-native-nitro lint:swift",
+    "nitro:build:android": "yarn workspace example-v8 build:android",
+    "nitro:build:ios": "yarn workspace example-v8 build:ios",
+    "nitro:ci:android": "yarn workspace example-v8 ci:android",
+    "nitro:ci:ios": "yarn workspace example-v8 ci:ios"
   },
   "devDependencies": {
     "@release-it-plugins/workspaces": "^5.0.3",
     "@release-it/conventional-changelog": "^10.0.1",
-    "react-native-test-app": "^3.8.7",
     "release-it": "^19.0.3"
   },
   "resolutions": {
-    "@types/react": "^18.2.12",
-    "@types/react-native": "^0.70.14",
+    "@types/react": "^19.2.18",
     "lodash": "4.17.12",
     "fast-xml-parser": "4.5.4",
     "minimist": "0.2.4",
@@ -36,7 +47,8 @@
   },
   "workspaces": [
     "./packages/*",
-    "./example"
+    "./example",
+    "./example-v8"
   ],
   "release-it": {
     "git": {

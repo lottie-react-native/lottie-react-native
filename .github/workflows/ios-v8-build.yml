@@ -1,0 +1,51 @@
+name: Build iOS v8 Example
+
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+# Only run on the latest workflow run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-example-v8:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Cache cocoapods
+        uses: actions/cache@v3
+        with:
+          path: example-v8/ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install CocoaPods
+        run: sudo gem install cocoapods
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Run Metro in the background
+        run: yarn nitro:run:bundler &
+
+      - name: Build v8 iOS Example
+        run: |
+          yarn nitro:ci:ios

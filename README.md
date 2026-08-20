@@ -18,6 +18,9 @@ Stay informed to ensure a seamless transition to the latest version. Thank you!
 
 ### iOS and Android
 
+Requires **React Native 0.84 or newer** and the New Architecture. For older React
+Native versions, use `lottie-react-native` 7.3.x.
+
 - Install `lottie-react-native` (latest):
 
 ```
@@ -56,7 +59,7 @@ Add the following to the end of your project file. For C# apps, this should come
     <LottieReactNativeDir>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'node_modules\lottie-react-native\package.json'))\node_modules\lottie-react-native</LottieReactNativeDir>
 </PropertyGroup>
 <ImportGroup Label="LottieReactNativeTargets">
-    <Import Project="$(LottieReactNativeDir)\src\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
+    <Import Project="$(LottieReactNativeDir)\windows\cppwinrt\PropertySheets\LottieGen.Auto.targets" />
 </ImportGroup>
 ```
 
@@ -232,7 +235,7 @@ const defaultConfig = getDefaultConfig(__dirname);
 
 /**
  * Metro configuration
- * https://facebook.github.io/metro/docs/configuration
+ * https://metrobundler.dev/docs/configuration
  *
  * @type {import('metro-config').MetroConfig}
  */
@@ -273,7 +276,7 @@ You can find the full list of props and methods available in our [API document](
 | Prop               | Description                                                                                                                                                                                                                                                                     | Default                                                                                                                         |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | **`source`**       | **Mandatory** - The source of animation. Can be referenced as a local asset by a string, or remotely with an object with a `uri` property, or it can be an actual JS object of an animation, obtained (for example) with something like `require('../path/to/animation.json')`. | _None_                                                                                                                          |
-| **`style`**        | Style attributes for the view, as expected in a standard [`View`](https://facebook.github.io/react-native/docs/layout-props.html).                                                                                                                                              | You need to set it manually. Refer to this [pull request](https://github.com/lottie-react-native/lottie-react-native/pull/992). |
+| **`style`**        | Style attributes for the view, as expected in a standard [`View`](https://reactnative.dev/docs/layout-props).                                                                                                                                              | You need to set it manually. Refer to this [pull request](https://github.com/lottie-react-native/lottie-react-native/pull/992). |
 | **`loop`**         | A boolean flag indicating whether or not the animation should loop.                                                                                                                                                                                                             | `true`                                                                                                                          |
 | **`autoPlay`**     | A boolean flag indicating whether or not the animation should start automatically when mounted. This only affects the imperative API.                                                                                                                                           | `false`                                                                                                                         |
 | **`colorFilters`** | An array of objects denoting layers by KeyPath and a new color filter value (as hex string).                                                                                                                                                                                    | `[]`                                                                                                                            |

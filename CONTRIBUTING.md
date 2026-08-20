@@ -14,11 +14,11 @@ git clone https://github.com/lottie-react-native/lottie-react-native.git
 # step into local repo
 cd lottie-react-native
 
-# install dependencies
-npm install
+# install dependencies (this repo uses Yarn 4 via corepack; do not use npm)
+yarn install
 
 # run packager for development
-npm run run:packager
+yarn run:bundler
 ```
 
 ### Developing on Android
@@ -26,21 +26,15 @@ npm run run:packager
 While the packager is running and you have an Android device or emulator connected to your computer, build and launch the Android app.
 
 ```
-npm run run:android
+yarn fabric:android
 ```
 
 ### Developing on iOS
 
-You need to download the iOS dependencies at least once before you run the app.
+While the packager is running and you have an iOS device or simulator connected to your computer, build and launch the iOS app. This installs the CocoaPods dependencies first.
 
 ```
-npm run build:pods
-```
-
-While the packager is running and you have an iOS device or simulator connected to your computer, build and launch the iOS app.
-
-```
-npm run run:ios
+yarn workspace example ios
 ```
 
 ### Developing on Web
@@ -60,8 +54,51 @@ yarn setup
 Finally, you can run the demo. Then you can go to the link printed in the terminal to see the demo.
 
 ```
-yarn paper:web
+yarn run:web
 ```
+
+### Working on v8 (`packages/nitro`)
+
+`packages/nitro` is a work-in-progress rewrite on [Nitro Modules](https://nitro.margelo.com),
+intended to become v8. It is **not** the package that ships — `packages/core` is
+still `lottie-react-native`. It has its own example app, `example-v8`, which is a
+copy of `example` so the two can be run side by side and compared.
+
+```bash
+yarn nitro:run:bundler   # Metro for example-v8
+yarn nitro:android       # run example-v8 on Android
+yarn nitro:ios           # run example-v8 on iOS
+yarn nitro:run:web
+```
+
+**If you edit `packages/nitro/src/LottieView.nitro.ts`, you must re-run codegen and
+commit the result:**
+
+```bash
+yarn nitro:codegen
+```
+
+`nitrogen/generated/` is committed deliberately — the podspec, `build.gradle`,
+`CMakeLists.txt` and the view wrapper all reference generated artifacts, so a fresh
+clone cannot even `pod install` without them. CI regenerates and fails if the
+committed output has drifted from the spec. After codegen adds or removes files you
+also need `yarn nitro:pods` and a Gradle sync.
+
+Checks, all of which CI runs:
+
+```bash
+yarn nitro:tsc:lib       # typecheck the package
+yarn nitro:tsc           # typecheck example-v8
+yarn nitro:lint:swift
+```
+
+Before changing v8 behaviour, read `packages/nitro/ARCHITECTURE.md`. It is the single
+source of truth for the port: how it works, and every deliberate divergence from v7 and
+why — including v7 bugs that are reproduced on purpose so upgrading is not a silent
+behavioural change. `MIGRATION-7-TO-8.md` is the user-facing subset.
+
+v8 source files carry no comments; that rationale lives in the architecture document
+instead. See `AGENTS.md` for the policy and its carve-outs before adding one.
 
 ### Style & Linting
 
@@ -72,7 +109,7 @@ It is recommended that you install an eslint plugin for your editor of choice wh
 codebase, however you can always check to see if the source code is compliant by running:
 
 ```bash
-npm run lint
+yarn workspace lottie-react-native lint
 ```
 
 For linting the native iOS package, we are using [Swift lint](https://github.com/realm/SwiftLint). You need to install it on your machine using the following command:
@@ -89,17 +126,11 @@ yarn lint:swift
 
 Or let it work on its own, as it is part of the build phases for the iOS project
 
-### Building Docs
+### Docs
 
-Building the docs locally is extremely simple. First execute the following command:
-
-```bash
-npm run docs:watch
-```
-
-After this, you can open up your browser to the specified port (usually http://localhost:4000 )
-
-The browser will automatically refresh when there are changes to any of the source files.
+The API reference lives in [`docs/api.md`](docs/api.md) and is plain Markdown — edit
+it directly. There is no docs build step; the GitBook setup this section used to
+describe was removed.
 
 ## Pull Request Guidelines
 
