@@ -1,4 +1,4 @@
-import LottieView from "lottie-react-native";
+import LottieView from "lottie-react-native-v7";
 import React, { useCallback, useRef, useState } from "react";
 import {
   Alert,

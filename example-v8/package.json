@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.13.5",
-    "lottie-react-native-nitro": "workspace:*",
+    "lottie-react-native": "workspace:*",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-native": "0.84.1",

@@ -1,7 +1,8 @@
 {
-  "name": "lottie-react-native",
+  "name": "lottie-react-native-v7",
   "version": "7.5.0",
-  "description": "React Native bindings for Lottie",
+  "private": true,
+  "description": "React Native bindings for Lottie (v7 maintenance)",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
   "react-native": "src/index.tsx",

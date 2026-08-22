@@ -1,6 +1,6 @@
 import { getHostComponent, type HybridRef } from 'react-native-nitro-modules';
 
-import LottieViewConfig from '../../nitrogen/generated/shared/json/LottieViewConfig.json';
+import LottieViewConfig from './LottieViewConfig.json';
 import type {
   NativeLottieViewMethods,
   NativeLottieViewProps,

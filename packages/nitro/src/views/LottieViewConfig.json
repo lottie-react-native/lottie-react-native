@@ -1,0 +1,31 @@
+{
+  "uiViewClassName": "LottieView",
+  "supportsRawText": false,
+  "bubblingEventTypes": {},
+  "directEventTypes": {},
+  "validAttributes": {
+    "resizeMode": true,
+    "renderMode": true,
+    "sourceName": true,
+    "sourceJson": true,
+    "sourceURL": true,
+    "sourceDotLottieURI": true,
+    "imageAssetsFolder": true,
+    "progress": true,
+    "speed": true,
+    "loop": true,
+    "autoPlay": true,
+    "enableMergePathsAndroidForKitKatAndAbove": true,
+    "applyOpacityToLayersAndroid": true,
+    "enableSafeModeAndroid": true,
+    "hardwareAccelerationAndroid": true,
+    "cacheComposition": true,
+    "colorFilters": true,
+    "textFiltersAndroid": true,
+    "textFiltersIOS": true,
+    "onAnimationFinish": true,
+    "onAnimationFailure": true,
+    "onAnimationLoaded": true,
+    "hybridRef": true
+  }
+}

@@ -1,19 +1,16 @@
 {
-  "name": "lottie-react-native-nitro",
-  "version": "7.5.0",
-  "private": true,
-  "description": "Nitro Modules bindings for Lottie (work in progress)",
-  "license": "Apache-2.0",
-  "homepage": "https://airbnb.io/lottie/#/react-native",
-  "author": "Lottie React Native contributors",
-  "repository": "https://github.com/lottie-react-native/lottie-react-native",
-  "source": "src/index.tsx",
-  "main": "src/index.tsx",
+  "name": "lottie-react-native",
+  "version": "8.0.0",
+  "description": "React Native bindings for Lottie",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
   "react-native": "src/index.tsx",
-  "types": "src/index.tsx",
+  "types": "lib/typescript/index.d.ts",
+  "source": "src/index.tsx",
   "sideEffects": false,
   "files": [
     "src",
+    "lib",
     "nitrogen",
     "nitro.json",
     "react-native.config.js",
@@ -23,13 +20,37 @@
     "android/src",
     "ios/**/*.swift",
     "ios/**/*.{h,m,mm,cpp,hpp}",
+    "ios/PrivacyInfo.xcprivacy",
     "*.podspec"
   ],
+  "author": "Emilio Rodriguez <emiliorodriguez@gmail.com>",
+  "homepage": "https://airbnb.io/lottie/#/react-native",
+  "license": "Apache-2.0",
+  "keywords": [
+    "lottie",
+    "animation",
+    "react",
+    "react-native",
+    "keyframe"
+  ],
+  "repository": "https://github.com/lottie-react-native/lottie-react-native",
+  "bugs": {
+    "url": "https://github.com/lottie-react-native/lottie-react-native/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true,
+    "access": "public"
+  },
   "scripts": {
-    "nitrogen": "nitrogen --logLevel=\"debug\"",
+    "build": "bob build",
+    "prepare": "bob build",
+    "nitrogen": "nitrogen --logLevel=\"debug\" && node scripts/sync-view-config.js",
     "typecheck": "tsc --noEmit",
     "lint:swift": "swiftlint ios",
-    "lint-fix:swift": "swiftlint --fix ios"
+    "lint-fix:swift": "swiftlint --fix ios",
+    "lint:view-config": "node scripts/sync-view-config.js --check",
+    "release": "npm publish"
   },
   "peerDependencies": {
     "@lottiefiles/dotlottie-react": "^0.13.5",
@@ -37,18 +58,38 @@
     "react-native": ">=0.84",
     "react-native-nitro-modules": "^0.36.5"
   },
+  "peerDependenciesMeta": {
+    "@lottiefiles/dotlottie-react": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@lottiefiles/dotlottie-react": "^0.13.5",
     "@types/react": "^19.2.18",
     "nitrogen": "^0.36.5",
     "react": "19.2.3",
     "react-native": "0.84.1",
+    "react-native-builder-bob": "^0.20.4",
     "react-native-nitro-modules": "^0.36.5",
     "typescript": "5.9.3"
   },
-  "peerDependenciesMeta": {
-    "@lottiefiles/dotlottie-react": {
-      "optional": true
+  "contributors": [
+    {
+      "name": "Matin Zadeh Dolatabad",
+      "email": "me@matinzd.dev"
+    },
+    {
+      "name": "Parsa Nasirimehr",
+      "email": "p.nasirimehr@gmail.com"
     }
+  ],
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }

@@ -7992,7 +7992,7 @@ __metadata:
     babel-loader: "npm:^9.1.3"
     babel-plugin-react-native-web: "npm:^0.21.2"
     html-webpack-plugin: "npm:^5.6.0"
-    lottie-react-native-nitro: "workspace:*"
+    lottie-react-native: "workspace:*"
     prettier: "npm:2.8.8"
     react: "npm:19.2.3"
     react-dom: "npm:19.2.3"
@@ -8031,7 +8031,7 @@ __metadata:
     eslint: "npm:^8.19.0"
     html-webpack-plugin: "npm:^5.6.0"
     jest: "npm:^29.2.1"
-    lottie-react-native: "workspace:*"
+    lottie-react-native-v7: "workspace:*"
     prettier: "npm:2.8.8"
     react: "npm:19.2.3"
     react-dom: "npm:19.2.3"
@@ -10930,31 +10930,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lottie-react-native-nitro@workspace:*, lottie-react-native-nitro@workspace:packages/nitro":
+"lottie-react-native-v7@workspace:*, lottie-react-native-v7@workspace:packages/core":
   version: 0.0.0-use.local
-  resolution: "lottie-react-native-nitro@workspace:packages/nitro"
-  dependencies:
-    "@lottiefiles/dotlottie-react": "npm:^0.13.5"
-    "@types/react": "npm:^19.2.18"
-    nitrogen: "npm:^0.36.5"
-    react: "npm:19.2.3"
-    react-native: "npm:0.84.1"
-    react-native-nitro-modules: "npm:^0.36.5"
-    typescript: "npm:5.9.3"
-  peerDependencies:
-    "@lottiefiles/dotlottie-react": ^0.13.5
-    react: ">=19.2"
-    react-native: ">=0.84"
-    react-native-nitro-modules: ^0.36.5
-  peerDependenciesMeta:
-    "@lottiefiles/dotlottie-react":
-      optional: true
-  languageName: unknown
-  linkType: soft
-
-"lottie-react-native@workspace:*, lottie-react-native@workspace:packages/core":
-  version: 0.0.0-use.local
-  resolution: "lottie-react-native@workspace:packages/core"
+  resolution: "lottie-react-native-v7@workspace:packages/core"
   dependencies:
     "@lottiefiles/dotlottie-react": "npm:^0.13.5"
     "@react-native-community/eslint-config": "npm:^3.1.0"
@@ -10980,6 +10958,29 @@ __metadata:
     "@lottiefiles/dotlottie-react":
       optional: true
     react-native-windows:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
+"lottie-react-native@workspace:*, lottie-react-native@workspace:packages/nitro":
+  version: 0.0.0-use.local
+  resolution: "lottie-react-native@workspace:packages/nitro"
+  dependencies:
+    "@lottiefiles/dotlottie-react": "npm:^0.13.5"
+    "@types/react": "npm:^19.2.18"
+    nitrogen: "npm:^0.36.5"
+    react: "npm:19.2.3"
+    react-native: "npm:0.84.1"
+    react-native-builder-bob: "npm:^0.20.4"
+    react-native-nitro-modules: "npm:^0.36.5"
+    typescript: "npm:5.9.3"
+  peerDependencies:
+    "@lottiefiles/dotlottie-react": ^0.13.5
+    react: ">=19.2"
+    react-native: ">=0.84"
+    react-native-nitro-modules: ^0.36.5
+  peerDependenciesMeta:
+    "@lottiefiles/dotlottie-react":
       optional: true
   languageName: unknown
   linkType: soft

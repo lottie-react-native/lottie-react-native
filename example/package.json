@@ -26,7 +26,7 @@
   "dependencies": {
     "@callstack/react-native-visionos": "^0.79.6",
     "@lottiefiles/dotlottie-react": "^0.13.5",
-    "lottie-react-native": "workspace:*",
+    "lottie-react-native-v7": "workspace:*",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-native": "0.84.1",

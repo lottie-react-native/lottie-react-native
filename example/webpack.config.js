@@ -8,7 +8,7 @@ const appDirectory = path.resolve(__dirname);
 const {presets} = require(`${appDirectory}/babel.config.js`);
 const {resolver} = require('./metro.config.js');
 
-const compileNodeModules = ['lottie-react-native', 'react-native-dropdown-picker', 'react-native'].map(
+const compileNodeModules = ['lottie-react-native-v7', 'react-native-dropdown-picker', 'react-native'].map(
 	moduleName => path.resolve(appDirectory, `node_modules/${moduleName}`),
 );
 

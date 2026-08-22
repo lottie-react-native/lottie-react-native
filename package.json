@@ -8,30 +8,31 @@
   "scripts": {
     "setup": "yarn workspace lottie-react-native build",
     "release": "release-it",
-    "fabric:android": "yarn workspace example fabric:android",
-    "fabric:build:android": "yarn workspace example ci:fabric:android",
-    "fabric:build:ios": "yarn workspace example ci:fabric:ios",
-    "fabric:build:ios-static-framework": "yarn workspace example ci:fabric:ios-static-framework",
-    "fabric:build:ios-dynamic-framework": "yarn workspace example ci:fabric:ios-dynamic-framework",
-    "run:bundler": "yarn workspace example start",
-    "run:web": "yarn workspace example web",
+    "codegen": "yarn workspace lottie-react-native nitrogen",
+    "tsc:lib": "yarn workspace lottie-react-native typecheck",
+    "tsc": "yarn workspace example-v8 tsc",
     "lint:swift": "yarn workspace lottie-react-native lint:swift",
-    "lint:spm-parity": "yarn workspace lottie-react-native lint:spm-parity",
-    "tsc": "yarn workspace example tsc",
-    "nitro:codegen": "yarn workspace lottie-react-native-nitro nitrogen",
-    "nitro:tsc:lib": "yarn workspace lottie-react-native-nitro typecheck",
-    "nitro:tsc": "yarn workspace example-v8 tsc",
-    "nitro:pods": "yarn workspace example-v8 pods",
-    "nitro:ios": "yarn workspace example-v8 ios",
-    "nitro:android": "yarn workspace example-v8 android",
-    "nitro:run:bundler": "yarn workspace example-v8 start",
-    "nitro:run:web": "yarn workspace example-v8 web",
-    "nitro:build:web": "yarn workspace example-v8 build:web",
-    "nitro:lint:swift": "yarn workspace lottie-react-native-nitro lint:swift",
-    "nitro:build:android": "yarn workspace example-v8 build:android",
-    "nitro:build:ios": "yarn workspace example-v8 build:ios",
-    "nitro:ci:android": "yarn workspace example-v8 ci:android",
-    "nitro:ci:ios": "yarn workspace example-v8 ci:ios"
+    "pods": "yarn workspace example-v8 pods",
+    "ios": "yarn workspace example-v8 ios",
+    "android": "yarn workspace example-v8 android",
+    "run:bundler": "yarn workspace example-v8 start",
+    "run:web": "yarn workspace example-v8 web",
+    "build:web": "yarn workspace example-v8 build:web",
+    "build:android": "yarn workspace example-v8 build:android",
+    "build:ios": "yarn workspace example-v8 build:ios",
+    "ci:android": "yarn workspace example-v8 ci:android",
+    "ci:ios": "yarn workspace example-v8 ci:ios",
+    "v7:setup": "yarn workspace lottie-react-native-v7 build",
+    "v7:tsc": "yarn workspace example tsc",
+    "v7:lint:swift": "yarn workspace lottie-react-native-v7 lint:swift",
+    "v7:lint:spm-parity": "yarn workspace lottie-react-native-v7 lint:spm-parity",
+    "v7:fabric:android": "yarn workspace example fabric:android",
+    "v7:fabric:build:android": "yarn workspace example ci:fabric:android",
+    "v7:fabric:build:ios": "yarn workspace example ci:fabric:ios",
+    "v7:fabric:build:ios-static-framework": "yarn workspace example ci:fabric:ios-static-framework",
+    "v7:fabric:build:ios-dynamic-framework": "yarn workspace example ci:fabric:ios-dynamic-framework",
+    "v7:run:bundler": "yarn workspace example start",
+    "v7:run:web": "yarn workspace example web"
   },
   "devDependencies": {
     "@release-it-plugins/workspaces": "^5.0.3",
@@ -67,7 +68,7 @@
     "plugins": {
       "@release-it-plugins/workspaces": {
         "workspaces": [
-          "packages/*"
+          "packages/nitro"
         ],
         "skipChecks": true,
         "publishCommand": "yarn workspace lottie-react-native release"
