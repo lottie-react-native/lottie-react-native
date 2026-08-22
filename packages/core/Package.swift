@@ -21,7 +21,7 @@ let package = Package(
     dependencies: [
         .package(name: "ReactNative", path: "../../../../xcframeworks"),
         .package(name: "React-GeneratedCode", path: "../../../ios"),
-        .package(url: "https://github.com/airbnb/lottie-ios.git", exact: "4.6.0"),
+        .package(url: "https://github.com/airbnb/lottie-spm.git", exact: "4.6.0"),
     ],
     targets: [
         .target(
