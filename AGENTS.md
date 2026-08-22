@@ -16,29 +16,46 @@ here. If you add one, add its row.
 
 | Path | What it is |
 |---|---|
-| `packages/core` | **v7** — the shipping library, React Native codegen |
-| `example` | **v7** example app |
-| `packages/nitro` | **v8** — the Nitro Modules port |
+| `packages/nitro` | **v8** — the published `lottie-react-native`, Nitro Modules |
 | `example-v8` | **v8** example app |
+| `packages/core` | **v7** — `lottie-react-native-v7`, private 7.x maintenance |
+| `example` | **v7** example app |
 | `packages/nitro/nitrogen/generated` | committed codegen output — never edit by hand |
 
-v7 and v8 ship side by side. Several v8 files are deliberate byte-comparable copies of a
-v7 counterpart, so a change to one is often a question about the other.
+**The directory names no longer match what ships.** `packages/nitro` is the package
+consumers install as `lottie-react-native`; `packages/core` is the private v7 maintenance
+package and is not published from `master`. Several v8 files are deliberate
+byte-comparable copies of a v7 counterpart, so a change to one is often a question about
+the other.
 
 ## Commands
 
+Unprefixed commands act on v8 (the published package). `v7:`-prefixed commands act on the
+maintenance package.
+
 ```bash
-yarn nitro:codegen        # regenerate nitrogen output (must leave the tree clean)
-yarn nitro:tsc:lib        # typecheck packages/nitro
-yarn nitro:tsc            # typecheck example-v8
-yarn nitro:lint:swift     # SwiftLint over packages/nitro/ios
-yarn nitro:build:android  # assemble the v8 example
-yarn nitro:build:ios      # build the v8 example
-yarn nitro:pods           # pod install for example-v8
+yarn setup            # bob build of packages/nitro into lib/
+yarn codegen          # regenerate nitrogen output (must leave the tree clean)
+yarn tsc:lib          # typecheck packages/nitro
+yarn tsc              # typecheck example-v8
+yarn lint:swift       # SwiftLint over packages/nitro/ios
+yarn build:android    # assemble the v8 example
+yarn build:ios        # build the v8 example
+yarn pods             # pod install for example-v8
+
+yarn v7:setup         # bob build of packages/core
+yarn v7:tsc           # typecheck example
+yarn v7:lint:swift    # SwiftLint over packages/core/ios
+yarn v7:lint:spm-parity
 ```
 
-After changing `packages/nitro/src/LottieView.nitro.ts`, run `yarn nitro:codegen` and
-commit the result — CI fails on any drift between the spec and `nitrogen/generated`.
+After changing `packages/nitro/src/LottieView.nitro.ts`, run `yarn codegen` and commit the
+result — CI fails on any drift between the spec and `nitrogen/generated`.
+
+`yarn codegen` also re-vendors nitrogen's view config to
+`packages/nitro/src/views/LottieViewConfig.json`. That copy is committed and drift-checked
+alongside `nitrogen/generated`: the import has to resolve from both `src` and the built
+`lib`, and a single relative path out of `src` cannot do that. Never edit it by hand.
 
 ## Rules
 
@@ -60,7 +77,7 @@ Covers `.ts`, `.tsx`, `.swift`, `.kt`, `.cpp` — including `// MARK:` section m
    `eslint-disable`, `@ts-expect-error`, `@ts-ignore`, `prettier-ignore`, `swiftlint:`,
    `@format`, and similar.
 3. **Generated code** — `packages/nitro/nitrogen/generated/**` is nitrogen's output and
-   is rewritten wholesale by `yarn nitro:codegen`.
+   is rewritten wholesale by `yarn codegen`.
 4. **Upstream template text in build and config files.** Podspec, `*.gradle`,
    `gradle.properties`, `CMakeLists.txt`, `Podfile`, `Gemfile`, metro/webpack/babel config,
    `.gitignore` and `index.html` keep whatever comments ship in the

@@ -50,8 +50,8 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Start Packager
-        run: yarn run:bundler &
+        run: yarn v7:run:bundler &
 
       - name: Build Fabric Android Example
         run: |
-          yarn fabric:build:android
+          yarn v7:fabric:build:android

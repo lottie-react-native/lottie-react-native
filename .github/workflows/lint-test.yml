@@ -35,35 +35,44 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
 
+      # --- lottie-react-native (v8, the published package) ---
+
       - name: Build project
         run: yarn setup
 
+      - name: Compile TypeScript for Package
+        run: yarn tsc:lib
+
       - name: Compile TypeScript for Example Project
         run: yarn tsc
-
-      - name: SwiftLint
-        run: yarn lint:swift
-
-      - name: Check Package.swift matches the podspec
-        run: yarn lint:spm-parity
-
-      # --- lottie-react-native-nitro (v8, not yet the default) ---
-
-      - name: Compile TypeScript for Nitro Package
-        run: yarn nitro:tsc:lib
-
-      - name: Compile TypeScript for Nitro Example
-        run: yarn nitro:tsc
 
       # `packages/nitro/nitrogen/generated` is committed, because the podspec,
       # build.gradle, CMakeLists and the view wrapper all reference generated
       # artifacts — a fresh clone cannot even `pod install` without them. Nothing
       # otherwise verifies that output still matches `LottieView.nitro.ts`, so
       # regenerate and fail on any diff.
-      - name: Check Nitro codegen is up to date
+      #
+      # `yarn codegen` also re-vendors the generated view config into `src/views`,
+      # which is what makes it reachable from both `src` and the built `lib` — so
+      # that copy is covered by the same drift check.
+      - name: Check codegen is up to date
         run: |
-          yarn nitro:codegen
-          git diff --exit-code -- packages/nitro/nitrogen
+          yarn codegen
+          git diff --exit-code -- packages/nitro/nitrogen packages/nitro/src/views/LottieViewConfig.json
 
-      - name: SwiftLint Nitro Package
-        run: yarn nitro:lint:swift
+      - name: SwiftLint
+        run: yarn lint:swift
+
+      # --- lottie-react-native-v7 (7.x maintenance, private, not published from master) ---
+
+      - name: Build v7 project
+        run: yarn v7:setup
+
+      - name: Compile TypeScript for v7 Example Project
+        run: yarn v7:tsc
+
+      - name: SwiftLint v7
+        run: yarn v7:lint:swift
+
+      - name: Check v7 Package.swift matches the podspec
+        run: yarn v7:lint:spm-parity

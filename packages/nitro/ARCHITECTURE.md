@@ -41,6 +41,8 @@ packages/nitro/
   src/LottieView/index.tsx    the wrapper presenting v7's public API
   src/LottieView/utils.ts     source parsing, v7 verbatim
   src/views/LottieView.ts     the raw generated host component
+  src/views/LottieViewConfig.json      vendored codegen output — never edit by hand
+  scripts/sync-view-config.js          vendors it, as part of `yarn codegen`
   ios/HybridLottieView.swift  iOS implementation
   android/…/HybridLottieView.kt        Android implementation
   android/…/LottieNitroPackage.kt      RN view registration
@@ -48,10 +50,14 @@ packages/nitro/
   nitrogen/generated/         committed codegen output — never edit by hand
 ```
 
+This package is published as `lottie-react-native`; `packages/core` holds v7 as the private
+`lottie-react-native-v7`. The directory names predate that switch. See section 15c for the
+packaging details.
+
 `nitrogen/generated` is committed by necessity: the podspec, `build.gradle`,
 `CMakeLists.txt` and `src/views/LottieView.ts` all reference generated artifacts, so
 a fresh clone cannot even `pod install` without them. Regenerate with
-`yarn nitro:codegen`; CI fails on any diff.
+`yarn codegen`; CI fails on any diff.
 
 The single most important structural difference from v7: **v7 applied each prop the
 moment it arrived; v8 stores props and applies everything once per batch.** Nearly
@@ -718,6 +724,53 @@ untouched. Remove it once the upstream helper covers resource bundles.
 The same hook exists in `example/ios/Podfile` (v7). It became necessary here the moment
 `lottie-ios` entered `LottieNitro.podspec`.
 
+### `packages/nitro/package.json` — the published package
+
+This package is what consumers install as `lottie-react-native`. `packages/core` keeps the
+v7 implementation under `lottie-react-native-v7` and is `private`, so two workspaces do not
+compete for one npm name.
+
+- **`react-native-builder-bob`, matching `packages/core`.** `main`/`module`/`types` point at
+  `lib/`, and `react-native`/`source` at `src/index.tsx`. Publishing source only would have
+  been simpler, but v7 shipped a compiled `lib/` and dropping it breaks every consumer whose
+  toolchain has no React Native Babel preset — jest, plain Node, webpack, Next.
+- **`ios/PrivacyInfo.xcprivacy` is listed in `files` explicitly.** The two `ios/**` globs
+  above it match only source extensions, so the manifest the podspec declares in
+  `resource_bundles` was absent from the tarball while being referenced by the pod. Verify
+  with `npm pack --dry-run`, not by reading the globs.
+- **No `react-native-windows` peer dependency**, unlike v7 — see item 4 and section 1 for
+  why v8 is iOS and Android only.
+
+### `packages/nitro/src/views/LottieViewConfig.json` and `scripts/sync-view-config.js`
+
+`src/views/LottieView.ts` needs nitrogen's generated view config at runtime. It originally
+deep-imported `../../nitrogen/generated/shared/json/LottieViewConfig.json`, which cannot
+survive a bob build: bob copies non-source files out of `src` verbatim but never rewrites
+import specifiers, so from `lib/commonjs/views/` that path resolves to `lib/nitrogen/…`,
+which does not exist.
+
+The specifier has to be correct from **two** depths at once — `src/views/` for Metro, which
+resolves the `react-native` field, and `lib/*/views/` for published consumers, which resolve
+`main`. One relative path out of `src` cannot do that, so the generated file is vendored to
+`src/views/LottieViewConfig.json` and imported as `./LottieViewConfig.json`. bob then copies
+it into both `lib/commonjs/views/` and `lib/module/views/`.
+
+`scripts/sync-view-config.js` writes that copy and runs as the second half of the package's
+`nitrogen` script, so `yarn codegen` cannot regenerate the config without re-vendoring it.
+The copy is committed and CI drift-checks it on the same `git diff --exit-code` as
+`nitrogen/generated` — it is generated output, and hand-editing it would silently desync the
+view config from the spec. `--check` compares without writing, for a fast local check that
+does not need the nitrogen toolchain.
+
+### `packages/nitro/tsconfig.json`
+
+`compilerOptions.noEmit` is deliberately **absent**, matching `packages/core`. bob's
+typescript target refuses to run when the tsconfig it reads defines `noEmit`,
+`emitDeclarationOnly`, `declarationDir`, or a conflicting `outDir`; it passes
+`--emitDeclarationOnly --outDir` itself. The `typecheck` script gets `--noEmit` on the
+command line instead, where bob cannot see it. `lib` is excluded so `tsc` does not re-read
+its own output.
+
 ### `packages/nitro/LottieNitro.podspec`
 
 - `s.name` must match `iosModuleName` in `nitro.json` — the generated Swift/C++ bridge
@@ -854,8 +907,13 @@ the `NaN` sentinel path. Worth covering whenever test infrastructure arrives, in
 ## 17. The example app
 
 `example-v8/` exists to be run side by side with `example/` and compared. `App.tsx` is v7's
-example verbatim, and the **only** intentional difference is the import: it renders the Nitro
-implementation via `lottie-react-native-nitro`.
+example verbatim, and the **only** intentional difference is the import.
+
+Since v8 took the `lottie-react-native` name, the direction of that difference flipped:
+`example-v8/App.tsx` now carries the plain `lottie-react-native` import and it is
+`example/App.tsx` that was changed, to `lottie-react-native-v7`. The invariant is unchanged
+— the two files still differ by one import line — but the diff now reads the other way
+round.
 
 Keeping that file byte-comparable with `example/App.tsx` is the point, which is why it is
 exempt from the comment policy — see below.

@@ -21,12 +21,26 @@ yarn install
 yarn run:bundler
 ```
 
+### What lives where
+
+| Package | Directory | npm name | Example app |
+|---|---|---|---|
+| **v8** (Nitro) | `packages/nitro` | `lottie-react-native` | `example-v8` |
+| **v7** (maintenance) | `packages/core` | `lottie-react-native-v7`, private | `example` |
+
+v8 is what consumers install. The directory names predate the switch and no longer match
+what ships.
+
+**Unprefixed commands act on v8. `v7:`-prefixed commands act on the maintenance package.**
+So `yarn run:bundler` starts Metro for `example-v8`, and `yarn v7:run:bundler` starts it
+for `example`.
+
 ### Developing on Android
 
 While the packager is running and you have an Android device or emulator connected to your computer, build and launch the Android app.
 
 ```
-yarn fabric:android
+yarn android
 ```
 
 ### Developing on iOS
@@ -34,7 +48,7 @@ yarn fabric:android
 While the packager is running and you have an iOS device or simulator connected to your computer, build and launch the iOS app. This installs the CocoaPods dependencies first.
 
 ```
-yarn workspace example ios
+yarn ios
 ```
 
 ### Developing on Web
@@ -57,40 +71,53 @@ Finally, you can run the demo. Then you can go to the link printed in the termin
 yarn run:web
 ```
 
-### Working on v8 (`packages/nitro`)
-
-`packages/nitro` is a work-in-progress rewrite on [Nitro Modules](https://nitro.margelo.com),
-intended to become v8. It is **not** the package that ships — `packages/core` is
-still `lottie-react-native`. It has its own example app, `example-v8`, which is a
-copy of `example` so the two can be run side by side and compared.
-
-```bash
-yarn nitro:run:bundler   # Metro for example-v8
-yarn nitro:android       # run example-v8 on Android
-yarn nitro:ios           # run example-v8 on iOS
-yarn nitro:run:web
-```
+### Codegen (v8)
 
 **If you edit `packages/nitro/src/LottieView.nitro.ts`, you must re-run codegen and
 commit the result:**
 
 ```bash
-yarn nitro:codegen
+yarn codegen
 ```
 
 `nitrogen/generated/` is committed deliberately — the podspec, `build.gradle`,
 `CMakeLists.txt` and the view wrapper all reference generated artifacts, so a fresh
 clone cannot even `pod install` without them. CI regenerates and fails if the
 committed output has drifted from the spec. After codegen adds or removes files you
-also need `yarn nitro:pods` and a Gradle sync.
+also need `yarn pods` and a Gradle sync.
+
+`yarn codegen` also re-vendors nitrogen's view config to
+`packages/nitro/src/views/LottieViewConfig.json`, which is committed and covered by the
+same drift check. That copy exists because the import must resolve both from `src` (what
+Metro uses) and from the built `lib` (what published consumers use), and one relative path
+out of `src` cannot satisfy both. Never edit it by hand.
 
 Checks, all of which CI runs:
 
 ```bash
-yarn nitro:tsc:lib       # typecheck the package
-yarn nitro:tsc           # typecheck example-v8
-yarn nitro:lint:swift
+yarn tsc:lib       # typecheck the package
+yarn tsc           # typecheck example-v8
+yarn lint:swift
 ```
+
+### Working on v7 (`packages/core`)
+
+`packages/core` is the v7 implementation, kept in-tree for 7.x maintenance only. It is
+`private`, so it is never published from `master`; 7.x releases happen from a maintenance
+branch. Its example app is `example`.
+
+```bash
+yarn v7:run:bundler      # Metro for example
+yarn v7:fabric:android   # run example on Android
+yarn workspace example ios
+
+yarn v7:setup            # build the package
+yarn v7:tsc              # typecheck example
+yarn v7:lint:swift
+yarn v7:lint:spm-parity  # Package.swift must match the podspec
+```
+
+Do not port v8 conventions into it — see `AGENTS.md`.
 
 Before changing v8 behaviour, read `packages/nitro/ARCHITECTURE.md`. It is the single
 source of truth for the port: how it works, and every deliberate divergence from v7 and

@@ -41,8 +41,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Run Metro in the background
-        run: yarn run:bundler &
+        run: yarn v7:run:bundler &
 
       - name: Build Fabric iOS Example
         run: |
-          yarn fabric:build:ios
+          yarn v7:fabric:build:ios

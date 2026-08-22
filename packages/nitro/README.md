@@ -1,13 +1,15 @@
-# lottie-react-native-nitro
+# lottie-react-native (v8)
 
-Work-in-progress rewrite of `lottie-react-native` on
-[Nitro Modules](https://nitro.margelo.com), intended to become v8.
+`lottie-react-native` v8 — the view reimplemented on
+[Nitro Modules](https://nitro.margelo.com).
 
-**This is not the package that ships.** `packages/core` is still
-`lottie-react-native` and is untouched by this work. This package is
-`private: true`, so neither npm nor `release-it` will publish it, and nothing
-outside `example-v8` depends on it. Making it the default is a separate,
-much later decision.
+**This is the package that ships.** It is published as `lottie-react-native`,
+and `release-it` publishes this workspace and no other. `packages/core` keeps
+the v7 implementation as the private `lottie-react-native-v7`, for 7.x
+maintenance from a release branch only.
+
+The directory is still called `packages/nitro` — that name predates the switch
+and does not track what ships.
 
 ## Why
 
@@ -55,23 +57,29 @@ Android. Web works through `@lottiefiles/dotlottie-react`, as in v7.
 ## Working on it
 
 ```bash
-yarn nitro:codegen        # REQUIRED after editing src/LottieView.nitro.ts
-yarn nitro:tsc:lib        # typecheck this package
-yarn nitro:tsc            # typecheck example-v8
-yarn nitro:lint:swift
-yarn nitro:android        # run example-v8
-yarn nitro:ios
-yarn nitro:run:bundler    # Metro, needed by the two above
+yarn setup            # bob build into lib/
+yarn codegen          # REQUIRED after editing src/LottieView.nitro.ts
+yarn tsc:lib          # typecheck this package
+yarn tsc              # typecheck example-v8
+yarn lint:swift
+yarn android          # run example-v8
+yarn ios
+yarn run:bundler      # Metro, needed by the two above
 ```
 
 `nitrogen/generated/` is **committed**, because the podspec, `build.gradle`,
 `CMakeLists.txt` and the view wrapper all reference generated artifacts — a
 fresh clone cannot even `pod install` without them. So after any change to
-`LottieView.nitro.ts` you must re-run `yarn nitro:codegen` and commit the
-result. CI enforces this by regenerating and failing on a diff.
+`LottieView.nitro.ts` you must re-run `yarn codegen` and commit the result. CI
+enforces this by regenerating and failing on a diff.
 
-After codegen adds or removes files you also need `yarn nitro:pods` and a Gradle
-sync, which nitrogen itself reminds you about.
+`yarn codegen` also re-vendors the generated view config to
+`src/views/LottieViewConfig.json`, which is committed and covered by the same
+drift check. It exists because the import has to resolve from both `src` and the
+built `lib`; see `ARCHITECTURE.md` section 15c. Never edit it by hand.
+
+After codegen adds or removes files you also need `yarn pods` and a Gradle sync,
+which nitrogen itself reminds you about.
 
 ## `ARCHITECTURE.md`
 

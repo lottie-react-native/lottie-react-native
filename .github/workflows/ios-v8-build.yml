@@ -44,8 +44,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Run Metro in the background
-        run: yarn nitro:run:bundler &
+        run: yarn run:bundler &
 
       - name: Build v8 iOS Example
         run: |
-          yarn nitro:ci:ios
+          yarn ci:ios

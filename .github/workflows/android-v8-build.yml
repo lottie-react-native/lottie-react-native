@@ -53,8 +53,8 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Start Packager
-        run: yarn nitro:run:bundler &
+        run: yarn run:bundler &
 
       - name: Build v8 Android Example
         run: |
-          yarn nitro:ci:android
+          yarn ci:android
