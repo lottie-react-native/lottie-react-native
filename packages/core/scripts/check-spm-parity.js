@@ -52,7 +52,7 @@ function podspecLottieVersion(podspec) {
 }
 
 function manifestLottieVersion(manifest) {
-  const match = manifest.match(/lottie-ios\.git["']\s*,\s*exact:\s*"([^"]+)"/);
+  const match = manifest.match(/lottie-spm\.git["']\s*,\s*exact:\s*"([^"]+)"/);
   return match ? match[1] : null;
 }
 
@@ -86,7 +86,7 @@ function main() {
   if (podLottie == null) {
     problems.push('could not read the lottie-ios version from the podspec');
   } else if (spmLottie == null) {
-    problems.push('could not read the lottie-ios version from Package.swift');
+    problems.push('could not read the lottie-spm version from Package.swift');
   } else if (podLottie !== spmLottie) {
     problems.push(`lottie-ios is ${podLottie} in the podspec and ${spmLottie} in Package.swift`);
   }
