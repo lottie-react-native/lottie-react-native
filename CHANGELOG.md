@@ -1,5 +1,22 @@
 # Changelog
 
+# [7.5.0](https://github.com/lottie-react-native/lottie-react-native/compare/v7.4.0...v7.5.0) (2026-08-22)
+
+
+### Bug Fixes
+
+* **android:** skip explicit kotlin-android plugin when AGP 9 built-in Kotlin is enabled ([#1463](https://github.com/lottie-react-native/lottie-react-native/issues/1463)) ([6c265d7](https://github.com/lottie-react-native/lottie-react-native/commit/6c265d7dc464586b9034d070d7eed45cdbe988d6))
+* support static animation sources ([#1466](https://github.com/lottie-react-native/lottie-react-native/issues/1466)) ([3ac0a0c](https://github.com/lottie-react-native/lottie-react-native/commit/3ac0a0cba347b4aaf1e3cd224f68a12d474ff336))
+
+
+### Features
+
+* **core:** add Swift Package Manager support ([#1464](https://github.com/lottie-react-native/lottie-react-native/issues/1464)) ([9071522](https://github.com/lottie-react-native/lottie-react-native/commit/90715228f369a296288a4e374416ab48c218addc))
+* implement the imperative commands, add CI, and close out the v8 port ([#1459](https://github.com/lottie-react-native/lottie-react-native/issues/1459)) ([05acfd7](https://github.com/lottie-react-native/lottie-react-native/commit/05acfd72839c7d87f54d6b84789ee20cd511e24f)), closes [#1458](https://github.com/lottie-react-native/lottie-react-native/issues/1458) [#1454](https://github.com/lottie-react-native/lottie-react-native/issues/1454)
+* **nitro:** port v7's public API onto the Nitro spec ([#1457](https://github.com/lottie-react-native/lottie-react-native/issues/1457)) ([07104fe](https://github.com/lottie-react-native/lottie-react-native/commit/07104fe53a05591ed6c6f18c6ce4508cb0963519))
+* **nitro:** scaffold Nitro Modules package and example-v8 app ([#1456](https://github.com/lottie-react-native/lottie-react-native/issues/1456)) ([aca6e3f](https://github.com/lottie-react-native/lottie-react-native/commit/aca6e3f0533881a337a3cf7bcf6f5b207df6d473))
+* v8 props impl ([#1458](https://github.com/lottie-react-native/lottie-react-native/issues/1458)) ([fc46ee0](https://github.com/lottie-react-native/lottie-react-native/commit/fc46ee08d1b60d59bb465b0b2113e1abddeadc7e)), closes [#1652f0](https://github.com/lottie-react-native/lottie-react-native/issues/1652f0) [#64E9FF](https://github.com/lottie-react-native/lottie-react-native/issues/64E9FF) [Analyzer#determine_platform](https://github.com/Analyzer/issues/determine_platform)
+
 # [7.4.0](https://github.com/lottie-react-native/lottie-react-native/compare/v7.3.8...v7.4.0) (2026-08-05)
 
 
