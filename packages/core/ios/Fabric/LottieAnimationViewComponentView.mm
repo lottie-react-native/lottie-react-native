@@ -49,16 +49,24 @@ using namespace facebook::react;
     const auto &oldLottieProps = *std::static_pointer_cast<const LottieAnimationViewProps>(_props);
     const auto &newLottieProps = *std::static_pointer_cast<const LottieAnimationViewProps>(props);
 
+    // autoPlay and loop must be applied before speed and source so that playback-triggering
+    // setters (setSpeed, replaceAnimationView) always see the final autoPlay value.
+    // This is critical when Fabric recycles a native view whose previous autoPlay=true is
+    // still set at the moment setSpeed fires.
+    if(oldLottieProps.autoPlay != newLottieProps.autoPlay) {
+        [_view setAutoPlay:newLottieProps.autoPlay];
+    }
+
+    if(oldLottieProps.loop != newLottieProps.loop) {
+        [_view setLoop:newLottieProps.loop];
+    }
+
     if(oldLottieProps.resizeMode != newLottieProps.resizeMode) {
         [_view setResizeMode:RCTNSStringFromString(newLottieProps.resizeMode)];
     }
 
     if(oldLottieProps.progress != newLottieProps.progress) {
         [_view setProgress:newLottieProps.progress];
-    }
-
-    if(oldLottieProps.loop != newLottieProps.loop) {
-        [_view setLoop:newLottieProps.loop];
     }
 
     if(oldLottieProps.speed != newLottieProps.speed) {
@@ -93,11 +101,24 @@ using namespace facebook::react;
         [_view setRenderMode:RCTNSStringFromString(newLottieProps.renderMode)];
     }
 
-    if(oldLottieProps.autoPlay != newLottieProps.autoPlay) {
-        [_view setAutoPlay:newLottieProps.autoPlay];
-    }
-
     [super updateProps:props oldProps:oldProps];
+}
+
+- (void)updateEventEmitter:(const EventEmitter::Shared &)eventEmitter
+{
+    [super updateEventEmitter:eventEmitter];
+
+    // Emit onAnimationLoaded if the animation is already loaded in the native view.
+    // This covers two cases:
+    // 1. Fabric view pool recycling: same sourceDotLottieURI → Fabric skips setSourceDotLottieURI
+    //    so the native side never calls loadedCallback again, but the animation IS loaded.
+    // 2. Race condition: async load completed before _eventEmitter was attached (updateProps
+    //    fires before updateEventEmitter: in Fabric commit order).
+    // updateEventEmitter: is called on mount (including recycled views) but NOT on re-renders,
+    // so this emit is safe and won't duplicate events during normal prop updates.
+    if (_view.isAnimationLoaded) {
+        [self onAnimationLoaded];
+    }
 }
 
 #pragma mark - Native Commands
@@ -160,6 +181,8 @@ using namespace facebook::react;
 - (void)onAnimationLoaded
 {
     if(!_eventEmitter) {
+        // _eventEmitter not yet attached; updateEventEmitter: will emit once it arrives
+        // (it checks _view.isAnimationLoaded which is already true at this point).
         return;
     }
 
