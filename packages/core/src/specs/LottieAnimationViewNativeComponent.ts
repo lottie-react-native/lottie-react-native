@@ -3,6 +3,7 @@ import type {
   Int32,
   Double,
   Float,
+  WithDefault,
 } from 'react-native/Libraries/Types/CodegenTypes';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
@@ -34,6 +35,7 @@ type TextFilterAndroidStruct = Readonly<{
 }>;
 
 export interface NativeProps extends ViewProps {
+  pointerEvents?: WithDefault<'auto' | 'none' | 'box-none' | 'box-only', 'auto'>;
   resizeMode?: string;
   renderMode?: string;
   sourceName?: string;
