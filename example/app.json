@@ -5,6 +5,10 @@
     {
       "appKey": "Example",
       "displayName": "Example"
+    },
+    {
+      "appKey": "PointerEvents",
+      "displayName": "Pointer events"
     }
   ],
   "resources": {

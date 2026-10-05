@@ -18,10 +18,10 @@ import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSpeed
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setTextFilters
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setAutoPlay
 import com.airbnb.android.react.lottie.LottieAnimationViewManagerImpl.setSourceDotLottieURI
-import com.airbnb.lottie.LottieAnimationView
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.module.annotations.ReactModule
+import com.facebook.react.uimanager.PointerEvents
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.ViewManagerDelegate
@@ -32,17 +32,17 @@ import java.util.*
 
 @ReactModule(name = LottieAnimationViewManagerImpl.REACT_CLASS)
 class LottieAnimationViewManager :
-    SimpleViewManager<LottieAnimationView>(),
-    LottieAnimationViewManagerInterface<LottieAnimationView> {
+    SimpleViewManager<ReactLottieAnimationView>(),
+    LottieAnimationViewManagerInterface<ReactLottieAnimationView> {
     private val propManagersMap =
-        WeakHashMap<LottieAnimationView, LottieAnimationViewPropertyManager>()
-    private val delegate: ViewManagerDelegate<LottieAnimationView>
+        WeakHashMap<ReactLottieAnimationView, LottieAnimationViewPropertyManager>()
+    private val delegate: ViewManagerDelegate<ReactLottieAnimationView>
 
     init {
         delegate = LottieAnimationViewManagerDelegate(this)
     }
 
-    private fun getOrCreatePropertyManager(view: LottieAnimationView): LottieAnimationViewPropertyManager {
+    private fun getOrCreatePropertyManager(view: ReactLottieAnimationView): LottieAnimationViewPropertyManager {
         var result = propManagersMap[view]
         if (result == null) {
             result = LottieAnimationViewPropertyManager(view)
@@ -51,7 +51,7 @@ class LottieAnimationViewManager :
         return result
     }
 
-    override fun getDelegate(): ViewManagerDelegate<LottieAnimationView> {
+    override fun getDelegate(): ViewManagerDelegate<ReactLottieAnimationView> {
         return delegate
     }
 
@@ -63,7 +63,7 @@ class LottieAnimationViewManager :
         return LottieAnimationViewManagerImpl.REACT_CLASS
     }
 
-    public override fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
+    public override fun createViewInstance(context: ThemedReactContext): ReactLottieAnimationView {
         val view = LottieAnimationViewManagerImpl.createViewInstance(context)
          view.setFailureListener {
             LottieAnimationViewManagerImpl.sendAnimationFailureEvent(view, it)
@@ -95,98 +95,103 @@ class LottieAnimationViewManager :
         return LottieAnimationViewManagerImpl.getExportedCustomDirectEventTypeConstants()
     }
 
-    override fun onAfterUpdateTransaction(view: LottieAnimationView) {
+    override fun onAfterUpdateTransaction(view: ReactLottieAnimationView) {
         super.onAfterUpdateTransaction(view)
         getOrCreatePropertyManager(view).commitChanges()
     }
 
     override fun receiveCommand(
-        root: LottieAnimationView,
+        root: ReactLottieAnimationView,
         commandId: String,
         args: ReadableArray?
     ) {
         delegate.receiveCommand(root, commandId, args)
     }
 
-    override fun play(view: LottieAnimationView, startFrame: Int, endFrame: Int) {
+    override fun play(view: ReactLottieAnimationView, startFrame: Int, endFrame: Int) {
         LottieAnimationViewManagerImpl.play(view, startFrame, endFrame)
     }
 
-    override fun reset(view: LottieAnimationView) {
+    override fun reset(view: ReactLottieAnimationView) {
         LottieAnimationViewManagerImpl.reset(view)
     }
 
-    override fun pause(view: LottieAnimationView) {
+    override fun pause(view: ReactLottieAnimationView) {
         LottieAnimationViewManagerImpl.pause(view)
     }
 
-    override fun resume(view: LottieAnimationView) {
+    override fun resume(view: ReactLottieAnimationView) {
         LottieAnimationViewManagerImpl.resume(view)
     }
 
+    @ReactProp(name = "pointerEvents")
+    override fun setPointerEvents(view: ReactLottieAnimationView, pointerEvents: String?) {
+        view.pointerEvents = PointerEvents.parsePointerEvents(pointerEvents)
+    }
+
     @ReactProp(name = "sourceName")
-    override fun setSourceName(view: LottieAnimationView, name: String?) {
+    override fun setSourceName(view: ReactLottieAnimationView, name: String?) {
         setSourceName(name, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "sourceJson")
-    override fun setSourceJson(view: LottieAnimationView, json: String?) {
+    override fun setSourceJson(view: ReactLottieAnimationView, json: String?) {
         setSourceJson(json, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "sourceURL")
-    override fun setSourceURL(view: LottieAnimationView, urlString: String?) {
+    override fun setSourceURL(view: ReactLottieAnimationView, urlString: String?) {
         setSourceURL(urlString, getOrCreatePropertyManager(view))
     }
     
     @ReactProp(name = "sourceDotLottieURI")
-    override fun setSourceDotLottieURI(view: LottieAnimationView, urlString: String?) {
+    override fun setSourceDotLottieURI(view: ReactLottieAnimationView, urlString: String?) {
         setSourceDotLottieURI(urlString, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "cacheComposition")
-    override fun setCacheComposition(view: LottieAnimationView, cacheComposition: Boolean) {
+    override fun setCacheComposition(view: ReactLottieAnimationView, cacheComposition: Boolean) {
         LottieAnimationViewManagerImpl.setCacheComposition(view, cacheComposition)
     }
 
     @ReactProp(name = "resizeMode")
-    override fun setResizeMode(view: LottieAnimationView, resizeMode: String?) {
+    override fun setResizeMode(view: ReactLottieAnimationView, resizeMode: String?) {
         setResizeMode(resizeMode, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "renderMode")
-    override fun setRenderMode(view: LottieAnimationView, renderMode: String?) {
+    override fun setRenderMode(view: ReactLottieAnimationView, renderMode: String?) {
         setRenderMode(renderMode, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "progress")
-    override fun setProgress(view: LottieAnimationView, progress: Float) {
+    override fun setProgress(view: ReactLottieAnimationView, progress: Float) {
         setProgress(progress, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "speed")
-    override fun setSpeed(view: LottieAnimationView, speed: Double) {
+    override fun setSpeed(view: ReactLottieAnimationView, speed: Double) {
         setSpeed(speed, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "loop")
-    override fun setLoop(view: LottieAnimationView, loop: Boolean) {
+    override fun setLoop(view: ReactLottieAnimationView, loop: Boolean) {
         setLoop(loop, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "autoPlay")
-    override fun setAutoPlay(view: LottieAnimationView, autoPlay: Boolean) {
+    override fun setAutoPlay(view: ReactLottieAnimationView, autoPlay: Boolean) {
         setAutoPlay(autoPlay, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "imageAssetsFolder")
-    override fun setImageAssetsFolder(view: LottieAnimationView, imageAssetsFolder: String?) {
+    override fun setImageAssetsFolder(view: ReactLottieAnimationView, imageAssetsFolder: String?) {
         setImageAssetsFolder(imageAssetsFolder, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "enableMergePathsAndroidForKitKatAndAbove")
     override fun setEnableMergePathsAndroidForKitKatAndAbove(
-        view: LottieAnimationView,
+        view: ReactLottieAnimationView,
         enableMergePaths: Boolean
     ) {
         setEnableMergePaths(enableMergePaths, getOrCreatePropertyManager(view))
@@ -194,42 +199,42 @@ class LottieAnimationViewManager :
 
     @ReactProp(name = "applyOpacityToLayersAndroid")
     override fun setApplyOpacityToLayersAndroid(
-        view: LottieAnimationView,
+        view: ReactLottieAnimationView,
         applyOpacityToLayers: Boolean
     ) {
         setApplyOpacityToLayers(applyOpacityToLayers, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "enableSafeModeAndroid")
-    override fun setEnableSafeModeAndroid(view: LottieAnimationView, enableSafeMode: Boolean) {
+    override fun setEnableSafeModeAndroid(view: ReactLottieAnimationView, enableSafeMode: Boolean) {
         setEnableSafeMode(enableSafeMode, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "hardwareAccelerationAndroid")
     override fun setHardwareAccelerationAndroid(
-        view: LottieAnimationView,
+        view: ReactLottieAnimationView,
         hardwareAccelerationAndroid: Boolean
     ) {
         setHardwareAcceleration(hardwareAccelerationAndroid, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "colorFilters")
-    override fun setColorFilters(view: LottieAnimationView, colorFilters: ReadableArray?) {
+    override fun setColorFilters(view: ReactLottieAnimationView, colorFilters: ReadableArray?) {
         setColorFilters(colorFilters, getOrCreatePropertyManager(view))
     }
 
     @ReactProp(name = "textFiltersAndroid")
-    override fun setTextFiltersAndroid(view: LottieAnimationView, textFilters: ReadableArray?) {
+    override fun setTextFiltersAndroid(view: ReactLottieAnimationView, textFilters: ReadableArray?) {
         setTextFilters(textFilters, getOrCreatePropertyManager(view))
     }
 
     // this props is not available on Android, however we must override the setter
-    override fun setTextFiltersIOS(view: LottieAnimationView?, value: ReadableArray?) {
+    override fun setTextFiltersIOS(view: ReactLottieAnimationView?, value: ReadableArray?) {
         //ignore - do nothing here
     }
 
     // Only here to solve an iOS issue with codegen. Check dummy prop in LottieAnimationViewNativeComponent.ts
-    override fun setDummy(view: LottieAnimationView, value: ReadableMap?) {
+    override fun setDummy(view: ReactLottieAnimationView, value: ReadableMap?) {
         //ignore - do nothing here
     }
 }
