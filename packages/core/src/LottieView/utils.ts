@@ -19,8 +19,8 @@ function parsePossibleSources(source):
   }
 
   if (typeof source === 'object' && uri) {
-    // uri contains .lottie extension return sourceDotLottieURI
-    if (uri.includes('.lottie')) {
+    // uri ends with .lottie extension return sourceDotLottieURI
+    if (uri.split(/[?#]/)[0].endsWith('.lottie')) {
       return { sourceDotLottieURI: uri };
     }
 
