@@ -152,10 +152,20 @@ class LottieAnimationViewPropertyManager(view: LottieAnimationView) {
                     val uri = Uri.parse(assetName)
                     uri.path?.let { path ->
                         val fileWithScheme = File(path)
-                        view.setAnimation(
-                            ZipInputStream(FileInputStream(fileWithScheme)),
-                            assetName.hashCode().toString()
-                        )
+                        if (fileWithScheme.exists()) {
+                            try {
+                                view.setAnimation(
+                                    ZipInputStream(FileInputStream(fileWithScheme)),
+                                    assetName.hashCode().toString()
+                                )
+                            } catch (e: java.io.FileNotFoundException) {
+                                Log.w(TAG, "Lottie file became unavailable at path: $path (asset: $assetName). Skipping animation.", e)
+                            } catch (e: SecurityException) {
+                                Log.w(TAG, "No permission to read Lottie file at path: $path (asset: $assetName). Skipping animation.", e)
+                            }
+                        } else {
+                            Log.w(TAG, "Lottie file not found at path: $path (asset: $assetName). Skipping animation.")
+                        }
                     } ?: Log.w(TAG, "URI path is null for asset: $assetName")
                 } else {
                     view.setAnimationFromUrl(assetName)
