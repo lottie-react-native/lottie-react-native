@@ -19,7 +19,7 @@ class AnimationViewManagerModule: RCTViewManager {
         return ContainerView()
     }
 
-    @objc override func constantsToExport() -> [AnyHashable: Any]! {
+    @objc override func constantsToExport() -> [AnyHashable: Any] {
         return ["VERSION": 1]
     }
 
