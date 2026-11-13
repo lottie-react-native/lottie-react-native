@@ -17,6 +17,9 @@ using namespace facebook::react;
 
 @implementation LottieAnimationViewComponentView {
     LottieContainerView *_view;
+    BOOL _needsSourceUpdate;
+    BOOL _needsTextFiltersUpdate;
+    BOOL _needsRenderModeUpdate;
 }
 
 +(void) load {
@@ -39,6 +42,14 @@ using namespace facebook::react;
 }
 
 #pragma mark - RCTComponentViewProtocol
+
+// A recycled view keeps the previous owner's props and container, so a mount with the same
+// source would skip the load (and never fire onAnimationLoaded), and an in-flight load from the
+// previous owner could land on the new one.
++ (BOOL)shouldBeRecycled
+{
+    return NO;
+}
 
 + (ComponentDescriptorProvider)componentDescriptorProvider
 {
@@ -65,32 +76,26 @@ using namespace facebook::react;
         [_view setSpeed:newLottieProps.speed];
     }
 
-    if(oldLottieProps.sourceJson != newLottieProps.sourceJson) {
-        [_view setSourceJson:RCTNSStringFromString(newLottieProps.sourceJson.c_str())];
+    // Sources, text filters and render mode are applied in finalizeUpdates. A source can load
+    // synchronously (JSON, sourceName, a cached .lottie), and on mount updateProps runs before
+    // updateEventEmitter, so onAnimationLoaded / onAnimationFailure fired from here were dropped.
+    if(oldLottieProps.sourceJson != newLottieProps.sourceJson ||
+       oldLottieProps.sourceDotLottieURI != newLottieProps.sourceDotLottieURI ||
+       oldLottieProps.sourceName != newLottieProps.sourceName ||
+       oldLottieProps.sourceURL != newLottieProps.sourceURL) {
+        _needsSourceUpdate = YES;
     }
 
-    if(oldLottieProps.sourceDotLottieURI != newLottieProps.sourceDotLottieURI) {
-        [_view setSourceDotLottieURI:RCTNSStringFromString(newLottieProps.sourceDotLottieURI)];
-    }
-
-    if(oldLottieProps.sourceName != newLottieProps.sourceName) {
-        [_view setSourceName:RCTNSStringFromString(newLottieProps.sourceName)];
-    }
-
-    if(oldLottieProps.sourceURL != newLottieProps.sourceURL) {
-        [_view setSourceURL:RCTNSStringFromString(newLottieProps.sourceURL)];
-    }
-    
     if(oldLottieProps.colorFilters != newLottieProps.colorFilters) {
         [_view setColorFilters:convertColorFilters(newLottieProps.colorFilters)];
     }
 
     if(oldLottieProps.textFiltersIOS != newLottieProps.textFiltersIOS) {
-        [_view setTextFiltersIOS:convertTextFilters(newLottieProps.textFiltersIOS)];
+        _needsTextFiltersUpdate = YES;
     }
 
     if(oldLottieProps.renderMode != newLottieProps.renderMode) {
-        [_view setRenderMode:RCTNSStringFromString(newLottieProps.renderMode)];
+        _needsRenderModeUpdate = YES;
     }
 
     if(oldLottieProps.autoPlay != newLottieProps.autoPlay) {
@@ -98,6 +103,34 @@ using namespace facebook::react;
     }
 
     [super updateProps:props oldProps:oldProps];
+}
+
+- (void)finalizeUpdates:(RNComponentViewUpdateMask)updateMask
+{
+    [super finalizeUpdates:updateMask];
+
+    const auto &lottieProps = *std::static_pointer_cast<const LottieAnimationViewProps>(_props);
+
+    // Render mode first, so the source loads with the requested engine.
+    if (_needsRenderModeUpdate) {
+        _needsRenderModeUpdate = NO;
+        [_view setRenderMode:RCTNSStringFromString(lottieProps.renderMode)];
+    }
+
+    // Only one source is set at a time; the setters ignore an empty value.
+    if (_needsSourceUpdate) {
+        _needsSourceUpdate = NO;
+        [_view setSourceJson:RCTNSStringFromString(lottieProps.sourceJson.c_str())];
+        [_view setSourceDotLottieURI:RCTNSStringFromString(lottieProps.sourceDotLottieURI)];
+        [_view setSourceName:RCTNSStringFromString(lottieProps.sourceName)];
+        [_view setSourceURL:RCTNSStringFromString(lottieProps.sourceURL)];
+    }
+
+    // Text filters rebuild the view from the loaded animation, so they follow the source.
+    if (_needsTextFiltersUpdate) {
+        _needsTextFiltersUpdate = NO;
+        [_view setTextFiltersIOS:convertTextFilters(lottieProps.textFiltersIOS)];
+    }
 }
 
 #pragma mark - Native Commands
