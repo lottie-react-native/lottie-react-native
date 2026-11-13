@@ -23,8 +23,8 @@ internal object LottieAnimationViewManagerImpl {
             .build()
 
     @JvmStatic
-    fun createViewInstance(context: ThemedReactContext): LottieAnimationView {
-        return LottieAnimationView(context).apply {
+    fun createViewInstance(context: ThemedReactContext): ReactLottieAnimationView {
+        return ReactLottieAnimationView(context).apply {
             scaleType = ImageView.ScaleType.CENTER_INSIDE
         }
     }
