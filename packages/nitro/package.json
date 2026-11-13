@@ -1,6 +1,6 @@
 {
   "name": "lottie-react-native-nitro",
-  "version": "7.5.0",
+  "version": "7.5.1",
   "private": true,
   "description": "Nitro Modules bindings for Lottie (work in progress)",
   "license": "Apache-2.0",

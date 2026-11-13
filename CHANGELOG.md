@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.5.1](https://github.com/lottie-react-native/lottie-react-native/compare/v7.5.0...v7.5.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* **ios:** make constantsToExport return type non-optional ([#1486](https://github.com/lottie-react-native/lottie-react-native/issues/1486)) ([455b886](https://github.com/lottie-react-native/lottie-react-native/commit/455b886d33ba3d26a4cd5b95f398dabcb0d234e3))
+
 # [7.5.0](https://github.com/lottie-react-native/lottie-react-native/compare/v7.4.0...v7.5.0) (2026-08-22)
 
 
